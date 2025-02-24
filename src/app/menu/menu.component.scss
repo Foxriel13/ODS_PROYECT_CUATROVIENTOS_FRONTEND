@@ -1,0 +1,39 @@
+/* menu.component.scss */
+
+.menu-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Puedes ajustar la altura según lo necesites */
+  }
+  
+  .menu-background {
+    background-image: url('/Navbar_img/fondoMenu.jpg'); /* Cambia la URL por la imagen de fondo que desees */
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Asegura que ocupe toda la altura */
+    filter: brightness(50%); /* Desvanece la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .menu-text {
+    text-align: center;
+    color: white;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .menu-text h1 {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  .menu-text p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  

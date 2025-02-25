@@ -1,3 +1,14 @@
-<app-crear-iniciativa></app-crear-iniciativa>
-<app-actualizar-iniciativa></app-actualizar-iniciativa>
-<app-eliminar-iniciativa></app-eliminar-iniciativa>
+<div class="container mt-5">
+    <label for="accionSelect">Seleccione una acción:</label>
+    <select id="accionSelect" class="form-select mb-3" [(ngModel)]="opcionSeleccionada">
+      <option value="crear">Crear Iniciativa</option>
+      <option value="actualizar">Actualizar Iniciativa</option>
+      <option value="eliminar">Eliminar Iniciativa</option>
+    </select>
+  
+    <!-- Mostrar el componente correspondiente según la opción -->
+    <app-crear-iniciativa *ngIf="opcionSeleccionada === 'crear'"></app-crear-iniciativa>
+    <app-actualizar-iniciativa *ngIf="opcionSeleccionada === 'actualizar'"></app-actualizar-iniciativa>
+    <app-eliminar-iniciativa *ngIf="opcionSeleccionada === 'eliminar'"></app-eliminar-iniciativa>
+  </div>
+  

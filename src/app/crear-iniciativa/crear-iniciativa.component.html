@@ -1,0 +1,20 @@
+<div class="container mt-5">
+    <h2>Agregar ODS e Iniciativas</h2>
+    <form (ngSubmit)="guardarODS(odsForm)" #odsForm="ngForm">
+
+        <div class="mb-3">
+            <label for="odsNombre" class="form-label">Nombre del ODS</label>
+            <input type="text" class="form-control" id="odsNombre" name="odsNombre" required ngModel>
+        </div>
+
+        <div>
+            <h4>Iniciativas</h4>
+            <div *ngFor="let iniciativa of iniciativas; let i = index" class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="iniciativas[i]" name="iniciativa{{i}}" placeholder="Nombre de la iniciativa" required>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary" (click)="agregarIniciativa()">Agregar Iniciativa</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>

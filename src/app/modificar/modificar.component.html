@@ -1,14 +1,18 @@
-<div class="container mt-5">
-    <label for="accionSelect">Seleccione una acción:</label>
-    <select id="accionSelect" class="form-select mb-3" [(ngModel)]="opcionSeleccionada">
-      <option value="crear">Crear Iniciativa</option>
-      <option value="actualizar">Actualizar Iniciativa</option>
-      <option value="eliminar">Eliminar Iniciativa</option>
-    </select>
-  
-    <!-- Mostrar el componente correspondiente según la opción -->
+<div class="container mt-5 mb5">
+  <div class="row">
+    <!-- Columna para el select -->
+    <div class="col-md-3">
+      <label for="accionSelect" class="form-label">Seleccione una acción:</label>
+      <select id="accionSelect" class="form-select mb-3 fondoAzul" [(ngModel)]="opcionSeleccionada">
+        <option value="crear">Crear Iniciativa</option>
+        <option value="actualizar">Actualizar Iniciativa</option>
+        <option value="eliminar">Eliminar Iniciativa</option>
+      </select>
+    </div>
+  <!-- Mostrar el componente correspondiente según la opción seleccionada -->
+  <div class="mt-3">
     <app-crear-iniciativa *ngIf="opcionSeleccionada === 'crear'"></app-crear-iniciativa>
     <app-actualizar-iniciativa *ngIf="opcionSeleccionada === 'actualizar'"></app-actualizar-iniciativa>
     <app-eliminar-iniciativa *ngIf="opcionSeleccionada === 'eliminar'"></app-eliminar-iniciativa>
   </div>
-  
+</div>

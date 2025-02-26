@@ -31,4 +31,7 @@ export class CrearIniciativaComponent {
     // Limpia el arreglo de iniciativas para empezar con un solo input vacío
     this.iniciativas = [''];  // Vuelve a inicializar
   }
+  buscarPor(){
+    
+  }
 }

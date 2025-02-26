@@ -1,1 +1,85 @@
-<p>modal-iniciativa works!</p>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-primary" >Ver Proyecto</button>
+
+<!-- Modal -->
+<ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title fw-bold">Proyecto Intergeneracional</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <h6 class="fw-bold">Cursos implicados</h6>
+            <span class="badge bg-secondary">2ºSMR</span>
+        </div>
+
+        <div class="mb-3 d-flex align-items-center">
+            <h6 class="fw-bold me-2">Fecha:</h6>
+            <span><i class="bi bi-calendar"></i> Oct, 2023 - Feb, 2024</span>
+        </div>
+
+        <div class="mb-3">
+            <h6 class="fw-bold">Módulos implicados</h6>
+            <span class="badge bg-dark">APLICACIONES OFIMÁTICAS (2ºSMR)</span>
+            <span class="badge bg-primary">SEGURIDAD (2ºSMR) HORAS</span>
+        </div>
+
+        <div class="mb-3">
+            <h6 class="fw-bold">Horas</h6>
+            <span class="badge bg-info text-dark">35 H</span>
+        </div>
+
+        <div class="mb-3">
+            <h6 class="fw-bold">Contratante del proyecto</h6>
+            <div class="badge bg-dark text-white">CENTRO MUNICIPAL DE MAYORES DE BURLADA</div>
+        </div>
+
+        <div class="mb-3">
+            <h6 class="fw-bold">Equipo educativo del proyecto</h6>
+            <span class="badge bg-secondary">LUIS MIGUEL</span>
+            <span class="badge bg-secondary">SILVIA SANZ</span>
+        </div>
+
+        <div class="mb-3">
+            <h6 class="fw-bold">Producto final</h6>
+            <p class="text-muted">
+                Tras la pausa causada por la pandemia, se retoma el Proyecto Intergeneracional
+                con el Centro Municipal de Mayores de Burlada. Los estudiantes de 2º de SMR
+                visitarán el centro dos veces por semana para enseñar a las personas mayores
+                a usar el ordenador, manejar documentos de texto, correo electrónico y
+                aplicaciones móviles...
+            </p>
+        </div>
+
+        <div class="mb-3">
+            <h6 class="fw-bold">Metas de los ODS implicadas</h6>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ODS</th>
+                        <th>Metas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>4 Educación de calidad</td>
+                        <td>Meta 4.5 Eliminación Disparidad de género y colectivos vulnerables</td>
+                    </tr>
+                    <tr>
+                        <td>5 Igualdad de género</td>
+                        <td>Meta 5.B Mejorar el uso de tecnología y TIC.</td>
+                    </tr>
+                    <tr>
+                        <td>9 Igualdad de género</td>
+                        <td>Meta 9.C Aumento del acceso a TIC e Internet</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="modal.dismiss()">Cerrar</button>
+    </div>
+</ng-template>

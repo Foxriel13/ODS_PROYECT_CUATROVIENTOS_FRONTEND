@@ -1,0 +1,102 @@
+<div class="row g-3 p-4">
+    <!-- Columna para los inputs -->
+    <div class="col-8">
+        <div class="row">
+            <!-- Fila 1 con dos inputs -->
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label>Titulo del Proyecto</label>
+                    <input type="text" class="form-control" placeholder="Titulo" id="titulo">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3 marginTopCursos">
+                    <label>Curso/ cursos implicados</label>
+                    <select class="form-control">
+                        <option value="" disabled selected>Selecciona un curso</option>
+                        <option>Curso 1</option>
+                        <option>Curso 2</option>
+                        <option>Curso 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <!-- Fila 2 con dos inputs -->
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label>Contratante del proyecto</label>
+                        <input type="text" class="form-control" placeholder="Contratante">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label>Equipo Educativo</label>
+                        <input type="text" class="form-control" placeholder="Equipo Educativo">
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha Inicio</label>
+                        <input type="text" class="form-control" placeholder="Fecha Inicio">
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha Fin</label>
+                        <input type="text" class="form-control" placeholder="Fecha Final">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 marginTop">
+                <div class="mb-3 marginTopModulos">
+                    <label>Modulos Implicados</label>
+                    <select class="form-control">
+                        <option value="" disabled selected>Selecciona un módulo</option>
+                        <option>Módulo 1</option>
+                        <option>Módulo 2</option>
+                        <option>Módulo 3</option>
+                    </select>
+                </div>
+                <div class="mb-3 marginTopEquipo">
+                    <label>Metas de los Ods Implicadas</label>
+                    <select class="form-control">
+                        <option value="" disabled selected>Selecciona una meta</option>
+                        <option>Meta 1</option>
+                        <option>Meta 2</option>
+                        <option>Meta 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna para los textarea "Todas las Metas Ordenadas" -->
+    <div class="col-4 d-flex flex-column">
+        <label>Iniciativa</label>
+        <textarea class="form-control" placeholder="Todas las Iniciativa Ordenadas" rows="3" disabled></textarea>
+        <button class="btn btn-danger mt-2">Borrar</button>
+        
+        <label>Modulos</label>
+        <textarea class="form-control" placeholder="Todas los Modulos Ordenadas" rows="3" disabled></textarea>
+        <button class="btn btn-danger mt-2">Borrar</button>
+
+        <label>Metas</label>
+        <textarea class="form-control" placeholder="Todas las Metas Ordenadas" rows="3" disabled></textarea>
+        <button class="btn btn-danger mt-2">Borrar</button>
+    </div>
+
+    <!-- Última fila con dos columnas -->
+    <div class="row mt-4">
+        <div class="col-md-6 d-flex justify-content-center align-items-center" style="height: 100%; padding-right: 0;">
+            <label class="text-center mb-0">Producto final</label>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center align-items-center" style="height: 100%; padding-left: 0;">
+            <textarea class="form-control text-center" rows="4" style="width: 100%;"></textarea>
+        </div>
+    </div>
+
+    <!-- Botones de Crear y Cancelar -->
+    <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-danger me-2">Cancelar</button>
+        <button class="btn btn-success">Crear</button>
+    </div>
+</div>

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MenuComponent } from './menu/menu.component';  // Asegúrate de que estos componentes existen
-import { IniciativasComponent } from './iniciativas/iniciativas.component';
-import { ModificarComponent } from './modificar/modificar.component';
-import { LogInComponent } from './log-in/log-in.component';
+import { MenuComponent } from './components/menu/menu.component';  // Asegúrate de que estos componentes existen
+import { IniciativasComponent } from './components/iniciativas/iniciativas.component';
+import { ModificarComponent } from './components/modificar/modificar.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 
 export const routes: Routes = [
     { path: '', component: MenuComponent },

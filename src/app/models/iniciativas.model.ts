@@ -9,6 +9,7 @@ export class Iniciativas {
     modulos: string[];
     metas: string[];
     producto: string;
+    imagenUrl: string;  // Añadir la propiedad imagenUrl
 
     // Constructor que recibe todos los parámetros necesarios
     constructor(
@@ -21,7 +22,8 @@ export class Iniciativas {
         cursos: string[],
         modulos: string[],
         metas: string[],
-        producto: string
+        producto: string,
+        imagenUrl: string  // Añadir imagenUrl al constructor
     ) {
         this.id = id;
         this.titulo = titulo;
@@ -33,5 +35,6 @@ export class Iniciativas {
         this.modulos = modulos;
         this.metas = metas;
         this.producto = producto;
+        this.imagenUrl = imagenUrl;  // Asignar imagenUrl
     }
 }

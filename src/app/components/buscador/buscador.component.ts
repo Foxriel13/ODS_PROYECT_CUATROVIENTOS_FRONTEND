@@ -1,12 +1,13 @@
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-buscador',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './buscador.component.html',
-  styleUrls: ['./buscador.component.css'],
-  imports: [CommonModule, FormsModule]
+  styleUrls: ['./buscador.component.css']
 })
 export class BuscadorComponent {
   cursos = ['DAM', 'DAW', 'ASIR'];
@@ -18,8 +19,10 @@ export class BuscadorComponent {
   fechaFin: string | null = null;
   nombre = '';
 
-  buscar() {
-    console.log('Buscando con los filtros:', {
+  @Output() filtersChanged = new EventEmitter<any>();  // Emite los filtros al componente principal
+
+  buscar(): void {
+    this.filtersChanged.emit({
       curso: this.curso,
       ods: this.ods,
       fechaInicio: this.fechaInicio,

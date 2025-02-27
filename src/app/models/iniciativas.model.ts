@@ -1,40 +1,40 @@
 export class Iniciativas {
     id: number;
-    titulo: string;
-    contratante: string;
-    equipoEducativo: string;
-    fechaInicio: string;
-    fechaFin: string;
-    cursos: string[];
-    modulos: string[];
-    metas: string[];
-    producto: string;
-    imagenUrl: string;  // Añadir la propiedad imagenUrl
+    accion: string;
+    horas: string;
+    nombre: string;
+    producto_final: string;
+    fecha_inicio: string;
+    fecha_fin: string;
+    ods: string;
+    curso:string;
+    eliminado: boolean;
+    imagen: string;  // Añadir la propiedad imagenUrl
 
     // Constructor que recibe todos los parámetros necesarios
     constructor(
         id: number,
-        titulo: string,
-        contratante: string,
-        equipoEducativo: string,
-        fechaInicio: string,
-        fechaFin: string,
-        cursos: string[],
-        modulos: string[],
-        metas: string[],
-        producto: string,
-        imagenUrl: string  // Añadir imagenUrl al constructor
+        accion: string,
+        horas: string,
+        nombre: string,
+        producto_final: string,
+        fecha_inicio: string,
+        fecha_fin: string,
+        ods: string,
+        curso:string,
+        eliminado: boolean,
+        imagen: string  // Añadir imagenUrl al constructor
     ) {
         this.id = id;
-        this.titulo = titulo;
-        this.contratante = contratante;
-        this.equipoEducativo = equipoEducativo;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.cursos = cursos;
-        this.modulos = modulos;
-        this.metas = metas;
-        this.producto = producto;
-        this.imagenUrl = imagenUrl;  // Asignar imagenUrl
+        this.accion = accion;
+        this.horas = horas;
+        this.nombre = nombre;
+        this.producto_final = producto_final;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.ods = ods;
+        this.curso = curso;
+        this.eliminado = eliminado;
+        this.imagen = imagen;  // Asignar imagenUrl
     }
 }

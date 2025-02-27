@@ -11,22 +11,20 @@
                 <div class="col" *ngFor="let iniciativa of iniciativas">
                     <div class="card shadow-sm border-0 rounded-4 p-3">
                         <div class="d-flex justify-content-between align-items-center p-3">
-                            <h6 class="fw-bold">{{ iniciativa.titulo }}</h6>
-                            <span class="text-muted small">{{ iniciativa.equipoEducativo }}</span>
+                            <h6 class="fw-bold">{{ iniciativa.nombre }}</h6>
+                            <span class="text-muted small">{{ iniciativa.accion }}</span>
                         </div>
-                        <img [src]="iniciativa.imagenUrl || 'https://via.placeholder.com/150'" class="card-img-top rounded" alt="{{ iniciativa.titulo }}">
+                        <img [src]="iniciativa.imagen || 'https://via.placeholder.com/150'" 
+                             class="card-img-top rounded" 
+                             alt="{{ iniciativa.nombre }}">
                         <div class="d-flex justify-content-between text-muted mt-2">
-                            <span>📅 {{ iniciativa.fechaInicio | date: 'dd/MM/yyyy' }}</span>
-                            <span>📅 {{ iniciativa.fechaFin | date: 'dd/MM/yyyy' }}</span>
+                            <span>📅 {{ iniciativa.fecha_inicio | date: 'dd/MM/yyyy' }}</span>
+                            <span>📅 {{ iniciativa.fecha_fin | date: 'dd/MM/yyyy' }}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
         </div>
     </div>
-    <app-modal-iniciativa></app-modal-iniciativa>
 </div>
-
-<!-- Agregar el evento que escuchará los filtros -->

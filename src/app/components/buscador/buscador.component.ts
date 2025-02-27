@@ -21,8 +21,17 @@ export class BuscadorComponent {
 
   @Output() filtersChanged = new EventEmitter<any>();  // Emite los filtros al componente principal
 
+  // BuscadorComponent
   buscar(): void {
     this.filtersChanged.emit({
+      curso: this.curso,
+      ods: this.ods,
+      fechaInicio: this.fechaInicio,
+      fechaFin: this.fechaFin,
+      nombre: this.nombre
+    });
+
+    console.log('Filtros enviados:', {
       curso: this.curso,
       ods: this.ods,
       fechaInicio: this.fechaInicio,

@@ -30,13 +30,5 @@ export class BuscadorComponent {
       fechaFin: this.fechaFin,
       nombre: this.nombre
     });
-
-    console.log('Filtros enviados:', {
-      curso: this.curso,
-      ods: this.ods,
-      fechaInicio: this.fechaInicio,
-      fechaFin: this.fechaFin,
-      nombre: this.nombre
-    });
   }
 }

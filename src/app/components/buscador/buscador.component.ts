@@ -15,20 +15,18 @@ export class BuscadorComponent {
 
   curso = '';
   ods = '';
-  fechaInicio: string | null = null;
-  fechaFin: string | null = null;
   nombre = '';
+  fechaRegistro = '';  // Variable para la fecha de registro
 
-  @Output() filtersChanged = new EventEmitter<any>();  // Emite los filtros al componente principal
+  @Output() filtersChanged = new EventEmitter<any>();
 
-  // BuscadorComponent
+  // Método para emitir los filtros incluyendo la fecha de registro
   buscar(): void {
     this.filtersChanged.emit({
       curso: this.curso,
       ods: this.ods,
-      fechaInicio: this.fechaInicio,
-      fechaFin: this.fechaFin,
-      nombre: this.nombre
+      nombre: this.nombre,
+      fechaRegistro: this.fechaRegistro // Se incluye fechaRegistro en el filtro
     });
   }
 }

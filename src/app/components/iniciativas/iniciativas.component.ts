@@ -17,8 +17,7 @@ export class IniciativasComponent implements OnInit {
   filters = {
     curso: '',
     ods: '',
-    fechaInicio: '',
-    fechaFin: '',
+    fechaRegistro: '',
     nombre: ''
   };
 
@@ -59,36 +58,28 @@ export class IniciativasComponent implements OnInit {
     );
   }
 
-  // Método para filtrar las iniciativas en el front-end
-  // Método para filtrar las iniciativas en el front-end
+  // Filtrar las iniciativas en el frontend
   filtrarIniciativas(): void {
-  
     this.iniciativasFiltradas = this.iniciativas.filter(iniciativa => {  
       return (
         (!this.filters.ods || this.filterOds(iniciativa.metas, this.filters.ods)) &&
         (!this.filters.curso || this.filterCursos(iniciativa.modulos, this.filters.curso)) &&
-        (!this.filters.fechaInicio || new Date(iniciativa.fecha_inicio) >= new Date(this.filters.fechaInicio)) &&
-        (!this.filters.fechaFin || new Date(iniciativa.fecha_fin) <= new Date(this.filters.fechaFin)) &&
+        (!this.filters.fechaRegistro || new Date(iniciativa.fecha_registro) >= new Date(this.filters.fechaRegistro)) &&
         (!this.filters.nombre || iniciativa.nombre.toLowerCase().includes(this.filters.nombre.toLowerCase()))
       );
     });
-  
+
     console.log('📌 Iniciativas filtradas:', this.iniciativasFiltradas);
   }
-  
-
 
   // Función para filtrar por 'ods' dentro de las 'metas'
   filterOds(metas: any[], odsFilter: string): boolean {
     for (let meta of metas) {
-      // Asegurarse de que meta.ods sea un array antes de llamar .some()
       if (Array.isArray(meta.ods)) {
-        // Usamos .some() solo si meta.ods es un array
         if (meta.ods.some((ods: any) => ods.nombre && ods.nombre.toLowerCase().includes(odsFilter.toLowerCase()))) {
           return true;
         }
       } else {
-        // Si meta.ods no es un array, comprobar si es un objeto (en caso de que esté mal estructurado)
         if (meta.ods && meta.ods.nombre && meta.ods.nombre.toLowerCase().includes(odsFilter.toLowerCase())) {
           return true;
         }
@@ -97,20 +88,14 @@ export class IniciativasComponent implements OnInit {
     return false;
   }
 
-
-
-
-
+  // Filtrar por cursos dentro de los módulos
   filterCursos(modulos: any[], cursosFilter: string): boolean {
     for (let modulo of modulos) {
-      // Asegurarse de que meta.ods sea un array antes de llamar .some()
       if (Array.isArray(modulo.curso)) {
-        // Usamos .some() solo si meta.ods es un array
         if (modulo.curso.some((curso: any) => curso.nombre && curso.nombre.toLowerCase().includes(cursosFilter.toLowerCase()))) {
           return true;
         }
       } else {
-        // Si meta.ods no es un array, comprobar si es un objeto (en caso de que esté mal estructurado)
         if (modulo.curso && modulo.curso.nombre && modulo.curso.nombre.toLowerCase().includes(cursosFilter.toLowerCase())) {
           return true;
         }
@@ -118,19 +103,17 @@ export class IniciativasComponent implements OnInit {
     }
     return false;
   }
+
+  // Método para obtener el nombre del curso
   getCursoNombre(iniciativa: Iniciativas): string | null {
     if (iniciativa.modulos && iniciativa.modulos.length > 0) {
-      // Si hay módulos, busca el primer curso
-      const modulo = iniciativa.modulos[0]; // Tomamos el primer módulo
+      const modulo = iniciativa.modulos[0];
       if (Array.isArray(modulo.curso)) {
-        // Si el curso es un array, mostramos el nombre del primer curso
         return modulo.curso.length > 0 ? modulo.curso[0].nombre : null;
       } else if (modulo.curso && modulo.curso.nombre) {
-        // Si el curso es un solo objeto, mostramos su nombre
         return modulo.curso.nombre;
       }
     }
-    return null; // Si no hay curso, devolvemos null
+    return null;
   }
-
 }

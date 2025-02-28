@@ -118,5 +118,19 @@ export class IniciativasComponent implements OnInit {
     }
     return false;
   }
+  getCursoNombre(iniciativa: Iniciativas): string | null {
+    if (iniciativa.modulos && iniciativa.modulos.length > 0) {
+      // Si hay módulos, busca el primer curso
+      const modulo = iniciativa.modulos[0]; // Tomamos el primer módulo
+      if (Array.isArray(modulo.curso)) {
+        // Si el curso es un array, mostramos el nombre del primer curso
+        return modulo.curso.length > 0 ? modulo.curso[0].nombre : null;
+      } else if (modulo.curso && modulo.curso.nombre) {
+        // Si el curso es un solo objeto, mostramos su nombre
+        return modulo.curso.nombre;
+      }
+    }
+    return null; // Si no hay curso, devolvemos null
+  }
 
 }

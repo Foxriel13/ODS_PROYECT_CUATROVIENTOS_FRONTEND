@@ -17,13 +17,17 @@ export class IniciativasService {
   // Obtener todas las iniciativas y almacenarlas en el servicio
   getIniciativas(): Observable<Iniciativas[]> {
     return this.http.get<Iniciativas[]>(this.apiUrl).pipe(
-      tap(data => this.iniciativas = data), // Guardamos los datos localmente
+      tap(data => {
+        console.log('Iniciativas recibidas:', data);  // Verifica los datos que estás recibiendo
+        this.iniciativas = data;
+      }),
       catchError(error => {
         console.error('Error al obtener iniciativas', error);
         return throwError(error);
       })
     );
   }
+  
 
   // Filtrar iniciativas en el frontend sin hacer peticiones a Symfony
   filterIniciativas(filters: any): Observable<Iniciativas[]> {

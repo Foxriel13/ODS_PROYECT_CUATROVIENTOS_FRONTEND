@@ -10,21 +10,30 @@
             <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
                 <div class="col" *ngFor="let iniciativa of iniciativasFiltradas">                        
                     <div class="card shadow-sm border-0 rounded-4 p-3">
-                        <div class="d-flex justify-content-between align-items-center p-3">
-                            <h6 class="fw-bold">{{ iniciativa.nombre }}</h6>
-                            <span class="text-muted small">{{ iniciativa.accion }}</span>
+                        <!-- Header de la tarjeta con tipo y nombre -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Tipo de iniciativa a la izquierda -->
+                            <span class="badge bg-secondary">{{ iniciativa.tipo }}</span>
+                            <!-- Nombre de la iniciativa a la derecha -->
+                            <h6 class="fw-bold mb-0">{{ iniciativa.nombre }}</h6>
                         </div>
+
+                        <!-- Imagen de la iniciativa -->
                         <img [src]="iniciativa.imagen || 'https://via.placeholder.com/150'" 
-                             class="card-img-top rounded" 
+                             class="card-img-top rounded mt-2" 
                              alt="{{ iniciativa.nombre }}">
+
+                        <!-- Footer con fechas y curso -->
                         <div class="d-flex justify-content-between text-muted mt-2">
-                            <span>📅 {{ iniciativa.fecha_inicio | date: 'dd/MM/yyyy' }}</span>
-                            <span>📅 {{ iniciativa.fecha_fin | date: 'dd/MM/yyyy' }}</span>
+                            <!-- Fecha de registro a la izquierda -->
+                            <span>📅 {{ iniciativa.fecha_registro | date: 'dd/MM/yyyy' }}</span>
+
+                            <!-- Mostrar el primer curso (si existe) a la derecha -->
+                            <span>{{ getCursoNombre(iniciativa) || 'Curso no disponible' }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

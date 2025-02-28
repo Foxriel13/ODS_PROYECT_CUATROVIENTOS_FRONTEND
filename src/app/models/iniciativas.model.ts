@@ -5,7 +5,7 @@ import { Profesores } from "./profesores.model";
 
 export class Iniciativas {
     id: number;
-    accion: string;
+    tipo: string;
     horas: string;
     nombre: string;
     producto_final: string;
@@ -23,7 +23,7 @@ export class Iniciativas {
     // Constructor para inicializar la clase
     constructor(
         id: number,
-        accion: string,
+        tipo: string,
         horas: string,
         nombre: string,
         producto_final: string,
@@ -39,7 +39,7 @@ export class Iniciativas {
         innovador: boolean  // Se añade el parámetro 'innovador'
     ) {
         this.id = id;
-        this.accion = accion;
+        this.tipo = tipo;
         this.horas = horas;
         this.nombre = nombre;
         this.producto_final = producto_final;

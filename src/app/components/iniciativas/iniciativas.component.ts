@@ -41,64 +41,35 @@ export class IniciativasComponent implements OnInit {
     );
   }
 
-  // Método para recibir cambios de filtros desde el componente Buscador
-  onFiltersChanged(updatedFilters: any): void {
-    this.filters = { ...this.filters, ...updatedFilters };
-  
-    // Llamada al servicio para filtrar los datos
+  buscar(){
     this.iniciativasService.filterIniciativas(this.filters).subscribe(
-      (data: Iniciativas[]) => {
-        this.iniciativasFiltradas = data;
-        console.log('Datos filtrados desde el backend:', this.iniciativasFiltradas);
+      (filteredData: Iniciativas[]) => {
+        this.iniciativas = filteredData;
       },
       (error) => {
-        console.error('Error al obtener iniciativas filtradas', error);
+        console.error('Error al aplicar los filtros',error);
       }
     );
   }
+
+  // Método para recibir cambios de filtros desde el componente Buscador
+  onFiltersChanged(updatedFilters: any): void {
+    this.filters = updatedFilters;
+    this.filtrarIniciativas(); // Llamamos a la función de filtrado en el frontend
+  }  
   
 
   // Método para filtrar las iniciativas en el front-end
   filtrarIniciativas(): void {
-    let filteredIniciativas = this.iniciativas;
-
-    // Filtrar por curso
-    if (this.filters.curso) {
-      filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
-        iniciativa.curso === this.filters.curso
+    this.iniciativasFiltradas = this.iniciativas.filter(iniciativa => {
+      return (
+        (!this.filters.curso || iniciativa.curso === this.filters.curso) &&
+        (!this.filters.ods || iniciativa.ods.toLowerCase().includes(this.filters.ods.toLowerCase())) &&
+        (!this.filters.fechaInicio || new Date(iniciativa.fecha_inicio) >= new Date(this.filters.fechaInicio))  &&
+        (!this.filters.fechaFin || new Date(iniciativa.fecha_fin) <= new Date(this.filters.fechaFin)) &&
+        (!this.filters.nombre || iniciativa.nombre.toLowerCase().includes(this.filters.nombre.toLowerCase()))
       );
-    }
-
-    // Filtrar por ODS
-    if (this.filters.ods) {
-      filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
-        iniciativa.ods.toLowerCase().includes(this.filters.ods.toLowerCase())
-      );
-    }
-
-    // Filtrar por fecha de inicio
-    if (this.filters.fechaInicio) {
-      filteredIniciativas = filteredIniciativas.filter(
-        (iniciativa) => new Date(iniciativa.fecha_inicio) >= new Date(this.filters.fechaInicio)
-      );
-    }
-
-    // Filtrar por fecha de fin
-    if (this.filters.fechaFin) {
-      filteredIniciativas = filteredIniciativas.filter(
-        (iniciativa) => new Date(iniciativa.fecha_fin) <= new Date(this.filters.fechaFin)
-      );
-    }
-
-    // Filtrar por nombre
-    if (this.filters.nombre) {
-      filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
-        iniciativa.nombre.toLowerCase().includes(this.filters.nombre.toLowerCase())
-      );
-    }
-
-    this.iniciativasFiltradas = filteredIniciativas;
-
-    console.log('Datos filtrados en Angular:', this.iniciativasFiltradas);
+    });
   }
+  
 }

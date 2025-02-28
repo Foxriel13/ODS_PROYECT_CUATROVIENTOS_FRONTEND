@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Iniciativas } from '../models/iniciativas.model';
 
 @Injectable({
@@ -9,12 +9,14 @@ import { Iniciativas } from '../models/iniciativas.model';
 })
 export class IniciativasService {
   private apiUrl = 'http://localhost:8000/iniciativas';
+  private iniciativas: Iniciativas[] = []; // Guardamos las iniciativas aquí
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todas las iniciativas
+  // Obtener todas las iniciativas y almacenarlas en el servicio
   getIniciativas(): Observable<Iniciativas[]> {
     return this.http.get<Iniciativas[]>(this.apiUrl).pipe(
+      tap(data => this.iniciativas = data), // Guardamos los datos localmente
       catchError(error => {
         console.error('Error al obtener iniciativas', error);
         return throwError(error);
@@ -22,24 +24,40 @@ export class IniciativasService {
     );
   }
 
-  // Filtrar iniciativas con parámetros
+  // Filtrar iniciativas en el frontend sin hacer peticiones a Symfony
   filterIniciativas(filters: any): Observable<Iniciativas[]> {
-    let params = new HttpParams();
-    Object.keys(filters).forEach(key => {
-      if (filters[key]) {
-        params = params.set(key, filters[key]);
-      }
-    });
-  
-    const fullUrl = `${this.apiUrl}?${params.toString()}`;
-    console.log('URL enviada al backend:', fullUrl);  // 🔍 Verifica la URL generada
-  
-    return this.http.get<Iniciativas[]>(this.apiUrl, { params }).pipe(
-      catchError(error => {
-        console.error('Error al filtrar iniciativas', error);
-        return throwError(error);
-      })
-    );
+    let filteredIniciativas = [...this.iniciativas]; // Copiamos el array para no modificar el original
+
+    if (filters.curso) {
+      filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
+        iniciativa.curso.includes(filters.curso)
+      );
+    }
+
+    if (filters.ods) {
+      filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
+        iniciativa.ods.toLowerCase().includes(filters.ods.toLowerCase())
+      );
+    }
+
+    if (filters.fechaInicio) {
+      filteredIniciativas = filteredIniciativas.filter(
+        (iniciativa) => new Date(iniciativa.fecha_inicio) >= new Date(filters.fechaInicio)
+      );
+    }
+
+    if (filters.fechaFin) {
+      filteredIniciativas = filteredIniciativas.filter(
+        (iniciativa) => new Date(iniciativa.fecha_fin) <= new Date(filters.fechaFin)
+      );
+    }
+
+    if (filters.nombre) {
+      filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
+        iniciativa.nombre.toLowerCase().includes(filters.nombre.toLowerCase())
+      );
+    }
+
+    return of(filteredIniciativas); // Devolvemos los datos como un Observable
   }
-  
 }

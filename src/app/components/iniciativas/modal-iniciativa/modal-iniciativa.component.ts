@@ -1,38 +1,35 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../../../servicios/modal.service';
+import { Iniciativas } from '../../../models/iniciativas.model';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-modal-iniciativa',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './modal-iniciativa.component.html',
   styleUrl: './modal-iniciativa.component.scss'
 })
 export class ModalIniciativaComponent {
-  titulo: string = "";
-  contratante: string = "";
-  equipoEducativo: string = "";
-  fechaInicio: string = "";
-  fechaFin: string = "";
-  cursos: string[] = [];
-  modulos: string[] = [];
-  metas: string[] = [];
-  producto: string = "";
-  imagenUrl: string = "";
+  // titulo: string = "";
+  // contratante: string = "";
+  // equipoEducativo: string = "";
+  // fechaInicio: string = "";
+  // fechaFin: string = "";
+  // cursos: string[] = [];
+  // modulos: string[] = [];
+  // metas: string[] = [];
+  // producto: string = "";
+  // imagenUrl: string = "";
 
   isOpen = false;
+
+  iniciativa: Iniciativas | undefined;
+
 
   constructor(private modalService: ModalService) {
     this.modalService.modalData$.subscribe((data) => {
       if (data) {
-        // this.titulo = data.titulo;
-        // this.contratante = data.contratante;
-        // this.equipoEducativo = data.equipoEducativo;
-        // this.fechaInicio = data.fechaInicio;
-        // this.fechaFin = data.fechaFin;
-        // this.cursos = data.cursos;
-        // this.modulos = data.modulos;
-        // this.metas = data.metas;
-        // this.producto = data.producto;
-        // this.imagenUrl = data.imagenUrl;
+        alert('ha entrado en el modal');
+        this.iniciativa = data.iniciativa;
         this.isOpen = true;
       } else {
         this.isOpen = false; // Cuando los datos sean null, cerramos el modal

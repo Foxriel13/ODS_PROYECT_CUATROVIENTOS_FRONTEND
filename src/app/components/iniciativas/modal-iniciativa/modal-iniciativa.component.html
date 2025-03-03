@@ -1,83 +1,75 @@
-<!-- Botón para abrir el modal -->
-<button class="btn btn-primary" >Ver Proyecto</button>
-
 <!-- Modal -->
-<ng-template #myModal let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title fw-bold">{{titulo}}</h5>
-        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
-    </div>
+<div class="modal show d-block" *ngIf="isOpen" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">{{iniciativa?.nombre}}</h5>
+                <button type="button" class="btn-close" (click)="close()"></button>
+            </div>
 
-    <div class="modal-body">
-        <div class="mb-3">
-            <h6 class="fw-bold">Cursos implicados</h6>
-            <ng-container *ngFor="let curso of cursos">
-                <span class="badge bg-secondary">{{curso}}</span>
-            </ng-container>
-        </div>
+            <div class="modal-body">
+                
 
-        <div class="mb-3 d-flex align-items-center">
-            <h6 class="fw-bold me-2">Fecha:</h6>
-            <span><i class="bi bi-calendar"></i> {{fechaInicio}} - {{fechaFin}}</span>
-        </div>
+                <div class="mb-3 d-flex align-items-center">
+                    <h6 class="fw-bold me-2">Fecha:</h6>
+                    <span><i class="bi bi-calendar"></i> {{iniciativa?.fecha_inicio}} - {{iniciativa?.fecha_fin}}</span>
+                </div>
 
-        <div class="mb-3">
-            <h6 class="fw-bold">Módulos implicados</h6>
-            <ng-container *ngFor="let modulo of modulos">
-                <span class="badge bg-dark">{{modulos}}</span>
-            </ng-container>
-        </div>
-    <!-- el servicio y modulo de iniciativa está mal, luego hay que modificarlo-->
-        <!-- <div class="mb-3">
-            <h6 class="fw-bold">Horas</h6>
-            <span class="badge bg-info text-dark">{{horas}}</span>
-        </div> -->
+                <div class="mb-3">
+                    <h6 class="fw-bold">Módulos implicados</h6>
+                    <ng-container *ngFor="let modulo of iniciativa?.modulos">
+                        <span class="badge bg-dark">{{iniciativa?.modulos}}</span>
+                    </ng-container>
+                </div>
+                <!-- el servicio y modulo de iniciativa está mal, luego hay que modificarlo-->
+                <div class="mb-3">
+                        <h6 class="fw-bold">Horas</h6>
+                        <span class="badge bg-info text-dark">{{iniciativa?.horas}}</span>
+                    </div> 
+                <div class="mb-3">
+                    <h6 class="fw-bold">Contratante del proyecto</h6>
+                    <ng-container *ngFor="let entidad of iniciativa?.entidades_externas">
+                        <span class="badge bg-dark">{{iniciativa?.entidades_externas}}</span>
+                    </ng-container>
+                </div>
 
-        <div class="mb-3">
-            <h6 class="fw-bold">Contratante del proyecto</h6>
-            <div class="badge bg-dark text-white">{{contratante}}</div>
-        </div>
 
-        <div class="mb-3">
-            <h6 class="fw-bold">Equipo educativo del proyecto</h6>
-            <span class="badge bg-secondary">{{equipoEducativo}}</span> <!-- tiene que ser un array, no un string, a modificar igual-->
-        </div>
+                <div class="mb-3">
+                    <h6 class="fw-bold">Equipo educativo del proyecto</h6>
+                    <ng-container *ngFor="let profesor of iniciativa?.profesores">
+                        <span class="badge bg-dark">{{iniciativa?.profesores}}</span>
+                    </ng-container>
+                </div>
 
-        <div class="mb-3">
-            <h6 class="fw-bold">Producto final</h6>
-            <p class="text-muted">
-                {{producto}}
-            </p>
-        </div>
+                <div class="mb-3">
+                    <h6 class="fw-bold">Producto final</h6>
+                    <p class="text-muted">
+                        {{iniciativa?.producto_final}}
+                    </p>
+                </div>
 
-        <div class="mb-3">
-            <h6 class="fw-bold">Metas de los ODS implicadas</h6> <!-- el modulo iniciativas no devuelve el ods, solo la meta, a modificar también-->
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ODS</th>
-                        <th>Metas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>4 Educación de calidad</td>
-                        <td>Meta 4.5 Eliminación Disparidad de género y colectivos vulnerables</td>
-                    </tr>
-                    <tr>
-                        <td>5 Igualdad de género</td>
-                        <td>Meta 5.B Mejorar el uso de tecnología y TIC.</td>
-                    </tr>
-                    <tr>
-                        <td>9 Igualdad de género</td>
-                        <td>Meta 9.C Aumento del acceso a TIC e Internet</td>
-                    </tr>
-                </tbody>
-            </table>
+                <div class="mb-3">
+                    <h6 class="fw-bold">Metas de los ODS implicadas</h6>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Metas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let meta of iniciativa?.metas">
+                                <td>{{meta}}</td>   
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary">Cerrar</button>
+            </div>
+
         </div>
     </div>
 
-    <div class="modal-footer">
-        <button class="btn btn-secondary" (click)="modal.dismiss()">Cerrar</button>
-    </div>
-</ng-template>
+</div>

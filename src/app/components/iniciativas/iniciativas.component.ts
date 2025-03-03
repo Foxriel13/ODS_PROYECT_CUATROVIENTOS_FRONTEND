@@ -3,11 +3,14 @@ import { IniciativasService } from '../../sercvicie/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { CommonModule } from '@angular/common';
 import { BuscadorComponent } from '../buscador/buscador.component';
+import { CardIniciativaComponent } from './card-iniciativa/card-iniciativa.component';
+import { ModalIniciativaComponent } from "./modal-iniciativa/modal-iniciativa.component";
+import { ModalService } from '../../servicios/modal.service';
 
 @Component({
   selector: 'app-iniciativas',
   standalone: true,
-  imports: [BuscadorComponent, CommonModule],
+  imports: [BuscadorComponent, CommonModule, CardIniciativaComponent, ModalIniciativaComponent],
   templateUrl: './iniciativas.component.html',
   styleUrls: ['./iniciativas.component.scss']
 })
@@ -26,6 +29,8 @@ export class IniciativasComponent implements OnInit {
   ngOnInit(): void {
     this.loadIniciativas();
   }
+
+
 
   // Cargar todas las iniciativas
   loadIniciativas(): void {
@@ -105,15 +110,15 @@ export class IniciativasComponent implements OnInit {
   }
 
   // Método para obtener el nombre del curso
-  getCursoNombre(iniciativa: Iniciativas): string | null {
-    if (iniciativa.modulos && iniciativa.modulos.length > 0) {
-      const modulo = iniciativa.modulos[0];
-      if (Array.isArray(modulo.curso)) {
-        return modulo.curso.length > 0 ? modulo.curso[0].nombre : null;
-      } else if (modulo.curso && modulo.curso.nombre) {
-        return modulo.curso.nombre;
-      }
-    }
-    return null;
-  }
+  // getCursoNombre(iniciativa: Iniciativas): string | null {
+  //   if (iniciativa.modulos && iniciativa.modulos.length > 0) {
+  //     const modulo = iniciativa.modulos[0];
+  //     if (Array.isArray(modulo.curso)) {
+  //       return modulo.curso.length > 0 ? modulo.curso[0].nombre : null;
+  //     } else if (modulo.curso && modulo.curso.nombre) {
+  //       return modulo.curso.nombre;
+  //     }
+  //   }
+  //   return null;
+  // }
 }

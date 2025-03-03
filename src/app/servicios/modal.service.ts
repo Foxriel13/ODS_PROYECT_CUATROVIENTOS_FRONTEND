@@ -10,6 +10,7 @@ export class ModalService {
   modalData$ = this.modalDataSubject.asObservable();
 
   openModal(iniciativa: Iniciativas): void {
+    alert('modal abierto');
     this.modalDataSubject.next({ iniciativa });
   }
 

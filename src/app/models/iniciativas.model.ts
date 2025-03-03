@@ -15,7 +15,7 @@ export class Iniciativas {
     eliminado: boolean;
     innovador: boolean;
     imagen: string;
-    metas: Metas[];  // Ahora está correctamente tipado como un array de Metas
+    metas: Metas[];  // Ahora está correctamentxe tipado como un array de Metas
     profesores: Profesores[];  // Supongo que debería ser un array de strings
     entidades_externas: entidades_externas[];  // Supongo que debería ser un array de strings
     modulos: Modulos[];  // Supongo que debería ser un array de strings

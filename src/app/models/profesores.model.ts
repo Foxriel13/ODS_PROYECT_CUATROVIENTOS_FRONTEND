@@ -1,10 +1,10 @@
 export class Profesores {
-    idProfesor: number;  // Definido como número si es un identificador
+    id: number;  // Definido como número si es un identificador
     nombre: string;  // El nombre de la dimensión
 
     // Constructor para inicializar la clase
-    constructor(idProfesor: number, nombre: string) {
-        this.idProfesor = idProfesor;
+    constructor(id: number, nombre: string) {
+        this.id = id;
         this.nombre = nombre;
     }
 }

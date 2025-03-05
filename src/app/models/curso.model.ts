@@ -1,10 +1,10 @@
 export class Curso {
-    idCurso: number;  // Definido como número si es un identificador
+    id: number;  // Definido como número si es un identificador
     nombre: string;  // El nombre de la dimensión
 
     // Constructor para inicializar la clase
-    constructor(idCurso: number, nombre: string) {
-        this.idCurso = idCurso;
+    constructor(id: number, nombre: string) {
+        this.id = id;
         this.nombre = nombre;
     }
 }

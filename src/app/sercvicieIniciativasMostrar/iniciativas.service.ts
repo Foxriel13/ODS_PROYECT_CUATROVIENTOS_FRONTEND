@@ -89,4 +89,17 @@ export class IniciativasService {
 
     return of(filteredIniciativas); // Devolvemos los datos como un Observable
   }
+
+  createIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
+    return this.http.post<Iniciativas>(this.apiUrl, iniciativa).pipe(
+      tap(data => {
+        console.log('Iniciativa creada:', data); // Verifica la respuesta de la creación
+        this.iniciativas.push(data); // Opcional: puedes añadir la nueva iniciativa al array local
+      }),
+      catchError(error => {
+        console.error('Error al crear iniciativa', error);
+        return throwError(error);
+      })
+    );
+  }
 }

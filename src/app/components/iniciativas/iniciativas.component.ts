@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IniciativasService } from '../../sercvicie/iniciativas.service';
+import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { CommonModule } from '@angular/common';
 import { BuscadorComponent } from '../buscador/buscador.component';

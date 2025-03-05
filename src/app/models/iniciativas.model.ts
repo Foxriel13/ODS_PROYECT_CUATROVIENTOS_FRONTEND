@@ -6,9 +6,10 @@ import { Profesores } from "./profesores.model";
 export class Iniciativas {
     id: number;
     tipo: string;
-    horas: string;
+    horas: number;
     nombre: string;
     producto_final: string;
+    descripcion: string;
     fecha_registro: string;
     fecha_inicio: string;
     fecha_fin: string;
@@ -24,9 +25,10 @@ export class Iniciativas {
     constructor(
         id: number,
         tipo: string,
-        horas: string,
+        horas: number,
         nombre: string,
         producto_final: string,
+        descripcion : string,
         fecha_registro: string,
         fecha_inicio: string,
         fecha_fin: string,
@@ -42,6 +44,7 @@ export class Iniciativas {
         this.tipo = tipo;
         this.horas = horas;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.producto_final = producto_final;
         this.fecha_registro = fecha_registro;
         this.fecha_inicio = fecha_inicio;
@@ -54,4 +57,5 @@ export class Iniciativas {
         this.modulos = modulos;
         this.innovador = innovador;  // Inicializa el campo 'innovador'
     }
+    
 }

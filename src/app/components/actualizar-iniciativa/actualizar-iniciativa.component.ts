@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Iniciativas } from '../../models/iniciativas.model';
-import { IniciativasService } from '../../sercvicie/iniciativas.service';
+import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({

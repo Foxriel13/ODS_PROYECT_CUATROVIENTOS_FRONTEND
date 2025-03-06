@@ -3,7 +3,7 @@
         <!-- Columna para los inputs -->
         <app-navbar-form-crear (tabChange)="onTabChange($event)"></app-navbar-form-crear>
 
-        <div class="col-8">
+        <div class="col-12">
             <div *ngIf="selectedTab === 'iniciativas'">
                 <!-- Solo visible si 'Iniciativas' está seleccionado -->
                 <div class="row">
@@ -42,12 +42,12 @@
                     </div>
 
                     <div class="col-md-6">
-                        
+
                         <div class="mb-3">
                             <label for="producto">Producto Final</label>
                             <textarea [(ngModel)]="producto" name="producto" class="form-control"
-                                      placeholder="Informe de IA" id="producto" rows="4"></textarea>
-                        </div>                        
+                                placeholder="Informe de IA" id="producto" rows="4"></textarea>
+                        </div>
 
 
                         <div class="image-box">
@@ -59,54 +59,75 @@
             <!-- En tu formulario, agrega un select para elegir un ODS -->
             <div *ngIf="selectedTab === 'metas'">
                 <div class="row">
-                    <div class="col-md-6">
+                    <!-- Fila original con los inputs -->
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label>Descripción del Proyecto</label>
-                            <input [(ngModel)]="descripcion" name="descripcion" type="text" class="form-control"
-                                placeholder="Fomentar la educación digital" id="tipo">
+                            <input [(ngModel)]="descripcion" name="descripcion" type="text" class="form-control" placeholder="Fomentar la educación digital" id="tipo" [disabled]="!dimensionSeleccionada.length || !odsSeleccionados.length" />
                         </div>
-
+            
                         <!-- Select para elegir un ODS -->
                         <div class="mb-3">
                             <label>Seleccionar ODS</label>
-                            <select [(ngModel)]="ods.id" name="ods" class="form-control">
+                            <select [(ngModel)]="ods" name="ods" class="form-control" [disabled]="dimensionSeleccionada.length === 0">
                                 <option value="" disabled selected>Selecciona un ODS</option>
-                                <!-- Recorremos la lista de ODS y mostramos cada uno -->
-                                <option *ngFor="let item of odsList" [value]="item.id">
-                                    {{ item.id }} - {{ item.nombre }}
-                                </option>
+                                <option *ngFor="let item of odsList" [ngValue]="item">{{ item.id }} - {{ item.nombre }}</option>
                             </select>
-                        </div>
-
+                        </div>                        
+            
                         <!-- Botón para agregar el ODS seleccionado -->
-                        <button class="btn btn-info" type="button" (click)="anyadirOds()">Añadir ODS</button>
+                        <button class="btn btn-info" type="button" (click)="anyadirOds()" [disabled]="!ods.id || dimensionSeleccionada.length === 0">Añadir ODS</button>
                     </div>
-
-                    <!-- Aquí es donde movemos la imagen box a la derecha -->
-                    <div class="col-md-6">
-                        <div class="image-box">
-                            <!-- Mostrar el título solo si no hay imágenes seleccionadas -->
-                            <h5 *ngIf="!odsSeleccionados || odsSeleccionados.length === 0">Ods Seleccionados</h5>
-                    
-                            <div class="row">
-                                <!-- Iterar sobre las imágenes ordenadas por id -->
-                                <div *ngFor="let item of odsSeleccionados; let i = index" class="col-md-2">
-                                    <img *ngIf="item.id" 
-                                        [src]="'./Ods_img/ods' + item.id + '.png'"
-                                        alt="{{ item.nombre }}" 
-                                        class="img-thumbnail" 
-                                        id="{{ item.id }}" 
-                                        (click)="eliminarOds(i)" />  <!-- Llamar a eliminarOds con el índice -->
+            
+                    <div class="col-md-4">
+                        <div class="d-flex">
+                            <!-- Contenedor de imágenes (más pequeño) -->
+                            <div class="image-box image-box-small" style="flex: 1;">
+                                <h5 *ngIf="!odsSeleccionados || odsSeleccionados.length === 0">Ods Seleccionados</h5>
+            
+                                <div class="row">
+                                    <div *ngFor="let item of odsSeleccionados; let i = index" class="col-md-12">
+                                        <img *ngIf="item.id" [src]="'./Ods_img/ods' + item.id + '.png'" alt="{{ item.nombre }}" class="img-fluid" id="{{ item.id }}" (click)="eliminarOds(i)" />
+                                    </div>
+                                    <div *ngIf="dimensionSeleccionada.length > 0" class="text-center">
+                                        <p (click)="eliminarDimension()">{{ dimensionSeleccionada[0].nombre }}</p> <!-- Al hacer click se eliminará la dimensión -->
+                                    </div>                                                                         
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-
-
-
+            
+                    <div class="col-md-4">
+                        <!-- Select para elegir una Dimensión -->
+                        <div class="mb-3">
+                            <label>Seleccionar Dimensión</label>
+                            <select [(ngModel)]="dimension" name="dimension" class="form-control">
+                                <option value="" disabled selected>Selecciona una Dimensión</option>
+                                <option *ngFor="let item of DimensionesList" [ngValue]="item">{{ item.id }} - {{ item.nombre }}</option>
+                            </select>
+                        </div>
+                        
+            
+                        <!-- Botón para agregar la Dimensión seleccionada -->
+                        <button class="btn btn-info" type="button" (click)="anyadirDimension()" [disabled]="!dimension.id">Añadir Dimensión</button>
+                    </div>
+                    <button class="btn btn-warning mt-3" type="button" (click)="anyadirMeta()" [disabled]="!descripcion || odsSeleccionados.length == 0 || dimensionSeleccionada.length == 0">Añadir Meta</button>
+                </div>
+            
+                <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="box" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
+                            <h4>Metas Añadidas:</h4>
+                            <!-- Aquí puedes listar las metas añadidas si es necesario -->
+                        </div>
+                    </div>
                 </div>
             </div>
+            
+            
+            
+            
             <div *ngIf="selectedTab === 'profesores'">
                 <div class="row">
                     <div class="col-md-6">
@@ -136,7 +157,8 @@
                                 <li *ngFor="let item of profesoresSeleccionados; let i = index" class="mb-2">
                                     {{ item.nombre }}
                                     <!-- Botón de eliminar (X) -->
-                                    <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarProfesor(i)">
+                                    <button type="button" class="btn btn-danger btn-sm ms-4"
+                                        (click)="eliminarProfesor(i)">
                                         X
                                     </button>
                                 </li>
@@ -174,7 +196,8 @@
                                 <li *ngFor="let item of entidadesSeleccionados; let i = index" class="mb-2">
                                     {{ item.nombre }}
                                     <!-- Botón de eliminar (X) -->
-                                    <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarEntidad(i)">
+                                    <button type="button" class="btn btn-danger btn-sm ms-4"
+                                        (click)="eliminarEntidad(i)">
                                         X
                                     </button>
                                 </li>
@@ -188,7 +211,7 @@
                 <!-- Solo visible si 'Módulos' está seleccionado -->
                 <div class="row">
                     <div class="col-md-6">
-            
+
                         <!-- Select para elegir un ODS -->
                         <div class="mb-3">
                             <label>Seleccionar Cursos</label>
@@ -200,11 +223,12 @@
                                 </option>
                             </select>
                         </div>
-            
+
                         <!-- Botón para agregar el ODS seleccionado -->
-                        <button class="btn btn-info mt-2" type="button" (click)="anyadirCurso()">Seleccionar Curso</button>
+                        <button class="btn btn-info mt-2" type="button" (click)="anyadirCurso()">Seleccionar
+                            Curso</button>
                     </div>
-            
+
                     <!-- Aquí es donde movemos la imagen box a la derecha -->
                     <div class="col-md-6">
                         <div class="image-box">
@@ -223,7 +247,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
 

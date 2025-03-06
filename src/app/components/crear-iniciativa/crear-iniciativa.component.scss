@@ -1,32 +1,42 @@
 .row {
-    display: flex;  /* Flexbox para que las columnas se distribuyan correctamente */
-    flex-wrap: wrap; /* Para que las columnas no se desborden */
-    gap: 1rem; /* Espacio entre las columnas */
-  }
-  
-  .col-md-6 {
-    flex: 1 1 48%;  /* Asigna un espacio proporcional */
-  }
-  
-  .col-md-8 {
-    flex: 1 1 66%;  /* Asigna un espacio proporcional */
-  }
-  
-  .image-box {
-    width: 230%;  /* Asegura que el image-box ocupe todo el ancho posible */
-    height: 300px; /* Ajusta el alto de las imágenes */
-    overflow-y: auto; /* Activa el scroll cuando el contenido se desborde */
-  }
-  
-  
-  .image-box img {
-    max-width: 100%; /* La imagen no debe exceder el ancho de la caja */
-    max-height: 100%; /* La imagen no debe exceder la altura de la caja */
-    object-fit: contain; /* Asegura que la imagen se ajuste completamente sin recortarse */
-  }
-  .img-thumbnail {
-    width: 100%;  /* Esto asegura que la imagen ocupe todo el espacio disponible */
-    height: auto; /* Mantiene la relación de aspecto */
-    object-fit: cover; /* Asegura que la imagen se recorte adecuadamente si es necesario */
-  }
-  
+  display: flex; /* Flexbox para que las columnas se distribuyan correctamente */
+  flex-wrap: wrap; /* Para que las columnas no se desborden */
+  gap: 1rem; /* Espacio entre las columnas */
+}
+
+.col-md-6 {
+  flex: 1 1 48%; /* Asigna un espacio proporcional */
+}
+
+.col-md-4 {
+  flex: 1 1 32%; /* Ajusta la proporción de esta columna si tienes tres columnas */
+}
+
+.col-md-12 {
+  flex: 1 1 100%; /* Si quieres que ocupe toda la fila */
+}
+
+.image-box {
+  overflow: visible; /* Elimina cualquier scroll */
+}
+
+.image-box img {
+  max-width: 100%; /* La imagen no debe exceder el ancho de la caja */
+  max-height: 100%; /* La imagen no debe exceder la altura de la caja */
+  object-fit: contain; /* Asegura que la imagen se ajuste completamente sin recortarse */
+}
+
+.img-thumbnail {
+  width: 100%; /* Esto asegura que la imagen ocupe todo el espacio disponible */
+  height: auto; /* Mantiene la relación de aspecto */
+  object-fit: cover; /* Asegura que la imagen se recorte adecuadamente si es necesario */
+}
+
+.image-box-small img {
+  width: 80%; /* Ajusta el ancho de la imagen para que sea más pequeña */
+  height: 200px; /* Establece una altura fija más pequeña */
+  object-fit: contain; /* Asegura que la imagen se ajuste dentro del contenedor sin cortarse */
+  border-radius: 8px; /* Bordes redondeados opcionales */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+  display: block; /* Asegura que la imagen esté centrada */
+}

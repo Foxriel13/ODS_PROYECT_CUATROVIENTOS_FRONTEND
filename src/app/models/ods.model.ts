@@ -3,10 +3,10 @@ import { Dimension } from "./dimension.model";  // Asegúrate de que la ruta sea
 export class Ods {
     id: number;  // Identificador numérico
     nombre: string;  // Nombre del ODS
-    dimension: Dimension[];  // Array de dimensiones, cada una como un objeto de tipo Dimension
+    dimension: Dimension;  // Array de dimensiones, cada una como un objeto de tipo Dimension
 
     // Constructor para inicializar la clase
-    constructor(id: number, nombre: string, dimension: Dimension[]) {
+    constructor(id: number, nombre: string, dimension: Dimension) {
         this.id = id;
         this.nombre = nombre;
         this.dimension = dimension;

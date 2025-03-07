@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Iniciativas } from '../models/iniciativas.model';
+import { param } from 'jquery';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class IniciativasService {
   private apiUrl = 'http://localhost:8000/iniciativas';
   private iniciativas: Iniciativas[] = []; // Guardamos las iniciativas aquí
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Obtener todas las iniciativas y almacenarlas en el servicio
   getIniciativas(): Observable<Iniciativas[]> {
@@ -26,7 +27,7 @@ export class IniciativasService {
       })
     );
   }
-  
+
 
   // Filtrar iniciativas en el frontend sin hacer peticiones a Symfony
   filterIniciativas(filters: any): Observable<Iniciativas[]> {
@@ -74,32 +75,37 @@ export class IniciativasService {
         (iniciativa) => {
           const fechaIniciativa = new Date(iniciativa.fecha_registro);
           const fechaFiltro = new Date(filters.fechaRegistro);
-    
+
           // Normalizamos las fechas para compararlas (convertimos a formato de fecha estándar)
           const fechaIniciativaFormato = fechaIniciativa.setHours(0, 0, 0, 0); // Eliminar hora para comparación solo de día
           const fechaFiltroFormato = fechaFiltro.setHours(0, 0, 0, 0);
-    
+
           // Comparamos las fechas solo considerando la parte de día, mes y año
           return fechaIniciativaFormato === fechaFiltroFormato;
         }
       );
     }
-    
-    
+
+
 
     return of(filteredIniciativas); // Devolvemos los datos como un Observable
   }
 
   createIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
-    return this.http.post<Iniciativas>(this.apiUrl, iniciativa).pipe(
+    console.log(iniciativa)
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Iniciativas>(this.apiUrl, iniciativa, { headers }).pipe(
       tap(data => {
-        console.log('Iniciativa creada:', data); // Verifica la respuesta de la creación
-        this.iniciativas.push(data); // Opcional: puedes añadir la nueva iniciativa al array local
+        console.log('Iniciativa creada:', data);
+        this.iniciativas.push(data);
       }),
       catchError(error => {
-        console.error('Error al crear iniciativa', error);
+        console.error('Error en la solicitud POST:', error);
         return throwError(error);
       })
     );
   }
+
+
+
 }

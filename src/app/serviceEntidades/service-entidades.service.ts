@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { entidades_externas } from '../models/entidades_externas.model';
+import { entidadesExternas } from '../models/entidades_externas.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class ServiceEntidadesService {
         constructor(private http: HttpClient) {}
       
         // Obtener todos los ODS de la base de datos
-        getEntidadesList(): Observable<entidades_externas[]> {
-          return this.http.get<entidades_externas[]>(this.apiUrl);
+        getEntidadesList(): Observable<entidadesExternas[]> {
+          return this.http.get<entidadesExternas[]>(this.apiUrl);
         }
       }

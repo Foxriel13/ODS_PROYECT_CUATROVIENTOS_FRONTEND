@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵflushModuleScopingQueueAsMuchAsPossible } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarFormCrearComponent } from '../navbar-form-crear/navbar-form-crear.component';
@@ -9,13 +9,14 @@ import { ServiceProfesoresService } from '../../serviceProfesores/service-profes
 import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
 import { ServiceEntidadesService } from '../../serviceEntidades/service-entidades.service';
-import { entidades_externas } from '../../models/entidades_externas.model';
+import { entidadesExternas } from '../../models/entidades_externas.model';
 import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { Meta } from '@angular/platform-browser';
 import { Metas } from '../../models/metas.model';
 import { Dimension } from '../../models/dimension.model';
 import { ServiceDimensionService } from '../../serviceDimension/service-dimension.service';
+import { Modulos } from '../../models/modulos.model';
 
 @Component({
   selector: 'app-crear-iniciativa',
@@ -37,19 +38,21 @@ export class CrearIniciativaComponent implements OnInit {
   modulo: string = '';
   meta: string = '';
   horas: number = 0;
+  nombreModulo : string = '';
   imagen: string = "";
   odsList: Ods[] = []; // Lista de ODS
   ProfesoresList: Profesores[] = [];
   DimensionesList: Dimension[] = [];
   cursoList: Curso[] = [];
-  entidadesList: entidades_externas[] = [];
+  entidadesList: entidadesExternas[] = [];
   odsSeleccionados: Ods[] = []; // Lista de ODS seleccionados
   metaSeleccionada: Metas | null = null;
   dimensionSeleccionada: Dimension [] = [];  // Cambiado para ser un objeto y no un array // Lista de ODS seleccionados
   profesoresSeleccionados: Profesores[] = [];
   cursosSeleccionados: Curso[] = [];
-  entidadesSeleccionados: entidades_externas[] = [];
+  entidadesSeleccionados: entidadesExternas[] = [];
   metasSeleccionadas: Metas [] =[];
+  moduloSeleccionados: Modulos [] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
     id: 0,
     nombre: '',
@@ -66,7 +69,7 @@ export class CrearIniciativaComponent implements OnInit {
     id: 0,
     nombre: ''
   };
-  entidad: entidades_externas = {
+  entidad: entidadesExternas = {
     id: 0,
     nombre: ''
   };
@@ -86,7 +89,16 @@ export class CrearIniciativaComponent implements OnInit {
       }
       }
   };
+  modules: Modulos = {
+    idModulo: 0, // Identificador numérico
+    nombre: "", // Nombre del ODS
+    curso: {
+      id: 0,  // Definido como número si es un identificador
+      nombre:""
+    } 
+  };
   metaAyadir: Metas | null = null;
+  moduloAyadir: Modulos | null = null;
 
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
@@ -230,7 +242,14 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona una entidad válida.');
     }
   }
-
+  anyadirModulo() {
+    this.moduloAyadir = {
+      idModulo: 0, // Identificador numérico
+      nombre: this.nombreModulo, // Nombre del ODS
+      curso: this.cursosSeleccionados
+   }
+   this.moduloSeleccionados.push(this.moduloAyadir)
+ }
   anyadirMeta() {
      this.metaAyadir = {
       id: 0,
@@ -245,7 +264,6 @@ export class CrearIniciativaComponent implements OnInit {
       }
     }
     this.metasSeleccionadas.push(this.metaAyadir)
-    console.log(this.metasSeleccionadas)
   }
   clearForm(form: NgForm): void {
     location.reload();
@@ -273,46 +291,123 @@ export class CrearIniciativaComponent implements OnInit {
   eliminarDimension(): void {
     // Eliminar la dimensión seleccionada al hacer click en el <p>
     this.dimensionSeleccionada = []; // Limpiamos la dimensión seleccionada
-    this.dimension.id = 0;  // Reseteamos el id
 }
 
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
   }
+  eliminarMeta(meta: any): void {
+    // Encontramos el índice de la meta seleccionada
+    const index = this.metasSeleccionadas.indexOf(meta);
+    
+    // Si la meta se encuentra en el array, la eliminamos
+    if (index > -1) {
+      this.metasSeleccionadas.splice(index, 1);
+    }
+  }
+  eliminarModulo(modulo: any) {
+    const index = this.moduloSeleccionados.indexOf(modulo);
+    
+    // Si la meta se encuentra en el array, la eliminamos
+    if (index > -1) {
+      this.moduloSeleccionados.splice(index, 1);
+    }
+  }
+  formatDateToYYYYMMDD(dateString: string): string {
+    const parts = dateString.split('/'); // Split the date into parts (DD, MM, YYYY)
+    const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`; // Reorder to YYYY/MM/DD
+    return formattedDate;
+  }
+  obtenerRangoAño(): string {
+    const añoActual = new Date().getFullYear(); // Obtiene el año actual
+    return `${añoActual}-${añoActual + 1}`; // Devuelve el rango de años en formato YYYY-YYYY
+  }
+  
 
   guardarIniciativa(form: any): void {
     if (form.invalid) {
       return;
     }
-
+  
     const formattedDate = new Date(Date.now());
     const day = String(formattedDate.getDate()).padStart(2, '0');
     const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
     const year = formattedDate.getFullYear();
-    const formattedDateString = `${day}/${month}/${year}`;
-
-    let iniciativasi: Iniciativas = {
+    const formattedDateString = `${year}-${month}-${day}`;
+  
+    // Construir el objeto de la iniciativa, asegurándonos de que las propiedades estén en camelCase
+    let iniciativa: Iniciativas = {
       id: 0,
       tipo: this.titulo,
       horas: this.horas,
       nombre: this.nombre,
       producto_final: this.producto,
-      descripcion: this.descripcion,
       fecha_registro: formattedDateString,
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
+      anyo_lectivo: this.obtenerRangoAño(),
       eliminado: false,
       innovador: false,
       imagen: this.imagen,
-      metas: [], // Asegúrate de que metas sea un array de metas
-      profesores: this.profesoresSeleccionados,
-      entidades_externas: this.entidadesSeleccionados,
-      modulos: []
+      metas: this.metasSeleccionadas.map(meta => ({
+        id: meta.id,
+        descripcion: meta.descripcion,
+        ods: {
+          id: meta.ods.id,
+          nombre: meta.ods.nombre,
+          dimension: {
+            id: meta.ods.dimension.id,
+            nombre: meta.ods.dimension.nombre
+          }
+        }
+      })),
+      profesores: this.profesoresSeleccionados.map(profesor => ({
+        id: profesor.id,
+        nombre: profesor.nombre
+      })),
+      entidades_Externas: this.entidadesSeleccionados.map(entidad => ({
+        id: entidad.id,
+        nombre: entidad.nombre
+      })),
+      modulos: this.moduloSeleccionados.map(modulo => ({
+        idModulo: modulo.idModulo,
+        nombre: modulo.nombre,
+        curso: Array.isArray(modulo.curso) 
+          ? modulo.curso.map(curso => ({
+              id: curso.id,
+              nombre: curso.nombre
+            }))
+          : [{
+              id: modulo.curso.id,
+              nombre: modulo.curso.nombre
+            }] // Si es un solo objeto, lo colocamos en un array
+      }))
     };
+  
+    // Llamada al servicio para crear la iniciativa
+    this.iniciativasService.createIniciativa(iniciativa).subscribe(
+      response => {
+        console.log('Iniciativa creada correctamente:', response);
+        // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
+      },
+      error => {
+        console.error('Error al crear la iniciativa:', error);
+        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+      }
+    );
+  }
+  
+  
+  modalVisible = false;
+  abrirModal(meta: any): void {
+    this.metaSeleccionada = meta;
+    this.modalVisible = true;  // Cambiar la visibilidad del modal a true
+  }
 
-    this.iniciativasService.createIniciativa(iniciativasi);
-
-    form.resetForm();
-    this.odsSeleccionados = [];
+  // Función para cerrar el modal
+  cerrarModal(): void {
+    this.modalVisible = false;  // Cambiar la visibilidad del modal a false
   }
 }
+
+

@@ -40,3 +40,24 @@
   margin: 0 auto; /* Centra la imagen horizontalmente */
   display: block; /* Asegura que la imagen esté centrada */
 }
+/* Estilos opcionales para los botones y el diseño */
+/* Estilos opcionales para los botones y el diseño */
+.box-meta {
+  border: 1px solid #ddd; 
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* Asegura que los botones estén alineados correctamente debajo del contenido */
+.btn-group-vertical {
+  width: 100%;
+  display: block;
+}
+
+
+/* Ajuste adicional si deseas que los botones tengan un pequeño espaciado */
+.btn-group-vertical .btn {
+  width: 100%;  /* Asegura que los botones ocupen todo el ancho disponible */
+  margin-bottom: 5px;  /* Separación entre los botones */
+}

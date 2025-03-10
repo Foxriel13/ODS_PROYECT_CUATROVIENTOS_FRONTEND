@@ -9,12 +9,17 @@ import { Observable } from 'rxjs';
 export class ServiceCursosService {
 
   private apiUrl = 'http://localhost:8000/cursos'; // Reemplaza con tu URL de API
-    
-      constructor(private http: HttpClient) {}
-    
-      // Obtener todos los ODS de la base de datos
-      getCursosList(): Observable<Curso[]> {
-        return this.http.get<Curso[]>(this.apiUrl);
-      }
-    }
-  
+
+  constructor(private http: HttpClient) { }
+
+  // Obtener todos los ODS de la base de datos
+  getCursosList(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(this.apiUrl);
+  }
+
+  //Obtener por Id
+  getCursosListById(id: number): Observable<Curso[]> {
+    let url = this.apiUrl + "/${" + id + "}";
+    return this.http.get<Curso[]>(url);
+  }
+}

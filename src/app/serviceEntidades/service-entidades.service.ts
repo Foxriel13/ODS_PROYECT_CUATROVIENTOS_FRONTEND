@@ -9,11 +9,17 @@ import { Observable } from 'rxjs';
 export class ServiceEntidadesService {
 
   private apiUrl = 'http://localhost:8000/entidadesexternas'; // Reemplaza con tu URL de API
-      
-        constructor(private http: HttpClient) {}
-      
-        // Obtener todos los ODS de la base de datos
-        getEntidadesList(): Observable<entidadesExternas[]> {
-          return this.http.get<entidadesExternas[]>(this.apiUrl);
-        }
-      }
+
+  constructor(private http: HttpClient) { }
+
+  // Obtener todos los ODS de la base de datos
+  getEntidadesList(): Observable<entidadesExternas[]> {
+    return this.http.get<entidadesExternas[]>(this.apiUrl);
+  }
+
+  //Obtener por Id
+  getEntidadesListById(id: number): Observable<entidadesExternas[]> {
+    let url = this.apiUrl + "/${" + id + "}";
+    return this.http.get<entidadesExternas[]>(url);
+  }
+}

@@ -91,10 +91,29 @@ export class IniciativasService {
     return of(filteredIniciativas); // Devolvemos los datos como un Observable
   }
 
+  //Post
   createIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
     console.log(iniciativa)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Iniciativas>(this.apiUrl, iniciativa, { headers }).pipe(
+      tap(data => {
+        console.log('Iniciativa creada:', data);
+        this.iniciativas.push(data);
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud POST:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  //Put
+  updateIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
+    const url = `${this.apiUrl}/${iniciativa.id}`;
+
+    console.log(iniciativa)
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Iniciativas>(url, iniciativa, { headers }).pipe(
       tap(data => {
         console.log('Iniciativa creada:', data);
         this.iniciativas.push(data);

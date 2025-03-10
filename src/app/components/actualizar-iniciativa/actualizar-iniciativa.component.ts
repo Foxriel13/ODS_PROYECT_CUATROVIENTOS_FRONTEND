@@ -30,6 +30,7 @@ export class ActualizarIniciativaComponent {
     titulo: string = '';
     nombre: string = '';
     producto: string = '';
+    links: string = '';
     descripcion: string = "";
     contratante: string = '';
     equipo: string = '';
@@ -405,6 +406,7 @@ export class ActualizarIniciativaComponent {
         horas: this.horas,
         nombre: this.nombre,
         producto_final: this.producto,
+        links: this.links,
         fecha_registro: this.iniciativasList[this.idIniciativa].fecha_registro,
         fecha_inicio: this.fechaInicio,
         fecha_fin: this.fechaFin,

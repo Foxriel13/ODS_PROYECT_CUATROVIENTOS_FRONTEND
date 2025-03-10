@@ -30,6 +30,7 @@ export class CrearIniciativaComponent implements OnInit {
   titulo: string = '';
   nombre: string = '';
   producto: string = '';
+  links: string = ';'
   descripcion: string = "";
   contratante: string = '';
   equipo: string = '';
@@ -342,6 +343,7 @@ export class CrearIniciativaComponent implements OnInit {
       horas: this.horas,
       nombre: this.nombre,
       producto_final: this.producto,
+      links : this.links,
       fecha_registro: formattedDateString,
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,

@@ -9,6 +9,7 @@ export class Iniciativas {
     horas: number;
     nombre: string;
     producto_final: string;
+    links: string;
     fecha_registro: string;
     fecha_inicio: string;
     fecha_fin: string;
@@ -28,6 +29,7 @@ export class Iniciativas {
         horas: number,
         nombre: string,
         producto_final: string,
+        links: string,
         fecha_registro: string,
         fecha_inicio: string,
         fecha_fin: string,
@@ -45,6 +47,7 @@ export class Iniciativas {
         this.horas = horas;
         this.nombre = nombre;
         this.producto_final = producto_final;
+        this.links = links;
         this.fecha_registro = fecha_registro;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;

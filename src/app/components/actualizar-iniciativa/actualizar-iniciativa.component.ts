@@ -138,6 +138,10 @@ export class ActualizarIniciativaComponent {
     onIdIniciativaChange(): void {
       //Rellamar a los loads y cambiar los datos de TODAS las variables de NgModels a los datos de la iniciativa elegida
       this.loadOdsList();
+      this.loadProfesoresList();
+      this.loadCursosList();
+      this.loadEntidadesList();
+      this.loadDimensionesList();
   
       this.titulo = this.iniciativasList[this.idIniciativa].tipo
       this.horas = this.iniciativasList[this.idIniciativa].horas
@@ -179,7 +183,6 @@ export class ActualizarIniciativaComponent {
               nombre: modulo.curso.nombre
             }] // Si es un solo objeto, lo colocamos en un array
       }))
-      //...
     }
 
     loadOdsList(): void {

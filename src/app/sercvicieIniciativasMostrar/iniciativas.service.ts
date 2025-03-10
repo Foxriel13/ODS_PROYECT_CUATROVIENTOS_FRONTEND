@@ -115,11 +115,15 @@ export class IniciativasService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<Iniciativas>(url, iniciativa, { headers }).pipe(
       tap(data => {
-        console.log('Iniciativa creada:', data);
-        this.iniciativas.push(data);
+        console.log('Iniciativa actualizada:', data); // Verifica la respuesta de la actualización
+        // Aquí, si tienes un array de iniciativas, puedes actualizar la iniciativa en el array local (opcional)
+        const index = this.iniciativas.findIndex(i => i.id === iniciativa.id);
+        if (index !== -1) {
+          this.iniciativas[index] = data; // Actualizas la iniciativa en el array local
+        }
       }),
       catchError(error => {
-        console.error('Error en la solicitud POST:', error);
+        console.error('Error en la solicitud PUT:', error);
         return throwError(error);
       })
     );

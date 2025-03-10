@@ -450,13 +450,13 @@ export class ActualizarIniciativaComponent {
       };
     
       // Llamada al servicio para crear la iniciativa
-      this.iniciativasService.createIniciativa(iniciativa).subscribe(
+      this.iniciativasService.updateIniciativa(iniciativa).subscribe(
         response => {
-          console.log('Iniciativa creada correctamente:', response);
+          console.log('Iniciativa actualizada correctamente:', response);
           // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
         },
         error => {
-          console.error('Error al crear la iniciativa:', error);
+          console.error('Error al actualizar la iniciativa:', error);
           // Maneja el error aquí, como mostrar un mensaje de error al usuario.
         }
       );

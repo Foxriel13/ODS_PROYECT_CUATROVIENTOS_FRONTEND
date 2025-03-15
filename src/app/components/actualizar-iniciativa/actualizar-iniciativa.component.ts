@@ -414,6 +414,7 @@ export class ActualizarIniciativaComponent {
         anyo_lectivo: this.obtenerRangoAño(),
         eliminado: false,
         innovador: false,
+        mas_comentarios: "",
         imagen: this.imagen,
         metas: this.metasSeleccionadas.map(meta => ({
           id: meta.id,

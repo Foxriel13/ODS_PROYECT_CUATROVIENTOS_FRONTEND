@@ -21,6 +21,7 @@ export class Iniciativas {
     profesores: Profesores[];  // Supongo que debería ser un array de strings
     entidades_Externas: entidadesExternas[];  // Supongo que debería ser un array de strings
     modulos: Modulos[];  // Supongo que debería ser un array de strings
+    mas_comentarios:String;
 
     // Constructor para inicializar la clase
     constructor(
@@ -40,7 +41,8 @@ export class Iniciativas {
         profesores: Profesores[],  // Tipificado correctamente
         entidades_Externas: entidadesExternas[],  // Tipificado correctamente
         modulos: Modulos[],  // Tipificado correctamente
-        innovador: boolean  // Se añade el parámetro 'innovador'
+        innovador: boolean,  // Se añade el parámetro 'innovador'
+        mas_comentarios:string
     ) {
         this.id = id;
         this.tipo = tipo;
@@ -59,6 +61,7 @@ export class Iniciativas {
         this.entidades_Externas = entidades_Externas;
         this.modulos = modulos;
         this.innovador = innovador;  // Inicializa el campo 'innovador'
+        this.mas_comentarios = mas_comentarios;
     }
     
 }

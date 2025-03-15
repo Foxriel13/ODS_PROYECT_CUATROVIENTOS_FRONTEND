@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
+import { Curso } from '../../models/curso.model';
+import { ServiceOdsService } from '../../serviceOds/service-ods.service';
+import { Ods } from '../../models/ods.model';
 
 @Component({
   selector: 'app-buscador',
@@ -10,9 +14,37 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./buscador.component.css']
 })
 export class BuscadorComponent {
-  cursos = ['DAM', 'DAW', 'ASIR'];
-  odsList = ['Fin de la pobreza', 'Educación de calidad', 'Igualdad de género'];
 
+  constructor(private claseServicie: ServiceCursosService, private odsServicie: ServiceOdsService) {}
+  cursoList: Curso[] = [];
+  odsList: Ods[] = [];
+  
+  ngOnInit(): void {
+    this.loadClases();
+    this.loadOds();
+  }
+
+  loadClases() {
+    this.claseServicie.getCursosList().subscribe(
+      (response) => {
+        this.cursoList = response; // Se asignan todos los cursos sin filtro
+      },
+      (error) => {
+        console.error('❌ Error al cargar los cursos:', error);
+      }
+    );
+  }
+  loadOds() {
+    this.odsServicie.getOdsList().subscribe(
+      (response) => {
+        this.odsList = response; // Se asignan todos los cursos sin filtro
+      },
+      (error) => {
+        console.error('❌ Error al cargar los cursos:', error);
+      }
+    );
+  }
+  
   curso = '';
   ods = '';
   nombre = '';

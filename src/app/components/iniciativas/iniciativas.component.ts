@@ -36,11 +36,14 @@ export class IniciativasComponent implements OnInit {
   loadIniciativas(): void {
     this.iniciativasService.getIniciativas().subscribe(
       (data: Iniciativas[]) => {
-        this.iniciativas = data;
-        this.iniciativasFiltradas = data; // Al inicio, mostramos todo
+        console.log('📌 Iniciativas recibidas:', data);
+        
+        // Filtramos las iniciativas que NO estén eliminadas
+        this.iniciativas = data.filter(iniciativa => !iniciativa.eliminado);
+        this.iniciativasFiltradas = [...this.iniciativas]; // Copia para mostrar
       },
       (error) => {
-        console.error('Error al cargar las iniciativas', error);
+        console.error('❌ Error al cargar las iniciativas', error);
       }
     );
   }
@@ -79,35 +82,39 @@ export class IniciativasComponent implements OnInit {
 
   // Función para filtrar por 'ods' dentro de las 'metas'
   filterOds(metas: any[], odsFilter: string): boolean {
-    for (let meta of metas) {
+    if (!Array.isArray(metas)) return false; // Asegura que metas sea un array
+  
+    return metas.some(meta => {
+      if (!meta || !meta.ods) return false;
+  
       if (Array.isArray(meta.ods)) {
-        if (meta.ods.some((ods: any) => ods.nombre && ods.nombre.toLowerCase().includes(odsFilter.toLowerCase()))) {
-          return true;
-        }
+        return meta.ods.some((ods: any) => 
+          ods.nombre?.toLowerCase().includes(odsFilter.toLowerCase())
+        );
       } else {
-        if (meta.ods && meta.ods.nombre && meta.ods.nombre.toLowerCase().includes(odsFilter.toLowerCase())) {
-          return true;
-        }
+        return meta.ods.nombre?.toLowerCase().includes(odsFilter.toLowerCase());
       }
-    }
-    return false;
+    });
   }
+  
 
   // Filtrar por cursos dentro de los módulos
   filterCursos(modulos: any[], cursosFilter: string): boolean {
-    for (let modulo of modulos) {
+    if (!Array.isArray(modulos)) return false; // Asegura que modulos sea un array
+  
+    return modulos.some(modulo => {
+      if (!modulo || !modulo.curso) return false;
+  
       if (Array.isArray(modulo.curso)) {
-        if (modulo.curso.some((curso: any) => curso.nombre && curso.nombre.toLowerCase().includes(cursosFilter.toLowerCase()))) {
-          return true;
-        }
+        return modulo.curso.some((curso: any) => 
+          curso.nombre?.toLowerCase().includes(cursosFilter.toLowerCase())
+        );
       } else {
-        if (modulo.curso && modulo.curso.nombre && modulo.curso.nombre.toLowerCase().includes(cursosFilter.toLowerCase())) {
-          return true;
-        }
+        return modulo.curso.nombre?.toLowerCase().includes(cursosFilter.toLowerCase());
       }
-    }
-    return false;
+    });
   }
+  
 
   // Método para obtener el nombre del curso
   // getCursoNombre(iniciativa: Iniciativas): string | null {

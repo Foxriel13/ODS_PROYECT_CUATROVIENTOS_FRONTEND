@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ServiceDimensionService {
 
-  private apiUrl = 'http://localhost:8000/dimension'; // Reemplaza con tu URL de API
+  private apiUrl = 'http://localhost:8000/dimensiones'; // Reemplaza con tu URL de API
 
   constructor(private http: HttpClient) { }
 

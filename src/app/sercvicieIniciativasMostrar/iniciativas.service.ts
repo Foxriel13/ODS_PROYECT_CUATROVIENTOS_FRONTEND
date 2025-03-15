@@ -93,12 +93,34 @@ export class IniciativasService {
 
   //Post
   createIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
-    console.log(iniciativa)
+    console.log(iniciativa);
+  
+    // Creamos el objeto que será enviado en el cuerpo del POST
+    const requestBody = {
+      tipo: iniciativa.tipo.toString(),
+      horas: iniciativa.horas.toString(),  // Aseguramos que horas sea un número
+      nombre: iniciativa.nombre.toString(),
+      explicacion: iniciativa.explicacion.toString(),
+      fecha_inicio: iniciativa.fecha_inicio.toString(),  // Asegúrate de formatear las fechas correctamente
+      fecha_fin: iniciativa.fecha_fin.toString(),  // Asegúrate de formatear las fechas correctamente
+      eliminado: false,  // Asegúrate de que sea un booleano (true o false)
+      innovador: false,  // Asegúrate de que sea un booleano (true o false)
+      anyo_lectivo: iniciativa.anyo_lectivo.toString(),
+      imagen: iniciativa.imagen.toString(),
+      mas_comentarios: iniciativa.mas_comentarios.toString(),  // Si la API lo espera, agrega este campo también
+      redes_sociales: Array.isArray(iniciativa.redes_sociales) ? iniciativa.redes_sociales : [iniciativa.redes_sociales],  // Asegúrate de que sea un array
+      metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
+      profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
+      entidades_externas: iniciativa.entidades_Externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
+      modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
+    };
+  
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Iniciativas>(this.apiUrl, iniciativa, { headers }).pipe(
+  
+    return this.http.post<Iniciativas>(this.apiUrl, requestBody, { headers }).pipe(
       tap(data => {
         console.log('Iniciativa creada:', data);
-        this.iniciativas.push(data);
+        this.iniciativas.push(data);  // Suponiendo que 'this.iniciativas' es un array donde guardas las iniciativas
       }),
       catchError(error => {
         console.error('Error en la solicitud POST:', error);
@@ -106,7 +128,7 @@ export class IniciativasService {
       })
     );
   }
-
+  
   //Put
   updateIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
     const url = `${this.apiUrl}/${iniciativa.id}`;
@@ -129,6 +151,21 @@ export class IniciativasService {
     );
   }
 
+  deleteIniciativa(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;  // Formamos la URL con el id de la iniciativa
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    // Realizamos la solicitud DELETE
+    return this.http.delete<void>(url, { headers }).pipe(
+      tap(() => {
+        console.log(`Iniciativa con id ${id} eliminada correctamente.`);
+      }),
+      catchError(error => {
+        console.error('Error al eliminar la iniciativa:', error);
+        return throwError(error);
+      })
+    );
+  }
 
 
 }

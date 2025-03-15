@@ -1,1 +1,15 @@
-<p>eliminar-iniciativa works!</p>
+<form #form="ngForm" (ngSubmit)="eliminarIniciativa(this.iniciativa.id)">
+    <div class="row g-3 p-4">
+        <div class="mb-3">
+            <label>Seleccionar Meta</label>
+            <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control">
+                <option value="" disabled selected>Selecciona una Meta</option>
+                <option *ngFor="let item of iniciativasList" [ngValue]="item">{{ item.id }} - {{ item.tipo }}
+                </option>
+            </select>
+        </div>
+     </div>
+     <div class="d-flex justify-content-end mt-3 mb-4">
+        <button class="btn btn-danger" type="submit">Eliminar Iniciativa</button>
+    </div>
+</form>

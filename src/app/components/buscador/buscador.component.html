@@ -4,16 +4,18 @@
     <div class="col-md-2">
       <label class="form-label">Buscar por curso</label>
       <select class="form-select" [(ngModel)]="curso">
-        <option *ngFor="let c of cursos" [value]="c">{{ c }}</option>
+        <option *ngFor="let c of cursoList" [value]="c.nombre">{{ c.nombre }}</option>
       </select>
     </div>
 
     <div class="col-md-2">
       <label class="form-label">Buscar por ODS</label>
       <select class="form-select" [(ngModel)]="ods">
-        <option *ngFor="let o of odsList" [value]="o">{{ o }}</option>
+        <!-- Usa el nombre del ODS como valor -->
+        <option *ngFor="let o of odsList" [value]="o.nombre">{{ o.nombre }}</option>
       </select>
     </div>
+    
 
     <!-- Eliminamos los campos de fecha inicio y fecha fin -->
 

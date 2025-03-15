@@ -143,7 +143,7 @@ export class CrearIniciativaComponent implements OnInit {
   loadMetasList(): void {
     this.metasService.getMetasList().subscribe(
       (response) => {
-        console.log('Profesores cargados:', response);
+        console.log('Metas cargados:', response);
         this.MetasList = response;
       },
       (error) => {
@@ -382,6 +382,7 @@ export class CrearIniciativaComponent implements OnInit {
       anyo_lectivo: this.obtenerRangoAño(),
       eliminado: false,
       innovador: false,
+      mas_comentarios : "",
       imagen: this.imagen,
       metas: this.metasSeleccionadas.map(meta => ({
         id: meta.id,

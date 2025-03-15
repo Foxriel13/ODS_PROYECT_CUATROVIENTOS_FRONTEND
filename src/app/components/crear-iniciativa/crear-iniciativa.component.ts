@@ -41,6 +41,7 @@ export class CrearIniciativaComponent implements OnInit {
   modulo: string = '';
   meta: string = '';
   horas: number = 0;
+  mas_comentarios:String = '';
   nombreModulo : string = '';
   imagen: string = "";
   odsList: Ods[] = []; // Lista de ODS
@@ -382,7 +383,7 @@ export class CrearIniciativaComponent implements OnInit {
       anyo_lectivo: this.obtenerRangoAño(),
       eliminado: false,
       innovador: false,
-      mas_comentarios : "",
+      mas_comentarios : this.mas_comentarios,
       imagen: this.imagen,
       metas: this.metasSeleccionadas.map(meta => ({
         id: meta.id,

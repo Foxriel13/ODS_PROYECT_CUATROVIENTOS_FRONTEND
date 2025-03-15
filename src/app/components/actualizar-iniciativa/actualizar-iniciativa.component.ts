@@ -142,7 +142,7 @@ export class ActualizarIniciativaComponent {
       this.loadCursosList();
       this.loadEntidadesList();
       this.loadDimensionesList();
-  
+      console.log(this.iniciativasList);
       this.titulo = this.iniciativasList[this.idIniciativa].tipo
       this.horas = this.iniciativasList[this.idIniciativa].horas
       this.nombre = this.iniciativasList[this.idIniciativa].nombre
@@ -190,7 +190,6 @@ export class ActualizarIniciativaComponent {
         }
       );
     }
-  
     loadProfesoresList(): void {
       this.profesoresService.getProfesoresListById(this.idIniciativa).subscribe(
         (response) => {

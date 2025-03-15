@@ -10,9 +10,9 @@
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label>Seleccionar Iniciativa</label>
-                            <select [(ngModel)]="idIniciativa" name="iniciativa" class="form-control"
-                                (change)="onIdIniciativaChange()">
-                                <option value="{{idIniciativa}}" disabled selected></option>
+                            <select [(ngModel)]="idIniciativa" name="iniciativa" class="form-control" (change)="onIdIniciativaChange()">
+                                <!-- Opción inicial vacía (placeholder) -->
+                                <option value="" disabled selected>Selecciona una iniciativa</option>
                                 <!-- Recorremos la lista de Iniciativas y mostramos cada una -->
                                 <option *ngFor="let item of iniciativasList" [value]="item.id">
                                     {{ item.id }} - {{ item.nombre }}
@@ -20,6 +20,7 @@
                             </select>
                         </div>
                     </div>
+                    
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label>Tipo del Proyecto</label>

@@ -19,7 +19,7 @@ export class ServiceOdsService {
 
   //Obtener por Id
   getOdsListById(id: number): Observable<Ods[]> {
-    let url = this.apiUrl + "/${" + id + "}";
+    let url = `${this.apiUrl}/${id}`;
     return this.http.get<Ods[]>(url);
   }
 }

@@ -43,10 +43,10 @@ export class IniciativasService {
       filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
         // Filtramos por los ODS dentro de las metas
         iniciativa.metas.some(meta => {
-          if (Array.isArray(meta.ods)) {
-            return meta.ods.some((ods: any) => ods.nombre.toLowerCase().includes(filters.ods.toLowerCase()));
-          } else if (meta.ods && meta.ods.nombre) {
-            return meta.ods.nombre.toLowerCase().includes(filters.ods.toLowerCase());
+          if (Array.isArray(meta.idOds)) {
+            return meta.idOds.some((ods: any) => ods.nombre.toLowerCase().includes(filters.ods.toLowerCase()));
+          } else if (meta.idOds && meta.idOds.nombre) {
+            return meta.idOds.nombre.toLowerCase().includes(filters.ods.toLowerCase());
           }
           return false;
         })
@@ -57,12 +57,12 @@ export class IniciativasService {
       filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
         // Filtramos por los cursos dentro de los módulos
         iniciativa.modulos.some(modulo => {
-          if (Array.isArray(modulo.curso)) {
-            return modulo.curso.some((curso: any) =>
+          if (Array.isArray(modulo.clase)) {
+            return modulo.clase.some((curso: any) =>
               curso.nombre.toLowerCase().includes(filters.curso.toLowerCase())
             );
-          } else if (modulo.curso && modulo.curso.nombre) {
-            return modulo.curso.nombre.toLowerCase().includes(filters.curso.toLowerCase());
+          } else if (modulo.clase && modulo.clase.nombre) {
+            return modulo.clase.nombre.toLowerCase().includes(filters.curso.toLowerCase());
           }
           return false;
         })

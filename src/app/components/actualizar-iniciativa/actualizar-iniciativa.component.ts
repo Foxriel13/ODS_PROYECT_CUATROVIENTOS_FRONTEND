@@ -30,7 +30,7 @@ export class ActualizarIniciativaComponent {
     titulo: string = '';
     nombre: string = '';
     producto: string = '';
-    links: string = '';
+    redes_sociales: string = '';
     descripcion: string = "";
     contratante: string = '';
     equipo: string = '';
@@ -81,7 +81,7 @@ export class ActualizarIniciativaComponent {
     metaSelect: Metas ={
       id: 0,
       descripcion: '',
-      ods: {
+      idOds: {
         id: 0,
         nombre: '',
         dimension: {
@@ -91,9 +91,9 @@ export class ActualizarIniciativaComponent {
         }
     };
     modules: Modulos = {
-      idModulo: 0, // Identificador numérico
+      id: 0, // Identificador numérico
       nombre: "", // Nombre del ODS
-      curso: {
+      clase: {
         id: 0,  // Definido como número si es un identificador
         nombre:""
       } 
@@ -146,19 +146,19 @@ export class ActualizarIniciativaComponent {
       this.titulo = this.iniciativasList[this.idIniciativa].tipo
       this.horas = this.iniciativasList[this.idIniciativa].horas
       this.nombre = this.iniciativasList[this.idIniciativa].nombre
-      this.producto = this.iniciativasList[this.idIniciativa].producto_final
+      this.producto = this.iniciativasList[this.idIniciativa].explicacion
       this.fechaInicio = this.iniciativasList[this.idIniciativa].fecha_inicio
       this.fechaFin = this.iniciativasList[this.idIniciativa].fecha_fin
       this.imagen = this.iniciativasList[this.idIniciativa].imagen
       this.metasSeleccionadas = this.iniciativasList[this.idIniciativa].metas.map(meta => ({
         id: meta.id,
         descripcion: meta.descripcion,
-        ods: {
-          id: meta.ods.id,
-          nombre: meta.ods.nombre,
+        idOds: {
+          id: meta.idOds.id,
+          nombre: meta.idOds.nombre,
           dimension: {
-            id: meta.ods.dimension.id,
-            nombre: meta.ods.dimension.nombre
+            id: meta.idOds.dimension.id,
+            nombre: meta.idOds.dimension.nombre
           }
         }
       }))
@@ -171,17 +171,12 @@ export class ActualizarIniciativaComponent {
         nombre: entidad.nombre
       }))
       this.moduloSeleccionados = this.iniciativasList[this.idIniciativa].modulos.map(modulo => ({
-        idModulo: modulo.idModulo,
+        id: modulo.id,
         nombre: modulo.nombre,
-        curso: Array.isArray(modulo.curso) 
-          ? modulo.curso.map(curso => ({
-              id: curso.id,
-              nombre: curso.nombre
-            }))
-          : [{
-              id: modulo.curso.id,
-              nombre: modulo.curso.nombre
-            }] // Si es un solo objeto, lo colocamos en un array
+        clase: {
+            id: modulo.clase.id,
+            nombre: modulo.clase.nombre
+        }
       }))
     }
 
@@ -316,9 +311,12 @@ export class ActualizarIniciativaComponent {
     }
     anyadirModulo() {
       this.moduloAyadir = {
-        idModulo: 0, // Identificador numérico
+        id: 0, // Identificador numérico
         nombre: this.nombreModulo, // Nombre del ODS
-        curso: this.cursosSeleccionados
+        clase: {
+          id: 0,
+          nombre: ''
+        }
      }
      this.moduloSeleccionados.push(this.moduloAyadir)
    }
@@ -326,7 +324,7 @@ export class ActualizarIniciativaComponent {
        this.metaAyadir = {
         id: 0,
         descripcion: this.descripcion,
-        ods: {
+        idOds: {
           id: this.ods.id,
           nombre: this.ods.nombre,
           dimension: {
@@ -408,8 +406,8 @@ export class ActualizarIniciativaComponent {
         tipo: this.titulo,
         horas: this.horas,
         nombre: this.nombre,
-        producto_final: this.producto,
-        links: this.links,
+        explicacion: this.producto,
+        redes_sociales: this.redes_sociales,
         fecha_registro: this.iniciativasList[this.idIniciativa].fecha_registro,
         fecha_inicio: this.fechaInicio,
         fecha_fin: this.fechaFin,
@@ -420,12 +418,12 @@ export class ActualizarIniciativaComponent {
         metas: this.metasSeleccionadas.map(meta => ({
           id: meta.id,
           descripcion: meta.descripcion,
-          ods: {
-            id: meta.ods.id,
-            nombre: meta.ods.nombre,
+          idOds: {
+            id: meta.idOds.id,
+            nombre: meta.idOds.nombre,
             dimension: {
-              id: meta.ods.dimension.id,
-              nombre: meta.ods.dimension.nombre
+              id: meta.idOds.dimension.id,
+              nombre: meta.idOds.dimension.nombre
             }
           }
         })),
@@ -438,17 +436,12 @@ export class ActualizarIniciativaComponent {
           nombre: entidad.nombre
         })),
         modulos: this.moduloSeleccionados.map(modulo => ({
-          idModulo: modulo.idModulo,
+          id: modulo.id,
           nombre: modulo.nombre,
-          curso: Array.isArray(modulo.curso) 
-            ? modulo.curso.map(curso => ({
-                id: curso.id,
-                nombre: curso.nombre
-              }))
-            : [{
-                id: modulo.curso.id,
-                nombre: modulo.curso.nombre
-              }] // Si es un solo objeto, lo colocamos en un array
+          clase: {
+            id: modulo.clase.id,
+            nombre: modulo.clase.nombre
+          }
         }))
       };
     

@@ -22,10 +22,10 @@ export class CardIniciativaComponent {
   getCursoNombre(iniciativa: Iniciativas): string | null {
     if (iniciativa.modulos && iniciativa.modulos.length > 0) {
       const modulo = iniciativa.modulos[0];
-      if (Array.isArray(modulo.curso)) {
-        return modulo.curso.length > 0 ? modulo.curso[0].nombre : null;
-      } else if (modulo.curso && modulo.curso.nombre) {
-        return modulo.curso.nombre;
+      if (Array.isArray(modulo.clase)) {
+        return modulo.clase.length > 0 ? modulo.clase[0].nombre : null;
+      } else if (modulo.clase && modulo.clase.nombre) {
+        return modulo.clase.nombre;
       }
     }
     return null;

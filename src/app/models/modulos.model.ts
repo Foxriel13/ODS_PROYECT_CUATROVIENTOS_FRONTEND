@@ -1,13 +1,13 @@
 import { Curso } from './curso.model'
 export class Modulos {
-    idModulo: number;  // Identificador numérico
+    id: number;  // Identificador numérico
     nombre: string;  // Nombre del ODS
-    curso: Curso[] | Curso;  // Array de dimensiones, cada una como un objeto de tipo Dimension
+    clase: Curso;  // Array de dimensiones, cada una como un objeto de tipo Dimension
 
     // Constructor para inicializar la clase
-    constructor(idModulo: number, nombre: string, curso: Curso[]) {
-        this.idModulo = idModulo;
+    constructor(id: number, nombre: string, clase: Curso) {
+        this.id = id;
         this.nombre = nombre;
-        this.curso = curso;
+        this.clase = clase;
     }
 }

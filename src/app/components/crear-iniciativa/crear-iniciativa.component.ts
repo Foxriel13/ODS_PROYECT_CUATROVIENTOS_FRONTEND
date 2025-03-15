@@ -17,6 +17,8 @@ import { Metas } from '../../models/metas.model';
 import { Dimension } from '../../models/dimension.model';
 import { ServiceDimensionService } from '../../serviceDimension/service-dimension.service';
 import { Modulos } from '../../models/modulos.model';
+import { MetasService } from '../../serviceMetas/metas.service';
+import { ModulosService } from '../../serviceModulos/modulos.service';
 
 @Component({
   selector: 'app-crear-iniciativa',
@@ -30,7 +32,7 @@ export class CrearIniciativaComponent implements OnInit {
   titulo: string = '';
   nombre: string = '';
   producto: string = '';
-  links: string = ';'
+  redes_sociales: string = ';'
   descripcion: string = "";
   contratante: string = '';
   equipo: string = '';
@@ -43,6 +45,8 @@ export class CrearIniciativaComponent implements OnInit {
   imagen: string = "";
   odsList: Ods[] = []; // Lista de ODS
   ProfesoresList: Profesores[] = [];
+  ModulosList: Modulos[] = [];
+  MetasList: Metas[] = [];
   DimensionesList: Dimension[] = [];
   cursoList: Curso[] = [];
   entidadesList: entidadesExternas[] = [];
@@ -78,10 +82,10 @@ export class CrearIniciativaComponent implements OnInit {
     id: 0,
     nombre: ''
   }
-  metaSelect: Metas ={
+  Metas: Metas ={
     id: 0,
     descripcion: '',
-    ods: {
+    idOds: {
       id: 0,
       nombre: '',
       dimension: {
@@ -91,9 +95,9 @@ export class CrearIniciativaComponent implements OnInit {
       }
   };
   modules: Modulos = {
-    idModulo: 0, // Identificador numérico
+    id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
-    curso: {
+    clase: {
       id: 0,  // Definido como número si es un identificador
       nombre:""
     } 
@@ -104,7 +108,7 @@ export class CrearIniciativaComponent implements OnInit {
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
-  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,private dimensionService: ServiceDimensionService) {}
+  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,private dimensionService: ServiceDimensionService,private metasService: MetasService,private modulosService: ModulosService) {}
 
   ngOnInit(): void {
     this.loadOdsList();
@@ -112,6 +116,8 @@ export class CrearIniciativaComponent implements OnInit {
     this.loadCursosList();
     this.loadEntidadesList();
     this.loadDimensionesList();
+    this.loadMetasList();
+    this.loadModulosList();
   }
 
   loadOdsList(): void {
@@ -124,7 +130,27 @@ export class CrearIniciativaComponent implements OnInit {
       }
     );
   }
-
+  loadModulosList(): void {
+    this.modulosService.getModulosList().subscribe(
+      (response) => {
+        this.ModulosList = response;
+      },
+      (error) => {
+        console.error('Error al cargar los ODS:', error);
+      }
+    );
+  }
+  loadMetasList(): void {
+    this.metasService.getMetasList().subscribe(
+      (response) => {
+        console.log('Profesores cargados:', response);
+        this.MetasList = response;
+      },
+      (error) => {
+        console.error('Error al cargar los profesores:', error);
+      }
+    );
+  }
   loadProfesoresList(): void {
     this.profesoresService.getProfesoresList().subscribe(
       (response) => {
@@ -244,27 +270,28 @@ export class CrearIniciativaComponent implements OnInit {
     }
   }
   anyadirModulo() {
-    this.moduloAyadir = {
-      idModulo: 0, // Identificador numérico
-      nombre: this.nombreModulo, // Nombre del ODS
-      curso: this.cursosSeleccionados
-   }
-   this.moduloSeleccionados.push(this.moduloAyadir)
+    const selectedModulo = this.ModulosList.find(item => item.id == this.modules.id);
+    if (selectedModulo) {
+      if (this.moduloSeleccionados.some(item => item.id === selectedModulo.id)) {
+        alert('Este Modulo ya está añadido.');
+      } else {
+        this.moduloSeleccionados.push(selectedModulo);
+      }
+    } else {
+      alert('Por favor, selecciona una Meta válida.');
+    }
  }
   anyadirMeta() {
-     this.metaAyadir = {
-      id: 0,
-      descripcion: this.descripcion,
-      ods: {
-        id: this.ods.id,
-        nombre: this.ods.nombre,
-        dimension: {
-          id: this.dimension.id,
-          nombre: this.dimension.nombre
-        }
+     const selectedMeta = this.MetasList.find(item => item.id == this.Metas.id);
+    if (selectedMeta) {
+      if (this.metasSeleccionadas.some(item => item.id === selectedMeta.id)) {
+        alert('Esta Meta ya está añadido.');
+      } else {
+        this.metasSeleccionadas.push(selectedMeta);
       }
+    } else {
+      alert('Por favor, selecciona una Meta válida.');
     }
-    this.metasSeleccionadas.push(this.metaAyadir)
   }
   clearForm(form: NgForm): void {
     location.reload();
@@ -336,14 +363,19 @@ export class CrearIniciativaComponent implements OnInit {
     const year = formattedDate.getFullYear();
     const formattedDateString = `${year}-${month}-${day}`;
   
+    const listaMetas = []
+    for (let i = 0; i < this.metasSeleccionadas.length; i++) {
+      listaMetas.push(this.metasSeleccionadas[i].id)
+    }
+  
     // Construir el objeto de la iniciativa, asegurándonos de que las propiedades estén en camelCase
     let iniciativa: Iniciativas = {
       id: 0,
       tipo: this.titulo,
       horas: this.horas,
       nombre: this.nombre,
-      producto_final: this.producto,
-      links : this.links,
+      explicacion: this.producto,
+      redes_sociales : this.redes_sociales,
       fecha_registro: formattedDateString,
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
@@ -354,12 +386,12 @@ export class CrearIniciativaComponent implements OnInit {
       metas: this.metasSeleccionadas.map(meta => ({
         id: meta.id,
         descripcion: meta.descripcion,
-        ods: {
-          id: meta.ods.id,
-          nombre: meta.ods.nombre,
+        idOds: {
+          id: meta.idOds.id,
+          nombre: meta.idOds.nombre,
           dimension: {
-            id: meta.ods.dimension.id,
-            nombre: meta.ods.dimension.nombre
+            id: meta.idOds.dimension.id,
+            nombre: meta.idOds.dimension.nombre
           }
         }
       })),
@@ -372,17 +404,12 @@ export class CrearIniciativaComponent implements OnInit {
         nombre: entidad.nombre
       })),
       modulos: this.moduloSeleccionados.map(modulo => ({
-        idModulo: modulo.idModulo,
+        id: modulo.id,
         nombre: modulo.nombre,
-        curso: Array.isArray(modulo.curso) 
-          ? modulo.curso.map(curso => ({
-              id: curso.id,
-              nombre: curso.nombre
-            }))
-          : [{
-              id: modulo.curso.id,
-              nombre: modulo.curso.nombre
-            }] // Si es un solo objeto, lo colocamos en un array
+        clase: {
+          id: modulo.clase.id,
+          nombre: modulo.clase.nombre
+        }
       }))
     };
   

@@ -1,9 +1,4 @@
-import { entidadesExternas } from "./entidades_externas.model";
-import { Metas } from "./metas.model";  // Importar Metas correctamente
-import { Modulos } from "./modulos.model";
-import { Profesores } from "./profesores.model";
-
-export class Iniciativas {
+export class IniciativasCrear {
     id: number;
     tipo: string;
     horas: number;
@@ -13,14 +8,15 @@ export class Iniciativas {
     fecha_registro: string;
     fecha_inicio: string;
     fecha_fin: string;
-    anyo_lectivo : string;
+    anyo_lectivo: string;
     eliminado: boolean;
     innovador: boolean;
     imagen: string;
-    metas: Metas[];  // Ahora está correctamentxe tipado como un array de Metas
-    profesores: Profesores[];  // Supongo que debería ser un array de strings
-    entidades_Externas: entidadesExternas[];  // Supongo que debería ser un array de strings
-    modulos: Modulos[];  // Supongo que debería ser un array de strings
+    mas_comentarios: string;
+    metas: number[];  // Solo ids de metas
+    profesores: number[];  // Solo ids de profesores
+    entidades_Externas: number[];  // Solo ids de entidades externas
+    modulos: number[];  // Solo ids de módulos
 
     // Constructor para inicializar la clase
     constructor(
@@ -36,10 +32,11 @@ export class Iniciativas {
         anyo_lectivo: string,
         eliminado: boolean,
         imagen: string,
-        metas: Metas[],
-        profesores: Profesores[],  // Tipificado correctamente
-        entidades_Externas: entidadesExternas[],  // Tipificado correctamente
-        modulos: Modulos[],  // Tipificado correctamente
+        mas_comentarios:string,
+        metas: number[],  // Ahora es un array de ids
+        profesores: number[],  // Ahora es un array de ids
+        entidades_Externas: number[],  // Ahora es un array de ids
+        modulos: number[],  // Ahora es un array de ids
         innovador: boolean  // Se añade el parámetro 'innovador'
     ) {
         this.id = id;
@@ -54,11 +51,11 @@ export class Iniciativas {
         this.anyo_lectivo = anyo_lectivo;
         this.eliminado = eliminado;
         this.imagen = imagen;
+        this.mas_comentarios = mas_comentarios;
         this.metas = metas;
         this.profesores = profesores;
         this.entidades_Externas = entidades_Externas;
         this.modulos = modulos;
-        this.innovador = innovador;  // Inicializa el campo 'innovador'
+        this.innovador = innovador;
     }
-    
 }

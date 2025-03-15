@@ -48,6 +48,11 @@
                             <textarea [(ngModel)]="producto" name="producto" class="form-control"
                                 placeholder="Informe de IA" id="producto" rows="4"></textarea>
                         </div>
+                        <div class="mb-4">
+                            <label>Redes Sociales</label>
+                            <input [(ngModel)]="redes_sociales" name="redes_sociales" type="text" class="form-control"
+                                placeholder="IA en educación" id="imagen">
+                        </div>
 
 
                         <div class="image-box">
@@ -60,74 +65,15 @@
 
             <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
             <div *ngIf="selectedTab === 'metas'">
-                <div class="row">
-                    <!-- Fila original con los inputs -->
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label>Descripción del Proyecto</label>
-                            <input [(ngModel)]="descripcion" name="descripcion" type="text" class="form-control"
-                                placeholder="Fomentar la educación digital" id="tipo"
-                                [disabled]="!dimensionSeleccionada.length || !odsSeleccionados.length" />
-                        </div>
-
-                        <!-- Select para elegir un ODS -->
-                        <div class="mb-3">
-                            <label>Seleccionar ODS</label>
-                            <select [(ngModel)]="ods" name="ods" class="form-control"
-                                [disabled]="dimensionSeleccionada.length === 0">
-                                <option value="" disabled selected>Selecciona un ODS</option>
-                                <option *ngFor="let item of odsList" [ngValue]="item">{{ item.id }} - {{ item.nombre }}
-                                </option>
-                            </select>
-                        </div>
-
-                        <!-- Botón para agregar el ODS seleccionado -->
-                        <button class="btn btn-info" type="button" (click)="anyadirOds()"
-                            [disabled]="!ods.id || dimensionSeleccionada.length === 0">Añadir ODS</button>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="d-flex">
-                            <!-- Contenedor de imágenes (más pequeño) -->
-                            <div class="image-box image-box-small" style="flex: 1;">
-                                <h5 *ngIf="!odsSeleccionados || odsSeleccionados.length === 0">Ods Seleccionados</h5>
-
-                                <div class="row">
-                                    <div *ngFor="let item of odsSeleccionados; let i = index" class="col-md-12">
-                                        <img *ngIf="item.id" [src]="'./Ods_img/ods' + item.id + '.png'"
-                                            alt="{{ item.nombre }}" class="img-fluid" id="{{ item.id }}"
-                                            (click)="eliminarOds(i)" />
-                                    </div>
-                                    <div *ngIf="dimensionSeleccionada.length > 0" class="text-center">
-                                        <p (click)="eliminarDimension()">{{ dimensionSeleccionada[0].nombre }}</p>
-                                        <!-- Al hacer click se eliminará la dimensión -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <!-- Select para elegir una Dimensión -->
-                        <div class="mb-3">
-                            <label>Seleccionar Dimensión</label>
-                            <select [(ngModel)]="dimension" name="dimension" class="form-control">
-                                <option value="" disabled selected>Selecciona una Dimensión</option>
-                                <option *ngFor="let item of DimensionesList" [ngValue]="item">{{ item.id }} - {{
-                                    item.nombre }}</option>
-                            </select>
-                        </div>
-
-
-                        <!-- Botón para agregar la Dimensión seleccionada -->
-                        <button class="btn btn-info" type="button" (click)="anyadirDimension()"
-                            [disabled]="!dimension.id">Añadir Dimensión</button>
-                    </div>
-                    <button class="btn btn-warning mt-3" type="button" (click)="anyadirMeta()"
-                        [disabled]="!descripcion || odsSeleccionados.length == 0 || dimensionSeleccionada.length == 0">Añadir
-                        Meta</button>
+                <div class="mb-3">
+                    <label>Seleccionar Meta</label>
+                    <select [(ngModel)]="Metas" name="metas" class="form-control">
+                        <option value="" disabled selected>Selecciona una Meta</option>
+                        <option *ngFor="let item of MetasList" [ngValue]="item">{{ item.id }} - {{ item.descripcion }}
+                        </option>
+                    </select>
                 </div>
-
+                <button class="btn btn-info" type="button" (click)="anyadirMeta()">Añadir Meta</button>
                 <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
                 <div class="row mt-4">
                     <div class="col-md-12">
@@ -272,47 +218,15 @@
 
             <div *ngIf="selectedTab === 'modulos'">
                 <!-- Solo visible si 'Módulos' está seleccionado -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label>Nombre del Modulo</label>
-                            <input [(ngModel)]="nombreModulo" name="nombre" type="text" class="form-control"
-                                placeholder="IA en educación" id="nombre">
-                        </div>
-                        <!-- Select para elegir un ODS -->
-                        <div class="mb-3">
-                            <label>Seleccionar Cursos</label>
-                            <select [(ngModel)]="curso" name="curso" class="form-control">
-                                <option value="" disabled selected>Selecciona un Curso</option>
-                                <option *ngFor="let item of cursoList" [ngValue]="item">- {{
-                                    item.nombre }}</option>
-                            </select>
-                        </div>
-            
-                        <!-- Botón para agregar el ODS seleccionado -->
-                        <button class="btn btn-info mt-2" type="button" (click)="anyadirCurso()">Seleccionar Curso</button>
-                    </div>
-            
-                    <!-- Aquí es donde movemos la imagen box a la derecha -->
-                    <div class="col-md-6">
-                        <div class="image-box">
-                            <h5>Cursos Seleccionados</h5>
-                            <ul>
-                                <!-- Mostramos la lista de cursos seleccionados -->
-                                <li *ngFor="let item of cursosSeleccionados; let i = index" class="mb-2">
-                                    {{ item.nombre }}
-                                    <!-- Botón de eliminar (X) -->
-                                    <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarCurso(i)">
-                                        X
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <button class="btn btn-warning mt-3" type="button" (click)="anyadirModulo()"
-                        [disabled]=" !modules || cursosSeleccionados.length == 0">Añadir Modulo</button>
-
+                <div class="mb-3">
+                    <label>Seleccionar Modulos</label>
+                    <select [(ngModel)]="modules" name="modules" class="form-control">
+                        <option value="" disabled selected>Selecciona una Meta</option>
+                        <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.id }} - {{ item.nombre }} - {{item.clase.id}}
+                        </option>
+                    </select>
                 </div>
+                <button class="btn btn-info" type="button" (click)="anyadirModulo()">Añadir Meta</button>
             
                 <!-- Fila para mostrar los Módulos Seleccionados -->
                 <div class="row mt-4">

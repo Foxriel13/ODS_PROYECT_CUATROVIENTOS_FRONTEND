@@ -32,7 +32,7 @@ export class CrearIniciativaComponent implements OnInit {
   titulo: string = '';
   nombre: string = '';
   producto: string = '';
-  redes_sociales: string = ';'
+  redes_sociales: string = '';
   descripcion: string = "";
   contratante: string = '';
   equipo: string = '';

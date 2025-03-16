@@ -1,39 +1,166 @@
-/* menu.component.scss */
+/* @keyframes para animación de escribir y borrar */
+@keyframes typing {
+  0% {
+    width: 0;
+  }
 
+  50% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+/* Estilos generales del contenedor del menú */
 .menu-container {
-    position: relative;
-    width: 100%;
-    height: 680px; /* Puedes ajustar la altura según lo necesites */
+  position: relative;
+  width: 100%;
+  height: 600px;
+  /* Menor altura para hacer el contenedor más pequeño */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  z-index: 2;
+  flex-direction: column;
+  /* Añadido para alinear verticalmente el texto y la imagen */
+}
+
+/* Estilo del fondo con la imagen */
+.menu-background {
+  background-image: url('/Navbar_img/fondoMenu.jpg');
+  /* Cambia la URL de la imagen según corresponda */
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  filter: brightness(50%);
+  /* Desvanece un poco la imagen para mayor legibilidad */
+}
+
+/* Capa de sombra para oscurecer la imagen */
+.menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Oscurece la imagen con una capa semi-transparente */
+  z-index: 1;
+}
+
+/* Estilo para el texto que se "escribe" y "borra" */
+.menu-text {
+  position: relative;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  width: 0;
+  white-space: nowrap;
+  animation: typing 6s steps(40) infinite;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+/* Para los títulos y párrafos, y para hacer la fuente más grande */
+.menu-text h1 {
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+.menu-text p {
+  margin: 10px 0 0;
+  font-size: 1.5rem;
+}
+
+/* Estilos para la imagen debajo del texto */
+.menu-image {
+  position: relative;
+  /* Ancho automático para mantener las proporciones */
+  width: 100%;
+  max-width: 300px;
+  /* Tamaño fijo más pequeño */
+  margin-top: 20px;
+  /* Espacio entre el texto y la imagen */
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+/* Media Queries para hacer que sea responsive */
+@media (max-width: 1200px) {
+  .menu-text h1 {
+    font-size: 3.5rem;
   }
-  
-  .menu-background {
-    background-image: url('/Navbar_img/fondoMenu.jpg'); /* Cambia la URL por la imagen de fondo que desees */
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; /* Asegura que ocupe toda la altura */
-    filter: brightness(50%); /* Desvanece la imagen */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+  .menu-text p {
+    font-size: 1.3rem;
   }
-  
-  .menu-text {
-    text-align: center;
-    color: white;
-    font-family: 'Arial', sans-serif;
+
+  .menu-image img {
+    max-width: 180px;
+    /* Ajuste de tamaño en pantallas grandes */
   }
-  
+}
+
+@media (max-width: 992px) {
   .menu-text h1 {
     font-size: 3rem;
-    font-weight: bold;
   }
-  
+
   .menu-text p {
     font-size: 1.2rem;
-    margin-top: 10px;
   }
-  
+
+  .menu-image img {
+    max-width: 150px;
+    /* Ajuste para pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-container {
+    height: 400px;
+  }
+
+  .menu-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .menu-text p {
+    font-size: 1.1rem;
+  }
+
+  .menu-image img {
+    max-width: 120px;
+    /* Ajuste para pantallas más pequeñas */
+  }
+}
+
+@media (max-width: 576px) {
+  .menu-container {
+    height: 350px;
+  }
+
+  .menu-text h1 {
+    font-size: 2rem;
+  }
+
+  .menu-text p {
+    font-size: 1rem;
+  }
+
+  .menu-image img {
+    max-width: 100px;
+    /* Ajuste más pequeño en dispositivos móviles */
+  }
+}

@@ -9,39 +9,55 @@
                 <button type="button" class="btn-close btn-close-white" (click)="close()"></button>
             </div>
             <div class="modal-body bg-light">
+                <!-- Sección de Fecha -->
                 <div class="mb-3 d-flex align-items-center">
                     <h6 class="fw-bold me-2">Fecha:</h6>
-                    <span><i class="bi bi-calendar"></i> {{iniciativa?.fecha_inicio}} - {{iniciativa?.fecha_fin}}</span>
+                    <span><i class="bi bi-calendar-event me-2"></i> {{iniciativa?.fecha_inicio}} -
+                        {{iniciativa?.fecha_fin}}</span>
                 </div>
+
+                <!-- Sección de Módulos -->
                 <div class="mb-3">
                     <h6 class="fw-bold">Módulos implicados:</h6>
                     <ng-container *ngFor="let modulo of iniciativa?.modulos">
-                        <span class="badge bg-info text-dark">{{modulo?.nombre}}</span>
+                        <span class="badge bg-info text-dark"><i class="bi bi-puzzle me-1"></i>{{modulo?.nombre}}</span>
                     </ng-container>
                 </div>
+
+                <!-- Sección de Horas -->
                 <div class="mb-3">
                     <h6 class="fw-bold">Horas:</h6>
-                    <span class="badge bg-primary text-white">{{iniciativa?.horas}}H</span>
+                    <span class="badge bg-primary text-white"><i
+                            class="bi bi-clock me-1"></i>{{iniciativa?.horas}}H</span>
                 </div>
+
+                <!-- Sección de Contratante -->
                 <div class="mb-3">
                     <h6 class="fw-bold">Contratante:</h6>
                     <ng-container *ngFor="let entidad of iniciativa?.entidades_externas">
-                        <span class="badge bg-secondary text-white">{{entidad?.nombre}}</span>
+                        <span class="badge bg-secondary text-white"><i
+                                class="bi bi-building me-1"></i>{{entidad?.nombre}}</span>
                     </ng-container>
                 </div>
+
+                <!-- Sección de Equipo Educativo -->
                 <div class="mb-3">
                     <h6 class="fw-bold">Equipo educativo del proyecto:</h6>
                     <ng-container *ngFor="let profesor of iniciativa?.profesores">
-                        <span class="badge bg-info text-dark">{{profesor?.nombre}}</span>
+                        <span class="badge bg-info text-dark"><i
+                                class="bi bi-person me-1"></i>{{profesor?.nombre}}</span>
                     </ng-container>
                 </div>
+
+                <!-- Sección de Producto Final -->
                 <div class="mb-3">
                     <h6 class="fw-bold">Producto final:</h6>
                     <p class="text-muted">
-                        {{iniciativa?.explicacion}}
+                        <i class="bi bi-card-text me-2"></i>{{iniciativa?.explicacion}}
                     </p>
                 </div>
 
+                <!-- Sección de ODS -->
                 <div class="mb-3">
                     <h6 class="fw-bold">Metas de los ODS implicadas:</h6>
                     <table class="table table-bordered table-striped">
@@ -53,12 +69,14 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let meta of iniciativa?.metas">
-                                <td>{{meta?.descripcion}}</td>
-                                <td>{{meta?.ods?.nombre}}</td>
+                                <td><i class="bi bi-check-circle me-1"></i>{{meta?.descripcion}}</td>
+                                <td><i class="bi bi-globe2 me-1"></i>{{meta?.ods?.nombre}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Año lectivo -->
                 <div class="text-end fw-bold">{{iniciativa?.anyo_lectivo}}</div>
             </div>
             <div class="modal-footer bg-primary">

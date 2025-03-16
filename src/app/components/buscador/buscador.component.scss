@@ -1,0 +1,31 @@
+// Cambiar el fondo del contenedor
+.container {
+    .row {
+        background-color: #c2c4ed !important;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+// Personalizar los botones
+.btn-blue {
+    background-color: #0056b3; // Azul oscuro
+    color: white;
+    border: none;
+
+    &:hover {
+        background-color: #003d82; // Azul más oscuro al pasar el mouse
+    }
+}
+
+// Personalizar los inputs y selects
+.form-control,
+.form-select {
+    border-color: #0056b3; // Borde azul
+
+    &:focus {
+        border-color: #003d82; // Borde más oscuro al enfocar
+        box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+    }
+}

@@ -11,7 +11,7 @@ import { Ods } from '../../models/ods.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './buscador.component.html',
-  styleUrls: ['./buscador.component.css']
+  styleUrls: ['./buscador.component.scss']
 })
 export class BuscadorComponent {
 
@@ -61,4 +61,19 @@ export class BuscadorComponent {
       fechaRegistro: this.fechaRegistro // Se incluye fechaRegistro en el filtro
     });
   }
+  limpiarFiltros(): void {
+    this.curso = '';
+    this.ods = '';
+    this.nombre = '';
+    this.fechaRegistro = '';
+
+    // Emitir los cambios de filtros para actualizar la vista
+    this.filtersChanged.emit({
+      curso: this.curso,
+      ods: this.ods,
+      nombre: this.nombre,
+      fechaRegistro: this.fechaRegistro
+    });
+  }
+
 }

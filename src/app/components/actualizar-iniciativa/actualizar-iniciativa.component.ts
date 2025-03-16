@@ -502,18 +502,14 @@ export class ActualizarIniciativaComponent {
     this.mas_comentarios = this.iniciativa.mas_comentarios;
     this.redes_sociales = this.iniciativa.redes_sociales;
 
-    // ✅ Cargar listas de Metas, Profesores, Entidades y Módulos
     this.metasSeleccionadas = this.iniciativa.metas || [];
     this.profesoresSeleccionados = this.iniciativa.profesores || [];
     this.entidadesSeleccionados = this.iniciativa.entidades_externas || [];
     this.moduloSeleccionados = this.iniciativa.modulos || [];
 }
-
   formatDate(dateString: string): string {
     return dateString.split(" ")[0]; // Extract only "yyyy-MM-dd"
   }
-  
-  
   confirmarActualizacion() {
     const modalElement = document.getElementById('confirmacionModal');
     if (modalElement) {
@@ -559,7 +555,7 @@ export class ActualizarIniciativaComponent {
 
     // Construir el objeto de la iniciativa con las propiedades correctas
     let iniciativa: Iniciativas = {
-        id: 0,  // Asegúrate de tener el id para la actualización
+        id: this.iniciativa.id,  // Asegúrate de tener el id para la actualización
         tipo: this.titulo,
         horas: this.horas,
         nombre: this.nombre,
@@ -617,8 +613,6 @@ export class ActualizarIniciativaComponent {
         }
     );
 }
-
-
 
   showToast() {
     this.toastVisible = true;

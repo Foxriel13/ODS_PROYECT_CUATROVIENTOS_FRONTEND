@@ -87,13 +87,13 @@ export class IniciativasService {
     }
 
     return of(filteredIniciativas); // Devolvemos los datos como un Observable
-  
+
   }
 
   //Post
   createIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
     console.log(iniciativa);
-  
+
     // Creamos el objeto que será enviado en el cuerpo del POST
     const requestBody = {
       tipo: iniciativa.tipo.toString(),
@@ -113,9 +113,9 @@ export class IniciativasService {
       entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
       modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
     };
-  
+
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+
     return this.http.post<Iniciativas>(this.apiUrl, requestBody, { headers }).pipe(
       tap(data => {
         console.log('Iniciativa creada:', data);
@@ -127,56 +127,57 @@ export class IniciativasService {
       })
     );
   }
-  
+
   //Put
   updateIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
     console.log(iniciativa);
 
     // Creamos el objeto que será enviado en el cuerpo del PUT
     const requestBody = {
-        tipo: iniciativa.tipo.toString(),
-        horas: iniciativa.horas.toString(),  // Aseguramos que horas sea un número
-        nombre: iniciativa.nombre.toString(),
-        explicacion: iniciativa.explicacion.toString(),
-        fecha_inicio: iniciativa.fecha_inicio.toString(),  // Asegúrate de formatear las fechas correctamente
-        fecha_fin: iniciativa.fecha_fin.toString(),  // Asegúrate de formatear las fechas correctamente
-        eliminado: iniciativa.eliminado,  // Asegúrate de que sea un booleano (true o false)
-        innovador: iniciativa.innovador,  // Asegúrate de que sea un booleano (true o false)
-        anyo_lectivo: iniciativa.anyo_lectivo.toString(),
-        imagen: iniciativa.imagen.toString(),
-        mas_comentarios: iniciativa.mas_comentarios.toString(),  // Si la API lo espera, agrega este campo también
-        redes_sociales: Array.isArray(iniciativa.redes_sociales) ? iniciativa.redes_sociales : [iniciativa.redes_sociales],  // Asegúrate de que sea un array
-        metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
-        profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
-        entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
-        modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
+      id: iniciativa.id,
+      tipo: iniciativa.tipo.toString(),
+      horas: iniciativa.horas.toString(),  // Aseguramos que horas sea un número
+      nombre: iniciativa.nombre.toString(),
+      explicacion: iniciativa.explicacion.toString(),
+      fecha_inicio: iniciativa.fecha_inicio.toString(),  // Asegúrate de formatear las fechas correctamente
+      fecha_fin: iniciativa.fecha_fin.toString(),  // Asegúrate de formatear las fechas correctamente
+      eliminado: iniciativa.eliminado,  // Asegúrate de que sea un booleano (true o false)
+      innovador: iniciativa.innovador,  // Asegúrate de que sea un booleano (true o false)
+      anyo_lectivo: iniciativa.anyo_lectivo.toString(),
+      imagen: iniciativa.imagen.toString(),
+      mas_comentarios: iniciativa.mas_comentarios.toString(),  // Si la API lo espera, agrega este campo también
+      redes_sociales: Array.isArray(iniciativa.redes_sociales) ? iniciativa.redes_sociales : [iniciativa.redes_sociales],  // Asegúrate de que sea un array
+      metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
+      profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
+      entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
+      modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
     };
     console.log(requestBody.metas)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     console.log(`${this.apiUrl}/${iniciativa.id}`);
     return this.http.put<Iniciativas>(`${this.apiUrl}/${iniciativa.id}`, requestBody, { headers }).pipe(
-        tap(data => {
-            console.log('Iniciativa actualizada:', data);
-            // Si tienes un array local donde guardas las iniciativas, puedes actualizarlo:
-            const index = this.iniciativas.findIndex(i => i.id === iniciativa.id);
-            if (index !== -1) {
-                this.iniciativas[index] = data;  // Reemplaza la iniciativa en el array con los datos actualizados
-            }
-        }),
-        catchError(error => {
-            console.error('Error en la solicitud PUT:', error);
-            return throwError(error);
-        })
+      tap(data => {
+        console.log('Iniciativa actualizada:', data);
+        // Si tienes un array local donde guardas las iniciativas, puedes actualizarlo:
+        const index = this.iniciativas.findIndex(i => i.id === iniciativa.id);
+        if (index !== -1) {
+          this.iniciativas[index] = data;  // Reemplaza la iniciativa en el array con los datos actualizados
+        }
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud PUT:', error);
+        return throwError(error);
+      })
     );
-}
+  }
 
-  
-  
+
+
 
   deleteIniciativa(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;  // Formamos la URL con el id de la iniciativa
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+
     // Realizamos la solicitud DELETE
     return this.http.delete<void>(url, { headers }).pipe(
       tap(() => {
@@ -188,6 +189,4 @@ export class IniciativasService {
       })
     );
   }
-
-
 }

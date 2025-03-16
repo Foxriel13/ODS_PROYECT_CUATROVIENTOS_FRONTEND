@@ -1,59 +1,85 @@
-# OdsProyectoFrontend
+# Proyecto: Iniciativas Cuatrovientos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+Este proyecto es una aplicación web desarrollada en **Angular**, que muestra las iniciativas llevadas a cabo por el Instituto Cuatrovientos en relación con las metas de los Objetivos de Desarrollo Sostenible (ODS). La aplicación se conecta con un backend desarrollado en **Symfony** a través de CORS para gestionar los datos de las iniciativas.
 
-## Development server
+## Tecnologías Utilizadas
 
-To start a local development server, run:
+- **Frontend**: Angular, TypeScript, SCSS, Bootstrap
+- **Backend**: Symfony
+- **Comunicación**: CORS para integrar Angular con Symfony
 
-```bash
+## Estructura del Proyecto
+
+```
+app/
+├── components/              # Componentes reutilizables
+│   ├── actualizar-iniciativa/
+│   ├── buscador/
+│   ├── crear-iniciativa/
+│   ├── eliminar-iniciativa/
+│   ├── footer/
+│   ├── iniciativas/
+│   │   ├── card-iniciativa/
+│   │   ├── modal-iniciativa/
+│   │   ├── iniciativas.component.html
+│   │   ├── iniciativas.component.scss
+│   │   ├── iniciativas.component.spec.ts
+│   │   ├── iniciativas.component.ts
+│   ├── log-in/
+│   ├── menu/
+│   ├── modificar/
+│   ├── navbar/
+│   ├── navbar-form-crear/
+│
+├── models/                  # Modelos de datos
+├── services/                # Servicios para consumir la API
+│   ├── serviceIniciativasMostrar.ts
+│   ├── serviceCursos.ts
+│   ├── serviceDimension.ts
+│   ├── serviceEntidades.ts
+│   ├── serviceMetas.ts
+│   ├── serviceModulos.ts
+│   ├── serviceOds.ts
+│   ├── serviceProfesores.ts
+```
+
+## Instalación y Configuración
+
+### 1. Clonar el repositorio
+```sh
+git clone <URL_DEL_REPO>
+cd nombre-del-proyecto
+```
+
+### 2. Instalar dependencias
+```sh
+npm install
+```
+
+### 3. Configurar CORS en Symfony
+En el backend, asegurarse de permitir el acceso desde el frontend:
+```php
+// En el archivo config/packages/cors.yaml
+nelmio_cors:
+    paths:
+        '^/api/':
+            allow_origin: ['http://localhost:4200']
+            allow_methods: ['GET', 'POST', 'PUT', 'DELETE']
+            allow_headers: ['Content-Type', 'Authorization']
+```
+
+### 4. Ejecutar el proyecto
+```sh
 ng serve
 ```
+Acceder a: [http://localhost:4200](http://localhost:4200)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Funcionalidades Principales
 
-## Code scaffolding
+- **Búsqueda y filtrado** de iniciativas por curso, ODS y fechas.
+- **Gestión de iniciativas** (creación, edición y eliminación).
+- **Interfaz responsive** utilizando Bootstrap y SCSS.
+- **Integración con API Symfony** para obtener y gestionar datos.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -60,7 +60,7 @@ export class CrearIniciativaComponent implements OnInit {
   metasSeleccionadas: Metas [] =[];
   moduloSeleccionados: Modulos [] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
-    id: 0,
+    idOds: 0,
     nombre: '',
     dimension: {
       id: 0,
@@ -87,7 +87,7 @@ export class CrearIniciativaComponent implements OnInit {
     id: 0,
     descripcion: '',
     ods: {
-      id: 0,
+      idOds: 0,
       nombre: '',
       dimension: {
         id: 0,
@@ -217,7 +217,7 @@ export class CrearIniciativaComponent implements OnInit {
   }
   
   anyadirOds(): void {
-    const selectedOds = this.odsList.find(item => item.id == this.ods.id);
+    const selectedOds = this.odsList.find(item => item.idOds == this.ods.idOds);
   
     if (selectedOds) {
       // Si ya hay un ODS seleccionado, lo reemplazamos
@@ -354,6 +354,7 @@ export class CrearIniciativaComponent implements OnInit {
   
 
   guardarIniciativa(form: any): void {
+
     if (form.invalid) {
       return;
     }
@@ -368,7 +369,18 @@ export class CrearIniciativaComponent implements OnInit {
     for (let i = 0; i < this.metasSeleccionadas.length; i++) {
       listaMetas.push(this.metasSeleccionadas[i].id)
     }
-  
+    console.log("Antes de crear iniciativa"); // 🔍 Verificar si llega aquí
+
+    console.log("this.titulo:", this.titulo);
+    console.log("this.horas:", this.horas);
+    console.log("this.nombre:", this.nombre);
+    console.log("this.fechaInicio:", this.fechaInicio);
+    console.log("this.fechaFin:", this.fechaFin);
+    console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
+    console.log("this.profesoresSeleccionados:", this.profesoresSeleccionados);
+    console.log("this.entidadesSeleccionados:", this.entidadesSeleccionados);
+    console.log("this.moduloSeleccionados:", this.moduloSeleccionados);
+
     // Construir el objeto de la iniciativa, asegurándonos de que las propiedades estén en camelCase
     let iniciativa: Iniciativas = {
       id: 0,
@@ -389,7 +401,7 @@ export class CrearIniciativaComponent implements OnInit {
         id: meta.id,
         descripcion: meta.descripcion,
         ods: {
-          id: meta.ods.id,
+          idOds: meta.ods.idOds,
           nombre: meta.ods.nombre,
           dimension: {
             id: meta.ods.dimension.id,
@@ -397,6 +409,7 @@ export class CrearIniciativaComponent implements OnInit {
           }
         }
       })),
+            
       profesores: this.profesoresSeleccionados.map(profesor => ({
         id: profesor.id,
         nombre: profesor.nombre
@@ -414,7 +427,9 @@ export class CrearIniciativaComponent implements OnInit {
         }
       }))
     };
-  
+
+    console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
+
     // Llamada al servicio para crear la iniciativa
     this.iniciativasService.createIniciativa(iniciativa).subscribe(
       response => {
@@ -428,7 +443,6 @@ export class CrearIniciativaComponent implements OnInit {
     );
   }
   
-  
   modalVisible = false;
   abrirModal(meta: any): void {
     this.metaSeleccionada = meta;
@@ -440,5 +454,3 @@ export class CrearIniciativaComponent implements OnInit {
     this.modalVisible = false;  // Cambiar la visibilidad del modal a false
   }
 }
-
-

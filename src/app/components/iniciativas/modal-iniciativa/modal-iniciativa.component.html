@@ -1,75 +1,69 @@
-<!-- Modal -->
 <div class="modal show d-block" *ngIf="isOpen" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold">{{iniciativa?.nombre}}</h5>
-                <button type="button" class="btn-close" (click)="close()"></button>
+            <div class="modal-header bg-primary text-white">
+                <div>
+                    <h5 class="modal-title fw-bold mb-0">{{iniciativa?.tipo}}</h5>
+                    <h6 class="modal-title">{{iniciativa?.nombre}}</h6>
+                </div>
+                <button type="button" class="btn-close btn-close-white" (click)="close()"></button>
             </div>
-
-            <div class="modal-body">
-                
-
+            <div class="modal-body bg-light">
                 <div class="mb-3 d-flex align-items-center">
                     <h6 class="fw-bold me-2">Fecha:</h6>
                     <span><i class="bi bi-calendar"></i> {{iniciativa?.fecha_inicio}} - {{iniciativa?.fecha_fin}}</span>
                 </div>
-
                 <div class="mb-3">
-                    <h6 class="fw-bold">Módulos implicados</h6>
+                    <h6 class="fw-bold">Módulos implicados:</h6>
                     <ng-container *ngFor="let modulo of iniciativa?.modulos">
-                        <span class="badge bg-dark">{{iniciativa?.modulos}}</span>
+                        <span class="badge bg-info text-dark">{{modulo?.nombre}}</span>
                     </ng-container>
                 </div>
-                <!-- el servicio y modulo de iniciativa está mal, luego hay que modificarlo-->
                 <div class="mb-3">
-                        <h6 class="fw-bold">Horas</h6>
-                        <span class="badge bg-info text-dark">{{iniciativa?.horas}}</span>
-                    </div> 
+                    <h6 class="fw-bold">Horas:</h6>
+                    <span class="badge bg-primary text-white">{{iniciativa?.horas}}H</span>
+                </div>
                 <div class="mb-3">
-                    <h6 class="fw-bold">Contratante del proyecto</h6>
-                    <ng-container *ngFor="let entidad of iniciativa?.entidades_Externas"> 
-                        <span class="badge bg-dark">{{iniciativa?.entidades_Externas}}</span>
+                    <h6 class="fw-bold">Contratante:</h6>
+                    <ng-container *ngFor="let entidad of iniciativa?.entidades_externas">
+                        <span class="badge bg-secondary text-white">{{entidad?.nombre}}</span>
                     </ng-container>
                 </div>
-
-
                 <div class="mb-3">
-                    <h6 class="fw-bold">Equipo educativo del proyecto</h6>
+                    <h6 class="fw-bold">Equipo educativo del proyecto:</h6>
                     <ng-container *ngFor="let profesor of iniciativa?.profesores">
-                        <span class="badge bg-dark">{{iniciativa?.profesores}}</span>
+                        <span class="badge bg-info text-dark">{{profesor?.nombre}}</span>
                     </ng-container>
                 </div>
-
                 <div class="mb-3">
-                    <h6 class="fw-bold">Producto final</h6>
+                    <h6 class="fw-bold">Producto final:</h6>
                     <p class="text-muted">
                         {{iniciativa?.explicacion}}
                     </p>
                 </div>
 
                 <div class="mb-3">
-                    <h6 class="fw-bold">Metas de los ODS implicadas</h6>
-                    <table class="table table-bordered">
-                        <thead>
+                    <h6 class="fw-bold">Metas de los ODS implicadas:</h6>
+                    <table class="table table-bordered table-striped">
+                        <thead class="bg-primary text-white">
                             <tr>
-                                <th>Metas</th>
+                                <th>Meta</th>
+                                <th>ODS</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let meta of iniciativa?.metas">
-                                <td>{{meta}}</td>   
+                                <td>{{meta?.descripcion}}</td>
+                                <td>{{meta?.ods?.nombre}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <div class="text-end fw-bold">{{iniciativa?.anyo_lectivo}}</div>
             </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary">Cerrar</button>
+            <div class="modal-footer bg-primary">
+                <button class="btn btn-secondary" (click)="close()">Cerrar</button>
             </div>
-
         </div>
     </div>
-
 </div>

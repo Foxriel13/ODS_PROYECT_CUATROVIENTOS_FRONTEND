@@ -1,4 +1,6 @@
+
 export class IniciativasCrear {
+    
     id: number;
     tipo: string;
     horas: number;
@@ -15,7 +17,7 @@ export class IniciativasCrear {
     mas_comentarios: string;
     metas: number[];  // Solo ids de metas
     profesores: number[];  // Solo ids de profesores
-    entidades_Externas: number[];  // Solo ids de entidades externas
+    entidades_externas: number[];  // Solo ids de entidades externas
     modulos: number[];  // Solo ids de módulos
 
     // Constructor para inicializar la clase
@@ -35,10 +37,11 @@ export class IniciativasCrear {
         mas_comentarios:string,
         metas: number[],  // Ahora es un array de ids
         profesores: number[],  // Ahora es un array de ids
-        entidades_Externas: number[],  // Ahora es un array de ids
+        entidades_externas: number[],  // Ahora es un array de ids
         modulos: number[],  // Ahora es un array de ids
         innovador: boolean  // Se añade el parámetro 'innovador'
     ) {
+
         this.id = id;
         this.tipo = tipo;
         this.horas = horas;
@@ -54,7 +57,7 @@ export class IniciativasCrear {
         this.mas_comentarios = mas_comentarios;
         this.metas = metas;
         this.profesores = profesores;
-        this.entidades_Externas = entidades_Externas;
+        this.entidades_externas = entidades_externas;
         this.modulos = modulos;
         this.innovador = innovador;
     }

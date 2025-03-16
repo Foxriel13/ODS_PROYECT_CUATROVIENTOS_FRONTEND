@@ -43,10 +43,10 @@ export class IniciativasService {
       filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
         // Filtramos por los ODS dentro de las metas
         iniciativa.metas.some(meta => {
-          if (Array.isArray(meta.idOds)) {
-            return meta.idOds.some((ods: any) => ods.nombre.toLowerCase().includes(filters.ods.toLowerCase()));
-          } else if (meta.idOds && meta.idOds.nombre) {
-            return meta.idOds.nombre.toLowerCase().includes(filters.ods.toLowerCase());
+          if (Array.isArray(meta.ods)) {
+            return meta.ods.some((ods: any) => ods.nombre.toLowerCase().includes(filters.ods.toLowerCase()));
+          } else if (meta.ods && meta.ods.nombre) {
+            return meta.ods.nombre.toLowerCase().includes(filters.ods.toLowerCase());
           }
           return false;
         })
@@ -86,9 +86,8 @@ export class IniciativasService {
       );
     }
 
-
-
     return of(filteredIniciativas); // Devolvemos los datos como un Observable
+  
   }
 
   //Post
@@ -111,7 +110,7 @@ export class IniciativasService {
       redes_sociales: Array.isArray(iniciativa.redes_sociales) ? iniciativa.redes_sociales : [iniciativa.redes_sociales],  // Asegúrate de que sea un array
       metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
       profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
-      entidades_externas: iniciativa.entidades_Externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
+      entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
       modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
     };
   

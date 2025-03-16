@@ -19,7 +19,7 @@ export class Iniciativas {
     imagen: string;
     metas: Metas[];  // Ahora está correctamentxe tipado como un array de Metas
     profesores: Profesores[];  // Supongo que debería ser un array de strings
-    entidades_Externas: entidadesExternas[];  // Supongo que debería ser un array de strings
+    entidades_externas: entidadesExternas[];  // Supongo que debería ser un array de strings
     modulos: Modulos[];  // Supongo que debería ser un array de strings
     mas_comentarios:String;
 
@@ -39,7 +39,7 @@ export class Iniciativas {
         imagen: string,
         metas: Metas[],
         profesores: Profesores[],  // Tipificado correctamente
-        entidades_Externas: entidadesExternas[],  // Tipificado correctamente
+        entidades_externas: entidadesExternas[],  // Tipificado correctamente
         modulos: Modulos[],  // Tipificado correctamente
         innovador: boolean,  // Se añade el parámetro 'innovador'
         mas_comentarios:string
@@ -58,10 +58,9 @@ export class Iniciativas {
         this.imagen = imagen;
         this.metas = metas;
         this.profesores = profesores;
-        this.entidades_Externas = entidades_Externas;
+        this.entidades_externas = entidades_externas;
         this.modulos = modulos;
         this.innovador = innovador;  // Inicializa el campo 'innovador'
         this.mas_comentarios = mas_comentarios;
     }
-    
 }

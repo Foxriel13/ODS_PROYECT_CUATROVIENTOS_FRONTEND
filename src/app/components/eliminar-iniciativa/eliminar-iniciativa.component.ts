@@ -35,7 +35,7 @@ export class EliminarIniciativaComponent {
     imagen: '',
     metas: [],
     profesores: [],
-    entidades_Externas: [],
+    entidades_externas: [],
     modulos: [],
     mas_comentarios: ''
   };

@@ -1,4 +1,5 @@
 import { Curso } from './curso.model'
+
 export class Modulos {
     id: number;  // Identificador numérico
     nombre: string;  // Nombre del ODS
@@ -11,3 +12,6 @@ export class Modulos {
         this.clase = clase;
     }
 }
+
+
+

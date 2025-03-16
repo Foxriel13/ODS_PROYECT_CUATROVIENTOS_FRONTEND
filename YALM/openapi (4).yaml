@@ -173,7 +173,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    IDODS:
+                    ods:
                       type: integer
                     CODIGOMETAS:
                       type: string
@@ -188,7 +188,7 @@ paths:
             schema:
               type: object
               properties:
-                IDODS:
+                ods:
                   type: integer
                 CODIGOMETAS:
                   type: string
@@ -210,7 +210,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    IDODS:
+                    ods:
                       type: integer
                     NOMBRE:
                       type: string
@@ -274,7 +274,7 @@ components:
     Meta:
       type: object
       properties:
-        IDODS:
+        ods:
           type: integer
         CODIGOMETAS:
           type: string
@@ -283,7 +283,7 @@ components:
     ODS:
       type: object
       properties:
-        IDODS:
+        ods:
           type: integer
         NOMBRE:
           type: string

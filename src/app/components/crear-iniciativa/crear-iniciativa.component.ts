@@ -86,7 +86,7 @@ export class CrearIniciativaComponent implements OnInit {
   Metas: Metas ={
     id: 0,
     descripcion: '',
-    idOds: {
+    ods: {
       id: 0,
       nombre: '',
       dimension: {
@@ -388,12 +388,12 @@ export class CrearIniciativaComponent implements OnInit {
       metas: this.metasSeleccionadas.map(meta => ({
         id: meta.id,
         descripcion: meta.descripcion,
-        idOds: {
-          id: meta.idOds.id,
-          nombre: meta.idOds.nombre,
+        ods: {
+          id: meta.ods.id,
+          nombre: meta.ods.nombre,
           dimension: {
-            id: meta.idOds.dimension.id,
-            nombre: meta.idOds.dimension.nombre
+            id: meta.ods.dimension.id,
+            nombre: meta.ods.dimension.nombre
           }
         }
       })),
@@ -401,7 +401,7 @@ export class CrearIniciativaComponent implements OnInit {
         id: profesor.id,
         nombre: profesor.nombre
       })),
-      entidades_Externas: this.entidadesSeleccionados.map(entidad => ({
+      entidades_externas: this.entidadesSeleccionados.map(entidad => ({
         id: entidad.id,
         nombre: entidad.nombre
       })),

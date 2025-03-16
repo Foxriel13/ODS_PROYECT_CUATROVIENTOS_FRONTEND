@@ -1,3 +1,4 @@
+
 export class Profesores {
     id: number;  // Definido como número si es un identificador
     nombre: string;  // El nombre de la dimensión

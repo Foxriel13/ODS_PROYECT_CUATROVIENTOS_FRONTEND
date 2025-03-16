@@ -81,7 +81,7 @@ export class ActualizarIniciativaComponent {
     metaSelect: Metas ={
       id: 0,
       descripcion: '',
-      idOds: {
+      ods: {
         id: 0,
         nombre: '',
         dimension: {
@@ -153,12 +153,12 @@ export class ActualizarIniciativaComponent {
       this.metasSeleccionadas = this.iniciativasList[this.idIniciativa].metas.map(meta => ({
         id: meta.id,
         descripcion: meta.descripcion,
-        idOds: {
-          id: meta.idOds.id,
-          nombre: meta.idOds.nombre,
+        ods: {
+          id: meta.ods.id,
+          nombre: meta.ods.nombre,
           dimension: {
-            id: meta.idOds.dimension.id,
-            nombre: meta.idOds.dimension.nombre
+            id: meta.ods.dimension.id,
+            nombre: meta.ods.dimension.nombre
           }
         }
       }))
@@ -166,7 +166,7 @@ export class ActualizarIniciativaComponent {
         id: profesor.id,
         nombre: profesor.nombre
       }))
-      this.entidadesSeleccionados = this.iniciativasList[this.idIniciativa].entidades_Externas.map(entidad => ({
+      this.entidadesSeleccionados = this.iniciativasList[this.idIniciativa].entidades_externas.map(entidad => ({
         id: entidad.id,
         nombre: entidad.nombre
       }))
@@ -323,7 +323,7 @@ export class ActualizarIniciativaComponent {
        this.metaAyadir = {
         id: 0,
         descripcion: this.descripcion,
-        idOds: {
+        ods: {
           id: this.ods.id,
           nombre: this.ods.nombre,
           dimension: {
@@ -418,12 +418,12 @@ export class ActualizarIniciativaComponent {
         metas: this.metasSeleccionadas.map(meta => ({
           id: meta.id,
           descripcion: meta.descripcion,
-          idOds: {
-            id: meta.idOds.id,
-            nombre: meta.idOds.nombre,
+          ods: {
+            id: meta.ods.id,
+            nombre: meta.ods.nombre,
             dimension: {
-              id: meta.idOds.dimension.id,
-              nombre: meta.idOds.dimension.nombre
+              id: meta.ods.dimension.id,
+              nombre: meta.ods.dimension.nombre
             }
           }
         })),
@@ -431,7 +431,7 @@ export class ActualizarIniciativaComponent {
           id: profesor.id,
           nombre: profesor.nombre
         })),
-        entidades_Externas: this.entidadesSeleccionados.map(entidad => ({
+        entidades_externas: this.entidadesSeleccionados.map(entidad => ({
           id: entidad.id,
           nombre: entidad.nombre
         })),

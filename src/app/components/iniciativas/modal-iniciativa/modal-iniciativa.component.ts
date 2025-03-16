@@ -9,16 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './modal-iniciativa.component.scss'
 })
 export class ModalIniciativaComponent {
-  // titulo: string = "";
-  // contratante: string = "";
-  // equipoEducativo: string = "";
-  // fechaInicio: string = "";
-  // fechaFin: string = "";
-  // cursos: string[] = [];
-  // modulos: string[] = [];
-  // metas: string[] = [];
-  // producto: string = "";
-  // imagenUrl: string = "";
 
   isOpen = false;
 
@@ -28,7 +18,6 @@ export class ModalIniciativaComponent {
   constructor(private modalService: ModalService) {
     this.modalService.modalData$.subscribe((data) => {
       if (data) {
-        alert('ha entrado en el modal');
         this.iniciativa = data.iniciativa;
         this.isOpen = true;
       } else {

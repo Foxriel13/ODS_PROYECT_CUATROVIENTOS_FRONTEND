@@ -19,6 +19,8 @@ import { ServiceDimensionService } from '../../serviceDimension/service-dimensio
 import { Modulos } from '../../models/modulos.model';
 import { MetasService } from '../../serviceMetas/metas.service';
 import { ModulosService } from '../../serviceModulos/modulos.service';
+import * as bootstrap from 'bootstrap';
+
 
 @Component({
   selector: 'app-actualizar-iniciativa',
@@ -125,7 +127,8 @@ export class ActualizarIniciativaComponent {
   }
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
-
+  toastVisible: boolean = false;
+  loading: boolean = false;
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
@@ -488,9 +491,139 @@ export class ActualizarIniciativaComponent {
     var iniciativaActualizar = this.iniciativa;
     this.titulo = iniciativaActualizar.tipo
   }
-  onIniciativaChange(): void {
-    this.cargarDatos();
+  onChangeIniciativa(event: any) {
+    this.titulo = this.iniciativa.tipo;
+    this.horas = this.iniciativa.horas;
+    this.nombre = this.iniciativa.nombre;
+    this.producto = this.iniciativa.explicacion;
+    this.fechaInicio = this.formatDate(this.iniciativa.fecha_inicio);
+    this.fechaFin = this.formatDate(this.iniciativa.fecha_fin);
+    this.imagen = this.iniciativa.imagen;
+    this.mas_comentarios = this.iniciativa.mas_comentarios;
+    this.redes_sociales = this.iniciativa.redes_sociales;
+
+    // ✅ Cargar listas de Metas, Profesores, Entidades y Módulos
+    this.metasSeleccionadas = this.iniciativa.metas || [];
+    this.profesoresSeleccionados = this.iniciativa.profesores || [];
+    this.entidadesSeleccionados = this.iniciativa.entidades_externas || [];
+    this.moduloSeleccionados = this.iniciativa.modulos || [];
+}
+
+  formatDate(dateString: string): string {
+    return dateString.split(" ")[0]; // Extract only "yyyy-MM-dd"
+  }
+  
+  
+  confirmarActualizacion() {
+    const modalElement = document.getElementById('confirmacionModal');
+    if (modalElement) {
+      let modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+  actualizarIniciativaConfirmada() {
+    if (this.iniciativa && this.iniciativa.id) {
+      this.actualizarIniciativa(this.iniciativa.id);
+    } else {
+      console.warn("No hay una iniciativa seleccionada");
+    }
   }
 
-  
+  // Muestra el spinner mientras se realiza la petición para eliminar
+  actualizarIniciativa(form: any): void {
+    if (form.invalid) {
+        return;
+    }
+
+    const formattedDate = new Date(Date.now());
+    const day = String(formattedDate.getDate()).padStart(2, '0');
+    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+    const year = formattedDate.getFullYear();
+    const formattedDateString = `${year}-${month}-${day}`;
+
+    const listaMetas = []
+    for (let i = 0; i < this.metasSeleccionadas.length; i++) {
+        listaMetas.push(this.metasSeleccionadas[i].id);
+    }
+    console.log("Antes de actualizar iniciativa"); // 🔍 Verificar si llega aquí
+
+    console.log("this.titulo:", this.titulo);
+    console.log("this.horas:", this.horas);
+    console.log("this.nombre:", this.nombre);
+    console.log("this.fechaInicio:", this.fechaInicio);
+    console.log("this.fechaFin:", this.fechaFin);
+    console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
+    console.log("this.profesoresSeleccionados:", this.profesoresSeleccionados);
+    console.log("this.entidadesSeleccionados:", this.entidadesSeleccionados);
+    console.log("this.moduloSeleccionados:", this.moduloSeleccionados);
+
+    // Construir el objeto de la iniciativa con las propiedades correctas
+    let iniciativa: Iniciativas = {
+        id: 0,  // Asegúrate de tener el id para la actualización
+        tipo: this.titulo,
+        horas: this.horas,
+        nombre: this.nombre,
+        explicacion: this.producto,
+        redes_sociales: this.redes_sociales,
+        fecha_registro: formattedDateString,
+        fecha_inicio: this.fechaInicio,
+        fecha_fin: this.fechaFin,
+        anyo_lectivo: this.obtenerRangoAño(),
+        eliminado: false,
+        innovador: false,
+        mas_comentarios: this.mas_comentarios,
+        imagen: this.imagen,
+        metas: this.metasSeleccionadas.map(meta => ({
+            id: meta.id,  // Asegúrate de que metas contenga el id
+            descripcion: meta.descripcion,
+            ods: {
+                idOds: meta.ods.idOds,
+                nombre: meta.ods.nombre,
+                dimension: {
+                    id: meta.ods.dimension.id,
+                    nombre: meta.ods.dimension.nombre
+                }
+            }
+        })),
+        profesores: this.profesoresSeleccionados.map(profesor => ({
+            id: profesor.id,
+            nombre: profesor.nombre
+        })),
+        entidades_externas: this.entidadesSeleccionados.map(entidad => ({
+            id: entidad.id,
+            nombre: entidad.nombre
+        })),
+        modulos: this.moduloSeleccionados.map(modulo => ({
+            id: modulo.id,
+            nombre: modulo.nombre,
+            clase: {
+                id: modulo.clase.id,
+                nombre: modulo.clase.nombre
+            }
+        }))
+    };
+
+    console.log("Iniciativa a actualizar:", iniciativa);
+
+    // Llamada al servicio para actualizar la iniciativa con el PUT
+    this.iniciativasService.updateIniciativa(iniciativa).subscribe(
+        response => {
+            console.log('Iniciativa actualizada correctamente:', response);
+            // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
+        },
+        error => {
+            console.error('Error al actualizar la iniciativa:', error);
+            // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        }
+    );
+}
+
+
+
+  showToast() {
+    this.toastVisible = true;
+    setTimeout(() => {
+      this.toastVisible = false;
+    }, 3000);
+  }
 }

@@ -47,9 +47,10 @@ app/
 
 ### 1. Clonar el repositorio
 ```sh
-git clone <URL_DEL_REPO>
+git clone --branch Entrega1 --single-branch https://github.com/Foxriel13/ODS_PROYECT_CUATROVIENTOS_FRONTEND.git
 cd nombre-del-proyecto
 ```
+
 
 ### 2. Instalar dependencias
 ```sh

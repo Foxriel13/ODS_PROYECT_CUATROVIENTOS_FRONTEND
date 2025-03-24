@@ -281,8 +281,18 @@ export class ActualizarIniciativaComponent {
 
   anyadirProfesor(): void {
     const selectedProfe = this.ProfesoresList.find(item => item.id == this.profesor.id);
+    var listProfe = [];
+    for (let i = 0; i < this.profesoresSeleccionados.length; i++) {
+      let profeSeleccionada = this.profesoresSeleccionados[i];
+
+      let profeEncontrada = this.ProfesoresList.find(x => x.nombre === profeSeleccionada.nombre);
+
+      if (profeEncontrada) {
+        listProfe.push(profeEncontrada);
+      }
+    }
     if (selectedProfe) {
-      if (this.profesoresSeleccionados.some(item => item.id === selectedProfe.id)) {
+      if (listProfe.some(item => item.id === selectedProfe.id)) {
         alert('Este profesor ya está añadido.');
       } else {
         this.profesoresSeleccionados.push(selectedProfe);
@@ -294,8 +304,18 @@ export class ActualizarIniciativaComponent {
 
   anyadirEntidad(): void {
     const selectedEntidad = this.entidadesList.find(item => item.id == this.entidad.id);
+    var listEntidad = [];
+    for (let i = 0; i < this.entidadesSeleccionados.length; i++) {
+      let entidadSeleccionada = this.entidadesSeleccionados[i];
+
+      let entidadEncontrada = this.entidadesList.find(x => x.nombre === entidadSeleccionada.nombre);
+
+      if (entidadEncontrada) {
+        listEntidad.push(entidadEncontrada);
+      }
+    }
     if (selectedEntidad) {
-      if (this.entidadesSeleccionados.some(item => item.id === selectedEntidad.id)) {
+      if (listEntidad.some(item => item.id === selectedEntidad.id)) {
         alert('Esta entidad ya está añadida.');
       } else {
         this.entidadesSeleccionados.push(selectedEntidad);
@@ -306,8 +326,18 @@ export class ActualizarIniciativaComponent {
   }
   anyadirModulo() {
     const selectedModulo = this.ModulosList.find(item => item.id == this.modules.id);
+    var listModulos = [];
+    for (let i = 0; i < this.moduloSeleccionados.length; i++) {
+      let moduloSeleccionada = this.moduloSeleccionados[i];
+
+      let moduloEncontrada = this.ModulosList.find(x => x.nombre === moduloSeleccionada.nombre);
+
+      if (moduloEncontrada) {
+        listModulos.push(moduloEncontrada);
+      }
+    }
     if (selectedModulo) {
-      if (this.moduloSeleccionados.some(item => item.id === selectedModulo.id)) {
+      if (listModulos.some(item => item.id === selectedModulo.id)) {
         alert('Este Modulo ya está añadido.');
       } else {
         this.moduloSeleccionados.push(selectedModulo);
@@ -318,8 +348,19 @@ export class ActualizarIniciativaComponent {
  }
   anyadirMeta() {
      const selectedMeta = this.MetasList.find(item => item.id == this.Metas.id);
+     let listMetas = [];
+
+    for (let i = 0; i < this.metasSeleccionadas.length; i++) {
+      let metaSeleccionada = this.metasSeleccionadas[i];
+
+      let metaEncontrada = this.MetasList.find(x => x.descripcion === metaSeleccionada.descripcion);
+
+      if (metaEncontrada) {
+        listMetas.push(metaEncontrada);
+      }
+    }
     if (selectedMeta) {
-      if (this.metasSeleccionadas.some(item => item.id === selectedMeta.id)) {
+      if (listMetas.some(item => item.id === selectedMeta.id)) {
         alert('Esta Meta ya está añadido.');
       } else {
         this.metasSeleccionadas.push(selectedMeta);

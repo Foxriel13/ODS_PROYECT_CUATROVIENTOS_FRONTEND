@@ -552,6 +552,51 @@ export class ActualizarIniciativaComponent {
     console.log("this.profesoresSeleccionados:", this.profesoresSeleccionados);
     console.log("this.entidadesSeleccionados:", this.entidadesSeleccionados);
     console.log("this.moduloSeleccionados:", this.moduloSeleccionados);
+    let listMetas = [];
+
+    for (let i = 0; i < this.metasSeleccionadas.length; i++) {
+      let metaSeleccionada = this.metasSeleccionadas[i];
+
+      let metaEncontrada = this.MetasList.find(x => x.descripcion === metaSeleccionada.descripcion);
+
+      if (metaEncontrada) {
+        listMetas.push(metaEncontrada);
+      }
+    }
+
+    var listProfe = [];
+    for (let i = 0; i < this.profesoresSeleccionados.length; i++) {
+      let profeSeleccionada = this.profesoresSeleccionados[i];
+
+      let profeEncontrada = this.ProfesoresList.find(x => x.nombre === profeSeleccionada.nombre);
+
+      if (profeEncontrada) {
+        listProfe.push(profeEncontrada);
+      }
+    }
+
+    var listEntidad = [];
+    for (let i = 0; i < this.entidadesSeleccionados.length; i++) {
+      let entidadSeleccionada = this.entidadesSeleccionados[i];
+
+      let entidadEncontrada = this.entidadesList.find(x => x.nombre === entidadSeleccionada.nombre);
+
+      if (entidadEncontrada) {
+        listEntidad.push(entidadEncontrada);
+      }
+    }
+
+    var listModulos = [];
+    for (let i = 0; i < this.moduloSeleccionados.length; i++) {
+      let moduloSeleccionada = this.moduloSeleccionados[i];
+
+      let moduloEncontrada = this.ModulosList.find(x => x.nombre === moduloSeleccionada.nombre);
+
+      if (moduloEncontrada) {
+        listModulos.push(moduloEncontrada);
+      }
+    }
+
 
     // Construir el objeto de la iniciativa con las propiedades correctas
     let iniciativa: Iniciativas = {
@@ -569,34 +614,10 @@ export class ActualizarIniciativaComponent {
         innovador: false,
         mas_comentarios: this.mas_comentarios,
         imagen: this.imagen,
-        metas: this.metasSeleccionadas.map(meta => ({
-            id: meta.id,  // Asegúrate de que metas contenga el id
-            descripcion: meta.descripcion,
-            ods: {
-                idOds: meta.ods.idOds,
-                nombre: meta.ods.nombre,
-                dimension: {
-                    id: meta.ods.dimension.id,
-                    nombre: meta.ods.dimension.nombre
-                }
-            }
-        })),
-        profesores: this.profesoresSeleccionados.map(profesor => ({
-            id: profesor.id,
-            nombre: profesor.nombre
-        })),
-        entidades_externas: this.entidadesSeleccionados.map(entidad => ({
-            id: entidad.id,
-            nombre: entidad.nombre
-        })),
-        modulos: this.moduloSeleccionados.map(modulo => ({
-            id: modulo.id,
-            nombre: modulo.nombre,
-            clase: {
-                id: modulo.clase.id,
-                nombre: modulo.clase.nombre
-            }
-        }))
+        metas: listMetas,
+        profesores: listProfe,
+        entidades_externas: listEntidad,
+        modulos: listModulos
     };
 
     console.log("Iniciativa a actualizar:", iniciativa);

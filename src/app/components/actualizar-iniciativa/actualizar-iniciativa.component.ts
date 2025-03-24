@@ -633,6 +633,7 @@ export class ActualizarIniciativaComponent {
             // Maneja el error aquí, como mostrar un mensaje de error al usuario.
         }
     );
+    location.reload();
 }
 
   showToast() {

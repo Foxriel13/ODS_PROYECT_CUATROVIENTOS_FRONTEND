@@ -61,3 +61,14 @@
   width: 100%;  /* Asegura que los botones ocupen todo el ancho disponible */
   margin-bottom: 5px;  /* Separación entre los botones */
 }
+@keyframes fillProgress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+.fill-progress {
+  animation: fillProgress 3s linear forwards;
+}

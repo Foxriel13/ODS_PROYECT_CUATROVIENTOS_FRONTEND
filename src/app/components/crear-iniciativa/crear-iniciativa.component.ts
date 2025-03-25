@@ -434,6 +434,7 @@ export class CrearIniciativaComponent implements OnInit {
     this.iniciativasService.createIniciativa(iniciativa).subscribe(
       response => {
         console.log('Iniciativa creada correctamente:', response);
+        this.showToast();
         // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
       },
       error => {
@@ -452,5 +453,15 @@ export class CrearIniciativaComponent implements OnInit {
   // Función para cerrar el modal
   cerrarModal(): void {
     this.modalVisible = false;  // Cambiar la visibilidad del modal a false
+  }
+  toastVisible: boolean = false;
+  loading: boolean = false;
+  showToast() {
+    this.toastVisible = true;
+    setTimeout(() => {
+      this.toastVisible = false;
+      this.loading = true;
+      window.location.href= "/Iniciativas";
+    }, 3000);
   }
 }

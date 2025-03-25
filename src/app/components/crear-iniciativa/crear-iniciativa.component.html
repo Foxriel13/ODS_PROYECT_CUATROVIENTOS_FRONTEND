@@ -296,7 +296,22 @@
         </div>
       </div> 
      Columna para los textarea "Todas las Metas Ordenadas" -->
-
+     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+        <div *ngIf="toastVisible" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto">Mensaje</strong>
+            <small>Ahora</small>
+            <button type="button" class="btn-close" aria-label="Cerrar" (click)="toastVisible=false"></button>
+          </div>
+          <div class="toast-body">
+            La iniciativa ha sido creada con éxito.
+            <!-- Progress bar animada -->
+            <div class="progress mt-2">
+              <div class="progress-bar fill-progress" role="progressbar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
         <!-- Botones de Crear y Cancelar -->
         <div class="d-flex justify-content-end mt-3">

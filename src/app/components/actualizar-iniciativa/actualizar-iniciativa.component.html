@@ -1,10 +1,11 @@
-<form #form="ngForm" (ngSubmit)="actualizarIniciativa(form)">
+<form #form="ngForm">
     <div class="row g-3 p-4">
         <!-- Columna para los inputs -->
         <app-navbar-form-crear (tabChange)="onTabChange($event)"></app-navbar-form-crear>
         <div class="mb-3">
             <label>Seleccionar Iniciativa</label>
-            <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control" (ngModelChange)="onChangeIniciativa($event)">
+            <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control"
+                (ngModelChange)="onChangeIniciativa($event)">
                 <option value="" disabled selected>Selecciona una Iniciativa</option>
                 <option *ngFor="let item of iniciativaList" [ngValue]="item">{{ item.id }} - {{ item.tipo }}</option>
             </select>
@@ -230,12 +231,13 @@
                     <label>Seleccionar Modulos</label>
                     <select [(ngModel)]="modules" name="modules" class="form-control">
                         <option value="" disabled selected>Selecciona una Meta</option>
-                        <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.id }} - {{ item.nombre }} - {{item.clase.id}}
+                        <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.id }} - {{ item.nombre }} -
+                            {{item.clase.id}}
                         </option>
                     </select>
                 </div>
                 <button class="btn btn-info" type="button" (click)="anyadirModulo()">Añadir Modulo</button>
-            
+
                 <!-- Fila para mostrar los Módulos Seleccionados -->
                 <div class="row mt-4">
                     <div class="col-md-12">
@@ -245,19 +247,21 @@
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
                                     <!-- Itera sobre módulosSeleccionados -->
                                     <div *ngFor="let modulo of moduloSeleccionados" class="col mb-3">
-                                        <div class="box-meta" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
+                                        <div class="box-meta"
+                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
                                             <!-- Descripción del módulo -->
                                             <p style="margin: 0; display: inline-block;">{{ modulo.nombre }}</p>
-            
+
                                             <!-- Botones debajo de cada módulo -->
                                             <div class="btn-group-vertical mt-2" role="group">
                                                 <!-- Botón Info (azul) -->
                                                 <button type="button" class="btn btn-info">
                                                     Info
                                                 </button>
-            
+
                                                 <!-- Botón Eliminar (rojo) -->
-                                                <button type="button" class="btn btn-danger" (click)="eliminarModulo(modulo)">
+                                                <button type="button" class="btn btn-danger"
+                                                    (click)="eliminarModulo(modulo)">
                                                     Eliminar
                                                 </button>
                                             </div>
@@ -270,11 +274,47 @@
                 </div>
             </div>
         </div>
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+            <div *ngIf="toastVisible" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Mensaje</strong>
+                    <small>Ahora</small>
+                    <button type="button" class="btn-close" aria-label="Cerrar" (click)="toastVisible=false"></button>
+                </div>
+                <div class="toast-body">
+                    La iniciativa ha sido actualizada con éxito.
+                    <!-- Progress bar animada -->
+                    <div class="progress mt-2">
+                        <div class="progress-bar fill-progress" role="progressbar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Confirmación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que deseas actualizar esta iniciativa?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-info" (click)="actualizarIniciativaConfirmada()"
+                            data-bs-dismiss="modal">
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Botones de Crear y Cancelar -->
         <div class="d-flex justify-content-end mt-3">
             <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)">Cancelar</button>
-            <button class="btn btn-success" type="submit">Actualizar</button>
+            <button class="btn btn-success" type="submit" (click)="confirmarActualizacion()">Actualizar</button>
         </div>
     </div>
 </form>

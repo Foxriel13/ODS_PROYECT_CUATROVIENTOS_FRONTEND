@@ -42,8 +42,8 @@ export class ActualizarIniciativaComponent {
   modulo: string = '';
   meta: string = '';
   horas: number = 0;
-  mas_comentarios:String = '';
-  nombreModulo : string = '';
+  mas_comentarios: String = '';
+  nombreModulo: string = '';
   imagen: string = "";
   odsList: Ods[] = []; // Lista de ODS
   ProfesoresList: Profesores[] = [];
@@ -54,12 +54,12 @@ export class ActualizarIniciativaComponent {
   entidadesList: entidadesExternas[] = [];
   odsSeleccionados: Ods[] = []; // Lista de ODS seleccionados
   metaSeleccionada: Metas | null = null;
-  dimensionSeleccionada: Dimension [] = [];  // Cambiado para ser un objeto y no un array // Lista de ODS seleccionados
+  dimensionSeleccionada: Dimension[] = [];  // Cambiado para ser un objeto y no un array // Lista de ODS seleccionados
   profesoresSeleccionados: Profesores[] = [];
   cursosSeleccionados: Curso[] = [];
   entidadesSeleccionados: entidadesExternas[] = [];
-  metasSeleccionadas: Metas [] =[];
-  moduloSeleccionados: Modulos [] = [];
+  metasSeleccionadas: Metas[] = [];
+  moduloSeleccionados: Modulos[] = [];
   iniciativaList: Iniciativas[] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
     idOds: 0,
@@ -85,7 +85,7 @@ export class ActualizarIniciativaComponent {
     id: 0,
     nombre: ''
   }
-  Metas: Metas ={
+  Metas: Metas = {
     id: 0,
     descripcion: '',
     ods: {
@@ -95,15 +95,15 @@ export class ActualizarIniciativaComponent {
         id: 0,
         nombre: ''
       }
-      }
+    }
   };
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
     clase: {
       id: 0,  // Definido como número si es un identificador
-      nombre:""
-    } 
+      nombre: ""
+    }
   };
   iniciativa: Iniciativas = {
     id: 0,
@@ -132,7 +132,7 @@ export class ActualizarIniciativaComponent {
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
-  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,private dimensionService: ServiceDimensionService,private metasService: MetasService,private modulosService: ModulosService, private iniciativaServicie: IniciativasService) {}
+  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService, private iniciativaServicie: IniciativasService) { }
 
   ngOnInit(): void {
     this.loadOdsList();
@@ -237,34 +237,34 @@ export class ActualizarIniciativaComponent {
   }
   anyadirDimension(): void {
     const selectedDimension = this.DimensionesList.find(item => item.id == this.dimension.id);
-  
+
     if (selectedDimension) {
       // Asigna solo el objeto dimension, no un arreglo
       this.dimensionSeleccionada = [selectedDimension];
-  
+
       // Si se desea, también puedes ordenar la lista (aunque con solo un elemento no es necesario)
       // this.odsSeleccionados.sort((a, b) => a.id - b.id);
-  
+
     } else {
       alert('Por favor, selecciona una dimensión válida.');
     }
   }
-  
+
   anyadirOds(): void {
     const selectedOds = this.odsList.find(item => item.idOds == this.ods.idOds);
-  
+
     if (selectedOds) {
       // Si ya hay un ODS seleccionado, lo reemplazamos
       this.odsSeleccionados = [selectedOds]; // Esto asegura que solo haya un ODS en la lista
-  
+
       // Si se desea, también puedes ordenar la lista (aunque con solo un elemento no es necesario)
       // this.odsSeleccionados.sort((a, b) => a.id - b.id);
-  
+
     } else {
       alert('Por favor, selecciona un ODS válido.');
     }
   }
-  
+
 
   anyadirCurso(): void {
     const selectedCurso = this.cursoList.find(item => item.id == this.curso.id);
@@ -345,10 +345,10 @@ export class ActualizarIniciativaComponent {
     } else {
       alert('Por favor, selecciona una Meta válida.');
     }
- }
+  }
   anyadirMeta() {
-     const selectedMeta = this.MetasList.find(item => item.id == this.Metas.id);
-     let listMetas = [];
+    const selectedMeta = this.MetasList.find(item => item.id == this.Metas.id);
+    let listMetas = [];
 
     for (let i = 0; i < this.metasSeleccionadas.length; i++) {
       let metaSeleccionada = this.metasSeleccionadas[i];
@@ -395,7 +395,7 @@ export class ActualizarIniciativaComponent {
   eliminarDimension(): void {
     // Eliminar la dimensión seleccionada al hacer click en el <p>
     this.dimensionSeleccionada = []; // Limpiamos la dimensión seleccionada
-}
+  }
 
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
@@ -403,7 +403,7 @@ export class ActualizarIniciativaComponent {
   eliminarMeta(meta: any): void {
     // Encontramos el índice de la meta seleccionada
     const index = this.metasSeleccionadas.indexOf(meta);
-    
+
     // Si la meta se encuentra en el array, la eliminamos
     if (index > -1) {
       this.metasSeleccionadas.splice(index, 1);
@@ -411,7 +411,7 @@ export class ActualizarIniciativaComponent {
   }
   eliminarModulo(modulo: any) {
     const index = this.moduloSeleccionados.indexOf(modulo);
-    
+
     // Si la meta se encuentra en el array, la eliminamos
     if (index > -1) {
       this.moduloSeleccionados.splice(index, 1);
@@ -426,20 +426,20 @@ export class ActualizarIniciativaComponent {
     const añoActual = new Date().getFullYear(); // Obtiene el año actual
     return `${añoActual}-${añoActual + 1}`; // Devuelve el rango de años en formato YYYY-YYYY
   }
-  
+
 
   guardarIniciativa(form: any): void {
 
     if (form.invalid) {
       return;
     }
-  
+
     const formattedDate = new Date(Date.now());
     const day = String(formattedDate.getDate()).padStart(2, '0');
     const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
     const year = formattedDate.getFullYear();
     const formattedDateString = `${year}-${month}-${day}`;
-  
+
     const listaMetas = []
     for (let i = 0; i < this.metasSeleccionadas.length; i++) {
       listaMetas.push(this.metasSeleccionadas[i].id)
@@ -463,14 +463,14 @@ export class ActualizarIniciativaComponent {
       horas: this.horas,
       nombre: this.nombre,
       explicacion: this.producto,
-      redes_sociales : this.redes_sociales,
+      redes_sociales: this.redes_sociales,
       fecha_registro: formattedDateString,
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
       anyo_lectivo: this.obtenerRangoAño(),
       eliminado: false,
       innovador: false,
-      mas_comentarios : this.mas_comentarios,
+      mas_comentarios: this.mas_comentarios,
       imagen: this.imagen,
       metas: this.metasSeleccionadas.map(meta => ({
         id: meta.id,
@@ -484,7 +484,7 @@ export class ActualizarIniciativaComponent {
           }
         }
       })),
-            
+
       profesores: this.profesoresSeleccionados.map(profesor => ({
         id: profesor.id,
         nombre: profesor.nombre
@@ -517,7 +517,7 @@ export class ActualizarIniciativaComponent {
       }
     );
   }
-  
+
   modalVisible = false;
   abrirModal(meta: any): void {
     this.metaSeleccionada = meta;
@@ -528,7 +528,7 @@ export class ActualizarIniciativaComponent {
   cerrarModal(): void {
     this.modalVisible = false;  // Cambiar la visibilidad del modal a false
   }
-  cargarDatos(){
+  cargarDatos() {
     var iniciativaActualizar = this.iniciativa;
     this.titulo = iniciativaActualizar.tipo
   }
@@ -547,7 +547,7 @@ export class ActualizarIniciativaComponent {
     this.profesoresSeleccionados = this.iniciativa.profesores || [];
     this.entidadesSeleccionados = this.iniciativa.entidades_externas || [];
     this.moduloSeleccionados = this.iniciativa.modulos || [];
-}
+  }
   formatDate(dateString: string): string {
     return dateString.split(" ")[0]; // Extract only "yyyy-MM-dd"
   }
@@ -569,7 +569,7 @@ export class ActualizarIniciativaComponent {
   // Muestra el spinner mientras se realiza la petición para eliminar
   actualizarIniciativa(form: any): void {
     if (form.invalid) {
-        return;
+      return;
     }
 
     const formattedDate = new Date(Date.now());
@@ -580,7 +580,7 @@ export class ActualizarIniciativaComponent {
 
     const listaMetas = []
     for (let i = 0; i < this.metasSeleccionadas.length; i++) {
-        listaMetas.push(this.metasSeleccionadas[i].id);
+      listaMetas.push(this.metasSeleccionadas[i].id);
     }
     console.log("Antes de actualizar iniciativa"); // 🔍 Verificar si llega aquí
 
@@ -641,46 +641,48 @@ export class ActualizarIniciativaComponent {
 
     // Construir el objeto de la iniciativa con las propiedades correctas
     let iniciativa: Iniciativas = {
-        id: this.iniciativa.id,  // Asegúrate de tener el id para la actualización
-        tipo: this.titulo,
-        horas: this.horas,
-        nombre: this.nombre,
-        explicacion: this.producto,
-        redes_sociales: this.redes_sociales,
-        fecha_registro: formattedDateString,
-        fecha_inicio: this.fechaInicio,
-        fecha_fin: this.fechaFin,
-        anyo_lectivo: this.obtenerRangoAño(),
-        eliminado: false,
-        innovador: false,
-        mas_comentarios: this.mas_comentarios,
-        imagen: this.imagen,
-        metas: listMetas,
-        profesores: listProfe,
-        entidades_externas: listEntidad,
-        modulos: listModulos
+      id: this.iniciativa.id,  // Asegúrate de tener el id para la actualización
+      tipo: this.titulo,
+      horas: this.horas,
+      nombre: this.nombre,
+      explicacion: this.producto,
+      redes_sociales: this.redes_sociales,
+      fecha_registro: formattedDateString,
+      fecha_inicio: this.fechaInicio,
+      fecha_fin: this.fechaFin,
+      anyo_lectivo: this.obtenerRangoAño(),
+      eliminado: false,
+      innovador: false,
+      mas_comentarios: this.mas_comentarios,
+      imagen: this.imagen,
+      metas: listMetas,
+      profesores: listProfe,
+      entidades_externas: listEntidad,
+      modulos: listModulos
     };
 
     console.log("Iniciativa a actualizar:", iniciativa);
-
     // Llamada al servicio para actualizar la iniciativa con el PUT
     this.iniciativasService.updateIniciativa(iniciativa).subscribe(
-        response => {
-            console.log('Iniciativa actualizada correctamente:', response);
-            // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
-        },
-        error => {
-            console.error('Error al actualizar la iniciativa:', error);
-            // Maneja el error aquí, como mostrar un mensaje de error al usuario.
-        }
+      response => {
+        console.log('Iniciativa actualizada correctamente:', response);
+        // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
+      },
+      error => {
+        console.error('Error al actualizar la iniciativa:', error);
+        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+      }
     );
-    location.reload();
-}
+    this.showToast();
+  }
 
   showToast() {
     this.toastVisible = true;
     setTimeout(() => {
       this.toastVisible = false;
+      this.loading = true;
+      window.location.href= "/Iniciativas";
     }, 3000);
   }
+    
 }

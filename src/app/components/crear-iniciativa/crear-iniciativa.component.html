@@ -69,42 +69,55 @@
 
             <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
             <div *ngIf="selectedTab === 'metas'">
-                <div class="mb-3">
-                    <label>Seleccionar Meta</label>
-                    <select [(ngModel)]="Metas" name="metas" class="form-control">
-                        <option value="" disabled selected>Selecciona una Meta</option>
-                        <option *ngFor="let item of MetasList" [ngValue]="item">{{ item.id }} - {{ item.descripcion }}
-                        </option>
-                    </select>
+                <div class="row">
+                    <!-- Columna izquierda: Nombre de la Meta y Select de ODS -->
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label>Nombre de la Meta</label>
+                            <input type="text" class="form-control" placeholder="Ingrese el nombre de la meta" id="nombreMeta">
+                        </div>
+                        <div class="mb-3">
+                            <label>Seleccionar ODS</label>
+                            <select [(ngModel)]="ods" name="ods" class="form-control" (change)="cargarImagenODS(ods.nombre)" id="odsElegido">
+                                <option value="" disabled selected>Seleccione un ODS</option>
+                                <option *ngFor="let ods of odsList" [ngValue]="ods">{{ ods.nombre }}</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <!-- Columna central: Imagen del ODS -->
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <div *ngIf="ods">
+                            <img src="/Ods_img/ods1.png" alt="Imagen ODS" class="img-fluid" style="max-height: 150px;" id="imagenOds">
+                        </div>
+                    </div>
+            
+                    <!-- Columna derecha: Select de Dimensiones -->
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label>Seleccionar Dimensión</label>
+                            <select [(ngModel)]="dimensionSeleccionada" name="dimensiones" class="form-control" id="dimensionElegida">
+                                <option value="" disabled selected>Seleccione una Dimensión</option>
+                                <option *ngFor="let dimension of DimensionesList" [ngValue]="dimension">{{ dimension.nombre }}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-info" type="button" (click)="anyadirMeta()">Añadir Meta</button>
+            
+                <button class="btn btn-info mt-3" type="button" (click)="anyadirMeta()">Añadir Meta</button>
+            
                 <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="box" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
                             <h4>Metas Añadidas:</h4>
-                            <div class="image-box image-box-small" style="flex: 1;">
-                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-                                    <!-- Itera sobre metasSeleccionadas -->
-                                    <div *ngFor="let meta of metasSeleccionadas" class="col mb-3">
-                                        <div class="box-meta"
-                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
-                                            <!-- Descripción de la meta -->
-                                            <p style="margin: 0; display: inline-block;">{{ meta.descripcion }}</p>
-
-                                            <!-- Botones debajo de cada meta -->
-                                            <div class="btn-group-vertical mt-2" role="group">
-                                                <!-- Botón Info (azul) -->
-                                                <button type="button" class="btn btn-info">
-                                                    Info
-                                                </button>
-
-                                                <!-- Botón Eliminar (rojo) -->
-                                                <button type="button" class="btn btn-danger"
-                                                    (click)="eliminarMeta(meta)">
-                                                    Eliminar
-                                                </button>
-                                            </div>
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                                <div *ngFor="let meta of metasSeleccionadas" class="col mb-3">
+                                    <div class="box-meta" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
+                                        <p style="margin: 0;">{{ meta.descripcion }}</p>
+                                        <div class="btn-group-vertical mt-2" role="group">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="metaSeleccionada = meta">Info</button>
+                                            <button type="button" class="btn btn-danger" (click)="eliminarMeta(meta)">Eliminar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -112,10 +125,9 @@
                         </div>
                     </div>
                 </div>
-
+            
                 <!-- Modal -->
-                <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -125,7 +137,6 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!-- Aquí se mostrará la descripción de la meta seleccionada -->
                                 <p>{{ metaSeleccionada?.descripcion }}</p>
                             </div>
                             <div class="modal-footer">
@@ -134,8 +145,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
 

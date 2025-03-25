@@ -283,12 +283,41 @@ export class CrearIniciativaComponent implements OnInit {
     }
  }
   anyadirMeta() {
-     const selectedMeta = this.MetasList.find(item => item.id == this.Metas.id);
-    if (selectedMeta) {
-      if (this.metasSeleccionadas.some(item => item.id === selectedMeta.id)) {
+    var nombreMeta = (document.getElementById("nombreMeta") as HTMLInputElement).value;
+    var ods = document.getElementById("odsElegido") as HTMLSelectElement;
+    var dimension = document.getElementById("dimensionElegida") as HTMLSelectElement;
+    if (!nombreMeta || ods.selectedIndex === 0 || dimension.selectedIndex === 0) {
+      alert('Por favor, selecciona una Meta válida.');
+      return;
+    }
+    var nombreOds = this.odsList[ods.selectedIndex-1].nombre
+    var nombreDimension = this.DimensionesList[dimension.selectedIndex-1].nombre
+
+
+    let metaNueva: Metas = {
+      id: this.metasSeleccionadas.length + 1, // Puedes cambiar la lógica del ID si es necesario
+      descripcion: nombreMeta,
+      ods: {
+          idOds: ods.selectedIndex,
+          nombre: nombreOds,
+          dimension: {
+              id: dimension.selectedIndex,
+              nombre: nombreDimension
+          }
+      }
+  };
+    // Verificar si algún campo está vacío o no seleccionado
+    if (metaNueva) {
+      for (let i = 0; i < this.metasSeleccionadas.length; i++) {
+        if(this.metasSeleccionadas[i].descripcion.toUpperCase() == metaNueva.descripcion.toUpperCase()){
+          alert('Esta Meta ya está añadido.');
+          return;
+        }
+      }
+      if (this.metasSeleccionadas.some(item => item.id === metaNueva.id)) {
         alert('Esta Meta ya está añadido.');
       } else {
-        this.metasSeleccionadas.push(selectedMeta);
+        this.metasSeleccionadas.push(metaNueva);
       }
     } else {
       alert('Por favor, selecciona una Meta válida.');
@@ -462,5 +491,15 @@ export class CrearIniciativaComponent implements OnInit {
       this.loading = true;
       window.location.href= "/Iniciativas";
     }, 3000);
+  }
+  cargarImagenODS(nombre: any) {
+    var id = 1
+    for (let i = 0; i < this.odsList.length; i++) {
+      if(this.odsList[i].nombre === nombre){
+        id = i+1;
+      }
+    }
+    var imagen = document.getElementById("imagenOds") as HTMLImageElement;
+    imagen.src = `/Ods_img/ods${id}.png`;
   }
 }

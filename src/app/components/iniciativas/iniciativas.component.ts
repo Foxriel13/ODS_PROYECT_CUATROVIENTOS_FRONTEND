@@ -21,7 +21,12 @@ export class IniciativasComponent implements OnInit {
     curso: '',
     ods: '',
     fechaRegistro: '',
-    nombre: ''
+    nombre: '',
+    
+    anyo_lectivo: '',
+    dimension: '',
+    tipo:'',
+    horas: null
   };
 
   constructor(private iniciativasService: IniciativasService) { }

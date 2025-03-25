@@ -1,43 +1,63 @@
-<div class="container mt-3">
-  <div class="row g-2 align-items-end bg-light p-3 rounded shadow-sm">
-    <!-- Campos del filtro... -->
-    <div class="col-md-2">
-      <label class="form-label">Buscar por curso</label>
+<div class="container ">
+  <div class="row g-3 bg-light p-4 rounded shadow-sm">
+    <!-- Filtros básicos -->
+    <div class="col-md-3">
+      <label class="form-label">Curso</label>
       <select class="form-select" [(ngModel)]="curso">
         <option *ngFor="let c of cursoList" [value]="c.nombre">{{ c.nombre }}</option>
       </select>
     </div>
-
-    <div class="col-md-2">
-      <label class="form-label">Buscar por ODS</label>
+    <div class="col-md-3">
+      <label class="form-label">ODS</label>
       <select class="form-select" [(ngModel)]="ods">
-        <!-- Usa el nombre del ODS como valor -->
         <option *ngFor="let o of odsList" [value]="o.nombre">{{ o.nombre }}</option>
       </select>
     </div>
-    
-
-    <!-- Eliminamos los campos de fecha inicio y fecha fin -->
-
     <div class="col-md-3">
-      <label class="form-label">Buscar iniciativa por nombre</label>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="nombre">
-        <span class="input-group-text">🔍</span>
-      </div>
+      <label class="form-label">Nombre de la iniciativa</label>
+      <input type="text" class="form-control" placeholder="Buscar por nombre..." [(ngModel)]="nombre">
     </div>
-
-    <!-- Campo para filtrar por fecha de registro -->
-    <div class="col-md-2">
+    <div class="col-md-3">
       <label class="form-label">Fecha de registro</label>
       <input type="date" class="form-control" [(ngModel)]="fechaRegistro">
     </div>
 
-    <div class="col-md-1">
-      <button class="btn btn-blue w-100" (click)="buscar()">Buscar</button>
+    <!-- Botón para mostrar/ocultar filtros avanzados -->
+    <div class="col-12 text-end">
+      <button class="btn btn-outline-primary btn-sm" type="button" (click)="toggleAdvancedFilters()">
+        {{ advancedFiltersVisible ? 'Mostrar menos filtros' : 'Mostrar más filtros' }}
+      </button>
     </div>
-    <div class="col-md-2">
-      <button class="btn btn-blue w-100" (click)="limpiarFiltros()">Limpiar filtros</button>
+    
+    <!-- Filtros avanzados -->
+    <div *ngIf="advancedFiltersVisible" class="row g-3 mt-3">
+      <div class="col-md-3">
+        <label class="form-label">Dimensión</label>
+        <select class="form-select" [(ngModel)]="dimension">
+          <option *ngFor="let d of dimensionList" [value]="d.nombre">{{ d.nombre }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Año Lectivo</label>
+        <input type="text" class="form-control" placeholder="Ej: 24-25" [(ngModel)]="anyo_lectivo">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Número de horas</label>
+        <input type="number" class="form-control" placeholder="Ej: 10" [(ngModel)]="horas">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Tipo de iniciativa</label>
+        <select class="form-select" [(ngModel)]="tipo">
+          <option *ngFor="let t of tipoList" [value]="t">{{ t }}</option>
+        </select>
+      </div>
+    </div>
+
+
+    <!-- Botones de acción -->
+    <div class="col-md-12 d-flex justify-content-center mt-3">
+      <button class="btn btn-blue me-2" (click)="buscar()">Buscar</button>
+      <button class="btn btn-outline-secondary" (click)="limpiarFiltros()">Limpiar filtros</button>
     </div>
   </div>
 </div>

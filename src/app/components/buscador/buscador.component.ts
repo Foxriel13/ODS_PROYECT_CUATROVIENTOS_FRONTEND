@@ -5,6 +5,7 @@ import { ServiceCursosService } from '../../serviceCursos/service-cursos.service
 import { Curso } from '../../models/curso.model';
 import { ServiceOdsService } from '../../serviceOds/service-ods.service';
 import { Ods } from '../../models/ods.model';
+import { Dimension } from '../../models/dimension.model';
 
 @Component({
   selector: 'app-buscador',
@@ -15,10 +16,25 @@ import { Ods } from '../../models/ods.model';
 })
 export class BuscadorComponent {
 
-  constructor(private claseServicie: ServiceCursosService, private odsServicie: ServiceOdsService) {}
+  constructor(private claseServicie: ServiceCursosService, private odsServicie: ServiceOdsService) { }
   cursoList: Curso[] = [];
   odsList: Ods[] = [];
-  
+  tipoList: string[] = [];
+
+  dimensionList: Dimension[] = [];
+
+  curso = '';
+  ods = '';
+  nombre = '';
+  fechaRegistro = '';  // Variable para la fecha de registro
+  //búsqueda por otros campos
+  anyo_lectivo = '';
+  dimension = '';
+  tipo = '';
+  horas: number | null = null;
+
+  advancedFiltersVisible = false;
+
   ngOnInit(): void {
     this.loadClases();
     this.loadOds();
@@ -44,13 +60,12 @@ export class BuscadorComponent {
       }
     );
   }
-  
-  curso = '';
-  ods = '';
-  nombre = '';
-  fechaRegistro = '';  // Variable para la fecha de registro
 
   @Output() filtersChanged = new EventEmitter<any>();
+
+  toggleAdvancedFilters(): void {
+    this.advancedFiltersVisible = !this.advancedFiltersVisible;
+  }
 
   // Método para emitir los filtros incluyendo la fecha de registro
   buscar(): void {
@@ -58,7 +73,12 @@ export class BuscadorComponent {
       curso: this.curso,
       ods: this.ods,
       nombre: this.nombre,
-      fechaRegistro: this.fechaRegistro // Se incluye fechaRegistro en el filtro
+      fechaRegistro: this.fechaRegistro, // Se incluye fechaRegistro en el filtro
+
+      anyo_lectivo: this.anyo_lectivo,
+      dimension: this.dimension,
+      tipo: this.tipo,
+      horas: this.horas
     });
   }
   limpiarFiltros(): void {
@@ -66,13 +86,23 @@ export class BuscadorComponent {
     this.ods = '';
     this.nombre = '';
     this.fechaRegistro = '';
+    this.anyo_lectivo = '';
+    this.dimension = '';
+    this.tipo = '';
+    this.horas = null;
+
 
     // Emitir los cambios de filtros para actualizar la vista
     this.filtersChanged.emit({
       curso: this.curso,
       ods: this.ods,
       nombre: this.nombre,
-      fechaRegistro: this.fechaRegistro
+      fechaRegistro: this.fechaRegistro,
+
+      anyo_lectivo: this.anyo_lectivo,
+      dimension: this.dimension,
+      tipo: this.tipo,
+      horas: this.horas
     });
   }
 

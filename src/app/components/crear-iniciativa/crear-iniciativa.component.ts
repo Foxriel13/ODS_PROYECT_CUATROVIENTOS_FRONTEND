@@ -435,7 +435,6 @@ export class CrearIniciativaComponent implements OnInit {
       response => {
         console.log('Iniciativa creada correctamente:', response);
         this.showToast();
-        // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
       },
       error => {
         console.error('Error al crear la iniciativa:', error);

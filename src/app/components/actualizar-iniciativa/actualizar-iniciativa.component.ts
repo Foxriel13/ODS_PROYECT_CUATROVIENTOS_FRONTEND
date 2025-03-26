@@ -20,6 +20,7 @@ import { Modulos } from '../../models/modulos.model';
 import { MetasService } from '../../serviceMetas/metas.service';
 import { ModulosService } from '../../serviceModulos/modulos.service';
 import * as bootstrap from 'bootstrap';
+import { Redes_Sociales } from '../../models/redes_sociales';
 
 
 @Component({
@@ -60,14 +61,12 @@ export class ActualizarIniciativaComponent {
   entidadesSeleccionados: entidadesExternas[] = [];
   metasSeleccionadas: Metas[] = [];
   moduloSeleccionados: Modulos[] = [];
+  redes_socialesSeleccionados: Redes_Sociales[] = [];
   iniciativaList: Iniciativas[] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
     idOds: 0,
     nombre: '',
-    dimension: {
-      id: 0,
-      nombre: ''
-    } // Dimension ahora es un solo objeto
+    dimension: ''
   };
   profesor: Profesores = {
     id: 0,
@@ -91,10 +90,7 @@ export class ActualizarIniciativaComponent {
     ods: {
       idOds: 0,
       nombre: '',
-      dimension: {
-        id: 0,
-        nombre: ''
-      }
+      dimension: ''
     }
   };
   modules: Modulos = {
@@ -111,7 +107,6 @@ export class ActualizarIniciativaComponent {
     horas: 0,
     nombre: '',
     explicacion: '',
-    redes_sociales: '',
     fecha_registro: '',
     fecha_inicio: '',
     fecha_fin: '',
@@ -123,7 +118,8 @@ export class ActualizarIniciativaComponent {
     profesores: [],
     entidades_externas: [],
     modulos: [],
-    mas_comentarios: ''
+    mas_comentarios: '',
+    redes_sociales: []
   }
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
@@ -463,7 +459,6 @@ export class ActualizarIniciativaComponent {
       horas: this.horas,
       nombre: this.nombre,
       explicacion: this.producto,
-      redes_sociales: this.redes_sociales,
       fecha_registro: formattedDateString,
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
@@ -478,10 +473,7 @@ export class ActualizarIniciativaComponent {
         ods: {
           idOds: meta.ods.idOds,
           nombre: meta.ods.nombre,
-          dimension: {
-            id: meta.ods.dimension.id,
-            nombre: meta.ods.dimension.nombre
-          }
+          dimension: meta.ods.dimension
         }
       })),
 
@@ -500,6 +492,11 @@ export class ActualizarIniciativaComponent {
           id: modulo.clase.id,
           nombre: modulo.clase.nombre
         }
+      })),
+      redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales=> ({
+        id: redes_sociales.id,
+        nombre: redes_sociales.nombre,
+        enlace:redes_sociales.enlace
       }))
     };
 
@@ -541,7 +538,6 @@ export class ActualizarIniciativaComponent {
     this.fechaFin = this.formatDate(this.iniciativa.fecha_fin);
     this.imagen = this.iniciativa.imagen;
     this.mas_comentarios = this.iniciativa.mas_comentarios;
-    this.redes_sociales = this.iniciativa.redes_sociales;
 
     this.metasSeleccionadas = this.iniciativa.metas || [];
     this.profesoresSeleccionados = this.iniciativa.profesores || [];
@@ -641,12 +637,11 @@ export class ActualizarIniciativaComponent {
 
     // Construir el objeto de la iniciativa con las propiedades correctas
     let iniciativa: Iniciativas = {
-      id: this.iniciativa.id,  // Asegúrate de tener el id para la actualización
+      id: this.iniciativa.id, // Asegúrate de tener el id para la actualización
       tipo: this.titulo,
       horas: this.horas,
       nombre: this.nombre,
       explicacion: this.producto,
-      redes_sociales: this.redes_sociales,
       fecha_registro: formattedDateString,
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
@@ -658,7 +653,8 @@ export class ActualizarIniciativaComponent {
       metas: listMetas,
       profesores: listProfe,
       entidades_externas: listEntidad,
-      modulos: listModulos
+      modulos: listModulos,
+      redes_sociales: []
     };
 
     console.log("Iniciativa a actualizar:", iniciativa);

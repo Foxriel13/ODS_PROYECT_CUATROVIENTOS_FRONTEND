@@ -19,6 +19,8 @@ import { ServiceDimensionService } from '../../serviceDimension/service-dimensio
 import { Modulos } from '../../models/modulos.model';
 import { MetasService } from '../../serviceMetas/metas.service';
 import { ModulosService } from '../../serviceModulos/modulos.service';
+import { Redes_Sociales } from '../../models/redes_sociales';
+import { isScheduler } from 'rxjs/internal/util/isScheduler';
 
 @Component({
   selector: 'app-crear-iniciativa',
@@ -41,8 +43,8 @@ export class CrearIniciativaComponent implements OnInit {
   modulo: string = '';
   meta: string = '';
   horas: number = 0;
-  mas_comentarios:String = '';
-  nombreModulo : string = '';
+  mas_comentarios: String = '';
+  nombreModulo: string = '';
   imagen: string = "";
   odsList: Ods[] = []; // Lista de ODS
   ProfesoresList: Profesores[] = [];
@@ -53,19 +55,17 @@ export class CrearIniciativaComponent implements OnInit {
   entidadesList: entidadesExternas[] = [];
   odsSeleccionados: Ods[] = []; // Lista de ODS seleccionados
   metaSeleccionada: Metas | null = null;
-  dimensionSeleccionada: Dimension [] = [];  // Cambiado para ser un objeto y no un array // Lista de ODS seleccionados
+  dimensionSeleccionada: Dimension[] = [];  // Cambiado para ser un objeto y no un array // Lista de ODS seleccionados
   profesoresSeleccionados: Profesores[] = [];
   cursosSeleccionados: Curso[] = [];
   entidadesSeleccionados: entidadesExternas[] = [];
-  metasSeleccionadas: Metas [] =[];
-  moduloSeleccionados: Modulos [] = [];
+  metasSeleccionadas: Metas[] = [];
+  moduloSeleccionados: Modulos[] = [];
+  redes_socialesSeleccionados: Redes_Sociales[] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
     idOds: 0,
     nombre: '',
-    dimension: {
-      id: 0,
-      nombre: ''
-    } // Dimension ahora es un solo objeto
+    dimension: ''
   };
   profesor: Profesores = {
     id: 0,
@@ -83,25 +83,22 @@ export class CrearIniciativaComponent implements OnInit {
     id: 0,
     nombre: ''
   }
-  Metas: Metas ={
+  Metas: Metas = {
     id: 0,
     descripcion: '',
     ods: {
       idOds: 0,
       nombre: '',
-      dimension: {
-        id: 0,
-        nombre: ''
-      }
-      }
+      dimension: ''
+    }
   };
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
     clase: {
       id: 0,  // Definido como número si es un identificador
-      nombre:""
-    } 
+      nombre: ""
+    }
   };
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
@@ -109,7 +106,7 @@ export class CrearIniciativaComponent implements OnInit {
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
-  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,private dimensionService: ServiceDimensionService,private metasService: MetasService,private modulosService: ModulosService) {}
+  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService) { }
 
   ngOnInit(): void {
     this.loadOdsList();
@@ -203,34 +200,34 @@ export class CrearIniciativaComponent implements OnInit {
   }
   anyadirDimension(): void {
     const selectedDimension = this.DimensionesList.find(item => item.id == this.dimension.id);
-  
+
     if (selectedDimension) {
       // Asigna solo el objeto dimension, no un arreglo
       this.dimensionSeleccionada = [selectedDimension];
-  
+
       // Si se desea, también puedes ordenar la lista (aunque con solo un elemento no es necesario)
       // this.odsSeleccionados.sort((a, b) => a.id - b.id);
-  
+
     } else {
       alert('Por favor, selecciona una dimensión válida.');
     }
   }
-  
+
   anyadirOds(): void {
     const selectedOds = this.odsList.find(item => item.idOds == this.ods.idOds);
-  
+
     if (selectedOds) {
       // Si ya hay un ODS seleccionado, lo reemplazamos
       this.odsSeleccionados = [selectedOds]; // Esto asegura que solo haya un ODS en la lista
-  
+
       // Si se desea, también puedes ordenar la lista (aunque con solo un elemento no es necesario)
       // this.odsSeleccionados.sort((a, b) => a.id - b.id);
-  
+
     } else {
       alert('Por favor, selecciona un ODS válido.');
     }
   }
-  
+
 
   anyadirCurso(): void {
     const selectedCurso = this.cursoList.find(item => item.id == this.curso.id);
@@ -281,48 +278,52 @@ export class CrearIniciativaComponent implements OnInit {
     } else {
       alert('Por favor, selecciona una Meta válida.');
     }
- }
+  }
   anyadirMeta() {
     var nombreMeta = (document.getElementById("nombreMeta") as HTMLInputElement).value;
     var ods = document.getElementById("odsElegido") as HTMLSelectElement;
-    var dimension = document.getElementById("dimensionElegida") as HTMLSelectElement;
-    if (!nombreMeta || ods.selectedIndex === 0 || dimension.selectedIndex === 0) {
+    if (!nombreMeta || ods.selectedIndex === 0 ) {
       alert('Por favor, selecciona una Meta válida.');
       return;
     }
-    var nombreOds = this.odsList[ods.selectedIndex-1].nombre
-    var nombreDimension = this.DimensionesList[dimension.selectedIndex-1].nombre
 
+    var nombreOds = this.odsList[ods.selectedIndex - 1].nombre;
 
-    let metaNueva: Metas = {
-      id: this.metasSeleccionadas.length + 1, // Puedes cambiar la lógica del ID si es necesario
-      descripcion: nombreMeta,
-      ods: {
-          idOds: ods.selectedIndex,
+    let odsNew: Ods | null = null;  // Inicializar como null para evitar errores.
+
+    // Buscar el ODS correspondiente
+    for (let i = 0; i < this.odsList.length; i++) {
+      if (this.odsList[i].idOds == ods.selectedIndex - 1) {
+        odsNew = this.odsList[i];
+        break;  // Se sale del loop una vez se ha encontrado el ODS.
+      }
+    }
+
+    // Verificar si se encontró el ODS
+    if (odsNew !== null) {
+      let metaNueva: Metas = {
+        id: this.metasSeleccionadas.length + 1, // Puedes cambiar la lógica del ID si es necesario
+        descripcion: nombreMeta,
+        ods: {
+          idOds: odsNew.idOds,
           nombre: nombreOds,
-          dimension: {
-              id: dimension.selectedIndex,
-              nombre: nombreDimension
-          }
-      }
-  };
-    // Verificar si algún campo está vacío o no seleccionado
-    if (metaNueva) {
-      for (let i = 0; i < this.metasSeleccionadas.length; i++) {
-        if(this.metasSeleccionadas[i].descripcion.toUpperCase() == metaNueva.descripcion.toUpperCase()){
-          alert('Esta Meta ya está añadido.');
-          return;
+          dimension: ''
         }
+      };
+
+      // Verificar si la meta ya está añadida
+      if (this.metasSeleccionadas.some(item => item.descripcion.toUpperCase() === metaNueva.descripcion.toUpperCase())) {
+        alert('Esta Meta ya está añadida.');
+        return;
       }
-      if (this.metasSeleccionadas.some(item => item.id === metaNueva.id)) {
-        alert('Esta Meta ya está añadido.');
-      } else {
-        this.metasSeleccionadas.push(metaNueva);
-      }
+
+      // Añadir la nueva meta si no existe
+      this.metasSeleccionadas.push(metaNueva);
     } else {
-      alert('Por favor, selecciona una Meta válida.');
+      alert('No se ha encontrado el ODS seleccionado.');
     }
   }
+
   clearForm(form: NgForm): void {
     location.reload();
   }
@@ -349,7 +350,7 @@ export class CrearIniciativaComponent implements OnInit {
   eliminarDimension(): void {
     // Eliminar la dimensión seleccionada al hacer click en el <p>
     this.dimensionSeleccionada = []; // Limpiamos la dimensión seleccionada
-}
+  }
 
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
@@ -357,7 +358,7 @@ export class CrearIniciativaComponent implements OnInit {
   eliminarMeta(meta: any): void {
     // Encontramos el índice de la meta seleccionada
     const index = this.metasSeleccionadas.indexOf(meta);
-    
+
     // Si la meta se encuentra en el array, la eliminamos
     if (index > -1) {
       this.metasSeleccionadas.splice(index, 1);
@@ -365,7 +366,7 @@ export class CrearIniciativaComponent implements OnInit {
   }
   eliminarModulo(modulo: any) {
     const index = this.moduloSeleccionados.indexOf(modulo);
-    
+
     // Si la meta se encuentra en el array, la eliminamos
     if (index > -1) {
       this.moduloSeleccionados.splice(index, 1);
@@ -380,20 +381,20 @@ export class CrearIniciativaComponent implements OnInit {
     const añoActual = new Date().getFullYear(); // Obtiene el año actual
     return `${añoActual}-${añoActual + 1}`; // Devuelve el rango de años en formato YYYY-YYYY
   }
-  
+
 
   guardarIniciativa(form: any): void {
 
     if (form.invalid) {
       return;
     }
-  
+
     const formattedDate = new Date(Date.now());
     const day = String(formattedDate.getDate()).padStart(2, '0');
     const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
     const year = formattedDate.getFullYear();
     const formattedDateString = `${year}-${month}-${day}`;
-  
+
     const listaMetas = []
     for (let i = 0; i < this.metasSeleccionadas.length; i++) {
       listaMetas.push(this.metasSeleccionadas[i].id)
@@ -417,14 +418,13 @@ export class CrearIniciativaComponent implements OnInit {
       horas: this.horas,
       nombre: this.nombre,
       explicacion: this.producto,
-      redes_sociales : this.redes_sociales,
       fecha_registro: formattedDateString,
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
       anyo_lectivo: this.obtenerRangoAño(),
       eliminado: false,
       innovador: false,
-      mas_comentarios : this.mas_comentarios,
+      mas_comentarios: this.mas_comentarios,
       imagen: this.imagen,
       metas: this.metasSeleccionadas.map(meta => ({
         id: meta.id,
@@ -432,13 +432,10 @@ export class CrearIniciativaComponent implements OnInit {
         ods: {
           idOds: meta.ods.idOds,
           nombre: meta.ods.nombre,
-          dimension: {
-            id: meta.ods.dimension.id,
-            nombre: meta.ods.dimension.nombre
-          }
+          dimension: ''
         }
       })),
-            
+
       profesores: this.profesoresSeleccionados.map(profesor => ({
         id: profesor.id,
         nombre: profesor.nombre
@@ -454,6 +451,11 @@ export class CrearIniciativaComponent implements OnInit {
           id: modulo.clase.id,
           nombre: modulo.clase.nombre
         }
+      })),
+      redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales => ({
+        id: redes_sociales.id,
+        nombre: redes_sociales.nombre,
+        enlace: redes_sociales.enlace
       }))
     };
 
@@ -471,7 +473,7 @@ export class CrearIniciativaComponent implements OnInit {
       }
     );
   }
-  
+
   modalVisible = false;
   abrirModal(meta: any): void {
     this.metaSeleccionada = meta;
@@ -489,17 +491,34 @@ export class CrearIniciativaComponent implements OnInit {
     setTimeout(() => {
       this.toastVisible = false;
       this.loading = true;
-      window.location.href= "/Iniciativas";
+      window.location.href = "/Iniciativas";
     }, 3000);
   }
   cargarImagenODS(nombre: any) {
-    var id = 1
+    var id = 1;
+    var ods: Ods | undefined;  // Allow ods to be undefined initially.
+    
+    // Search for the matching ODS.
     for (let i = 0; i < this.odsList.length; i++) {
-      if(this.odsList[i].nombre === nombre){
-        id = i+1;
+      if (this.odsList[i].nombre === nombre) {
+        id = i + 1;
+        ods = this.odsList[i];
+        break;  // Break once a match is found to avoid unnecessary iterations.
       }
     }
-    var imagen = document.getElementById("imagenOds") as HTMLImageElement;
-    imagen.src = `/Ods_img/ods${id}.png`;
-  }
+    
+    // Ensure that ods is assigned before using it.
+    if (ods) {
+      var imagen = document.getElementById("imagenOds") as HTMLImageElement;
+      imagen.src = `/Ods_img/ods${id}.png`;
+      
+      var dimensionText = document.getElementById("dimensionText") as HTMLInputElement;
+      dimensionText.textContent = ods.dimension;
+    } else {
+      // Handle the case where the ODS wasn't found
+      console.log('ODS not found');
+      // Optionally, set a default image or display a message.
+    }
+}
+
 }

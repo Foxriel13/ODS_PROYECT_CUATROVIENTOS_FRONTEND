@@ -71,7 +71,7 @@
             <div *ngIf="selectedTab === 'metas'">
                 <div class="row">
                     <!-- Columna izquierda: Nombre de la Meta y Select de ODS -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label>Nombre de la Meta</label>
                             <input type="text" class="form-control" placeholder="Ingrese el nombre de la meta" id="nombreMeta">
@@ -85,21 +85,11 @@
                         </div>
                     </div>
             
-                    <!-- Columna central: Imagen del ODS -->
-                    <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <div *ngIf="ods">
-                            <img src="/Ods_img/ods1.png" alt="Imagen ODS" class="img-fluid" style="max-height: 150px;" id="imagenOds">
-                        </div>
-                    </div>
-            
-                    <!-- Columna derecha: Select de Dimensiones -->
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label>Seleccionar Dimensión</label>
-                            <select [(ngModel)]="dimensionSeleccionada" name="dimensiones" class="form-control" id="dimensionElegida">
-                                <option value="" disabled selected>Seleccione una Dimensión</option>
-                                <option *ngFor="let dimension of DimensionesList" [ngValue]="dimension">{{ dimension.nombre }}</option>
-                            </select>
+                    <!-- Columna central: Imagen del ODS y texto "text1" -->
+                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div *ngIf="ods" class="text-center">
+                            <img src="/Ods_img/ods1.png" id="imagenOds" alt="Imagen ODS" class="img-fluid" style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
+                            <p id="dimensionText">text1</p>
                         </div>
                     </div>
                 </div>
@@ -146,6 +136,7 @@
                     </div>
                 </div>
             </div>
+            
 
 
 

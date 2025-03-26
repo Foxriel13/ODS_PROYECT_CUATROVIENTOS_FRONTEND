@@ -4,6 +4,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Iniciativas } from '../models/iniciativas.model';
 import { param } from 'jquery';
+import { Redes_Sociales } from '../models/redes_sociales';
 
 @Injectable({
   providedIn: 'root',
@@ -107,7 +108,6 @@ export class IniciativasService {
       anyo_lectivo: iniciativa.anyo_lectivo.toString(),
       imagen: iniciativa.imagen.toString(),
       mas_comentarios: iniciativa.mas_comentarios.toString(),  // Si la API lo espera, agrega este campo también
-      redes_sociales: Array.isArray(iniciativa.redes_sociales) ? iniciativa.redes_sociales : [iniciativa.redes_sociales],  // Asegúrate de que sea un array
       metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
       profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
       entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
@@ -146,11 +146,11 @@ export class IniciativasService {
       anyo_lectivo: iniciativa.anyo_lectivo.toString(),
       imagen: iniciativa.imagen.toString(),
       mas_comentarios: iniciativa.mas_comentarios.toString(),  // Si la API lo espera, agrega este campo también
-      redes_sociales: Array.isArray(iniciativa.redes_sociales) ? iniciativa.redes_sociales : [iniciativa.redes_sociales],  // Asegúrate de que sea un array
       metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
       profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
       entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
       modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
+      redes_sociales: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
     };
     console.log(requestBody.metas)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

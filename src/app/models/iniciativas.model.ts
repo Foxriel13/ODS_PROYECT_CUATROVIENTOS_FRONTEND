@@ -2,6 +2,7 @@ import { entidadesExternas } from "./entidades_externas.model";
 import { Metas } from "./metas.model";  // Importar Metas correctamente
 import { Modulos } from "./modulos.model";
 import { Profesores } from "./profesores.model";
+import { Redes_Sociales } from "./redes_sociales";
 
 export class Iniciativas {
     id: number;
@@ -9,7 +10,6 @@ export class Iniciativas {
     horas: number;
     nombre: string;
     explicacion: string;
-    redes_sociales: string;
     fecha_registro: string;
     fecha_inicio: string;
     fecha_fin: string;
@@ -21,6 +21,7 @@ export class Iniciativas {
     profesores: Profesores[];  // Supongo que debería ser un array de strings
     entidades_externas: entidadesExternas[];  // Supongo que debería ser un array de strings
     modulos: Modulos[];  // Supongo que debería ser un array de strings
+    redes_sociales: Redes_Sociales[];
     mas_comentarios:String;
 
     // Constructor para inicializar la clase
@@ -30,7 +31,6 @@ export class Iniciativas {
         horas: number,
         nombre: string,
         explicacion: string,
-        redes_sociales: string,
         fecha_registro: string,
         fecha_inicio: string,
         fecha_fin: string,
@@ -41,6 +41,7 @@ export class Iniciativas {
         profesores: Profesores[],  // Tipificado correctamente
         entidades_externas: entidadesExternas[],  // Tipificado correctamente
         modulos: Modulos[],  // Tipificado correctamente
+        redes_sociales: Redes_Sociales[],
         innovador: boolean,  // Se añade el parámetro 'innovador'
         mas_comentarios:string
     ) {
@@ -49,7 +50,6 @@ export class Iniciativas {
         this.horas = horas;
         this.nombre = nombre;
         this.explicacion = explicacion;
-        this.redes_sociales = redes_sociales;
         this.fecha_registro = fecha_registro;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
@@ -60,6 +60,7 @@ export class Iniciativas {
         this.profesores = profesores;
         this.entidades_externas = entidades_externas;
         this.modulos = modulos;
+        this.redes_sociales = redes_sociales;
         this.innovador = innovador;  // Inicializa el campo 'innovador'
         this.mas_comentarios = mas_comentarios;
     }

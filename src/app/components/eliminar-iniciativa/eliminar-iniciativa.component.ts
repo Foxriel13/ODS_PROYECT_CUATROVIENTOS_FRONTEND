@@ -25,7 +25,6 @@ export class EliminarIniciativaComponent {
     horas: 0,
     nombre: '',
     explicacion: '',
-    redes_sociales: '',
     fecha_registro: '',
     fecha_inicio: '',
     fecha_fin: '',
@@ -37,6 +36,7 @@ export class EliminarIniciativaComponent {
     profesores: [],
     entidades_externas: [],
     modulos: [],
+    redes_sociales: [],
     mas_comentarios: ''
   };
 

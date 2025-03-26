@@ -111,7 +111,8 @@ export class IniciativasService {
       metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
       profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
       entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
-      modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
+      modulos: iniciativa.modulos.map(modulo => modulo.id),
+      redes_sociales: iniciativa.redes_sociales.map(redes => redes.id)  // Lo mismo para modulos
     };
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

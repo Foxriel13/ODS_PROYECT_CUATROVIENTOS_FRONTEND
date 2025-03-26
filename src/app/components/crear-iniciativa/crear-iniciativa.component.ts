@@ -283,6 +283,18 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona un profesor válido.');
     }
   }
+  anyadirRedSociales(redSocial:Redes_Sociales): void {
+    const selectedRedSocial = this.redes_socialesList.find(item => item.id == redSocial.id);
+    if (selectedRedSocial) {
+      if (this.redes_socialesSeleccionados.some(item => item.id === this.redes_sociales.id)) {
+        alert('Este profesor ya está añadido.');
+      } else {
+        this.redes_socialesSeleccionados.push(selectedRedSocial);
+      }
+    } else {
+      alert('Por favor, selecciona un profesor válido.');
+    }
+  }
   mostrarRedSocial() {
     var selectRedes = document.getElementById("mostrarRedSocial");
     var inputRedes = document.getElementById("crearRedSocial");
@@ -599,36 +611,42 @@ crearLinks() {
   var nombre = document.getElementById("nombreLink") as HTMLInputElement;
   var link = document.getElementById("enlaceLink") as HTMLInputElement;
   var selector = document.getElementById("linkSelector") as HTMLSelectElement;
+
   if (nombre && link) { // Verifica que los elementos existen antes de usarlos
     var red_socialNueva: Redes_Sociales = {
       id: 0,
       nombre: nombre.value,  // Usamos .value en lugar de .textContent
       enlace: link.value     // Usamos .value en lugar de .textContent
     };
-    var redSocialEncontrada: Redes_Sociales;
+
     this.redes_socialesServicie.CreateRedesSocialesList(red_socialNueva).subscribe(
       response => {
         console.log('Enlace creado correctamente:', response);
+        
+        // Aquí, después de crear la red social, actualizamos la lista y la mostramos
+        this.redes_socialesList.push(red_socialNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
+
+        // Ya podemos buscar y añadir la red social a la lista
+        this.anyadirRedSociales(red_socialNueva);
+
+        // Mostramos un mensaje de éxito
         this.showToastEnlace();
-        this.redes_socialesSeleccionados.push(redSocialEncontrada)
+        
+        // Cargar nuevamente las redes sociales (si es necesario)
+        this.loadRedesSociales();
       },
       error => {
         console.error('Error al crear la iniciativa:', error);
         // Maneja el error aquí, como mostrar un mensaje de error al usuario.
       }
     );
-    this.ocultarRedSocial();
-        for (let i = 0; i < this.redes_socialesList.length; i++) {
-          if(this.redes_socialesList[i].nombre == red_socialNueva.nombre){
-            redSocialEncontrada = this.redes_socialesList[i];
-            break;
-          }
-        }
-    console.log(red_socialNueva); // Para verificar que se creó correctamente
+
+    this.ocultarRedSocial(); // Ocultar algo si es necesario
   } else {
     console.error("No se encontraron los elementos nombreLink o enlaceLink.");
   }
 }
+
 
   
 }

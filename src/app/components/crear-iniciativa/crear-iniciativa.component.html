@@ -48,10 +48,24 @@
                             <textarea [(ngModel)]="producto" name="producto" class="form-control"
                                 placeholder="Informe de IA" id="producto" rows="4"></textarea>
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4" id="mostrarRedSocial">
+                            <label>Redes Sociales</label>
+                            <select [(ngModel)]="ods" name="ods" class="form-control" (change)="cargarImagenODS(ods.nombre)" id="odsElegido">
+                                <option value="" disabled selected>Seleccione una red Social</option>
+                                <option *ngFor="let ods of odsList" [ngValue]="ods">{{ ods.nombre }}</option>
+                            </select>
+                            
+                            <!-- Botón de añadir red social a la izquierda -->
+                            <button class="btn btn-info mt-2" type="button" (click)="mostrarRedSocial()">Añadir Red Social</button>
+                        </div>
+                        
+                        
+                        <div class="mb-4" id="crearRedSocial" hidden>
                             <label>Redes Sociales</label>
                             <input [(ngModel)]="redes_sociales" name="redes_sociales" type="text" class="form-control"
-                                placeholder="IA en educación" id="imagen">
+                                placeholder="IA en educación">
+                        <button class="btn btn-info mt-2" type="button" (click)="ocultarRedSocial()">Lista de redes Sociales</button>
+                        <button class="btn btn-info mt-2 ms-2" type="button">Añadir Red Social</button>
                         </div>
                         <div class="mb-3">
                             <label for="mas_comentarios">Mas Comentarios</label>
@@ -89,7 +103,7 @@
                     <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
                         <div *ngIf="ods" class="text-center">
                             <img src="/Ods_img/ods1.png" id="imagenOds" alt="Imagen ODS" class="img-fluid" style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
-                            <p id="dimensionText">text1</p>
+                            <p id="dimensionText">Social</p>
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ import { MetasService } from '../../serviceMetas/metas.service';
 import { ModulosService } from '../../serviceModulos/modulos.service';
 import { Redes_Sociales } from '../../models/redes_sociales';
 import { isScheduler } from 'rxjs/internal/util/isScheduler';
+import { RedesSocialesService } from '../../serviceRedesSociales/redes-sociales.service';
 
 @Component({
   selector: 'app-crear-iniciativa',
@@ -47,6 +48,7 @@ export class CrearIniciativaComponent implements OnInit {
   nombreModulo: string = '';
   imagen: string = "";
   odsList: Ods[] = []; // Lista de ODS
+  redes_socialesList: Redes_Sociales[] = []; // Lista de ODS
   ProfesoresList: Profesores[] = [];
   ModulosList: Modulos[] = [];
   MetasList: Metas[] = [];
@@ -106,7 +108,7 @@ export class CrearIniciativaComponent implements OnInit {
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
-  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService) { }
+  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService, private redes_socialesServicie: RedesSocialesService) { }
 
   ngOnInit(): void {
     this.loadOdsList();
@@ -122,6 +124,16 @@ export class CrearIniciativaComponent implements OnInit {
     this.odsService.getOdsList().subscribe(
       (response) => {
         this.odsList = response;
+      },
+      (error) => {
+        console.error('Error al cargar los ODS:', error);
+      }
+    );
+  }
+  loadRedesSociales(): void {
+    this.redes_socialesServicie.getRedesSocialesList().subscribe(
+      (response) => {
+        this.redes_socialesList = response;
       },
       (error) => {
         console.error('Error al cargar los ODS:', error);
@@ -254,6 +266,35 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona un profesor válido.');
     }
   }
+  mostrarRedSocial() {
+    var selectRedes = document.getElementById("mostrarRedSocial");
+    var inputRedes = document.getElementById("crearRedSocial");
+
+    // Ocultar el elemento selectRedes
+    if (selectRedes) {
+        selectRedes.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (inputRedes) {
+      inputRedes.removeAttribute("hidden");
+    }
+}
+
+  ocultarRedSocial(){
+    var selectRedes = document.getElementById("mostrarRedSocial");
+    var inputRedes = document.getElementById("crearRedSocial");
+
+    // Ocultar el elemento selectRedes
+    if (inputRedes) {
+        inputRedes.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (selectRedes) {
+      selectRedes.removeAttribute("hidden");
+    }
+  }
 
   anyadirEntidad(): void {
     const selectedEntidad = this.entidadesList.find(item => item.id == this.entidad.id);
@@ -293,7 +334,7 @@ export class CrearIniciativaComponent implements OnInit {
 
     // Buscar el ODS correspondiente
     for (let i = 0; i < this.odsList.length; i++) {
-      if (this.odsList[i].idOds == ods.selectedIndex - 1) {
+      if (this.odsList[i].nombre == nombreOds) {
         odsNew = this.odsList[i];
         break;  // Se sale del loop una vez se ha encontrado el ODS.
       }

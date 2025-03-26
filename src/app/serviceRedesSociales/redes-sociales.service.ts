@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RedesSociales } from '../models/redes-sociales';
+import { Redes_Sociales } from '../models/redes_sociales';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,12 @@ export class RedesSocialesService {
   constructor(private http: HttpClient) { }
 
   //Obtener todas las RedesSociales desde la BBDD
-  getRedesSocialesList(): Observable<RedesSociales[]>{
-    return this.http.get<RedesSociales[]>(this.apiUrl)
+  getRedesSocialesList(): Observable<Redes_Sociales[]>{
+    return this.http.get<Redes_Sociales[]>(this.apiUrl)
   }
 
   //Enviar todas las RedesSociales desde la BBDD
-  postRedesSocialesList(redSocial: RedesSociales){
+  postRedesSocialesList(redSocial: Redes_Sociales){
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -26,11 +26,11 @@ export class RedesSocialesService {
       enlace: redSocial.enlace.toString()
     }
 
-    this.http.post<RedesSociales>(this.apiUrl, reqestBody, {headers})
+    this.http.post<Redes_Sociales>(this.apiUrl, reqestBody, {headers})
   }
 
   //Actualizar todas las RedesSociales desde la BBDD
-  putRedesSocialesList(redSocial: RedesSociales){
+  putRedesSocialesList(redSocial: Redes_Sociales){
     this.apiUrl += "/${" + redSocial.id + "}";
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -40,6 +40,6 @@ export class RedesSocialesService {
       enlace: redSocial.enlace.toString()
     }
 
-    this.http.put<RedesSociales>(this.apiUrl, reqestBody, {headers})
+    this.http.put<Redes_Sociales>(this.apiUrl, reqestBody, {headers})
   }
 }

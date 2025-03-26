@@ -4,10 +4,12 @@ import { MenuComponent } from './components/menu/menu.component';  // Asegúrate
 import { IniciativasComponent } from './components/iniciativas/iniciativas.component';
 import { ModificarComponent } from './components/modificar/modificar.component';
 import { LogInComponent } from './components/log-in/log-in.component';
+import { GraficoIndicadoresComponent } from './components/grafico-indicadores/grafico-indicadores.component';
 
 export const routes: Routes = [
     { path: '', component: MenuComponent },
     { path: 'Iniciativas', component: IniciativasComponent },
     { path: 'Modificar', component: ModificarComponent },
-    { path: 'LogIn', component: LogInComponent }
+    { path: 'LogIn', component: LogInComponent },
+    { path: 'indicadores', component: GraficoIndicadoresComponent },
 ];

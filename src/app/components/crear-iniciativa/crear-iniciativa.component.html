@@ -50,9 +50,9 @@
                         </div>
                         <div class="mb-4" id="mostrarRedSocial">
                             <label>Redes Sociales</label>
-                            <select [(ngModel)]="ods" name="ods" class="form-control" (change)="cargarImagenODS(ods.nombre)" id="odsElegido">
+                            <select [(ngModel)]="redes_sociales" name="redes_sociales" class="form-control" (change)="cargarImagenODS(ods.nombre)" id="odsElegido">
                                 <option value="" disabled selected>Seleccione una red Social</option>
-                                <option *ngFor="let ods of odsList" [ngValue]="ods">{{ ods.nombre }}</option>
+                                <option *ngFor="let ods of redes_socialesList" [ngValue]="ods">{{ ods.nombre }}, {{ ods.enlace }}</option>
                             </select>
                             
                             <!-- Botón de añadir red social a la izquierda -->
@@ -62,7 +62,7 @@
                         
                         <div class="mb-4" id="crearRedSocial" hidden>
                             <label>Redes Sociales</label>
-                            <input [(ngModel)]="redes_sociales" name="redes_sociales" type="text" class="form-control"
+                            <input name="redes_sociales" type="text" class="form-control"
                                 placeholder="IA en educación">
                         <button class="btn btn-info mt-2" type="button" (click)="ocultarRedSocial()">Lista de redes Sociales</button>
                         <button class="btn btn-info mt-2 ms-2" type="button">Añadir Red Social</button>

@@ -118,6 +118,7 @@ export class CrearIniciativaComponent implements OnInit {
     this.loadDimensionesList();
     this.loadMetasList();
     this.loadModulosList();
+    this.loadRedesSociales();
   }
 
   loadOdsList(): void {

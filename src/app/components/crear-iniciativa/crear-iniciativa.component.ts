@@ -35,7 +35,6 @@ export class CrearIniciativaComponent implements OnInit {
   titulo: string = '';
   nombre: string = '';
   producto: string = '';
-  redes_sociales: string = '';
   descripcion: string = "";
   contratante: string = '';
   equipo: string = '';
@@ -102,6 +101,11 @@ export class CrearIniciativaComponent implements OnInit {
       nombre: ""
     }
   };
+  redes_sociales: Redes_Sociales = {
+    id: 0,
+    nombre: '',
+    enlace: ''
+  }
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
 
@@ -267,14 +271,29 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona un profesor válido.');
     }
   }
+  anyadirRedSocial(): void {
+    const selectedRedSocial = this.redes_socialesList.find(item => item.id == this.redes_sociales.id);
+    if (selectedRedSocial) {
+      if (this.redes_socialesSeleccionados.some(item => item.id === this.redes_sociales.id)) {
+        alert('Este profesor ya está añadido.');
+      } else {
+        this.redes_socialesSeleccionados.push(selectedRedSocial);
+      }
+    } else {
+      alert('Por favor, selecciona un profesor válido.');
+    }
+  }
   mostrarRedSocial() {
     var selectRedes = document.getElementById("mostrarRedSocial");
     var inputRedes = document.getElementById("crearRedSocial");
-
+    var boton = document.getElementById("buttonCrear");
     // Ocultar el elemento selectRedes
     if (selectRedes) {
         selectRedes.hidden = true;
     }
+    if (boton) {
+      boton.hidden = true;
+  }
 
     // Mostrar el elemento inputRedes
     if (inputRedes) {
@@ -285,7 +304,7 @@ export class CrearIniciativaComponent implements OnInit {
   ocultarRedSocial(){
     var selectRedes = document.getElementById("mostrarRedSocial");
     var inputRedes = document.getElementById("crearRedSocial");
-
+    var boton = document.getElementById("buttonCrear");
     // Ocultar el elemento selectRedes
     if (inputRedes) {
         inputRedes.hidden = true;
@@ -294,6 +313,9 @@ export class CrearIniciativaComponent implements OnInit {
     // Mostrar el elemento inputRedes
     if (selectRedes) {
       selectRedes.removeAttribute("hidden");
+    }
+    if (boton) {
+      boton.removeAttribute("hidden");
     }
   }
 
@@ -380,6 +402,9 @@ export class CrearIniciativaComponent implements OnInit {
 
   eliminarCurso(index: number) {
     this.cursosSeleccionados.splice(index, 1);
+  }
+  eliminarRedSocial(index: number) {
+    this.redes_socialesSeleccionados.splice(index, 1);
   }
 
   eliminarProfesor(index: number) {
@@ -536,6 +561,13 @@ export class CrearIniciativaComponent implements OnInit {
       window.location.href = "/Iniciativas";
     }, 3000);
   }
+  showToastEnlace() {
+    this.toastVisible = true;
+    setTimeout(() => {
+      this.toastVisible = false;
+      this.loading = true;
+    }, 3000);
+  }
   cargarImagenODS(nombre: any) {
     var id = 1;
     var ods: Ods | undefined;  // Allow ods to be undefined initially.
@@ -563,4 +595,40 @@ export class CrearIniciativaComponent implements OnInit {
     }
 }
 
+crearLinks() {
+  var nombre = document.getElementById("nombreLink") as HTMLInputElement;
+  var link = document.getElementById("enlaceLink") as HTMLInputElement;
+  var selector = document.getElementById("linkSelector") as HTMLSelectElement;
+  if (nombre && link) { // Verifica que los elementos existen antes de usarlos
+    var red_socialNueva: Redes_Sociales = {
+      id: 0,
+      nombre: nombre.value,  // Usamos .value en lugar de .textContent
+      enlace: link.value     // Usamos .value en lugar de .textContent
+    };
+    var redSocialEncontrada: Redes_Sociales;
+    this.redes_socialesServicie.CreateRedesSocialesList(red_socialNueva).subscribe(
+      response => {
+        console.log('Enlace creado correctamente:', response);
+        this.showToastEnlace();
+        this.redes_socialesSeleccionados.push(redSocialEncontrada)
+      },
+      error => {
+        console.error('Error al crear la iniciativa:', error);
+        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+      }
+    );
+    this.ocultarRedSocial();
+        for (let i = 0; i < this.redes_socialesList.length; i++) {
+          if(this.redes_socialesList[i].nombre == red_socialNueva.nombre){
+            redSocialEncontrada = this.redes_socialesList[i];
+            break;
+          }
+        }
+    console.log(red_socialNueva); // Para verificar que se creó correctamente
+  } else {
+    console.error("No se encontraron los elementos nombreLink o enlaceLink.");
+  }
+}
+
+  
 }

@@ -11,35 +11,34 @@ export class RedesSocialesService {
 
   constructor(private http: HttpClient) { }
 
-  //Obtener todas las RedesSociales desde la BBDD
-  getRedesSocialesList(): Observable<Redes_Sociales[]>{
-    return this.http.get<Redes_Sociales[]>(this.apiUrl)
+  // Obtener todas las Redes Sociales
+  getRedesSocialesList(): Observable<Redes_Sociales[]> {
+    return this.http.get<Redes_Sociales[]>(this.apiUrl);
   }
 
-  //Enviar todas las RedesSociales desde la BBDD
-  postRedesSocialesList(redSocial: Redes_Sociales){
+  // Enviar una nueva Red Social a la BBDD
+  CreateRedesSocialesList(redSocial: Redes_Sociales): Observable<Redes_Sociales> {  // 🔹 Agregado Observable
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    const requestBody = {
+      nombre: redSocial.nombre,
+      enlace: redSocial.enlace
+    };
+
+    return this.http.post<Redes_Sociales>(this.apiUrl, requestBody, { headers });  // 🔹 Devuelve la petición
+  }
+
+  // Actualizar una Red Social en la BBDD
+  UpdateRedesSocialesList(redSocial: Redes_Sociales): Observable<Redes_Sociales> { // 🔹 Agregado Observable
+    const url = `${this.apiUrl}/${redSocial.id}`;  // 🔹 Formato correcto de la URL
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const reqestBody = {
-      nombre: redSocial.nombre.toString(),
-      enlace: redSocial.enlace.toString()
-    }
+    const requestBody = {
+      nombre: redSocial.nombre,
+      enlace: redSocial.enlace
+    };
 
-    this.http.post<Redes_Sociales>(this.apiUrl, reqestBody, {headers})
-  }
-
-  //Actualizar todas las RedesSociales desde la BBDD
-  putRedesSocialesList(redSocial: Redes_Sociales){
-    this.apiUrl += "/${" + redSocial.id + "}";
-
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    const reqestBody = {
-      nombre: redSocial.nombre.toString(),
-      enlace: redSocial.enlace.toString()
-    }
-
-    this.http.put<Redes_Sociales>(this.apiUrl, reqestBody, {headers})
+    return this.http.put<Redes_Sociales>(url, requestBody, { headers });  // 🔹 Devuelve la petición
   }
 }

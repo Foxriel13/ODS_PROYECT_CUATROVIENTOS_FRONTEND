@@ -13,12 +13,14 @@ export class ModalIniciativaComponent {
   isOpen = false;
 
   iniciativa: Iniciativas | undefined;
+  
 
 
   constructor(private modalService: ModalService) {
     this.modalService.modalData$.subscribe((data) => {
       if (data) {
         this.iniciativa = data.iniciativa;
+        console.log(data.iniciativa);
         this.isOpen = true;
       } else {
         this.isOpen = false; // Cuando los datos sean null, cerramos el modal

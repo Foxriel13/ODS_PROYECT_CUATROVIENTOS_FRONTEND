@@ -27,7 +27,7 @@
     }
 }
 
-// Botón principal
+// Botón principal //TODO ELIMINAR DESPUÉS
 .btn-blue {
     background-color: #0056b3;
     color: white;
@@ -43,13 +43,17 @@
 
 // Botón secundario
 .btn-outline-secondary {
-    border: 1px solid #ced4da;
-    color: #6c757d;
-    border-radius: 8px;
-    padding: 10px 20px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    border:none;
+    background-color:#0d62bd;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 5px 5px;
 
     &:hover {
-        color: #495057;
+        background-color: #003d82;
+        transform: scale(0.9);
     }
 
 }
@@ -63,6 +67,8 @@
 
     &:hover {
         transform: scale(0.9);
+        color:navy;
+        background-color: transparent;
     }
 
     i {

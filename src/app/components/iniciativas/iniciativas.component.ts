@@ -17,16 +17,17 @@ import { ModalService } from '../../servicios/modal.service';
 export class IniciativasComponent implements OnInit {
   iniciativas: Iniciativas[] = [];  // Lista completa de iniciativas
   iniciativasFiltradas: Iniciativas[] = [];  // Lista filtrada
+
   filters = {
     curso: '',
     ods: '',
-    fechaRegistro: '',
     nombre: '',
-    
+    fechaRegistro: '',
     anyo_lectivo: '',
     dimension: '',
     tipo:'',
-    horas: null
+    profesor: '',
+    contratante: ''
   };
 
   constructor(private iniciativasService: IniciativasService) { }
@@ -35,20 +36,18 @@ export class IniciativasComponent implements OnInit {
     this.loadIniciativas();
   }
 
-
-
   // Cargar todas las iniciativas
   loadIniciativas(): void {
     this.iniciativasService.getIniciativas().subscribe(
       (data: Iniciativas[]) => {
-        console.log('📌 Iniciativas recibidas:', data);
+        console.log('Iniciativas recibidas:', data);
         
         // Filtramos las iniciativas que NO estén eliminadas
         this.iniciativas = data.filter(iniciativa => !iniciativa.eliminado);
         this.iniciativasFiltradas = [...this.iniciativas]; // Copia para mostrar
       },
       (error) => {
-        console.error('❌ Error al cargar las iniciativas', error);
+        console.error('Error al cargar las iniciativas', error);
       }
     );
   }
@@ -56,7 +55,9 @@ export class IniciativasComponent implements OnInit {
   // Método para recibir cambios de filtros desde el componente Buscador
   onFiltersChanged(updatedFilters: any): void {
     this.filters = updatedFilters;
-    this.buscar(); // Llamamos al método de búsqueda para aplicar los filtros
+    this.filtrarIniciativas(); // Aplica los filtros en el frontend
+
+   // this.buscar(); // Llamamos al método de búsqueda para aplicar los filtros
   }
 
   // Buscar iniciativas con filtros
@@ -78,12 +79,25 @@ export class IniciativasComponent implements OnInit {
         (!this.filters.ods || this.filterOds(iniciativa.metas, this.filters.ods)) &&
         (!this.filters.curso || this.filterCursos(iniciativa.modulos, this.filters.curso)) &&
         (!this.filters.fechaRegistro || new Date(iniciativa.fecha_registro) >= new Date(this.filters.fechaRegistro)) &&
-        (!this.filters.nombre || iniciativa.nombre.toLowerCase().includes(this.filters.nombre.toLowerCase()))
+        (!this.filters.nombre || iniciativa.nombre.toLowerCase().includes(this.filters.nombre.toLowerCase())) &&
+        (!this.filters.anyo_lectivo || iniciativa.anyo_lectivo?.trim().includes(this.filters.anyo_lectivo.trim()))&&  
+        (!this.filters.tipo || iniciativa.tipo.toLowerCase().trim().includes(this.filters.tipo.toLowerCase().trim())) &&
+        (!this.filters.profesor || iniciativa.profesores.some(prof =>
+          prof.nombre.toLowerCase().includes(this.filters.profesor.toLowerCase().trim())
+        )) && (!this.filters.contratante || iniciativa.entidades_externas.some(entidad =>
+          entidad.nombre.toLowerCase().includes(this.filters.contratante.toLowerCase().trim())
+        ))&&(!this.filters.dimension || iniciativa.metas.some(meta =>
+          meta.ods?.dimension?.toLowerCase().includes(this.filters.dimension.toLowerCase().trim())
+        ))
+
+
+
       );
     });
 
     console.log('📌 Iniciativas filtradas:', this.iniciativasFiltradas);
   }
+
 
   // Función para filtrar por 'ods' dentro de las 'metas'
   filterOds(metas: any[], odsFilter: string): boolean {
@@ -120,17 +134,4 @@ export class IniciativasComponent implements OnInit {
     });
   }
   
-
-  // Método para obtener el nombre del curso
-  // getCursoNombre(iniciativa: Iniciativas): string | null {
-  //   if (iniciativa.modulos && iniciativa.modulos.length > 0) {
-  //     const modulo = iniciativa.modulos[0];
-  //     if (Array.isArray(modulo.curso)) {
-  //       return modulo.curso.length > 0 ? modulo.curso[0].nombre : null;
-  //     } else if (modulo.curso && modulo.curso.nombre) {
-  //       return modulo.curso.nombre;
-  //     }
-  //   }
-  //   return null;
-  // }
 }

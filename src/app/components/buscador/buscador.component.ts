@@ -6,7 +6,11 @@ import { Curso } from '../../models/curso.model';
 import { ServiceOdsService } from '../../serviceOds/service-ods.service';
 import { Ods } from '../../models/ods.model';
 import { Dimension } from '../../models/dimension.model';
-
+import { ServiceDimensionService } from '../../serviceDimension/service-dimension.service';
+import { ServiceProfesoresService } from '../../serviceProfesores/service-profesores.service';
+import { ServiceEntidadesService } from '../../serviceEntidades/service-entidades.service';
+import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
+import { Profesores } from '../../models/profesores.model';
 @Component({
   selector: 'app-buscador',
   standalone: true,
@@ -16,28 +20,62 @@ import { Dimension } from '../../models/dimension.model';
 })
 export class BuscadorComponent {
 
-  constructor(private claseServicie: ServiceCursosService, private odsServicie: ServiceOdsService) { }
+  constructor(private claseServicie: ServiceCursosService, private odsServicie: ServiceOdsService,
+    private profesoresService: ServiceProfesoresService,
+    private entidadesexService: ServiceEntidadesService,
+    private iniciativasService: IniciativasService
+  ) { }
+  //Listas para almacenar datos de los selects
   cursoList: Curso[] = [];
   odsList: Ods[] = [];
   tipoList: string[] = [];
+  anioList: string[] = [];
+  dimensionList: string[] = [];
+  profList: Profesores[] = [];
+  entidadesList: any[] = [];
 
-  dimensionList: Dimension[] = [];
-
+  // Variables para almacenar los valores de los filtros
   curso = '';
   ods = '';
   nombre = '';
-  fechaRegistro = '';  // Variable para la fecha de registro
-  //búsqueda por otros campos
+  fechaRegistro = '';  
   anyo_lectivo = '';
-  dimension = '';
+  dimension = ''; 
   tipo = '';
-  horas: number | null = null;
+  profesor = '';
+  contratante = '';
 
+  // Variable para controlar la visibilidad de los filtros 
   advancedFiltersVisible = false;
 
+  //Cargar todos los datos de las listas en los selects
   ngOnInit(): void {
     this.loadClases();
-    this.loadOds();
+    this.loadOdsDimension();
+    this.loadDatosIniciativas();
+    this.loadProfesores();
+    this.loadEntidadesEx();
+  }
+
+  loadProfesores() {
+    this.profesoresService.getProfesoresList().subscribe(
+      (response) => {
+        this.profList = response; 
+      },
+      (error) => {
+        console.error('Error al cargar los profesores:', error);
+      }
+    );
+  }
+  loadEntidadesEx() { 
+    this.entidadesexService.getEntidadesList().subscribe(
+      (response) => {
+        this.entidadesList = response; 
+      },
+      (error) => {
+        console.error('Error al cargar los contratantes:', error);
+      }
+    );
   }
 
   loadClases() {
@@ -46,23 +84,38 @@ export class BuscadorComponent {
         this.cursoList = response; // Se asignan todos los cursos sin filtro
       },
       (error) => {
-        console.error('❌ Error al cargar los cursos:', error);
+        console.error('Error al cargar los cursos:', error);
       }
     );
   }
-  loadOds() {
+  loadDatosIniciativas() {
+    this.iniciativasService.getIniciativas().subscribe(
+      (response) => {
+        this.anioList = [...new Set(response.map(iniciativa => iniciativa.anyo_lectivo))];
+        this.tipoList = [...new Set(response.map(iniciativa => iniciativa.tipo))];
+        console.log('tipos:', this.tipoList);
+        console.log('Años lectivos:', this.anioList);
+      },(error) => {
+        console.error(' Error al cargar los años lectivos:', error);
+      }
+    )
+  }
+  loadOdsDimension() {
     this.odsServicie.getOdsList().subscribe(
       (response) => {
         this.odsList = response; // Se asignan todos los cursos sin filtro
+        this.dimensionList = [...new Set(response.map(ods => ods.dimension))];
+        console.log('Dimensiones:', this.dimensionList);
       },
       (error) => {
-        console.error('❌ Error al cargar los cursos:', error);
+        console.error('Error al cargar los cursos:', error);
       }
     );
   }
 
   @Output() filtersChanged = new EventEmitter<any>();
 
+  //Abrir y ocultar otros filtros 
   toggleAdvancedFilters(): void {
     this.advancedFiltersVisible = !this.advancedFiltersVisible;
   }
@@ -73,12 +126,12 @@ export class BuscadorComponent {
       curso: this.curso,
       ods: this.ods,
       nombre: this.nombre,
-      fechaRegistro: this.fechaRegistro, // Se incluye fechaRegistro en el filtro
-
+      fechaRegistro: this.fechaRegistro, 
       anyo_lectivo: this.anyo_lectivo,
       dimension: this.dimension,
       tipo: this.tipo,
-      horas: this.horas
+      profesor: this.profesor,
+      contratante: this.contratante
     });
   }
   limpiarFiltros(): void {
@@ -89,8 +142,8 @@ export class BuscadorComponent {
     this.anyo_lectivo = '';
     this.dimension = '';
     this.tipo = '';
-    this.horas = null;
-
+    this.profesor = '';
+    this.contratante = '';
 
     // Emitir los cambios de filtros para actualizar la vista
     this.filtersChanged.emit({
@@ -98,11 +151,11 @@ export class BuscadorComponent {
       ods: this.ods,
       nombre: this.nombre,
       fechaRegistro: this.fechaRegistro,
-
       anyo_lectivo: this.anyo_lectivo,
       dimension: this.dimension,
       tipo: this.tipo,
-      horas: this.horas
+      profesor: this.profesor,
+      contratante: this.contratante
     });
   }
 

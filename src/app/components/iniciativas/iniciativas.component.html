@@ -1,16 +1,19 @@
 <div class="container mt-4">
     <div class="row">
         <!-- Buscador grande centrado -->
-        <div class="container my-5">
+        <div class="container mt-3">
             <div class="row justify-content-center">
                 <app-buscador (filtersChanged)="onFiltersChanged($event)"></app-buscador>
             </div>
 
             <!-- Cards con imágenes debajo del buscador -->
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-4">
                 <div class="col" *ngFor="let iniciativa of iniciativasFiltradas">                        
                     <app-card-iniciativa [iniciativa]="iniciativa"></app-card-iniciativa>
                 </div>
+            </div>
+            <div *ngIf="iniciativasFiltradas.length === 0" class=" mb-4 alert alert-warning" role="alert">
+                No se encontraron iniciativas con los filtros aplicados.
             </div>
         </div>
     </div>

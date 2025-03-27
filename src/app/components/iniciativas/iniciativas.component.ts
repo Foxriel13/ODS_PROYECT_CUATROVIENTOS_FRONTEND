@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { CommonModule } from '@angular/common';
@@ -30,7 +30,7 @@ export class IniciativasComponent implements OnInit {
     contratante: ''
   };
 
-  constructor(private iniciativasService: IniciativasService) { }
+  constructor(private iniciativasService: IniciativasService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadIniciativas();
@@ -54,9 +54,10 @@ export class IniciativasComponent implements OnInit {
 
   // Método para recibir cambios de filtros desde el componente Buscador
   onFiltersChanged(updatedFilters: any): void {
-    this.filters = updatedFilters;
-    this.filtrarIniciativas(); // Aplica los filtros en el frontend
+    this.filters = { ...updatedFilters }; // Clonar objeto para forzar detección de cambios
 
+    this.filtrarIniciativas(); // Aplica los filtros en el frontend
+    this.cdr.detectChanges(); 
    // this.buscar(); // Llamamos al método de búsqueda para aplicar los filtros
   }
 
@@ -74,29 +75,84 @@ export class IniciativasComponent implements OnInit {
 
   // Filtrar las iniciativas en el frontend
   filtrarIniciativas(): void {
-    this.iniciativasFiltradas = this.iniciativas.filter(iniciativa => {  
-      return (
-        (!this.filters.ods || this.filterOds(iniciativa.metas, this.filters.ods)) &&
-        (!this.filters.curso || this.filterCursos(iniciativa.modulos, this.filters.curso)) &&
-        (!this.filters.fechaRegistro || new Date(iniciativa.fecha_registro) >= new Date(this.filters.fechaRegistro)) &&
-        (!this.filters.nombre || iniciativa.nombre.toLowerCase().includes(this.filters.nombre.toLowerCase())) &&
-        (!this.filters.anyo_lectivo || iniciativa.anyo_lectivo?.trim().includes(this.filters.anyo_lectivo.trim()))&&  
-        (!this.filters.tipo || iniciativa.tipo.toLowerCase().trim().includes(this.filters.tipo.toLowerCase().trim())) &&
-        (!this.filters.profesor || iniciativa.profesores.some(prof =>
-          prof.nombre.toLowerCase().includes(this.filters.profesor.toLowerCase().trim())
-        )) && (!this.filters.contratante || iniciativa.entidades_externas.some(entidad =>
-          entidad.nombre.toLowerCase().includes(this.filters.contratante.toLowerCase().trim())
-        ))&&(!this.filters.dimension || iniciativa.metas.some(meta =>
-          meta.ods?.dimension?.toLowerCase().includes(this.filters.dimension.toLowerCase().trim())
-        ))
+    let iniciativasFiltradas = this.iniciativas; // Lista original de iniciativas
 
-
-
+    // Filtro por nombre (solo si hay algo escrito)
+    if (this.filters.nombre && this.filters.nombre.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        iniciativa.nombre?.toLowerCase().includes(this.filters.nombre.toLowerCase().trim())
       );
-    });
+    }
 
-    console.log('📌 Iniciativas filtradas:', this.iniciativasFiltradas);
+    // Filtro por tipo (solo si hay algo seleccionado)
+    if (this.filters.tipo && this.filters.tipo.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        iniciativa.tipo?.toLowerCase().includes(this.filters.tipo.toLowerCase().trim())
+      );
+    }
+
+    // Filtro por año lectivo (solo si hay algo escrito)
+    if (this.filters.anyo_lectivo && this.filters.anyo_lectivo.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        iniciativa.anyo_lectivo?.trim().includes(this.filters.anyo_lectivo.trim())
+      );
+    }
+
+    // Filtro por ODS (solo si hay algo escrito)
+    if (this.filters.ods && this.filters.ods.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        this.filterOds(iniciativa.metas, this.filters.ods)
+      );
+    }
+
+    // Filtro por curso (solo si hay algo seleccionado)
+    if (this.filters.curso && this.filters.curso.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        this.filterCursos(iniciativa.modulos, this.filters.curso)
+      );
+    }
+
+    // Filtro por fecha de registro (solo si hay algo escrito)
+    if (this.filters.fechaRegistro && this.filters.fechaRegistro.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        new Date(iniciativa.fecha_registro) >= new Date(this.filters.fechaRegistro)
+      );
+    }
+
+    // Filtro por profesor (solo si hay algo escrito)
+    if (this.filters.profesor && this.filters.profesor.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        iniciativa.profesores?.some(prof =>
+          prof.nombre?.toLowerCase().includes(this.filters.profesor.toLowerCase().trim())
+        )
+      );
+    }
+
+    // Filtro por contratante (solo si hay algo escrito)
+    if (this.filters.contratante && this.filters.contratante.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        iniciativa.entidades_externas?.some(entidad =>
+          entidad.nombre?.toLowerCase().includes(this.filters.contratante.toLowerCase().trim())
+        )
+      );
+    }
+
+    // Filtro por dimensión de ODS (solo si hay algo escrito)
+    if (this.filters.dimension && this.filters.dimension.trim() !== '') {
+      iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
+        iniciativa.metas?.some(meta =>
+          (meta.ods?.dimension ?? '').toLowerCase().includes(this.filters.dimension.toLowerCase().trim())
+        )
+      );
+    }
+
+    // Actualizar lista de iniciativas filtradas
+    this.iniciativasFiltradas = [...iniciativasFiltradas]; // Clonar para que Angular detecte cambios
+    // Fuerza la detección de cambios manualmente
+    console.log('Iniciativas filtradas:', this.iniciativasFiltradas);
   }
+
+
 
 
   // Función para filtrar por 'ods' dentro de las 'metas'

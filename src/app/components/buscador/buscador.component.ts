@@ -20,7 +20,8 @@ import { Profesores } from '../../models/profesores.model';
 })
 export class BuscadorComponent {
 
-  constructor(private claseServicie: ServiceCursosService, private odsServicie: ServiceOdsService,
+  constructor(private claseServicie: ServiceCursosService,
+    private odsServicie: ServiceOdsService,
     private profesoresService: ServiceProfesoresService,
     private entidadesexService: ServiceEntidadesService,
     private iniciativasService: IniciativasService
@@ -34,16 +35,23 @@ export class BuscadorComponent {
   profList: Profesores[] = [];
   entidadesList: any[] = [];
 
+  //
+  odsFiltrados: Ods[] = [];
+
   // Variables para almacenar los valores de los filtros
-  curso = '';
-  ods = '';
-  nombre = '';
-  fechaRegistro = '';  
-  anyo_lectivo = '';
-  dimension = ''; 
-  tipo = '';
-  profesor = '';
-  contratante = '';
+  // Variables para filtros
+  filtros = {
+    curso: '',
+    nombre: '',
+    fechaRegistro: '',
+    anyo_lectivo: '',
+    dimension: '',
+    tipo: '',
+    profesor: '',
+    contratante: '',
+    ods:''
+  };
+
 
   // Variable para controlar la visibilidad de los filtros 
   advancedFiltersVisible = false;
@@ -106,11 +114,20 @@ export class BuscadorComponent {
         this.odsList = response; // Se asignan todos los cursos sin filtro
         this.dimensionList = [...new Set(response.map(ods => ods.dimension))];
         console.log('Dimensiones:', this.dimensionList);
+
+        this.filtrarOds(); // Llamamos a la función para que cargue todos los ODS por defecto
+
       },
       (error) => {
         console.error('Error al cargar los cursos:', error);
       }
     );
+  }
+
+  filtrarOds() {
+    this.odsFiltrados = this.filtros.dimension ?
+      this.odsList.filter(ods => ods.dimension === this.filtros.dimension) :
+      [...this.odsList];
   }
 
   @Output() filtersChanged = new EventEmitter<any>();
@@ -121,42 +138,36 @@ export class BuscadorComponent {
   }
 
   // Método para emitir los filtros incluyendo la fecha de registro
+  // Aplicar los filtros solo cuando se presiona el botón de Buscar
   buscar(): void {
-    this.filtersChanged.emit({
-      curso: this.curso,
-      ods: this.ods,
-      nombre: this.nombre,
-      fechaRegistro: this.fechaRegistro, 
-      anyo_lectivo: this.anyo_lectivo,
-      dimension: this.dimension,
-      tipo: this.tipo,
-      profesor: this.profesor,
-      contratante: this.contratante
-    });
+    this.filtersChanged.emit(this.filtros);
   }
-  limpiarFiltros(): void {
-    this.curso = '';
-    this.ods = '';
-    this.nombre = '';
-    this.fechaRegistro = '';
-    this.anyo_lectivo = '';
-    this.dimension = '';
-    this.tipo = '';
-    this.profesor = '';
-    this.contratante = '';
 
-    // Emitir los cambios de filtros para actualizar la vista
-    this.filtersChanged.emit({
-      curso: this.curso,
-      ods: this.ods,
-      nombre: this.nombre,
-      fechaRegistro: this.fechaRegistro,
-      anyo_lectivo: this.anyo_lectivo,
-      dimension: this.dimension,
-      tipo: this.tipo,
-      profesor: this.profesor,
-      contratante: this.contratante
-    });
+  limpiarFiltros(): void {
+    (Object.keys(this.filtros) as (keyof typeof this.filtros)[]).forEach(key => this.filtros[key] = '');
+    this.filtersChanged.emit(this.filtros);
+  }
+
+
+  seleccionarOds(event: Event, ods: any): void {
+    event.preventDefault();  // Evita el comportamiento por defecto
+    this.filtros.ods = ods.nombre;
+    // this.filtersChanged.emit(this.filtros);
+  }
+
+  getOdsImage(nombreOds: string): string {
+    const odsIndex = this.odsList.findIndex(o => o.nombre === nombreOds);
+    return odsIndex !== -1 ? `/Ods_img/ods${odsIndex + 1}.png` : '';
+  }
+
+
+  obtenerColorDimension(dimension: string): string {
+    switch (dimension.toLowerCase()) {
+      case 'ambiental': return 'bg-green';
+      case 'social': return 'bg-orange';
+      case 'económica': return 'bg-blue';
+      default: return 'bg-gray';
+    }
   }
 
 }

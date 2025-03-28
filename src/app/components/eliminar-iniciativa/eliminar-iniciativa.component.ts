@@ -55,6 +55,11 @@ export class EliminarIniciativaComponent {
   }
 
   confirmarEliminacion() {
+    var iniciativaSeleccionada = document.getElementById("iniciativaSelected") as HTMLSelectElement;
+    if(iniciativaSeleccionada.selectedIndex == -1){
+      alert("No se ha seleccionado ninguna Iniciativa, Por favor seleccione una para borrar")
+      return;
+    }
     const modalElement = document.getElementById('confirmacionModal');
     if (modalElement) {
       let modal = new bootstrap.Modal(modalElement);

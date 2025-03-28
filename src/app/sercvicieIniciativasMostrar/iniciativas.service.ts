@@ -54,21 +54,7 @@ export class IniciativasService {
       );
     }
 
-    if (filters.curso) {
-      filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
-        // Filtramos por los cursos dentro de los módulos
-        iniciativa.modulos.some(modulo => {
-          if (Array.isArray(modulo.clase)) {
-            return modulo.clase.some((curso: any) =>
-              curso.nombre.toLowerCase().includes(filters.curso.toLowerCase())
-            );
-          } else if (modulo.clase && modulo.clase.nombre) {
-            return modulo.clase.nombre.toLowerCase().includes(filters.curso.toLowerCase());
-          }
-          return false;
-        })
-      );
-    }
+    
 
     // Filtrar por fecha_registro
     if (filters.fechaRegistro) {

@@ -62,6 +62,7 @@ export class CrearIniciativaComponent implements OnInit {
   entidadesSeleccionados: entidadesExternas[] = [];
   metasSeleccionadas: Metas[] = [];
   moduloSeleccionados: Modulos[] = [];
+  boton: boolean = false;
   redes_socialesSeleccionados: Redes_Sociales[] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
     idOds: 0,
@@ -96,10 +97,7 @@ export class CrearIniciativaComponent implements OnInit {
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
-    clase: {
-      id: 0,  // Definido como número si es un identificador
-      nombre: ""
-    }
+    clase: []
   };
   redes_sociales: Redes_Sociales = {
     id: 0,
@@ -115,6 +113,7 @@ export class CrearIniciativaComponent implements OnInit {
   constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService, private redes_socialesServicie: RedesSocialesService) { }
 
   ngOnInit(): void {
+    this.boton = false;
     this.loadOdsList();
     this.loadProfesoresList();
     this.loadCursosList();
@@ -283,7 +282,7 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona un profesor válido.');
     }
   }
-  anyadirRedSociales(redSocial:Redes_Sociales): void {
+  anyadirRedSociales(redSocial: Redes_Sociales): void {
     const selectedRedSocial = this.redes_socialesList.find(item => item.id == redSocial.id);
     if (selectedRedSocial) {
       if (this.redes_socialesSeleccionados.some(item => item.id === this.redes_sociales.id)) {
@@ -301,25 +300,25 @@ export class CrearIniciativaComponent implements OnInit {
     var boton = document.getElementById("buttonCrear");
     // Ocultar el elemento selectRedes
     if (selectRedes) {
-        selectRedes.hidden = true;
+      selectRedes.hidden = true;
     }
     if (boton) {
       boton.hidden = true;
-  }
+    }
 
     // Mostrar el elemento inputRedes
     if (inputRedes) {
       inputRedes.removeAttribute("hidden");
     }
-}
+  }
 
-  ocultarRedSocial(){
+  ocultarRedSocial() {
     var selectRedes = document.getElementById("mostrarRedSocial");
     var inputRedes = document.getElementById("crearRedSocial");
     var boton = document.getElementById("buttonCrear");
     // Ocultar el elemento selectRedes
     if (inputRedes) {
-        inputRedes.hidden = true;
+      inputRedes.hidden = true;
     }
 
     // Mostrar el elemento inputRedes
@@ -343,7 +342,48 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona una entidad válida.');
     }
   }
+  anyadirClase() {
+    const selectedClase = this.cursoList.find(item => item.id == this.curso.id);
+    if (selectedClase) {
+      if (this.cursosSeleccionados.some(item => item.id === selectedClase.id)) {
+        alert('Esta Clase ya está añadida.');
+      } else {
+        this.cursosSeleccionados.push(selectedClase);
+      }
+    } else {
+      alert('Por favor, selecciona una Clase válida.');
+    }
+  }
+
+  crearModulo() {
+    var modulo : Modulos = {
+      id: 0,
+      nombre: '',
+      clase:  []
+    }
+    var nombreModulo = document.getElementById("nombreModulo") as HTMLInputElement
+    modulo.nombre = nombreModulo.value;
+    for (let i = 0; i < this.cursosSeleccionados.length; i++) {
+      modulo.clase.push(this.cursosSeleccionados[i])
+    }
+    console.log("this.modulo:", this.modulo);
+
+    // Llamada al servicio para crear la iniciativa
+    this.modulosService.createModulo(modulo).subscribe(
+      response => {
+
+        console.log('Modulo creado correctamente:', response);
+      },
+      error => {
+        console.error('Error al crear la iniciativa:', error);
+        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        this.boton = false;
+      }
+    );
+    this.loadModulosList();
+  }
   anyadirModulo() {
+    this.crearModulo();
     const selectedModulo = this.ModulosList.find(item => item.id == this.modules.id);
     if (selectedModulo) {
       if (this.moduloSeleccionados.some(item => item.id === selectedModulo.id)) {
@@ -358,7 +398,7 @@ export class CrearIniciativaComponent implements OnInit {
   anyadirMeta() {
     var nombreMeta = (document.getElementById("nombreMeta") as HTMLInputElement).value;
     var ods = document.getElementById("odsElegido") as HTMLSelectElement;
-    if (!nombreMeta || ods.selectedIndex === 0 ) {
+    if (!nombreMeta || ods.selectedIndex === 0) {
       alert('Por favor, selecciona una Meta válida.');
       return;
     }
@@ -434,6 +474,9 @@ export class CrearIniciativaComponent implements OnInit {
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
   }
+  eliminarClase(index: number) {
+    this.cursosSeleccionados.splice(index, 1);
+  }
   eliminarMeta(meta: any): void {
     // Encontramos el índice de la meta seleccionada
     const index = this.metasSeleccionadas.indexOf(meta);
@@ -463,7 +506,7 @@ export class CrearIniciativaComponent implements OnInit {
 
 
   guardarIniciativa(form: any): void {
-
+    this.boton = true;
     if (form.invalid) {
       return;
     }
@@ -526,10 +569,10 @@ export class CrearIniciativaComponent implements OnInit {
       modulos: this.moduloSeleccionados.map(modulo => ({
         id: modulo.id,
         nombre: modulo.nombre,
-        clase: {
-          id: modulo.clase.id,
-          nombre: modulo.clase.nombre
-        }
+        clase: this.cursosSeleccionados.map(curso => ({
+          id: curso.id,
+          nombre: curso.nombre
+        }))
       })),
       redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales => ({
         id: redes_sociales.id,
@@ -543,12 +586,14 @@ export class CrearIniciativaComponent implements OnInit {
     // Llamada al servicio para crear la iniciativa
     this.iniciativasService.createIniciativa(iniciativa).subscribe(
       response => {
+
         console.log('Iniciativa creada correctamente:', response);
         this.showToast();
       },
       error => {
         console.error('Error al crear la iniciativa:', error);
         // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        this.boton = false;
       }
     );
   }
@@ -583,7 +628,7 @@ export class CrearIniciativaComponent implements OnInit {
   cargarImagenODS(nombre: any) {
     var id = 1;
     var ods: Ods | undefined;  // Allow ods to be undefined initially.
-    
+
     // Search for the matching ODS.
     for (let i = 0; i < this.odsList.length; i++) {
       if (this.odsList[i].nombre === nombre) {
@@ -592,12 +637,12 @@ export class CrearIniciativaComponent implements OnInit {
         break;  // Break once a match is found to avoid unnecessary iterations.
       }
     }
-    
+
     // Ensure that ods is assigned before using it.
     if (ods) {
       var imagen = document.getElementById("imagenOds") as HTMLImageElement;
       imagen.src = `/Ods_img/ods${id}.png`;
-      
+
       var dimensionText = document.getElementById("dimensionText") as HTMLInputElement;
       dimensionText.textContent = ods.dimension;
     } else {
@@ -605,48 +650,48 @@ export class CrearIniciativaComponent implements OnInit {
       console.log('ODS not found');
       // Optionally, set a default image or display a message.
     }
-}
-
-crearLinks() {
-  var nombre = document.getElementById("nombreLink") as HTMLInputElement;
-  var link = document.getElementById("enlaceLink") as HTMLInputElement;
-  var selector = document.getElementById("linkSelector") as HTMLSelectElement;
-
-  if (nombre && link) { // Verifica que los elementos existen antes de usarlos
-    var red_socialNueva: Redes_Sociales = {
-      id: 0,
-      nombre: nombre.value,  // Usamos .value en lugar de .textContent
-      enlace: link.value     // Usamos .value en lugar de .textContent
-    };
-
-    this.redes_socialesServicie.CreateRedesSocialesList(red_socialNueva).subscribe(
-      response => {
-        console.log('Enlace creado correctamente:', response);
-        
-        // Aquí, después de crear la red social, actualizamos la lista y la mostramos
-        this.redes_socialesList.push(red_socialNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
-
-        // Ya podemos buscar y añadir la red social a la lista
-        this.anyadirRedSociales(red_socialNueva);
-
-        // Mostramos un mensaje de éxito
-        this.showToastEnlace();
-        
-        // Cargar nuevamente las redes sociales (si es necesario)
-        this.loadRedesSociales();
-      },
-      error => {
-        console.error('Error al crear la iniciativa:', error);
-        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
-      }
-    );
-
-    this.ocultarRedSocial(); // Ocultar algo si es necesario
-  } else {
-    console.error("No se encontraron los elementos nombreLink o enlaceLink.");
   }
-}
+
+  crearLinks() {
+    var nombre = document.getElementById("nombreLink") as HTMLInputElement;
+    var link = document.getElementById("enlaceLink") as HTMLInputElement;
+    var selector = document.getElementById("linkSelector") as HTMLSelectElement;
+
+    if (nombre && link) { // Verifica que los elementos existen antes de usarlos
+      var red_socialNueva: Redes_Sociales = {
+        id: 0,
+        nombre: nombre.value,  // Usamos .value en lugar de .textContent
+        enlace: link.value     // Usamos .value en lugar de .textContent
+      };
+
+      this.redes_socialesServicie.CreateRedesSocialesList(red_socialNueva).subscribe(
+        response => {
+          console.log('Enlace creado correctamente:', response);
+
+          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
+          this.redes_socialesList.push(red_socialNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
+
+          // Ya podemos buscar y añadir la red social a la lista
+          this.anyadirRedSociales(red_socialNueva);
+
+          // Mostramos un mensaje de éxito
+          this.showToastEnlace();
+
+          // Cargar nuevamente las redes sociales (si es necesario)
+          this.loadRedesSociales();
+        },
+        error => {
+          console.error('Error al crear la iniciativa:', error);
+          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        }
+      );
+
+      this.ocultarRedSocial(); // Ocultar algo si es necesario
+    } else {
+      console.error("No se encontraron los elementos nombreLink o enlaceLink.");
+    }
+  }
 
 
-  
+
 }

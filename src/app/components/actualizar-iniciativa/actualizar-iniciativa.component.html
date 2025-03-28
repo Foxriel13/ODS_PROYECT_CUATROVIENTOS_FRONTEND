@@ -1,3 +1,8 @@
+<div *ngIf="loading" class="spinner-overlay">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+</div>
 <form #form="ngForm">
     <div class="row g-3 p-4">
         <!-- Columna para los inputs -->
@@ -231,8 +236,7 @@
                     <label>Seleccionar Modulos</label>
                     <select [(ngModel)]="modules" name="modules" class="form-control">
                         <option value="" disabled selected>Selecciona una Meta</option>
-                        <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.id }} - {{ item.nombre }} -
-                            {{item.clase.id}}
+                        <option *ngFor="let item of cursoList" [ngValue]="item">{{ item.id }} - {{ item.nombre }}
                         </option>
                     </select>
                 </div>
@@ -313,8 +317,8 @@
         </div>
         <!-- Botones de Crear y Cancelar -->
         <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)">Cancelar</button>
-            <button class="btn btn-success" type="submit" (click)="confirmarActualizacion()">Actualizar</button>
+            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)" [disabled]="boton">Cancelar</button>
+            <button class="btn btn-success" type="submit" (click)="confirmarActualizacion()" [disabled]="boton">Actualizar</button>
         </div>
     </div>
 </form>

@@ -10,7 +10,7 @@
     <div class="row g-3 p-4">
       <div class="mb-3">
         <label>Seleccionar Meta</label>
-        <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control">
+        <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control" id="iniciativaSelected">
           <option value="" disabled selected>Selecciona una Meta</option>
           <option *ngFor="let item of iniciativasList" [ngValue]="item">
             {{ item.id }} - {{ item.tipo }}

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Curso } from '../models/curso.model';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Modulos } from '../models/modulos.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,6 @@ import { Observable } from 'rxjs';
 export class ServiceCursosService {
 
   private apiUrl = 'http://localhost:8000/clases'; // Reemplaza con tu URL de API
-
   constructor(private http: HttpClient) { }
 
   // Obtener todos los ODS de la base de datos

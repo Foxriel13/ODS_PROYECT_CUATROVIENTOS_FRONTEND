@@ -63,6 +63,7 @@ export class ActualizarIniciativaComponent {
   moduloSeleccionados: Modulos[] = [];
   redes_socialesSeleccionados: Redes_Sociales[] = [];
   iniciativaList: Iniciativas[] = [];
+  boton : boolean = false;
   ods: Ods = {  // ODS será un solo objeto ahora
     idOds: 0,
     nombre: '',
@@ -96,10 +97,7 @@ export class ActualizarIniciativaComponent {
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
-    clase: {
-      id: 0,  // Definido como número si es un identificador
-      nombre: ""
-    }
+    clase: []
   };
   iniciativa: Iniciativas = {
     id: 0,
@@ -130,16 +128,24 @@ export class ActualizarIniciativaComponent {
 
   constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService, private iniciativaServicie: IniciativasService) { }
 
-  ngOnInit(): void {
-    this.loadOdsList();
-    this.loadProfesoresList();
-    this.loadCursosList();
-    this.loadEntidadesList();
-    this.loadDimensionesList();
-    this.loadMetasList();
-    this.loadModulosList();
-    this.loadIniciativasList();
-  }
+  async ngOnInit(): Promise<void> {
+    this.loading = true;
+    console.log("Loading activado:", this.loading); // ✅ Debería imprimir 'true'
+    
+    await Promise.all([
+        this.loadOdsList(),
+        this.loadProfesoresList(),
+        this.loadCursosList(),
+        this.loadEntidadesList(),
+        this.loadDimensionesList(),
+        this.loadMetasList(),
+        this.loadModulosList(),
+        this.loadIniciativasList()
+    ]);
+
+    
+    console.log("Loading desactivado:", this.loading); // ✅ Debería imprimir 'false'
+}
 
   loadOdsList(): void {
     this.odsService.getOdsList().subscribe(
@@ -205,6 +211,7 @@ export class ActualizarIniciativaComponent {
         console.error('Error al cargar las entidades:', error);
       }
     );
+    
   }
   loadEntidadesList(): void {
     this.entidadesServicie.getEntidadesList().subscribe(
@@ -488,11 +495,12 @@ export class ActualizarIniciativaComponent {
       modulos: this.moduloSeleccionados.map(modulo => ({
         id: modulo.id,
         nombre: modulo.nombre,
-        clase: {
-          id: modulo.clase.id,
-          nombre: modulo.clase.nombre
-        }
-      })),
+        clase: this.cursosSeleccionados.map(curso => ({
+          id: curso.id,
+          nombre: curso.nombre
+        })
+        )
+        })),
       redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales=> ({
         id: redes_sociales.id,
         nombre: redes_sociales.nombre,
@@ -564,6 +572,7 @@ export class ActualizarIniciativaComponent {
 
   // Muestra el spinner mientras se realiza la petición para eliminar
   actualizarIniciativa(form: any): void {
+    this.boton = true;
     if (form.invalid) {
       return;
     }
@@ -667,6 +676,7 @@ export class ActualizarIniciativaComponent {
       error => {
         console.error('Error al actualizar la iniciativa:', error);
         // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        this.boton = false
       }
     );
     this.showToast();
@@ -676,7 +686,6 @@ export class ActualizarIniciativaComponent {
     this.toastVisible = true;
     setTimeout(() => {
       this.toastVisible = false;
-      this.loading = true;
       window.location.href= "/Iniciativas";
     }, 3000);
   }

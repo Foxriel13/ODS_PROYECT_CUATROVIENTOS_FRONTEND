@@ -7,8 +7,8 @@
         alt="{{ iniciativa.nombre }}">
 
     <div class="d-flex justify-content-between text-muted mt-2">
-        <span>📅 {{ iniciativa.fecha_registro | date: 'dd/MM/yyyy' }}</span>
+        <span>📅 {{ iniciativa.fecha_inicio | date: 'dd/MM/yyyy' }}</span>
 
-        <span>{{ getCursoNombre(iniciativa) || 'Curso no disponible' }}</span>
+        <span>📅 {{ iniciativa.fecha_fin | date: 'dd/MM/yyyy' }}</span>
     </div>
 </div>

@@ -219,14 +219,46 @@
             <div *ngIf="selectedTab === 'modulos'">
                 <!-- Solo visible si 'Módulos' está seleccionado -->
                 <div class="mb-3">
-                    <label>Seleccionar Modulos</label>
-                    <select [(ngModel)]="modules" name="modules" class="form-control">
-                        <option value="" disabled selected>Selecciona una Meta</option>
-                        <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.id }} - {{ item.nombre }} - {{item.clase.id}}
-                        </option>
-                    </select>
+                    <div class="row">
+                        <!-- Columna izquierda con los campos Nombre del Módulo y Selección de Clases -->
+                        <div class="col-md-6">
+                            <!-- Nombre del módulo a la izquierda -->
+                            <div class="mb-3">
+                                <label>Nombre del Módulo</label>
+                                <input type="text" class="form-control" id="nombreModulo" placeholder="Ingrese el nombre del módulo" id="nombreModulo">
+                            </div>
+            
+                            <!-- Lista de selects dinámicos debajo del campo Nombre del Módulo -->
+                            <div class="mb-2">
+                                <label>Seleccionar Clases</label>
+                                <select [(ngModel)]="curso" name="curso" class="form-control">
+                                    <option value="" disabled selected>Selecciona una Clase</option>
+                                    <option *ngFor="let item of cursoList" [ngValue]="item">{{ item.nombre }}</option>
+                                </select>
+                                <button class="btn btn-info mt-2" type="button" (click)="anyadirClase()">Añadir Clase</button>
+                            </div>
+                        </div>
+            
+                        <!-- Columna derecha con los "Profesores Seleccionados" -->
+                        <div class="col-md-6">
+                            <div class="image-box">
+                                <h5>Clases Seleccionadas</h5>
+                                <ul>
+                                    <!-- Mostramos la lista de cursos seleccionados -->
+                                    <li *ngFor="let item of cursosSeleccionados; let i = index" class="mb-2">
+                                        {{ item.nombre }}
+                                        <!-- Botón de eliminar (X) -->
+                                        <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarClase(i)">
+                                            X
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-info" type="button" (click)="anyadirModulo()">Añadir Meta</button>
+            
+                <button class="btn btn-info mt-3" type="button" (click)="anyadirModulo()">Añadir Meta</button>
             
                 <!-- Fila para mostrar los Módulos Seleccionados -->
                 <div class="row mt-4">
@@ -243,15 +275,8 @@
             
                                             <!-- Botones debajo de cada módulo -->
                                             <div class="btn-group-vertical mt-2" role="group">
-                                                <!-- Botón Info (azul) -->
-                                                <button type="button" class="btn btn-info">
-                                                    Info
-                                                </button>
-            
-                                                <!-- Botón Eliminar (rojo) -->
-                                                <button type="button" class="btn btn-danger" (click)="eliminarModulo(modulo)">
-                                                    Eliminar
-                                                </button>
+                                                <button type="button" class="btn btn-info">Info</button>
+                                                <button type="button" class="btn btn-danger" (click)="eliminarModulo(modulo)">Eliminar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -261,6 +286,8 @@
                     </div>
                 </div>
             </div>
+            
+            
             <div *ngIf="selectedTab === 'redes'">
                 <div class="row">
                     <div class="col-md-6">
@@ -370,8 +397,8 @@
 
         <!-- Botones de Crear y Cancelar -->
         <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)">Cancelar</button>
-            <button class="btn btn-success" type="submit">Crear</button>
+            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)" [disabled]="boton">Cancelar</button>
+            <button class="btn btn-success" type="submit" [disabled]="boton">Crear</button>
         </div>
     </div>
 </form>

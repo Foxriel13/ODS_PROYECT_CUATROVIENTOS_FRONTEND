@@ -1,4 +1,11 @@
-/* Mantiene el fondo oscuro del modal */
+/* Fondo con degradado */
+.modal-background {
+    background: linear-gradient(to right, #dcd7e0, #f0f0f0);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Estilos del modal */
 .modal {
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -11,72 +18,68 @@
     justify-content: center;
 }
 
-/* Asegurar que el modal se centre */
-.modal-dialog {
-    margin: auto;
-}
-
-/* Contenido del modal */
 .modal-content {
     background: white;
     border-radius: 10px;
     padding: 20px;
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
 }
 
 /* Encabezado del modal */
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: none;
+    border-bottom: none;
 }
 
-/* Botón de cierre */
-.btn-close {
-    font-size: 20px;
-    cursor: pointer;
+/* Imagen dentro del modal */
+.modal-img {
+    max-width: 200px;
+    border-radius: 10px;
 }
 
-.modal-header {
-    background-color: #007bff;
-    color: white;
-}
-
-.modal-footer {
-    background-color: #007bff;
-}
-
-.table thead {
-    background-color: #007bff;
-    color: white;
-}
-
+/* Estilos de los badges */
 .badge {
-    margin-right: 5px;
-    margin-bottom: 5px;
+    font-size: 14px;
+    padding: 8px;
 }
 
-.bg-light {
-    background-color: #f8f9fa !important;
+/* Footer del modal */
+.modal-footer {
+    background: none;
+    border-top: none;
+    text-align: right;
+}
+.bg-blue {
+    background-color:#393d92 !important;
+    color: white;
+}
+.bg-blue-light {
+    background-color:#9ea1e4 !important;
+    color: white;
 }
 
-.bg-primary {
-    background-color: #393d92 !important;
+
+// Color lila personalizado
+$tab-color: #393d92; // Puedes cambiar este color si prefieres otro tono de lila
+
+// Estilos generales para los tabs
+.nav-tabs .nav-link {
+    color:#393d92 !important; // Color de letra negro por defecto
+    background-color: #f0eafc; // Fondo gris claro
+    border: 1px solid $tab-color; // Borde lila
+    transition: all 0.3s ease-in-out;
 }
 
-.bg-info {
-    background-color: #17a2b8 !important;
+// Cuando el tab está seleccionado (activo)
+.nav-tabs .nav-link.active {
+    background-color: $tab-color !important; // Fondo lila
+    color: white !important; // Texto blanco
+    border-color: $tab-color;
 }
 
-.bg-secondary {
-    background-color: #6c757d !important;
-}
-
-.text-white {
-    color: white !important;
-}
-
-.text-dark {
-    color: #343a40 !important;
+// Cambia el color al pasar el mouse sobre un tab
+.nav-tabs .nav-link:hover {
+    background-color: lighten($tab-color, 40%); // Un lila más claro al hacer hover
+    color: white;
 }

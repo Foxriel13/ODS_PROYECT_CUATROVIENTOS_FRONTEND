@@ -14,6 +14,7 @@ export class ModalIniciativaComponent {
 
   iniciativa: Iniciativas | undefined;
   
+  activeTab: string = 'modulos';
 
 
   constructor(private modalService: ModalService) {

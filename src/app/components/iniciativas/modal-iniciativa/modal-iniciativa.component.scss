@@ -80,6 +80,6 @@ $tab-color: #393d92; // Puedes cambiar este color si prefieres otro tono de lila
 
 // Cambia el color al pasar el mouse sobre un tab
 .nav-tabs .nav-link:hover {
-    background-color: lighten($tab-color, 40%); // Un lila más claro al hacer hover
+    background-color: #a7a9df;  // Un lila más claro al hacer hover
     color: white;
 }

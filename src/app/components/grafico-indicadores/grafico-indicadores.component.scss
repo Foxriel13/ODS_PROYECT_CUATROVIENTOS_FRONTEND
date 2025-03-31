@@ -1,3 +1,6 @@
+.card{
+    cursor: pointer;
+}
 .board {
     width: 90%;
     height: 450px;
@@ -81,6 +84,7 @@
 
 .sub_barra {
     width: 100%;
+    max-height: 100%;
     background: #00799b;
     background: -moz-linear-gradient(top, #00799b 0%, #64d1be 100%);
     background: -webkit-linear-gradient(top, #00799b 0%, #64d1be 100%);
@@ -128,4 +132,7 @@
     text-align: right;
     padding-right: 10px;
     box-sizing: border-box;
+}
+.card-header, .modal-header{
+    background-color: #393d92 !important;
 }

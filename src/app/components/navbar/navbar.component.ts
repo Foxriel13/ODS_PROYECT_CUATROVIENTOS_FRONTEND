@@ -10,12 +10,16 @@ export class NavbarComponent {
   home = document.getElementById("home");
   iniciativas = document.getElementById("iniciativas");
   modificar = document.getElementById("modificar");
+  indicadores = document.getElementById("indicadores");
   activarHome() {
     if (this.iniciativas) {  // Verifica si 'home' no es null
       this.iniciativas.classList.remove("active");
     }
     if (this.modificar) {  // Verifica si 'home' no es null
       this.modificar.classList.remove("active");
+    }
+    if (this.indicadores) {  // Verifica si 'indicadores' no es null
+      this.indicadores.classList.remove("active");
     }
     if (this.home) {  // Verifica si 'home' no es null
       this.home.classList.add("active");
@@ -28,6 +32,9 @@ export class NavbarComponent {
     if (this.modificar) {  // Verifica si 'home' no es null
       this.modificar.classList.remove("active");
     }
+    if (this.indicadores) {  // Verifica si 'indicadores' no es null
+      this.indicadores.classList.remove("active");
+    }
     if (this.iniciativas) {  // Verifica si 'home' no es null
       this.iniciativas.classList.add("active");
     }
@@ -39,8 +46,25 @@ export class NavbarComponent {
     if (this.home) {  // Verifica si 'home' no es null
       this.home.classList.remove("active");
     }
+    if (this.indicadores) {  // Verifica si 'indicadores' no es null
+      this.indicadores.classList.remove("active");
+    }
     if (this.modificar) {  // Verifica si 'home' no es null
       this.modificar.classList.add("active");
+    }
+  }
+  activarIndicadores() {
+    if (this.iniciativas) {  // Verifica si 'home' no es null
+      this.iniciativas.classList.remove("active");
+    }
+    if (this.home) {  // Verifica si 'home' no es null
+      this.home.classList.remove("active");
+    }
+    if (this.modificar) {  // Verifica si 'home' no es null
+      this.modificar.classList.remove("active");
+    }
+    if (this.indicadores) {  // Verifica si 'indicadores' no es null
+      this.indicadores.classList.add("active");
     }
   }
   

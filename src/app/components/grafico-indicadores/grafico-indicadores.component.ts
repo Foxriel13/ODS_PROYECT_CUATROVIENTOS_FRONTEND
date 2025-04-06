@@ -10,9 +10,17 @@ import { MetasService } from '../../serviceMetas/metas.service';
 import { Meta } from '@angular/platform-browser';
 import { Modulos } from '../../models/modulos.model';
 
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+  
+import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
+import { BaseChartDirective } from 'ng2-charts';
+import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
+import { Curso } from '../../models/curso.model';
+
 @Component({
   selector: 'app-grafico-indicadores',
-  imports: [FormsModule, CommonModule/*, NgStyle*/],
+  imports: [FormsModule, CommonModule/*, NgStyle*/, BaseChartDirective],
+  providers: [provideCharts(withDefaultRegisterables())],
   templateUrl: './grafico-indicadores.component.html',
   styleUrl: './grafico-indicadores.component.scss'
 })
@@ -24,10 +32,11 @@ export class GraficoIndicadoresComponent {
   //modulosIniciativa: Modulos[] = []
 
   metas: Metas[] = [];
+  cursos: Curso[] = [];
   anyos_lectivos: string[] = []
   anyo_seleccionado: string = '2024-2025';
 
-  constructor(iniciativasService: IniciativasService, metasService: MetasService){
+  constructor(iniciativasService: IniciativasService, metasService: MetasService, cursosService: ServiceCursosService){
     iniciativasService.getIniciativas().subscribe(
       (data: Iniciativas[]) =>{
         console.log('Iniciativas recibidas:', data);
@@ -57,6 +66,12 @@ export class GraficoIndicadoresComponent {
         this.metas = meta
       }
     )
+
+    cursosService.getCursosList().subscribe(
+      (curso: Curso[]) => {
+        this.cursos = curso
+      }
+    )
   }
 
 
@@ -72,4 +87,22 @@ export class GraficoIndicadoresComponent {
       console.log(this.iniciativasFiltradas)
     }
   }
+
+  //Charts
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  cursosNombre = this.cursos.map(curso => curso.nombre);
+
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: ["Cursos"],
+    datasets: [
+      { data: [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 ], label: 'Curso A' },
+      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Curso B' }
+    ]
+  };
+
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+  };
 }

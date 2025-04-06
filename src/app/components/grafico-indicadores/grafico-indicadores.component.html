@@ -351,7 +351,15 @@
                     <h6 class="fw-bold">Si en la realización del proyecto, acción ha colaborado alguna entidad externa
                     </h6>
                 </div>
-                <table class="table table-bordered table-striped">
+
+                <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [type]="'bar'">
+                </canvas>
+                <!-- <table class="table table-bordered table-striped">
                     <thead class="bg-primary text-white">
                         <tr>
                             <th>ODSs</th>
@@ -376,7 +384,8 @@
                         </tr>
                         }
                     </tbody>
-                </table>
+                </table> -->
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -411,13 +420,15 @@
                             <td><i class="bi bi-check-circle me-1"></i>{{ini.nombre}}</td>
 
                             @if (ini.redes_sociales.length > 0) {
-                                @if (ini.redes_sociales.length == 1) {
-                                    <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red social</td>
-                                }@else {
-                                    <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red social</td>
-                                }
+                            @if (ini.redes_sociales.length == 1) {
+                            <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red
+                                social</td>
                             }@else {
-                                <td><i class="bi bi-globe2 me-1"></i>No se ha difundido por ninguna red social</td>
+                            <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red
+                                social</td>
+                            }
+                            }@else {
+                            <td><i class="bi bi-globe2 me-1"></i>No se ha difundido por ninguna red social</td>
                             }
                         </tr>
                         }

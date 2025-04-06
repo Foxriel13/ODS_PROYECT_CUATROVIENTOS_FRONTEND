@@ -24,7 +24,7 @@ export class IniciativasComponent implements OnInit {
     nombre: '',
     fechaRegistro: '',
     anyo_lectivo: '',
-    dimension: '',
+    dimension: [] as string[],
     tipo:'',
     profesor: '',
     contratante: ''
@@ -100,8 +100,11 @@ export class IniciativasComponent implements OnInit {
 
     // Filtro por ODS (solo si hay algo escrito)
     if (this.filters.ods && this.filters.ods.trim() !== '') {
+      const odsArray = this.filters.ods.split(',').map(ods => ods.trim().toLowerCase()); // Convertir a array de nombres
       iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
-        this.filterOds(iniciativa.metas, this.filters.ods)
+        iniciativa.metas?.some(meta =>
+          meta.ods && odsArray.includes(meta.ods.nombre.toLowerCase())
+        )
       );
     }
 
@@ -137,15 +140,16 @@ export class IniciativasComponent implements OnInit {
       );
     }
 
-    // Filtro por dimensión de ODS (solo si hay algo escrito)
-    if (this.filters.dimension && this.filters.dimension.trim() !== '') {
+    // Filtro por dimensión de ODS (solo si hay algo seleccionado)
+    if (this.filters.dimension && this.filters.dimension.length > 0) {
       iniciativasFiltradas = iniciativasFiltradas.filter((iniciativa) =>
         iniciativa.metas?.some(meta =>
-          (meta.ods?.dimension ?? '').toLowerCase().includes(this.filters.dimension.toLowerCase().trim())
+          this.filters.dimension.some((dim: string) =>
+            (meta.ods?.dimension ?? '').toLowerCase().includes(dim.toLowerCase())
+          )
         )
       );
     }
-
     // Actualizar lista de iniciativas filtradas
     this.iniciativasFiltradas = [...iniciativasFiltradas]; // Clonar para que Angular detecte cambios
     // Fuerza la detección de cambios manualmente

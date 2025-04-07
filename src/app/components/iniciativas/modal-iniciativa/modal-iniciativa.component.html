@@ -117,7 +117,9 @@
                     <div *ngIf="activeTab === 'redes'">
                         <h6 class="fw-bold">Redes Sociales:</h6>
                         <div *ngFor="let red of iniciativa?.redes_sociales" class="mb-4">
-                            <h6 class="fw-bold">{{ red.nombre }}</h6>
+                            <h6 class="fw-bold">
+                                <span class="badge bg-blue-light"><i class="bi bi-{{red.nombre}} me-1"></i>{{ red.nombre }}</span>
+                            </h6>
                             
                             <div class="embed-responsive embed-responsive-16by9">
                                 <iframe *ngIf="isEmbeddable(red.enlace)" [src]="getEmbedUrl(red.enlace)" class="embed-responsive-item"

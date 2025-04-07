@@ -32,4 +32,26 @@ export class ModalIniciativaComponent {
   close(): void {
     this.modalService.closeModal();
   }
+  getOdsImage(nombreOds: string): string {
+    const ods = this.iniciativa?.metas?.find(meta => meta.ods?.nombre === nombreOds)?.ods;
+
+    return ods ? `/Ods_img/ods${ods.idOds}.png` : '';
+  }
+
+  isEmbeddable(url: string): boolean {
+    //verifica si la URL pertenece a una red social que permite incrustación
+    return url.includes('twitter.com') || url.includes('facebook.com') || url.includes('instagram.com');
+  }
+
+  getEmbedUrl(url: string): string {
+    //genera la url según la red social
+    if (url.includes('twitter.com')) {
+      return `https://twitframe.com/show?url=${encodeURIComponent(url)}`;
+    } else if (url.includes('facebook.com')) {
+      return `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(url)}&width=500`;
+    } else if (url.includes('instagram.com')) {
+      return `${url}embed`;
+    }
+    return url; // deevuelve la url original si no es embebible
+  }
 }

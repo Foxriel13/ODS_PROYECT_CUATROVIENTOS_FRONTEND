@@ -15,7 +15,7 @@
 <div class="row p-3 mb-3">
     <!--Columna 1-->
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador1">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador1" (click)="chartIndicador1()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 1</h5>
             </div>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador3">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador3" (click)="chartIndicador3()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 3</h5>
             </div>
@@ -69,7 +69,7 @@
     <!--Columna 2-->
     <!--?-->
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador6">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador6" (click)="reiniciarChart()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 6</h5>
             </div>
@@ -184,7 +184,16 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <h6 class="fw-bold">Qué iniciativas se han realizado dirigidas a los ODS por curso académico:</h6>
-                    <table class="table table-bordered table-striped">
+
+                    <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [type]="'bar'">
+                    </canvas>
+
+                    <!-- <table class="table table-bordered table-striped">
                         <thead class="bg-primary text-white">
                             <tr>
                                 <th>Curso</th>
@@ -205,7 +214,7 @@
                             }
                             }
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -229,7 +238,15 @@
                     <h6 class="fw-bold">En qué ciclo se han realizado las iniciativas, proyectos, y en los ciclos qué
                         módulos han intervenido</h6>
                 </div>
-                <table class="table table-bordered table-striped">
+
+                <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [type]="'bar'">
+                </canvas>
+                <!--  <table class="table table-bordered table-striped">
                     <thead class="bg-primary text-white">
                         <tr>
                             <th>Ciclos</th>
@@ -247,7 +264,7 @@
                         }
                         }
                     </tbody>
-                </table>
+                </table> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>

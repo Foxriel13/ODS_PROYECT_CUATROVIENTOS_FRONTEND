@@ -9,56 +9,56 @@ export class IndicadoresService {
 
   private apiUrl = 'http://localhost:8000/indicadores';
 
-  getIniciativasPorCurso(): Observable<object>{
-    return this.http.get(this.apiUrl + '/iniciativasPorCurso')
+  getIniciativasPorCurso(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/iniciativasPorCurso')
   }
 
-  getNumeroIniciativas(): Observable<object>{
-    return this.http.get(this.apiUrl + '/cantidadIniciativas')
+  getNumeroIniciativas(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/cantidadIniciativas')
   }
 
-  getCiclosYModulosConIniciativas(): Observable<object>{
-    return this.http.get(this.apiUrl + '/ciclosYModulosConIniciativas')
+  getCiclosYModulosConIniciativas(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/ciclosYModulosConIniciativas')
   }
   
-  getExplicaciónIniciativas(): Observable<object>{
-    return this.http.get(this.apiUrl + '/explicacionIniciativas')
+  getExplicaciónIniciativas(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/explicacionIniciativas')
   }
 
-  getOdsTrabajadosYSusMetas(): Observable<object>{
-    return this.http.get(this.apiUrl + '/odsTrabajadosYSusMetas')
+  getOdsTrabajadosYSusMetas(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/odsTrabajadosYSusMetas')
   }
 
-  getTieneEntidadesExternas(): Observable<object>{
-    return this.http.get(this.apiUrl + '/tieneEntidadesExternas')
+  getTieneEntidadesExternas(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/tieneEntidadesExternas')
   }
 
-  getTieneRRSS(): Observable<object>{
-    return this.http.get(this.apiUrl + '/tieneRRSS')
+  getTieneRRSS(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/tieneRRSS')
   }
 
-  getTipoIniciativa(): Observable<object>{
-    return this.http.get(this.apiUrl + '/tipoIniciativa')
+  getTipoIniciativa(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/tipoIniciativa')
   }
 
-  getCantProfesores(): Observable<object>{
-    return this.http.get(this.apiUrl + '/cantProfesores')
+  getCantProfesores(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/cantProfesores')
   }
 
-  getCantIniciativasProfesor(): Observable<object>{
-    return this.http.get(this.apiUrl + '/cantIniciativasProfesor')
+  getCantIniciativasProfesor(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/cantIniciativasProfesor')
   }
 
-  getDiferenciaInnovadoresYNo(): Observable<object>{
-    return this.http.get(this.apiUrl + '/diferenciaInnovadoresYNo')
+  getDiferenciaInnovadoresYNo(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/diferenciaInnovadoresYNo')
   }
 
-  getCantHorasIniciativa(): Observable<object>{
-    return this.http.get(this.apiUrl + '/cantHorasIniciativa')
+  getCantHorasIniciativa(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/cantHorasIniciativa')
   }
 
-  getHaTenidoActividad(): Observable<object>{
-    return this.http.get(this.apiUrl + '/haTenidoActividad')
+  getHaTenidoActividad(): Observable<object[]>{
+    return this.http.get<object[]>(this.apiUrl + '/haTenidoActividad')
   }
 
   constructor(private http: HttpClient) { }

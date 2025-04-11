@@ -15,8 +15,8 @@ export class IndicadoresService {
     return this.http.get<IniciativasPorCurso[]>(this.apiUrl + '/iniciativasPorCurso')
   }
 
-  getNumeroIniciativas(): Observable<CantidadIniciativas[]>{
-    return this.http.get<CantidadIniciativas[]>(this.apiUrl + '/cantidadIniciativas')
+  getNumeroIniciativas(): Observable<CantidadIniciativas>{
+    return this.http.get<CantidadIniciativas>(this.apiUrl + '/cantidadIniciativas')
   }
 
   getCiclosYModulosConIniciativas(): Observable<object[]>{

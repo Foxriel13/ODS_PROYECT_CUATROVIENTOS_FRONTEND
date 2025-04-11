@@ -28,14 +28,12 @@
     </div>
 
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador2" (click)="chartIndicador2()">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador2">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 2</h5>
             </div>
             <div class="card-body">
-                <p class="card-text">
-                    Qué iniciativas se han realizado dirigidas a los ODS por curso académico
-                </p>
+                <p class="card-text">Cantidad de iniciativas</p>
             </div>
         </div>
     </div>
@@ -47,8 +45,7 @@
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    En qué ciclo se han realizado las iniciativas, proyectos, y en los ciclos qué módulos han
-                    intervenido
+                    CANTIDAD DE INICIATIVAS
                 </p>
             </div>
         </div>
@@ -225,13 +222,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <h6 class="fw-bold">Cantidad de iniciativas:</h6>
-                    <canvas baseChart
-                        [data]="barChartData"
-                        [options]="barChartOptions"
-                        [plugins]="barChartPlugins"
-                        [legend]="barChartLegend"
-                        [type]="'bar'">
-                    </canvas>
+                      <h1>{{ getIndicador2() }}</h1>
                 </div>
             </div>
             <div class="modal-footer">

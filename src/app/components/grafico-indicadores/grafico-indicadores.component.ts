@@ -87,9 +87,11 @@ export class GraficoIndicadoresComponent {
 
     //Indicador2
     indicadoresService.getNumeroIniciativas().subscribe(data => {
-      this.numeroIniciativas = data
-    })
+      this.numeroIniciativas = [data];
+      console.log('Número de iniciativas cargadas:', this.numeroIniciativas);
+    });
   }
+
 
 
 
@@ -133,7 +135,7 @@ export class GraficoIndicadoresComponent {
       ]
     };
   }
-
+  //los gráficos se configuran dinámicamente según los datos del indicador seleccionado. 
   chartIndicador1() {
     // Obtener los nombres de los cursos como etiquetas (labels)
     const iniciativasUnicas = this.iniciativasPorCurso.map(ini => ini.nombreCurso);
@@ -153,21 +155,29 @@ export class GraficoIndicadoresComponent {
     };
   }
 
-  chartIndicador2() {
-    // Obtener los nombres de los cursos como etiquetas (labels)
-    const cantidadIniciativas = this.numeroIniciativas.map(ini => ini.cantidad);
-
-    // Estructura para el gráfico
-    this.barChartData = {
-      labels: cantidadIniciativas,
-      datasets: [
-        {
-          label: 'Número de iniciativas por curso',
-          data: cantidadIniciativas,
-        }
-      ]
-    };
+  // En el indicador dos no es necesario usar gráfico porque solo es un número
+  getIndicador2(): number {
+    if (this.numeroIniciativas && this.numeroIniciativas.length > 0) {
+       return this.numeroIniciativas[0].cantidad; // Devuelve el primer elemento del array
+    }
+    return 0; // Devuelve un objeto con cantidad 0 si no hay datos
   }
+  
+  // chartIndicador2() {
+  //   // Obtener los nombres de los cursos como etiquetas (labels)
+  //   const cantidadIniciativas = this.numeroIniciativas.map(ini => ini.cantidad);
+
+  //   // Estructura para el gráfico
+  //   this.barChartData = {
+  //     labels: cantidadIniciativas,
+  //     datasets: [
+  //       {
+  //         label: 'Número de iniciativas por curso',
+  //         data: cantidadIniciativas,
+  //       }
+  //     ]
+  //   };
+  // }
 
   chartIndicador3() {
     //const numeroIniciativas = this.iniciativasPorCurso.map(numIni => numIni)

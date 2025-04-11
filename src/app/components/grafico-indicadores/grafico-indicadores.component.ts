@@ -17,6 +17,8 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
 import { IndicadoresService } from '../../serviceIndicadores/indicadores.service';
+import { IniciativasPorCurso } from '../../models/indicadores/iniciativasPorCurso';
+import { CantidadIniciativas } from '../../models/indicadores/cantidadIniciativas';
 
 @Component({
   selector: 'app-grafico-indicadores',
@@ -38,7 +40,8 @@ export class GraficoIndicadoresComponent {
   anyo_seleccionado: string = '2024-2025';
 
   //Indicadores
-  iniciativasPorCurso!: object[];
+  iniciativasPorCurso!: IniciativasPorCurso[];
+  numeroIniciativas!: CantidadIniciativas[];
 
   constructor(iniciativasService: IniciativasService, metasService: MetasService, cursosService: ServiceCursosService, indicadoresService: IndicadoresService) {
     iniciativasService.getIniciativas().subscribe(
@@ -77,9 +80,14 @@ export class GraficoIndicadoresComponent {
       }
     )
 
-    //Indicadores
+    //Indicador1
     indicadoresService.getIniciativasPorCurso().subscribe(data => {
       this.iniciativasPorCurso = data
+    })
+
+    //Indicador2
+    indicadoresService.getNumeroIniciativas().subscribe(data => {
+      this.numeroIniciativas = data
     })
   }
 
@@ -127,26 +135,11 @@ export class GraficoIndicadoresComponent {
   }
 
   chartIndicador1() {
-    //const numeroIniciativas = this.iniciativasPorCurso.map(numIni => numIni)
-
-    //Pruebas (Hacerlo con el servico y los distintos modelos)
-    let iniciativasPorCurso =
-      [
-        {
-          "nombreCurso": "Curso1",
-          "numIniciativas": 2
-        },
-        {
-          "nombreCurso": "Curso2",
-          "numIniciativas": 4
-        }
-      ]
-
     // Obtener los nombres de los cursos como etiquetas (labels)
-    const iniciativasUnicas = iniciativasPorCurso.map(ini => ini.nombreCurso);
+    const iniciativasUnicas = this.iniciativasPorCurso.map(ini => ini.nombreCurso);
 
     // Obtener los valores de iniciativas como un array
-    const dataPorCurso = iniciativasPorCurso.map(ini => ini.numIniciativas);
+    const dataPorCurso = this.iniciativasPorCurso.map(ini => ini.numIniciativas);
 
     // Estructura para el gráfico
     this.barChartData = {
@@ -155,6 +148,22 @@ export class GraficoIndicadoresComponent {
         {
           label: 'Número de iniciativas por curso',
           data: dataPorCurso,
+        }
+      ]
+    };
+  }
+
+  chartIndicador2() {
+    // Obtener los nombres de los cursos como etiquetas (labels)
+    const cantidadIniciativas = this.numeroIniciativas.map(ini => ini.cantidad);
+
+    // Estructura para el gráfico
+    this.barChartData = {
+      labels: cantidadIniciativas,
+      datasets: [
+        {
+          label: 'Número de iniciativas por curso',
+          data: cantidadIniciativas,
         }
       ]
     };

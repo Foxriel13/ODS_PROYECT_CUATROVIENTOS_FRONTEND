@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { IniciativasPorCurso } from '../models/indicadores/iniciativasPorCurso';
+import { CantidadIniciativas } from '../models/indicadores/cantidadIniciativas';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +11,12 @@ export class IndicadoresService {
 
   private apiUrl = 'http://localhost:8000/indicadores';
 
-  getIniciativasPorCurso(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/iniciativasPorCurso')
+  getIniciativasPorCurso(): Observable<IniciativasPorCurso[]>{
+    return this.http.get<IniciativasPorCurso[]>(this.apiUrl + '/iniciativasPorCurso')
   }
 
-  getNumeroIniciativas(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/cantidadIniciativas')
+  getNumeroIniciativas(): Observable<CantidadIniciativas[]>{
+    return this.http.get<CantidadIniciativas[]>(this.apiUrl + '/cantidadIniciativas')
   }
 
   getCiclosYModulosConIniciativas(): Observable<object[]>{

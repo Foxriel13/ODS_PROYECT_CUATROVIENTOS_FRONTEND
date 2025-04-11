@@ -28,6 +28,19 @@
     </div>
 
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador2" (click)="chartIndicador2()">
+            <div class="card-header text-white">
+                <h5 class="card-title">Indicador 2</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Qué iniciativas se han realizado dirigidas a los ODS por curso académico
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
         <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador3" (click)="chartIndicador3()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 3</h5>
@@ -186,35 +199,39 @@
                     <h6 class="fw-bold">Qué iniciativas se han realizado dirigidas a los ODS por curso académico:</h6>
 
                     <canvas baseChart
-                    [data]="barChartData"
-                    [options]="barChartOptions"
-                    [plugins]="barChartPlugins"
-                    [legend]="barChartLegend"
-                    [type]="'bar'">
+                        [data]="barChartData"
+                        [options]="barChartOptions"
+                        [plugins]="barChartPlugins"
+                        [legend]="barChartLegend"
+                        [type]="'bar'">
                     </canvas>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <!-- <table class="table table-bordered table-striped">
-                        <thead class="bg-primary text-white">
-                            <tr>
-                                <th>Curso</th>
-                                <th>Iniciativa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (iniciativa of iniciativasFiltradas; track $index) {
-                            @for (curso of iniciativa.modulos; track $index) {
-                            <tr>
-
-                                <td><i class="bi bi-check-circle me-1"></i>{{curso.clase}}</td>
-
-                                @for (ods of iniciativa.metas; track $index) {
-                                <td><i class="bi bi-globe2 me-1"></i>{{ods.ods.nombre}}</td>
-                                }
-                            </tr>
-                            }
-                            }
-                        </tbody>
-                    </table> -->
+<!--Modal 2-->
+<div class="modal fade" id="indicador2" tabindex="-1" aria-labelledby="indicador2ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Indicador 2</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h6 class="fw-bold">Cantidad de iniciativas:</h6>
+                    <canvas baseChart
+                        [data]="barChartData"
+                        [options]="barChartOptions"
+                        [plugins]="barChartPlugins"
+                        [legend]="barChartLegend"
+                        [type]="'bar'">
+                    </canvas>
                 </div>
             </div>
             <div class="modal-footer">
@@ -238,7 +255,6 @@
                     <h6 class="fw-bold">En qué ciclo se han realizado las iniciativas, proyectos, y en los ciclos qué
                         módulos han intervenido</h6>
                 </div>
-
                 <canvas baseChart
                     [data]="barChartData"
                     [options]="barChartOptions"
@@ -246,25 +262,6 @@
                     [legend]="barChartLegend"
                     [type]="'bar'">
                 </canvas>
-                <!--  <table class="table table-bordered table-striped">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>Ciclos</th>
-                            <th>Modulos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (iniciativa of iniciativasFiltradas; track $index) {
-                        @for (curso of iniciativa.modulos; track $index) {
-                        <tr>
-
-                            <td><i class="bi bi-check-circle me-1"></i>{{curso.clase}}</td>
-                            <td><i class="bi bi-globe2 me-1"></i>{{curso.nombre}}</td>
-                        </tr>
-                        }
-                        }
-                    </tbody>
-                </table> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>

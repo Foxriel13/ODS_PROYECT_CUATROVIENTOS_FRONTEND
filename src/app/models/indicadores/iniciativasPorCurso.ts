@@ -1,3 +1,5 @@
+// Indicador 1
+
 export class IniciativasPorCurso {
     nombreCurso: string;
     numIniciativas: number;

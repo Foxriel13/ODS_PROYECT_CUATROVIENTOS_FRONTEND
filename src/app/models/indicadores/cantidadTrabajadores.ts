@@ -1,6 +1,6 @@
-// Indicador 2
+// Indicador 10.1
 
-export class CantidadIniciativas {
+export class CantidadTrabajadores {
     cantidad: number;
 
     // Constructor para inicializar la clase

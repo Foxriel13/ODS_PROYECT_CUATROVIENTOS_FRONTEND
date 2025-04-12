@@ -1,8 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { IniciativasPorCurso } from '../models/indicadores/iniciativasPorCurso';
-import { CantidadIniciativas } from '../models/indicadores/cantidadIniciativas';
+import { IniciativasPorCurso } from '../models/indicadores/iniciativasPorCurso.model';
+import { CiclosYModulosConIniciativas } from '../models/indicadores/ciclosYModulosConIniciativas.model';
+import { ExplicacionIniciativas } from '../models/indicadores/explicacionIniciativas.model';
+import { OdsTrabajadosYSusMetas } from '../models/indicadores/odsTrabajadosYSusMetas.model';
+import { TieneEntidadesExternas } from '../models/indicadores/tieneEntidadesExternas.model';
+import { TieneRRSS } from '../models/indicadores/tieneRRSS.model';
+import { TipoIniciativa } from '../models/indicadores/tipoIniciativa.model';
+import { CantIniciativasProfesor } from '../models/indicadores/cantIniciativasProfesor.model';
+import { DiferenciaInnovadoresYNo } from '../models/indicadores/diferenciaInnovadoresYNo.model';
+import { CantHorasIniciativa } from '../models/indicadores/cantHorasIniciativa.model';
+import { HaTenidoActividad } from '../models/indicadores/haTenidoActividad.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,52 +25,52 @@ export class IndicadoresService {
     return this.http.get<IniciativasPorCurso[]>(this.apiUrl + '/iniciativasPorCurso')
   }
 
-  getNumeroIniciativas(): Observable<CantidadIniciativas>{
-    return this.http.get<CantidadIniciativas>(this.apiUrl + '/cantidadIniciativas')
+  getCantidadIniciativas(): Observable<number[]>{
+    return this.http.get<number[]>(this.apiUrl + '/cantidadIniciativas')
   }
 
-  getCiclosYModulosConIniciativas(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/ciclosYModulosConIniciativas')
+  getCiclosYModulosConIniciativas(): Observable<CiclosYModulosConIniciativas[]>{
+    return this.http.get<CiclosYModulosConIniciativas[]>(this.apiUrl + '/ciclosYModulosConIniciativas')
   }
   
-  getExplicaciónIniciativas(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/explicacionIniciativas')
+  getExplicaciónIniciativas(): Observable<ExplicacionIniciativas[]>{
+    return this.http.get<ExplicacionIniciativas[]>(this.apiUrl + '/explicacionIniciativas')
   }
 
-  getOdsTrabajadosYSusMetas(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/odsTrabajadosYSusMetas')
+  getOdsTrabajadosYSusMetas(): Observable<OdsTrabajadosYSusMetas[]>{
+    return this.http.get<OdsTrabajadosYSusMetas[]>(this.apiUrl + '/odsTrabajadosYSusMetas')
   }
 
-  getTieneEntidadesExternas(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/tieneEntidadesExternas')
+  getTieneEntidadesExternas(): Observable<TieneEntidadesExternas[]>{
+    return this.http.get<TieneEntidadesExternas[]>(this.apiUrl + '/tieneEntidadesExternas')
   }
 
-  getTieneRRSS(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/tieneRRSS')
+  getTieneRRSS(): Observable<TieneRRSS[]>{
+    return this.http.get<TieneRRSS[]>(this.apiUrl + '/tieneRRSS')
   }
 
-  getTipoIniciativa(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/tipoIniciativa')
+  getTipoIniciativa(): Observable<TipoIniciativa[]>{
+    return this.http.get<TipoIniciativa[]>(this.apiUrl + '/tipoIniciativa')
   }
 
-  getCantProfesores(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/cantProfesores')
+  getCantProfesores(): Observable<number[]>{
+    return this.http.get<number[]>(this.apiUrl + '/cantProfesores')
   }
 
-  getCantIniciativasProfesor(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/cantIniciativasProfesor')
+  getCantIniciativasProfesor(): Observable<CantIniciativasProfesor[]>{
+    return this.http.get<CantIniciativasProfesor[]>(this.apiUrl + '/cantIniciativasProfesor')
   }
 
-  getDiferenciaInnovadoresYNo(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/diferenciaInnovadoresYNo')
+  getDiferenciaInnovadoresYNo(): Observable<DiferenciaInnovadoresYNo[]>{
+    return this.http.get<DiferenciaInnovadoresYNo[]>(this.apiUrl + '/diferenciaInnovadoresYNo')
   }
 
-  getCantHorasIniciativa(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/cantHorasIniciativa')
+  getCantHorasIniciativa(): Observable<CantHorasIniciativa[]>{
+    return this.http.get<CantHorasIniciativa[]>(this.apiUrl + '/cantHorasIniciativa')
   }
 
-  getHaTenidoActividad(): Observable<object[]>{
-    return this.http.get<object[]>(this.apiUrl + '/haTenidoActividad')
+  getHaTenidoActividad(): Observable<HaTenidoActividad[]>{
+    return this.http.get<HaTenidoActividad[]>(this.apiUrl + '/haTenidoActividad')
   }
 
   constructor(private http: HttpClient) { }

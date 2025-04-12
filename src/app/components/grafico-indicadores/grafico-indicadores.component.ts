@@ -17,8 +17,17 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
 import { IndicadoresService } from '../../serviceIndicadores/indicadores.service';
-import { IniciativasPorCurso } from '../../models/indicadores/iniciativasPorCurso';
-import { CantidadIniciativas } from '../../models/indicadores/cantidadIniciativas';
+import { IniciativasPorCurso } from '../../models/indicadores/iniciativasPorCurso.model';
+import { CiclosYModulosConIniciativas } from '../../models/indicadores/ciclosYModulosConIniciativas.model';
+import { ExplicacionIniciativas } from '../../models/indicadores/explicacionIniciativas.model';
+import { OdsTrabajadosYSusMetas } from '../../models/indicadores/odsTrabajadosYSusMetas.model';
+import { TieneEntidadesExternas } from '../../models/indicadores/tieneEntidadesExternas.model';
+import { TieneRRSS } from '../../models/indicadores/tieneRRSS.model';
+import { TipoIniciativa } from '../../models/indicadores/tipoIniciativa.model';
+import { CantIniciativasProfesor } from '../../models/indicadores/cantIniciativasProfesor.model';
+import { DiferenciaInnovadoresYNo } from '../../models/indicadores/diferenciaInnovadoresYNo.model';
+import { CantHorasIniciativa } from '../../models/indicadores/cantHorasIniciativa.model';
+import { HaTenidoActividad } from '../../models/indicadores/haTenidoActividad.model';
 
 @Component({
   selector: 'app-grafico-indicadores',
@@ -41,9 +50,26 @@ export class GraficoIndicadoresComponent {
 
   //Indicadores
   iniciativasPorCurso!: IniciativasPorCurso[];
-  numeroIniciativas!: CantidadIniciativas[];
+  numeroIniciativas!: number[]
+  ciclosYModulosConIniciativas!: CiclosYModulosConIniciativas[];
+  explicacionIniciativas!: ExplicacionIniciativas[];
+  odsTrabajadosYSusMetas!: OdsTrabajadosYSusMetas[];
+  tieneEntidadesExternas!: TieneEntidadesExternas[];
+  tieneRRSS!: TieneRRSS[];
+  tipoIniciativa!: TipoIniciativa[];
+  cantProfesores!: number[];
+  cantIniciativaProfesor!: CantIniciativasProfesor[];
+  diferenciaInnovadoresYNo!: DiferenciaInnovadoresYNo[];
+  cantHorasIniciativa!: CantHorasIniciativa[];
+  haTendioActividad!: HaTenidoActividad[];
 
-  constructor(iniciativasService: IniciativasService, metasService: MetasService, cursosService: ServiceCursosService, indicadoresService: IndicadoresService) {
+
+  constructor(
+    iniciativasService: IniciativasService,
+    metasService: MetasService,
+    cursosService: ServiceCursosService,
+    indicadoresService: IndicadoresService) {
+
     iniciativasService.getIniciativas().subscribe(
       (data: Iniciativas[]) => {
         console.log('Iniciativas recibidas:', data);
@@ -80,16 +106,71 @@ export class GraficoIndicadoresComponent {
       }
     )
 
-    //Indicador1
+    //Indicadores
+
+    //1
     indicadoresService.getIniciativasPorCurso().subscribe(data => {
       this.iniciativasPorCurso = data
     })
 
-    //Indicador2
-    indicadoresService.getNumeroIniciativas().subscribe(data => {
-      this.numeroIniciativas = [data];
-      console.log('Número de iniciativas cargadas:', this.numeroIniciativas);
-    });
+    //2
+    indicadoresService.getCantidadIniciativas().subscribe(data =>{
+      this.numeroIniciativas = data
+    })
+    //3
+    indicadoresService.getCiclosYModulosConIniciativas().subscribe(data => {
+      this.ciclosYModulosConIniciativas = data
+    })
+
+    //4
+    indicadoresService.getExplicaciónIniciativas().subscribe(data => {
+      this.explicacionIniciativas = data
+    })
+
+    //5
+    indicadoresService.getOdsTrabajadosYSusMetas().subscribe(data => {
+      this.odsTrabajadosYSusMetas = data
+    })
+
+    //6
+    indicadoresService.getTieneEntidadesExternas().subscribe(data => {
+      this.tieneEntidadesExternas = data
+    })
+
+    //7
+    indicadoresService.getTieneRRSS().subscribe(data => {
+      this.tieneRRSS = data
+    })
+
+    //8
+    indicadoresService.getTipoIniciativa().subscribe(data => {
+      this.tipoIniciativa = data
+    })
+
+    //9
+    indicadoresService.getCantProfesores().subscribe(data => {
+      this.cantProfesores = data
+    })
+
+    //10
+    indicadoresService.getCantIniciativasProfesor().subscribe(data => {
+      this.cantIniciativaProfesor = data
+    })
+
+    //11
+    indicadoresService.getDiferenciaInnovadoresYNo().subscribe(data => {
+      this.diferenciaInnovadoresYNo = data
+    })
+
+    //12
+    indicadoresService.getCantHorasIniciativa().subscribe(data => {
+      this.cantHorasIniciativa = data
+    })
+
+    //13
+    indicadoresService.getHaTenidoActividad().subscribe(data => {
+      this.haTendioActividad = data
+    })
   }
 
 
@@ -135,8 +216,12 @@ export class GraficoIndicadoresComponent {
       ]
     };
   }
-  //los gráficos se configuran dinámicamente según los datos del indicador seleccionado. 
+
+  //Indicadores
   chartIndicador1() {
+
+    this.reiniciarChart()
+
     // Obtener los nombres de los cursos como etiquetas (labels)
     const iniciativasUnicas = this.iniciativasPorCurso.map(ini => ini.nombreCurso);
 
@@ -158,7 +243,7 @@ export class GraficoIndicadoresComponent {
   // En el indicador dos no es necesario usar gráfico porque solo es un número
   getIndicador2(): number {
     if (this.numeroIniciativas && this.numeroIniciativas.length > 0) {
-       return this.numeroIniciativas[0].cantidad; // Devuelve el primer elemento del array
+       return this.numeroIniciativas[0]; // Devuelve el primer elemento del array
     }
     return 0; // Devuelve un objeto con cantidad 0 si no hay datos
   }
@@ -180,41 +265,14 @@ export class GraficoIndicadoresComponent {
   // }
 
   chartIndicador3() {
-    //const numeroIniciativas = this.iniciativasPorCurso.map(numIni => numIni)
 
-    //Pruebas
-    let ciclosModulosConIniciativa = [
-      {
-        "id": 1,
-        "nombre_iniciativa": "Iniciativa1",
-        "ciclos": [
-          {
-            "id_ciclo": 2,
-            "nombre_ciclo": "Ciclo1",
-            "modulos": [
-              {
-                "id_modulo": 1,
-                "nombre_modulo": "Modulo1"
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    this.reiniciarChart()
 
-    const iniciativas = ciclosModulosConIniciativa;
-
-    // Sacamos todos los ciclos únicos por nombre
-    const ciclosUnicos = Array.from(new Set(
-      iniciativas.flatMap(ini => ini.ciclos.map(c => c.nombre_ciclo))
-    ));
+    /* const iniciativas = this.ciclosYModulosConIniciativas;
 
     // Creamos datasets
     const datasets = iniciativas.map((ini) => {
-      const data = ciclosUnicos.map(nombreCiclo => {
-        const ciclo = ini.ciclos.find(c => c.nombre_ciclo === nombreCiclo);
-        return ciclo ? ciclo.modulos.length : 0;
-      });
+      const data = ini.ciclos
 
       return {
         label: ini.nombre_iniciativa,
@@ -226,6 +284,137 @@ export class GraficoIndicadoresComponent {
     this.barChartData = {
       labels: ciclosUnicos,
       datasets: datasets
+    }; */
+  }
+
+  chartIndicador4() {
+    this.reiniciarChart()
+    /* 
+        // Obtener los nombres de los cursos como etiquetas (labels)
+        const iniciativasUnicas = this.explicacionIniciativas.map(ini => ini.explicacion);
+    
+        // Obtener los valores de iniciativas como un array
+        const dataPorCurso = this.explicacionIniciativas.map(ini => ini.nombre);
+    
+        // Estructura para el gráfico
+        this.barChartData = {
+          labels: iniciativasUnicas,
+          datasets: [
+            {
+              label: 'Número de iniciativas por curso',
+              data: dataPorCurso,
+            }
+          ]
+        }; */
+  }
+
+  chartIndicador5() {
+    this.reiniciarChart()
+    //OdsYSusMetas
+  }
+
+  chartIndicador6() {
+    this.reiniciarChart()
+    //TieneEntidadesExternas
+    this.barChartData = {
+      labels: ["Tiene o No Entidades Externas"],
+      datasets: [
+        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.tieneEntidades), label: 'Tiene' },
+        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.noTieneEntidades), label: 'No Tiene' }
+      ]
+    };
+  }
+
+  chartIndicador7() {
+    this.reiniciarChart()
+    //TieneRRSS
+  }
+
+  chartIndicador8() {
+    this.reiniciarChart()
+    //TipoIniciativa
+
+    const tiposUnicos = this.tipoIniciativa.map(ini => ini.tipo);
+
+    const dataPorCurso = this.tipoIniciativa.map(ini => ini.cantidad);
+
+    // Estructura para el gráfico
+    this.barChartData = {
+      labels: tiposUnicos,
+      datasets: [
+        {
+          label: 'Tipos de iniciativas',
+          data: dataPorCurso,
+        }
+      ]
+    };
+  }
+
+  chartIndicador10() {
+    this.reiniciarChart()
+    //CantIniciativasProfesor
+
+    const iniciativsUnicas = this.cantIniciativaProfesor.map(ini => ini.nombreProfesor);
+
+    const dataPorCurso = this.cantIniciativaProfesor.map(ini => ini.cantDeIniciativas);
+
+    // Estructura para el gráfico
+    this.barChartData = {
+      labels: iniciativsUnicas,
+      datasets: [
+        {
+          label: 'Cantidad de Iniciativas por Profesor',
+          data: dataPorCurso,
+        }
+      ]
+    };
+
+  }
+
+  chartIndicador11() {
+    this.reiniciarChart()
+    //DiferenciaInnovadoresYNo
+    this.barChartData = {
+      labels: ["Tiene o No Entidades Externas"],
+      datasets: [
+        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidadInnovadoras), label: 'Innovadoras' },
+        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidadNoInnovadoras), label: 'No Innovadoras' }
+      ]
+    };
+  }
+
+  chartIndicador12() {
+    this.reiniciarChart()
+
+    //CantHorasIniciativa
+
+    // Obtener los nombres de los cursos como etiquetas (labels)
+    const iniciativsUnicas = this.cantHorasIniciativa.map(ini => ini.nombreIniciativa);
+
+    // Obtener los valores de iniciativas como un array
+    const dataPorCurso = this.cantHorasIniciativa.map(ini => ini.horasDedicadas);
+
+    // Estructura para el gráfico
+    this.barChartData = {
+      labels: iniciativsUnicas,
+      datasets: [
+        {
+          label: 'Cantidad de Horas por iniciativas',
+          data: dataPorCurso,
+        }
+      ]
+    };
+  }
+
+  chartIndicador13() {
+    this.reiniciarChart()
+    //HaTenidoActividad
+    this.barChartData = {
+      labels: ["Ha Tenido Actividad"],
+      datasets: [
+        { data: this.haTendioActividad.map(tieneNo => tieneNo.tieneActividades), label: 'Si' },
+        { data: this.haTendioActividad.map(tieneNo => tieneNo.noTieneActividades), label: 'No' }
+      ]
     };
   }
 }

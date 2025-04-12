@@ -1,5 +1,3 @@
-import { Dimension } from "./dimension.model";  // Asegúrate de que la ruta sea correcta
-
 export class Ods {
     idOds: number;  // Identificador numérico
     nombre: string;  // Nombre del ODS

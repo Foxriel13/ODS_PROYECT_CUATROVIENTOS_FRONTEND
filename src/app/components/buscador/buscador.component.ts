@@ -5,8 +5,6 @@ import { ServiceCursosService } from '../../serviceCursos/service-cursos.service
 import { Curso } from '../../models/curso.model';
 import { ServiceOdsService } from '../../serviceOds/service-ods.service';
 import { Ods } from '../../models/ods.model';
-import { Dimension } from '../../models/dimension.model';
-import { ServiceDimensionService } from '../../serviceDimension/service-dimension.service';
 import { ServiceProfesoresService } from '../../serviceProfesores/service-profesores.service';
 import { ServiceEntidadesService } from '../../serviceEntidades/service-entidades.service';
 import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';

@@ -1,3 +1,4 @@
+import { Actividad } from "./actividades.model";
 import { entidadesExternas } from "./entidades_externas.model";
 import { Metas } from "./metas.model";  // Importar Metas correctamente
 import { Modulos } from "./modulos.model";
@@ -22,6 +23,7 @@ export class Iniciativas {
     entidades_externas: entidadesExternas[];  // Supongo que debería ser un array de strings
     modulos: Modulos[];  // Supongo que debería ser un array de strings
     redes_sociales: Redes_Sociales[];
+    actividades: Actividad[];
     mas_comentarios:String;
 
     // Constructor para inicializar la clase
@@ -42,6 +44,7 @@ export class Iniciativas {
         entidades_externas: entidadesExternas[],  // Tipificado correctamente
         modulos: Modulos[],  // Tipificado correctamente
         redes_sociales: Redes_Sociales[],
+        actividades: Actividad[],
         innovador: boolean,  // Se añade el parámetro 'innovador'
         mas_comentarios:string
     ) {
@@ -61,6 +64,7 @@ export class Iniciativas {
         this.entidades_externas = entidades_externas;
         this.modulos = modulos;
         this.redes_sociales = redes_sociales;
+        this.actividades = actividades;
         this.innovador = innovador;  // Inicializa el campo 'innovador'
         this.mas_comentarios = mas_comentarios;
     }

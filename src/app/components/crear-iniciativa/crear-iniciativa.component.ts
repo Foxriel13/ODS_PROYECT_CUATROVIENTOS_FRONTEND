@@ -14,14 +14,14 @@ import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativa
 import { Iniciativas } from '../../models/iniciativas.model';
 import { Meta } from '@angular/platform-browser';
 import { Metas } from '../../models/metas.model';
-import { Dimension } from '../../models/dimension.model';
-import { ServiceDimensionService } from '../../serviceDimension/service-dimension.service';
 import { Modulos } from '../../models/modulos.model';
 import { MetasService } from '../../serviceMetas/metas.service';
-import { ModulosService } from '../../serviceModulos/modulos.service';
 import { Redes_Sociales } from '../../models/redes_sociales';
 import { isScheduler } from 'rxjs/internal/util/isScheduler';
 import { RedesSocialesService } from '../../serviceRedesSociales/redes-sociales.service';
+import { Actividad } from '../../models/actividades.model';
+import { ModulosService } from '../../serviceModulos/modulos.service';
+import { ActividadesService } from '../../serviceActividades/actividades.service';
 
 @Component({
   selector: 'app-crear-iniciativa',
@@ -50,19 +50,21 @@ export class CrearIniciativaComponent implements OnInit {
   redes_socialesList: Redes_Sociales[] = []; // Lista de ODS
   ProfesoresList: Profesores[] = [];
   ModulosList: Modulos[] = [];
+  ActividadesList: Actividad[] = [];
   MetasList: Metas[] = [];
-  DimensionesList: Dimension[] = [];
   cursoList: Curso[] = [];
   entidadesList: entidadesExternas[] = [];
   odsSeleccionados: Ods[] = []; // Lista de ODS seleccionados
   metaSeleccionada: Metas | null = null;
-  dimensionSeleccionada: Dimension[] = [];  // Cambiado para ser un objeto y no un array // Lista de ODS seleccionados
   profesoresSeleccionados: Profesores[] = [];
   cursosSeleccionados: Curso[] = [];
   entidadesSeleccionados: entidadesExternas[] = [];
   metasSeleccionadas: Metas[] = [];
   moduloSeleccionados: Modulos[] = [];
+  actividadesSeleccionados: Actividad[] = [];
+
   boton: boolean = false;
+  listMetasOds : Metas[] = [];
   redes_socialesSeleccionados: Redes_Sociales[] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
     idOds: 0,
@@ -73,6 +75,10 @@ export class CrearIniciativaComponent implements OnInit {
     id: 0,
     nombre: ''
   };
+  actividad: Actividad = {
+    id: 0,
+    nombre: ''
+  }
   curso: Curso = {
     id: 0,
     nombre: ''
@@ -81,10 +87,6 @@ export class CrearIniciativaComponent implements OnInit {
     id: 0,
     nombre: ''
   };
-  dimension: Dimension = {
-    id: 0,
-    nombre: ''
-  }
   Metas: Metas = {
     id: 0,
     descripcion: '',
@@ -110,7 +112,7 @@ export class CrearIniciativaComponent implements OnInit {
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
-  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService, private redes_socialesServicie: RedesSocialesService) { }
+  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private metasService: MetasService, private modulosService: ModulosService, private redes_socialesServicie: RedesSocialesService, private actividadesServicie: ActividadesService) { }
 
   ngOnInit(): void {
     this.boton = false;
@@ -118,10 +120,10 @@ export class CrearIniciativaComponent implements OnInit {
     this.loadProfesoresList();
     this.loadCursosList();
     this.loadEntidadesList();
-    this.loadDimensionesList();
     this.loadMetasList();
     this.loadModulosList();
     this.loadRedesSociales();
+    this.loadActividades();
   }
 
   loadOdsList(): void {
@@ -138,6 +140,16 @@ export class CrearIniciativaComponent implements OnInit {
     this.redes_socialesServicie.getRedesSocialesList().subscribe(
       (response) => {
         this.redes_socialesList = response;
+      },
+      (error) => {
+        console.error('Error al cargar los ODS:', error);
+      }
+    );
+  }
+  loadActividades(): void {
+    this.actividadesServicie.getActividadesList().subscribe(
+      (response) => {
+        this.ActividadesList = response;
       },
       (error) => {
         console.error('Error al cargar los ODS:', error);
@@ -200,33 +212,8 @@ export class CrearIniciativaComponent implements OnInit {
       }
     );
   }
-  loadDimensionesList(): void {
-    this.dimensionService.getDimensionesList().subscribe(
-      (response) => {
-        console.log('Dimensiones cargados:', response);
-        this.DimensionesList = response;
-      },
-      (error) => {
-        console.error('Error al cargar los profesores:', error);
-      }
-    );
-  }
   onTabChange(tab: string) {
     this.selectedTab = tab; // Cambiar la sección activa
-  }
-  anyadirDimension(): void {
-    const selectedDimension = this.DimensionesList.find(item => item.id == this.dimension.id);
-
-    if (selectedDimension) {
-      // Asigna solo el objeto dimension, no un arreglo
-      this.dimensionSeleccionada = [selectedDimension];
-
-      // Si se desea, también puedes ordenar la lista (aunque con solo un elemento no es necesario)
-      // this.odsSeleccionados.sort((a, b) => a.id - b.id);
-
-    } else {
-      alert('Por favor, selecciona una dimensión válida.');
-    }
   }
 
   anyadirOds(): void {
@@ -270,23 +257,23 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona un profesor válido.');
     }
   }
+  anyadirActividad(): void {
+    const selectedActividad = this.ActividadesList.find(item => item.id == this.actividad.id);
+    if (selectedActividad) {
+      if (this.actividadesSeleccionados.some(item => item.id === selectedActividad.id)) {
+        alert('Esta actividad ya está añadido.');
+      } else {
+        this.actividadesSeleccionados.push(selectedActividad);
+      }
+    } else {
+      alert('Por favor, selecciona una actividad válida.');
+    }
+  }
   anyadirRedSocial(): void {
     const selectedRedSocial = this.redes_socialesList.find(item => item.id == this.redes_sociales.id);
     if (selectedRedSocial) {
       if (this.redes_socialesSeleccionados.some(item => item.id === this.redes_sociales.id)) {
-        alert('Este profesor ya está añadido.');
-      } else {
-        this.redes_socialesSeleccionados.push(selectedRedSocial);
-      }
-    } else {
-      alert('Por favor, selecciona un profesor válido.');
-    }
-  }
-  anyadirRedSociales(redSocial: Redes_Sociales): void {
-    const selectedRedSocial = this.redes_socialesList.find(item => item.id == redSocial.id);
-    if (selectedRedSocial) {
-      if (this.redes_socialesSeleccionados.some(item => item.id === this.redes_sociales.id)) {
-        alert('Este profesor ya está añadido.');
+        alert('Esta red social ya está añadido.');
       } else {
         this.redes_socialesSeleccionados.push(selectedRedSocial);
       }
@@ -297,6 +284,24 @@ export class CrearIniciativaComponent implements OnInit {
   mostrarRedSocial() {
     var selectRedes = document.getElementById("mostrarRedSocial");
     var inputRedes = document.getElementById("crearRedSocial");
+    var boton = document.getElementById("buttonCrear");
+    // Ocultar el elemento selectRedes
+    if (selectRedes) {
+      selectRedes.hidden = true;
+    }
+    if (boton) {
+      boton.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (inputRedes) {
+      inputRedes.removeAttribute("hidden");
+    }
+  }
+
+  mostrarActividad() {
+    var selectRedes = document.getElementById("mostrarActividad");
+    var inputRedes = document.getElementById("crearActividad");
     var boton = document.getElementById("buttonCrear");
     // Ocultar el elemento selectRedes
     if (selectRedes) {
@@ -330,6 +335,23 @@ export class CrearIniciativaComponent implements OnInit {
     }
   }
 
+  ocultarActividad() {
+    var selectActividad = document.getElementById("mostrarActividad");
+    var inputRedes = document.getElementById("crearActividad");
+    var boton = document.getElementById("buttonCrear");
+    // Ocultar el elemento selectRedes
+    if (inputRedes) {
+      inputRedes.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (selectActividad) {
+      selectActividad.removeAttribute("hidden");
+    }
+    if (boton) {
+      boton.removeAttribute("hidden");
+    }
+  }
   anyadirEntidad(): void {
     const selectedEntidad = this.entidadesList.find(item => item.id == this.entidad.id);
     if (selectedEntidad) {
@@ -355,90 +377,98 @@ export class CrearIniciativaComponent implements OnInit {
     }
   }
 
-  crearModulo() {
-    var modulo : Modulos = {
-      id: 0,
-      nombre: '',
-      clase:  []
-    }
-    var nombreModulo = document.getElementById("nombreModulo") as HTMLInputElement
-    modulo.nombre = nombreModulo.value;
-    for (let i = 0; i < this.cursosSeleccionados.length; i++) {
-      modulo.clase.push(this.cursosSeleccionados[i])
-    }
-    console.log("this.modulo:", this.modulo);
-
-    // Llamada al servicio para crear la iniciativa
-    this.modulosService.createModulo(modulo).subscribe(
-      response => {
-
-        console.log('Modulo creado correctamente:', response);
-      },
-      error => {
-        console.error('Error al crear la iniciativa:', error);
-        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
-        this.boton = false;
-      }
-    );
-    this.loadModulosList();
-  }
   anyadirModulo() {
-    this.crearModulo();
-    const selectedModulo = this.ModulosList.find(item => item.id == this.modules.id);
-    if (selectedModulo) {
-      if (this.moduloSeleccionados.some(item => item.id === selectedModulo.id)) {
-        alert('Este Modulo ya está añadido.');
-      } else {
-        this.moduloSeleccionados.push(selectedModulo);
-      }
-    } else {
-      alert('Por favor, selecciona una Meta válida.');
-    }
-  }
-  anyadirMeta() {
-    var nombreMeta = (document.getElementById("nombreMeta") as HTMLInputElement).value;
-    var ods = document.getElementById("odsElegido") as HTMLSelectElement;
-    if (!nombreMeta || ods.selectedIndex === 0) {
-      alert('Por favor, selecciona una Meta válida.');
+    // Obtener los elementos select
+    const selectModulo = document.getElementById("nombreModulo") as HTMLSelectElement;
+    const selectClase = document.getElementById("nombreClase") as HTMLSelectElement;
+  
+    // Obtener la opción seleccionada
+    const nombreModulo = selectModulo.options[selectModulo.selectedIndex]?.text.trim();
+    const nombreClase = selectClase.options[selectClase.selectedIndex]?.text.trim();
+  
+    if (!nombreModulo || !nombreClase) {
+      alert('Por favor, selecciona un módulo y una clase válida.');
       return;
     }
-
-    var nombreOds = this.odsList[ods.selectedIndex - 1].nombre;
-
-    let odsNew: Ods | null = null;  // Inicializar como null para evitar errores.
-
+  
+    // Buscar el módulo en la lista de módulos
+    let moduloNew: Modulos | null = this.ModulosList.find(m => m.nombre === nombreModulo) || null;
+    // Buscar el curso en la lista de cursos
+    let cursoNew: Curso | null = this.cursoList.find(c => c.nombre === nombreClase) || null;
+  
+    if (moduloNew && cursoNew) {
+      // Buscar si el módulo ya está en la lista de módulos seleccionados
+      let moduloExistente = this.moduloSeleccionados.find(m => m.nombre === moduloNew!.nombre);
+  
+      if (moduloExistente) {
+        // Si el módulo ya existe, agregar el curso a la lista `clase` si no está agregado aún
+        if (!moduloExistente.clase.some(c => c.id === cursoNew!.id)) {
+          moduloExistente.clase.push(cursoNew);
+        } else {
+          alert("El curso ya está asignado a este módulo.");
+        }
+      } else {
+        // Si el módulo no existe, crearlo y agregarlo a `moduloSeleccionados`
+        let nuevoModulo: Modulos = {
+          id: moduloNew.id,
+          nombre: moduloNew.nombre,
+          clase: [cursoNew] // Se inicializa con el curso seleccionado
+        };
+        this.moduloSeleccionados.push(nuevoModulo);
+      }
+  
+      console.log("Módulo actualizado:", this.moduloSeleccionados);
+    } else {
+      alert('No se encontró el módulo o la clase seleccionada.');
+    }
+  }
+  
+  anyadirMeta() {
+    // Obtener los elementos select
+    const selectMeta = document.getElementById("nombreMeta") as HTMLSelectElement;
+    const selectOds = document.getElementById("odsElegido") as HTMLSelectElement;
+  
+    // Obtener la opción seleccionada
+    const nombreMeta = selectMeta.options[selectMeta.selectedIndex]?.text;
+    const nombreOds = selectOds.options[selectOds.selectedIndex]?.text;
+  
+    // Validar que se haya seleccionado una opción válida
+    if (!nombreMeta || nombreMeta.includes("Seleccione una Meta") || selectOds.selectedIndex === 0) {
+      alert('Por favor, selecciona una Meta y un ODS válido.');
+      return;
+    }
+  
+    let odsNew: Ods | null = null;
+  
     // Buscar el ODS correspondiente
     for (let i = 0; i < this.odsList.length; i++) {
-      if (this.odsList[i].nombre == nombreOds) {
+      if (this.odsList[i].nombre === nombreOds) {
         odsNew = this.odsList[i];
-        break;  // Se sale del loop una vez se ha encontrado el ODS.
+        break; // Se sale del loop una vez encontrado el ODS.
       }
     }
-
-    // Verificar si se encontró el ODS
-    if (odsNew !== null) {
+  
+    if (odsNew) {
       let metaNueva: Metas = {
         id: this.metasSeleccionadas.length + 1, // Puedes cambiar la lógica del ID si es necesario
         descripcion: nombreMeta,
-        ods: {
-          idOds: odsNew.idOds,
-          nombre: nombreOds,
-          dimension: ''
-        }
+        ods: odsNew
       };
-
+  
       // Verificar si la meta ya está añadida
       if (this.metasSeleccionadas.some(item => item.descripcion.toUpperCase() === metaNueva.descripcion.toUpperCase())) {
         alert('Esta Meta ya está añadida.');
         return;
       }
-
+  
       // Añadir la nueva meta si no existe
       this.metasSeleccionadas.push(metaNueva);
+      console.log("Meta añadida:", metaNueva);
     } else {
       alert('No se ha encontrado el ODS seleccionado.');
     }
   }
+  
 
   clearForm(form: NgForm): void {
     location.reload();
@@ -458,6 +488,9 @@ export class CrearIniciativaComponent implements OnInit {
   eliminarRedSocial(index: number) {
     this.redes_socialesSeleccionados.splice(index, 1);
   }
+  eliminarActividad(index: number) {
+    this.actividadesSeleccionados.splice(index, 1);
+  }
 
   eliminarProfesor(index: number) {
     this.profesoresSeleccionados.splice(index, 1);
@@ -466,33 +499,17 @@ export class CrearIniciativaComponent implements OnInit {
   eliminarOds(index: number) {
     this.odsSeleccionados.splice(index, 1);
   }
-  eliminarDimension(): void {
-    // Eliminar la dimensión seleccionada al hacer click en el <p>
-    this.dimensionSeleccionada = []; // Limpiamos la dimensión seleccionada
-  }
+  
 
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
   }
-  eliminarClase(index: number) {
-    this.cursosSeleccionados.splice(index, 1);
-  }
-  eliminarMeta(meta: any): void {
+  eliminarMeta(index: any): void {
     // Encontramos el índice de la meta seleccionada
-    const index = this.metasSeleccionadas.indexOf(meta);
-
-    // Si la meta se encuentra en el array, la eliminamos
-    if (index > -1) {
-      this.metasSeleccionadas.splice(index, 1);
-    }
+    this.metasSeleccionadas.splice(index, 1);
   }
-  eliminarModulo(modulo: any) {
-    const index = this.moduloSeleccionados.indexOf(modulo);
-
-    // Si la meta se encuentra en el array, la eliminamos
-    if (index > -1) {
-      this.moduloSeleccionados.splice(index, 1);
-    }
+  eliminarModulo(index: any) {
+    this.moduloSeleccionados.splice(index, 1);
   }
   formatDateToYYYYMMDD(dateString: string): string {
     const parts = dateString.split('/'); // Split the date into parts (DD, MM, YYYY)
@@ -517,22 +534,10 @@ export class CrearIniciativaComponent implements OnInit {
     const year = formattedDate.getFullYear();
     const formattedDateString = `${year}-${month}-${day}`;
 
-    const listaMetas = []
-    for (let i = 0; i < this.metasSeleccionadas.length; i++) {
-      listaMetas.push(this.metasSeleccionadas[i].id)
-    }
-    console.log("Antes de crear iniciativa"); // 🔍 Verificar si llega aquí
-
-    console.log("this.titulo:", this.titulo);
-    console.log("this.horas:", this.horas);
-    console.log("this.nombre:", this.nombre);
-    console.log("this.fechaInicio:", this.fechaInicio);
-    console.log("this.fechaFin:", this.fechaFin);
-    console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
-    console.log("this.profesoresSeleccionados:", this.profesoresSeleccionados);
-    console.log("this.entidadesSeleccionados:", this.entidadesSeleccionados);
-    console.log("this.moduloSeleccionados:", this.moduloSeleccionados);
-
+    const listaMetas:Metas[] = [];
+    
+    
+    
     // Construir el objeto de la iniciativa, asegurándonos de que las propiedades estén en camelCase
     let iniciativa: Iniciativas = {
       id: 0,
@@ -548,37 +553,12 @@ export class CrearIniciativaComponent implements OnInit {
       innovador: false,
       mas_comentarios: this.mas_comentarios,
       imagen: this.imagen,
-      metas: this.metasSeleccionadas.map(meta => ({
-        id: meta.id,
-        descripcion: meta.descripcion,
-        ods: {
-          idOds: meta.ods.idOds,
-          nombre: meta.ods.nombre,
-          dimension: ''
-        }
-      })),
-
-      profesores: this.profesoresSeleccionados.map(profesor => ({
-        id: profesor.id,
-        nombre: profesor.nombre
-      })),
-      entidades_externas: this.entidadesSeleccionados.map(entidad => ({
-        id: entidad.id,
-        nombre: entidad.nombre
-      })),
-      modulos: this.moduloSeleccionados.map(modulo => ({
-        id: modulo.id,
-        nombre: modulo.nombre,
-        clase: this.cursosSeleccionados.map(curso => ({
-          id: curso.id,
-          nombre: curso.nombre
-        }))
-      })),
-      redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales => ({
-        id: redes_sociales.id,
-        nombre: redes_sociales.nombre,
-        enlace: redes_sociales.enlace
-      }))
+      metas: this.metasSeleccionadas,
+      profesores: this.profesoresSeleccionados,
+      entidades_externas: this.entidadesSeleccionados,
+      modulos: this.moduloSeleccionados,
+      redes_sociales: this.redes_socialesSeleccionados,
+      actividades: []
     };
 
     console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
@@ -652,6 +632,38 @@ export class CrearIniciativaComponent implements OnInit {
     }
   }
 
+  crearActividad(){
+    var nombre = document.getElementById("nombreActividad") as HTMLInputElement;
+    if (nombre) {
+      var actividadNueva : Actividad = {
+        id: 0,
+        nombre: nombre.value
+      };
+      this.actividadesServicie.CreateActividadesList(actividadNueva).subscribe(
+        response => {
+          console.log('Enlace creado correctamente:', response);
+
+          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
+          this.ActividadesList.push(actividadNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
+
+          this.showToastEnlace();
+
+          // Cargar nuevamente las redes sociales (si es necesario)
+          this.loadActividades();
+        },
+        error => {
+          console.error('Error al crear la iniciativa:', error);
+          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        }
+      );
+
+      this.ocultarRedSocial(); // Ocultar algo si es necesario
+    } else {
+      console.error("No se encontraron los elementos nombreLink o enlaceLink.");
+    }
+    this.ocultarActividad();
+  }
+
   crearLinks() {
     var nombre = document.getElementById("nombreLink") as HTMLInputElement;
     var link = document.getElementById("enlaceLink") as HTMLInputElement;
@@ -671,9 +683,6 @@ export class CrearIniciativaComponent implements OnInit {
           // Aquí, después de crear la red social, actualizamos la lista y la mostramos
           this.redes_socialesList.push(red_socialNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
 
-          // Ya podemos buscar y añadir la red social a la lista
-          this.anyadirRedSociales(red_socialNueva);
-
           // Mostramos un mensaje de éxito
           this.showToastEnlace();
 
@@ -691,7 +700,40 @@ export class CrearIniciativaComponent implements OnInit {
       console.error("No se encontraron los elementos nombreLink o enlaceLink.");
     }
   }
+  cargarMetasDeOds(nombre: any) {
+    this.listMetasOds = [];
+    var odsEncontrado: Ods | null = null; // Inicializar la variable
 
+    for (let i = 0; i < this.odsList.length; i++) {
+        if (this.odsList[i].nombre == nombre) {
+            odsEncontrado = this.odsList[i];
+            break; // Opcional: detener el bucle cuando se encuentra el ODS
+        }
+    }
 
+    if (odsEncontrado) {
+        for (let i = 0; i < this.MetasList.length; i++) {
+            if (this.MetasList[i].ods.nombre == odsEncontrado.nombre) {
+                this.listMetasOds.push(this.MetasList[i]);
+            }
+        }
+    }
+}
+
+getOdsImage(nombreOds: string): string {
+  const odsIndex = this.odsList.findIndex(o => o.nombre === nombreOds);
+  return odsIndex !== -1 ? `/Ods_img/ods${odsIndex + 1}.png` : '';
+}
+getClasesTexto(clases: Curso[]): string {
+  return clases.map(c => c.nombre).join(' / ');
+}
+eliminarClase(moduloIndex: number, claseIndex: number): void {
+  this.moduloSeleccionados[moduloIndex].clase.splice(claseIndex, 1);
+
+  // Si el módulo se queda sin clases, eliminarlo automáticamente
+  if (this.moduloSeleccionados[moduloIndex].clase.length === 0) {
+    this.moduloSeleccionados.splice(moduloIndex, 1);
+  }
+}
 
 }

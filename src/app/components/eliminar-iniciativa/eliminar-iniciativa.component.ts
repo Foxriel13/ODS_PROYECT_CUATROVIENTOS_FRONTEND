@@ -37,7 +37,8 @@ export class EliminarIniciativaComponent {
     entidades_externas: [],
     modulos: [],
     redes_sociales: [],
-    mas_comentarios: ''
+    mas_comentarios: '',
+    actividades: []
   };
 
   iniciativasList: Iniciativas[] = [];

@@ -14,8 +14,6 @@ import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativa
 import { Iniciativas } from '../../models/iniciativas.model';
 import { Meta } from '@angular/platform-browser';
 import { Metas } from '../../models/metas.model';
-import { Dimension } from '../../models/dimension.model';
-import { ServiceDimensionService } from '../../serviceDimension/service-dimension.service';
 import { Modulos } from '../../models/modulos.model';
 import { MetasService } from '../../serviceMetas/metas.service';
 import { ModulosService } from '../../serviceModulos/modulos.service';
@@ -50,12 +48,10 @@ export class ActualizarIniciativaComponent {
   ProfesoresList: Profesores[] = [];
   ModulosList: Modulos[] = [];
   MetasList: Metas[] = [];
-  DimensionesList: Dimension[] = [];
   cursoList: Curso[] = [];
   entidadesList: entidadesExternas[] = [];
   odsSeleccionados: Ods[] = []; // Lista de ODS seleccionados
   metaSeleccionada: Metas | null = null;
-  dimensionSeleccionada: Dimension[] = [];  // Cambiado para ser un objeto y no un array // Lista de ODS seleccionados
   profesoresSeleccionados: Profesores[] = [];
   cursosSeleccionados: Curso[] = [];
   entidadesSeleccionados: entidadesExternas[] = [];
@@ -81,10 +77,7 @@ export class ActualizarIniciativaComponent {
     id: 0,
     nombre: ''
   };
-  dimension: Dimension = {
-    id: 0,
-    nombre: ''
-  }
+  
   Metas: Metas = {
     id: 0,
     descripcion: '',
@@ -117,7 +110,8 @@ export class ActualizarIniciativaComponent {
     entidades_externas: [],
     modulos: [],
     mas_comentarios: '',
-    redes_sociales: []
+    redes_sociales: [],
+    actividades: []
   }
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
@@ -126,7 +120,7 @@ export class ActualizarIniciativaComponent {
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
-  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private dimensionService: ServiceDimensionService, private metasService: MetasService, private modulosService: ModulosService, private iniciativaServicie: IniciativasService) { }
+  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,  private metasService: MetasService, private modulosService: ModulosService, private iniciativaServicie: IniciativasService) { }
 
   async ngOnInit(): Promise<void> {
     this.loading = true;
@@ -137,7 +131,6 @@ export class ActualizarIniciativaComponent {
         this.loadProfesoresList(),
         this.loadCursosList(),
         this.loadEntidadesList(),
-        this.loadDimensionesList(),
         this.loadMetasList(),
         this.loadModulosList(),
         this.loadIniciativasList()
@@ -224,33 +217,8 @@ export class ActualizarIniciativaComponent {
       }
     );
   }
-  loadDimensionesList(): void {
-    this.dimensionService.getDimensionesList().subscribe(
-      (response) => {
-        console.log('Dimensiones cargados:', response);
-        this.DimensionesList = response;
-      },
-      (error) => {
-        console.error('Error al cargar los profesores:', error);
-      }
-    );
-  }
   onTabChange(tab: string) {
     this.selectedTab = tab; // Cambiar la sección activa
-  }
-  anyadirDimension(): void {
-    const selectedDimension = this.DimensionesList.find(item => item.id == this.dimension.id);
-
-    if (selectedDimension) {
-      // Asigna solo el objeto dimension, no un arreglo
-      this.dimensionSeleccionada = [selectedDimension];
-
-      // Si se desea, también puedes ordenar la lista (aunque con solo un elemento no es necesario)
-      // this.odsSeleccionados.sort((a, b) => a.id - b.id);
-
-    } else {
-      alert('Por favor, selecciona una dimensión válida.');
-    }
   }
 
   anyadirOds(): void {
@@ -395,10 +363,7 @@ export class ActualizarIniciativaComponent {
   eliminarOds(index: number) {
     this.odsSeleccionados.splice(index, 1);
   }
-  eliminarDimension(): void {
-    // Eliminar la dimensión seleccionada al hacer click en el <p>
-    this.dimensionSeleccionada = []; // Limpiamos la dimensión seleccionada
-  }
+ 
 
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
@@ -500,12 +465,13 @@ export class ActualizarIniciativaComponent {
           nombre: curso.nombre
         })
         )
-        })),
-      redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales=> ({
+      })),
+      redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales => ({
         id: redes_sociales.id,
         nombre: redes_sociales.nombre,
-        enlace:redes_sociales.enlace
-      }))
+        enlace: redes_sociales.enlace
+      })),
+      actividades: []
     };
 
     console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
@@ -663,7 +629,8 @@ export class ActualizarIniciativaComponent {
       profesores: listProfe,
       entidades_externas: listEntidad,
       modulos: listModulos,
-      redes_sociales: []
+      redes_sociales: [],
+      actividades: []
     };
 
     console.log("Iniciativa a actualizar:", iniciativa);

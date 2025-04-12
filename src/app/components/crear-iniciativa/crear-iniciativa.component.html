@@ -67,50 +67,53 @@
             <div *ngIf="selectedTab === 'metas'">
                 <div class="row">
                     <!-- Columna izquierda: Nombre de la Meta y Select de ODS -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label>Nombre de la Meta</label>
-                            <input type="text" class="form-control" placeholder="Ingrese el nombre de la meta" id="nombreMeta">
-                        </div>
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label>Seleccionar ODS</label>
-                            <select [(ngModel)]="ods" name="ods" class="form-control" (change)="cargarImagenODS(ods.nombre)" id="odsElegido">
+                            <select [(ngModel)]="ods" name="ods" class="form-control" (change)="cargarImagenODS(ods.nombre)" (change)="cargarMetasDeOds(ods.nombre)" id="odsElegido">
                                 <option value="" disabled selected>Seleccione un ODS</option>
                                 <option *ngFor="let ods of odsList" [ngValue]="ods">{{ ods.nombre }}</option>
                             </select>
                         </div>
+                        <div class="mb-3">
+                            <label>Seleccionar Meta</label>
+                            <select [(ngModel)]="meta" name="meta" class="form-control" (change)="cargarImagenODS(ods.nombre)" id="nombreMeta">
+                                <option value="" disabled selected>Seleccione una Meta</option>
+                                <option *ngFor="let metas of listMetasOds" [ngValue]="metas">{{ metas.descripcion }}</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-info mt-3" type="button" (click)="anyadirMeta()">Añadir Meta</button>
                     </div>
             
                     <!-- Columna central: Imagen del ODS y texto "text1" -->
-                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                    <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
                         <div *ngIf="ods" class="text-center">
                             <img src="/Ods_img/ods1.png" id="imagenOds" alt="Imagen ODS" class="img-fluid" style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
                             <p id="dimensionText">Social</p>
                         </div>
                     </div>
-                </div>
-            
-                <button class="btn btn-info mt-3" type="button" (click)="anyadirMeta()">Añadir Meta</button>
-            
-                <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <div class="box" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
-                            <h4>Metas Añadidas:</h4>
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-                                <div *ngFor="let meta of metasSeleccionadas" class="col mb-3">
-                                    <div class="box-meta" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
-                                        <p style="margin: 0;">{{ meta.descripcion }}</p>
-                                        <div class="btn-group-vertical mt-2" role="group">
-                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="metaSeleccionada = meta">Info</button>
-                                            <button type="button" class="btn btn-danger" (click)="eliminarMeta(meta)">Eliminar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                    <div class="col-md-4">
+                        <div class="image-box">
+                            <h5>Metas Seleccionadas</h5>
+                            <ul>
+                                <!-- Mostramos la lista de cursos seleccionados -->
+                                <li *ngFor="let item of metasSeleccionadas; let i = index" class="mb-2">
+                                    {{ item.descripcion }}
+                                    <!-- Botón de eliminar (X) -->
+                                    <button type="button" class="btn btn-danger btn-sm ms-4"
+                                        (click)="eliminarMeta(i)">
+                                        X
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+
+            
+                <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
+                
             
                 <!-- Modal -->
                 <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
@@ -152,7 +155,7 @@
                                 </option>
                             </select>
                         </div>
-
+                        
                         <!-- Botón para agregar el ODS seleccionado -->
                         <button class="btn btn-info" type="button" (click)="anyadirProfesor()">Añadir Profesor</button>
                     </div>
@@ -223,19 +226,22 @@
                         <!-- Columna izquierda con los campos Nombre del Módulo y Selección de Clases -->
                         <div class="col-md-6">
                             <!-- Nombre del módulo a la izquierda -->
-                            <div class="mb-3">
-                                <label>Nombre del Módulo</label>
-                                <input type="text" class="form-control" id="nombreModulo" placeholder="Ingrese el nombre del módulo" id="nombreModulo">
+                            <div class="mb-2">
+                                <label>Seleccionar Modulo</label>
+                                <select [(ngModel)]="modulo" name="modulo" id="nombreModulo" class="form-control">
+                                    <option value="" disabled selected>Selecciona una Clase</option>
+                                    <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.nombre }}</option>
+                                </select>
                             </div>
             
                             <!-- Lista de selects dinámicos debajo del campo Nombre del Módulo -->
                             <div class="mb-2">
                                 <label>Seleccionar Clases</label>
-                                <select [(ngModel)]="curso" name="curso" class="form-control">
+                                <select [(ngModel)]="curso" name="curso" id="nombreClase" class="form-control">
                                     <option value="" disabled selected>Selecciona una Clase</option>
                                     <option *ngFor="let item of cursoList" [ngValue]="item">{{ item.nombre }}</option>
                                 </select>
-                                <button class="btn btn-info mt-2" type="button" (click)="anyadirClase()">Añadir Clase</button>
+                                <button class="btn btn-info mt-2" type="button" (click)="anyadirModulo()">Añadir Modulo</button>
                             </div>
                         </div>
             
@@ -244,47 +250,36 @@
                             <div class="image-box">
                                 <h5>Clases Seleccionadas</h5>
                                 <ul>
-                                    <!-- Mostramos la lista de cursos seleccionados -->
-                                    <li *ngFor="let item of cursosSeleccionados; let i = index" class="mb-2">
-                                        {{ item.nombre }}
-                                        <!-- Botón de eliminar (X) -->
-                                        <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarClase(i)">
+                                    <li *ngFor="let item of moduloSeleccionados; let i = index" class="mb-2">
+                                      {{ item.nombre }} 
+                                      <span *ngIf="item.clase.length > 0"> 
+                                        ( 
+                                        <span *ngFor="let clase of item.clase; let j = index">
+                                          {{ clase.nombre }}
+                                          <!-- Botón para eliminar la clase específica -->
+                                          <button 
+                                            type="button" 
+                                            class="btn btn-danger btn-sm ms-2" 
+                                            (click)="eliminarClase(i, j)">
                                             X
-                                        </button>
+                                          </button>
+                                          <span *ngIf="j < item.clase.length - 1"> / </span> 
+                                        </span>
+                                        )
+                                      </span>
+                                      <!-- Botón para eliminar todo el módulo -->
+                                      <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarModulo(i)">
+                                       Eliminar Modulo
+                                      </button>
                                     </li>
-                                </ul>
+                                  </ul>
+                                  
+                                  
                             </div>
                         </div>
                     </div>
                 </div>
             
-                <button class="btn btn-info mt-3" type="button" (click)="anyadirModulo()">Añadir Meta</button>
-            
-                <!-- Fila para mostrar los Módulos Seleccionados -->
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <div class="box" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
-                            <h4>Módulos Añadidos:</h4>
-                            <div class="image-box image-box-small" style="flex: 1;">
-                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-                                    <!-- Itera sobre módulosSeleccionados -->
-                                    <div *ngFor="let modulo of moduloSeleccionados" class="col mb-3">
-                                        <div class="box-meta" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
-                                            <!-- Descripción del módulo -->
-                                            <p style="margin: 0; display: inline-block;">{{ modulo.nombre }}</p>
-            
-                                            <!-- Botones debajo de cada módulo -->
-                                            <div class="btn-group-vertical mt-2" role="group">
-                                                <button type="button" class="btn btn-info">Info</button>
-                                                <button type="button" class="btn btn-danger" (click)="eliminarModulo(modulo)">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             
@@ -344,6 +339,62 @@
                     <button class="btn btn-info mt-2" type="button" (click)="ocultarRedSocial()">Ocultar</button>
                     <!-- Botón para añadir red social -->
                     <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearLinks()">Añadir Red Social</button>
+                </div>
+            </div>
+            <div *ngIf="selectedTab === 'actividades'">
+                <div class="row">
+                    <div class="col-md-6">
+            
+                        <!-- Select para elegir una red social -->
+                        <div class="mb-3">
+                            <label>Seleccionar Actividades</label>
+                            <select [(ngModel)]="actividad" name="actividad" class="form-control">
+                                <option value="" disabled selected>Selecciona una actividad</option>
+                                <!-- Recorremos la lista de redes sociales y mostramos cada una -->
+                                <option *ngFor="let item of ActividadesList" [ngValue]="item">
+                                    - {{ item.nombre }}
+                                </option>
+                            </select>
+                        </div>
+            
+                        <!-- Botón para agregar la red social seleccionada -->
+                        <button class="btn btn-info" type="button" (click)="anyadirActividad()">Añadir Actividad</button>
+                    </div>
+            
+                    <!-- Lista de redes sociales seleccionadas -->
+                    <div class="col-md-6">
+                        <div class="image-box">
+                            <h5>Actividades Seleccionadas</h5>
+                            <ul>
+                                <li *ngFor="let item of actividadesSeleccionados; let i = index" class="mb-2">
+                                    {{ item.nombre }}
+                                    <button type="button" class="btn btn-danger btn-sm ms-4"
+                                        (click)="eliminarActividad(i)">
+                                        X
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Botón de añadir red social a la izquierda -->
+                    <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarActividad()">Crear Una Actividad Nueva</button>
+                
+                
+                <div class="mb-4" id="crearActividad" hidden>
+                    <label>Actividad Nueva</label>
+                    
+                    <!-- Contenedor de los dos inputs -->
+                    <div class="d-flex">
+                        <!-- Primer input: más pequeño -->
+                        <input name="redes_sociales_izq" type="text" id="nombreActividad" class="form-control me-2" placeholder="Nombre de la Actividad" style="width: 45%;">
+                
+                    </div>
+                
+                    <!-- Botón para volver a la lista -->
+                    <button class="btn btn-info mt-2" type="button" (click)="ocultarActividad()">Ocultar</button>
+                    <!-- Botón para añadir red social -->
+                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearActividad()">Añadir Actividad</button>
                 </div>
             </div>
             

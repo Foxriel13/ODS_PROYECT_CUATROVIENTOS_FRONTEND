@@ -230,6 +230,120 @@
                 </div>
             </div>
 
+            <div *ngIf="selectedTab === 'actividades'">
+                <div class="row">
+                    <div class="col-md-6">
+            
+                        <!-- Select para elegir una red social -->
+                        <div class="mb-3">
+                            <label>Seleccionar Actividades</label>
+                            <select [(ngModel)]="actividad" name="actividad" class="form-control">
+                                <option value="" disabled selected>Selecciona una actividad</option>
+                                <!-- Recorremos la lista de redes sociales y mostramos cada una -->
+                                <option *ngFor="let item of ActividadesList" [ngValue]="item">
+                                    - {{ item.nombre }}
+                                </option>
+                            </select>
+                        </div>
+            
+                        <!-- Botón para agregar la red social seleccionada -->
+                        <button class="btn btn-info" type="button" (click)="anyadirActividad()">Añadir Actividad</button>
+                    </div>
+            
+                    <!-- Lista de redes sociales seleccionadas -->
+                    <div class="col-md-6">
+                        <div class="image-box">
+                            <h5>Actividades Seleccionadas</h5>
+                            <ul>
+                                <li *ngFor="let item of actividadesSeleccionados; let i = index" class="mb-2">
+                                    {{ item.nombre }}
+                                    <button type="button" class="btn btn-danger btn-sm ms-4"
+                                        (click)="eliminarActividad(i)">
+                                        X
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Botón de añadir red social a la izquierda -->
+                    <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarActividad()">Crear Una Actividad Nueva</button>
+                
+                
+                <div class="mb-4" id="crearActividad" hidden>
+                    <label>Actividad Nueva</label>
+                    
+                    <!-- Contenedor de los dos inputs -->
+                    <div class="d-flex">
+                        <!-- Primer input: más pequeño -->
+                        <input name="redes_sociales_izq" type="text" id="nombreActividad" class="form-control me-2" placeholder="Nombre de la Actividad" style="width: 45%;">
+                
+                    </div>
+                
+                    <!-- Botón para volver a la lista -->
+                    <button class="btn btn-info mt-2" type="button" (click)="ocultarActividad()">Ocultar</button>
+                    <!-- Botón para añadir red social -->
+                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearActividad()">Añadir Actividad</button>
+                </div>
+            </div>
+            <div *ngIf="selectedTab === 'redes'">
+                <div class="row">
+                    <div class="col-md-6">
+            
+                        <!-- Select para elegir una red social -->
+                        <div class="mb-3">
+                            <label>Seleccionar Redes Sociales</label>
+                            <select [(ngModel)]="redes_sociales" name="redes_sociales" class="form-control">
+                                <option value="" disabled selected>Selecciona una red Social</option>
+                                <!-- Recorremos la lista de redes sociales y mostramos cada una -->
+                                <option *ngFor="let item of redes_socialesList" [ngValue]="item">
+                                    - {{ item.nombre }} / {{ item.enlace }}
+                                </option>
+                            </select>
+                        </div>
+            
+                        <!-- Botón para agregar la red social seleccionada -->
+                        <button class="btn btn-info" type="button" (click)="anyadirRedSocial()">Añadir Red Social</button>
+                    </div>
+            
+                    <!-- Lista de redes sociales seleccionadas -->
+                    <div class="col-md-6">
+                        <div class="image-box">
+                            <h5>Redes Seleccionadas</h5>
+                            <ul>
+                                <li *ngFor="let item of redes_socialesSeleccionados; let i = index" class="mb-2">
+                                    {{ item.nombre }} : {{ item.enlace }}
+                                    <button type="button" class="btn btn-danger btn-sm ms-4"
+                                        (click)="eliminarRedSocial(i)">
+                                        X
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Botón de añadir red social a la izquierda -->
+                    <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarRedSocial()">Crear Una Red Social Nueva</button>
+                
+                
+                <div class="mb-4" id="crearRedSocial" hidden>
+                    <label>Redes Sociales</label>
+                    
+                    <!-- Contenedor de los dos inputs -->
+                    <div class="d-flex">
+                        <!-- Primer input: más pequeño -->
+                        <input name="redes_sociales_izq" type="text" id="nombreLink" class="form-control me-2" placeholder="Nombre de la red Social" style="width: 45%;">
+                
+                        <!-- Segundo input: más grande -->
+                        <input name="redes_sociales_der" type="text" id="enlaceLink" class="form-control" placeholder="Enlace" style="width: 55%;">
+                    </div>
+                
+                    <!-- Botón para volver a la lista -->
+                    <button class="btn btn-info mt-2" type="button" (click)="ocultarRedSocial()">Ocultar</button>
+                    <!-- Botón para añadir red social -->
+                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearLinks()">Añadir Red Social</button>
+                </div>
+            </div>
             <div *ngIf="selectedTab === 'modulos'">
                 <!-- Solo visible si 'Módulos' está seleccionado -->
                 <div class="mb-3">

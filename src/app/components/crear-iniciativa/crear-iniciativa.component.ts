@@ -558,7 +558,7 @@ export class CrearIniciativaComponent implements OnInit {
       entidades_externas: this.entidadesSeleccionados,
       modulos: this.moduloSeleccionados,
       redes_sociales: this.redes_socialesSeleccionados,
-      actividades: []
+      actividades: this.actividadesSeleccionados
     };
 
     console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
@@ -657,7 +657,7 @@ export class CrearIniciativaComponent implements OnInit {
         }
       );
 
-      this.ocultarRedSocial(); // Ocultar algo si es necesario
+      this.ocultarActividad(); // Ocultar algo si es necesario
     } else {
       console.error("No se encontraron los elementos nombreLink o enlaceLink.");
     }

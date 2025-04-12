@@ -19,6 +19,9 @@ import { MetasService } from '../../serviceMetas/metas.service';
 import { ModulosService } from '../../serviceModulos/modulos.service';
 import * as bootstrap from 'bootstrap';
 import { Redes_Sociales } from '../../models/redes_sociales';
+import { Actividad } from '../../models/actividades.model';
+import { ActividadesService } from '../../serviceActividades/actividades.service';
+import { RedesSocialesService } from '../../serviceRedesSociales/redes-sociales.service';
 
 
 @Component({
@@ -32,7 +35,6 @@ export class ActualizarIniciativaComponent {
   titulo: string = '';
   nombre: string = '';
   producto: string = '';
-  redes_sociales: string = '';
   descripcion: string = "";
   contratante: string = '';
   equipo: string = '';
@@ -49,6 +51,8 @@ export class ActualizarIniciativaComponent {
   ModulosList: Modulos[] = [];
   MetasList: Metas[] = [];
   cursoList: Curso[] = [];
+  ActividadesList: Actividad[] = [];
+  redes_socialesList: Redes_Sociales[] = []; 
   entidadesList: entidadesExternas[] = [];
   odsSeleccionados: Ods[] = []; // Lista de ODS seleccionados
   metaSeleccionada: Metas | null = null;
@@ -57,6 +61,7 @@ export class ActualizarIniciativaComponent {
   entidadesSeleccionados: entidadesExternas[] = [];
   metasSeleccionadas: Metas[] = [];
   moduloSeleccionados: Modulos[] = [];
+  actividadesSeleccionados: Actividad[] = [];
   redes_socialesSeleccionados: Redes_Sociales[] = [];
   iniciativaList: Iniciativas[] = [];
   boton : boolean = false;
@@ -77,7 +82,10 @@ export class ActualizarIniciativaComponent {
     id: 0,
     nombre: ''
   };
-  
+  actividad: Actividad = {
+    id: 0,
+    nombre: ''
+  }
   Metas: Metas = {
     id: 0,
     descripcion: '',
@@ -113,6 +121,12 @@ export class ActualizarIniciativaComponent {
     redes_sociales: [],
     actividades: []
   }
+  redes_sociales: Redes_Sociales = {
+    id: 0,
+    nombre: '',
+    enlace: ''
+  }
+
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
   toastVisible: boolean = false;
@@ -120,10 +134,9 @@ export class ActualizarIniciativaComponent {
   // Variable que mantiene la sección activa
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
-  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,  private metasService: MetasService, private modulosService: ModulosService, private iniciativaServicie: IniciativasService) { }
+  constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,  private metasService: MetasService, private modulosService: ModulosService, private iniciativaServicie: IniciativasService,private redes_socialesServicie: RedesSocialesService,private actividadesServicie: ActividadesService) { }
 
   async ngOnInit(): Promise<void> {
-    this.loading = true;
     console.log("Loading activado:", this.loading); // ✅ Debería imprimir 'true'
     
     await Promise.all([
@@ -133,7 +146,9 @@ export class ActualizarIniciativaComponent {
         this.loadEntidadesList(),
         this.loadMetasList(),
         this.loadModulosList(),
-        this.loadIniciativasList()
+        this.loadIniciativasList(),
+        this.loadRedesSociales(),
+        this.loadActividades()
     ]);
 
     
@@ -154,6 +169,26 @@ export class ActualizarIniciativaComponent {
     this.modulosService.getModulosList().subscribe(
       (response) => {
         this.ModulosList = response;
+      },
+      (error) => {
+        console.error('Error al cargar los ODS:', error);
+      }
+    );
+  }
+  loadRedesSociales(): void {
+    this.redes_socialesServicie.getRedesSocialesList().subscribe(
+      (response) => {
+        this.redes_socialesList = response;
+      },
+      (error) => {
+        console.error('Error al cargar los ODS:', error);
+      }
+    );
+  }
+  loadActividades(): void {
+    this.actividadesServicie.getActividadesList().subscribe(
+      (response) => {
+        this.ActividadesList = response;
       },
       (error) => {
         console.error('Error al cargar los ODS:', error);
@@ -220,7 +255,18 @@ export class ActualizarIniciativaComponent {
   onTabChange(tab: string) {
     this.selectedTab = tab; // Cambiar la sección activa
   }
-
+  anyadirActividad(): void {
+    const selectedActividad = this.ActividadesList.find(item => item.nombre == this.actividad.nombre);
+    if (selectedActividad) {
+      if (this.actividadesSeleccionados.some(item => item.nombre === selectedActividad.nombre)) {
+        alert('Esta actividad ya está añadido.');
+      } else {
+        this.actividadesSeleccionados.push(selectedActividad);
+      }
+    } else {
+      alert('Por favor, selecciona una actividad válida.');
+    }
+  }
   anyadirOds(): void {
     const selectedOds = this.odsList.find(item => item.idOds == this.ods.idOds);
 
@@ -236,7 +282,18 @@ export class ActualizarIniciativaComponent {
     }
   }
 
-
+  anyadirRedSocial(): void {
+    const selectedRedSocial = this.redes_socialesList.find(item => item.id == this.redes_sociales.id);
+    if (selectedRedSocial) {
+      if (this.redes_socialesSeleccionados.some(item => item.nombre === this.redes_sociales.nombre)) {
+        alert('Esta red social ya está añadido.');
+      } else {
+        this.redes_socialesSeleccionados.push(selectedRedSocial);
+      }
+    } else {
+      alert('Por favor, selecciona un profesor válido.');
+    }
+  }
   anyadirCurso(): void {
     const selectedCurso = this.cursoList.find(item => item.id == this.curso.id);
     if (selectedCurso) {
@@ -359,12 +416,17 @@ export class ActualizarIniciativaComponent {
   eliminarProfesor(index: number) {
     this.profesoresSeleccionados.splice(index, 1);
   }
+  eliminarActividad(index: number) {
+    this.actividadesSeleccionados.splice(index, 1);
+  }
 
   eliminarOds(index: number) {
     this.odsSeleccionados.splice(index, 1);
   }
  
-
+  eliminarRedSocial(index: number) {
+    this.redes_socialesSeleccionados.splice(index, 1);
+  }
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
   }
@@ -439,39 +501,12 @@ export class ActualizarIniciativaComponent {
       innovador: false,
       mas_comentarios: this.mas_comentarios,
       imagen: this.imagen,
-      metas: this.metasSeleccionadas.map(meta => ({
-        id: meta.id,
-        descripcion: meta.descripcion,
-        ods: {
-          idOds: meta.ods.idOds,
-          nombre: meta.ods.nombre,
-          dimension: meta.ods.dimension
-        }
-      })),
-
-      profesores: this.profesoresSeleccionados.map(profesor => ({
-        id: profesor.id,
-        nombre: profesor.nombre
-      })),
-      entidades_externas: this.entidadesSeleccionados.map(entidad => ({
-        id: entidad.id,
-        nombre: entidad.nombre
-      })),
-      modulos: this.moduloSeleccionados.map(modulo => ({
-        id: modulo.id,
-        nombre: modulo.nombre,
-        clase: this.cursosSeleccionados.map(curso => ({
-          id: curso.id,
-          nombre: curso.nombre
-        })
-        )
-      })),
-      redes_sociales: this.redes_socialesSeleccionados.map(redes_sociales => ({
-        id: redes_sociales.id,
-        nombre: redes_sociales.nombre,
-        enlace: redes_sociales.enlace
-      })),
-      actividades: []
+      metas: this.metasSeleccionadas,
+      profesores: this.profesoresSeleccionados,
+      entidades_externas: this.entidadesSeleccionados,
+      modulos: this.moduloSeleccionados,
+      redes_sociales: this.redes_socialesSeleccionados,
+      actividades: this.actividadesSeleccionados
     };
 
     console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
@@ -517,6 +552,8 @@ export class ActualizarIniciativaComponent {
     this.profesoresSeleccionados = this.iniciativa.profesores || [];
     this.entidadesSeleccionados = this.iniciativa.entidades_externas || [];
     this.moduloSeleccionados = this.iniciativa.modulos || [];
+    this.redes_socialesSeleccionados = this.iniciativa.redes_sociales || [];
+    this.actividadesSeleccionados = this.iniciativa.actividades || [];
   }
   formatDate(dateString: string): string {
     return dateString.split(" ")[0]; // Extract only "yyyy-MM-dd"
@@ -597,6 +634,24 @@ export class ActualizarIniciativaComponent {
         listEntidad.push(entidadEncontrada);
       }
     }
+    for (let i = 0; i < this.actividadesSeleccionados.length; i++) {
+      let actividadesSeleccionado = this.actividadesSeleccionados[i];
+
+      let actividadEncontrada = this.ActividadesList.find(x => x.nombre === actividadesSeleccionado.nombre);
+
+      if (actividadEncontrada) {
+        listEntidad.push(actividadEncontrada);
+      }
+    }
+    for (let i = 0; i < this.redes_socialesSeleccionados.length; i++) {
+      let redes_socialesSeleccionado = this.redes_socialesSeleccionados[i];
+
+      let redes_socialEncontrada = this.redes_socialesList.find(x => x.nombre === redes_socialesSeleccionado.nombre);
+
+      if (redes_socialEncontrada) {
+        listEntidad.push(redes_socialEncontrada);
+      }
+    }
 
     var listModulos = [];
     for (let i = 0; i < this.moduloSeleccionados.length; i++) {
@@ -655,6 +710,148 @@ export class ActualizarIniciativaComponent {
       this.toastVisible = false;
       window.location.href= "/Iniciativas";
     }, 3000);
+  }
+  showToastEnlace() {
+    this.toastVisible = true;
+    setTimeout(() => {
+      this.toastVisible = false;
+      this.loading = true;
+    }, 3000);
+  }
+  ocultarActividad() {
+    var selectActividad = document.getElementById("mostrarActividad");
+    var inputRedes = document.getElementById("crearActividad");
+    var boton = document.getElementById("buttonCrear");
+    // Ocultar el elemento selectRedes
+    if (inputRedes) {
+      inputRedes.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (selectActividad) {
+      selectActividad.removeAttribute("hidden");
+    }
+    if (boton) {
+      boton.removeAttribute("hidden");
+    }
+  }
+  crearLinks() {
+    var nombre = document.getElementById("nombreLink") as HTMLInputElement;
+    var link = document.getElementById("enlaceLink") as HTMLInputElement;
+    var selector = document.getElementById("linkSelector") as HTMLSelectElement;
+
+    if (nombre && link) { // Verifica que los elementos existen antes de usarlos
+      var red_socialNueva: Redes_Sociales = {
+        id: 0,
+        nombre: nombre.value,  // Usamos .value en lugar de .textContent
+        enlace: link.value     // Usamos .value en lugar de .textContent
+      };
+
+      this.redes_socialesServicie.CreateRedesSocialesList(red_socialNueva).subscribe(
+        response => {
+          console.log('Enlace creado correctamente:', response);
+
+          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
+          this.redes_socialesList.push(red_socialNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
+
+          // Mostramos un mensaje de éxito
+          this.showToastEnlace();
+
+          // Cargar nuevamente las redes sociales (si es necesario)
+          this.loadRedesSociales();
+        },
+        error => {
+          console.error('Error al crear la iniciativa:', error);
+          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        }
+      );
+
+      this.ocultarRedSocial(); // Ocultar algo si es necesario
+    } else {
+      console.error("No se encontraron los elementos nombreLink o enlaceLink.");
+    }
+  }
+  ocultarRedSocial() {
+    var selectRedes = document.getElementById("mostrarRedSocial");
+    var inputRedes = document.getElementById("crearRedSocial");
+    var boton = document.getElementById("buttonCrear");
+    // Ocultar el elemento selectRedes
+    if (inputRedes) {
+      inputRedes.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (selectRedes) {
+      selectRedes.removeAttribute("hidden");
+    }
+    if (boton) {
+      boton.removeAttribute("hidden");
+    }
+  }
+  mostrarRedSocial() {
+    var selectRedes = document.getElementById("mostrarRedSocial");
+    var inputRedes = document.getElementById("crearRedSocial");
+    var boton = document.getElementById("buttonCrear");
+    // Ocultar el elemento selectRedes
+    if (selectRedes) {
+      selectRedes.hidden = true;
+    }
+    if (boton) {
+      boton.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (inputRedes) {
+      inputRedes.removeAttribute("hidden");
+    }
+  }
+  mostrarActividad() {
+    var selectRedes = document.getElementById("mostrarActividad");
+    var inputRedes = document.getElementById("crearActividad");
+    var boton = document.getElementById("buttonCrear");
+    // Ocultar el elemento selectRedes
+    if (selectRedes) {
+      selectRedes.hidden = true;
+    }
+    if (boton) {
+      boton.hidden = true;
+    }
+
+    // Mostrar el elemento inputRedes
+    if (inputRedes) {
+      inputRedes.removeAttribute("hidden");
+    }
+  }
+  crearActividad(){
+    var nombre = document.getElementById("nombreActividad") as HTMLInputElement;
+    if (nombre) {
+      var actividadNueva : Actividad = {
+        id: 0,
+        nombre: nombre.value
+      };
+      this.actividadesServicie.CreateActividadesList(actividadNueva).subscribe(
+        response => {
+          console.log('Enlace creado correctamente:', response);
+
+          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
+          this.ActividadesList.push(actividadNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
+
+          this.showToastEnlace();
+
+          // Cargar nuevamente las redes sociales (si es necesario)
+          this.loadActividades();
+        },
+        error => {
+          console.error('Error al crear la iniciativa:', error);
+          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+        }
+      );
+
+      this.ocultarActividad(); // Ocultar algo si es necesario
+    } else {
+      console.error("No se encontraron los elementos nombreLink o enlaceLink.");
+    }
+    this.ocultarActividad();
   }
     
 }

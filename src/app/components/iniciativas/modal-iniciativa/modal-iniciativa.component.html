@@ -91,8 +91,13 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let meta of iniciativa?.metas">
-                                        <td><i class="bi bi-check-circle me-1"></i>{{meta?.descripcion}}</td>
-                                        <td><i class="bi bi-globe2 me-1"></i>{{meta?.ods?.nombre}}</td>
+                                        <td>
+                                            <i class="bi bi-check-circle me-1"></i>{{ meta?.descripcion }}
+                                        </td>
+                                        <td class="d-flex align-items-center">
+                                            <img [src]="getOdsImage(meta?.ods?.nombre || '')" alt="{{ meta?.ods?.nombre }}" width="50" height="50" class="me-2">
+                                            {{ meta?.ods?.nombre }}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -110,9 +115,22 @@
                         </p>
                     </div>
                     <div *ngIf="activeTab === 'redes'">
-                        <p class="text-muted">
-                            <i class="bi bi-card-text me-2"></i>hola
-                        </p>
+                        <h6 class="fw-bold">Redes Sociales:</h6>
+                        <div *ngFor="let red of iniciativa?.redes_sociales" class="mb-4">
+                            <h6 class="fw-bold">
+                                <span class="badge bg-blue-light"><i class="bi bi-{{red.nombre}} me-1"></i>{{ red.nombre }}</span>
+                            </h6>
+                            
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe *ngIf="isEmbeddable(red.enlace)" [src]="getEmbedUrl(red.enlace)" class="embed-responsive-item"
+                                    frameborder="0" allowfullscreen>
+                                </iframe>
+                                <p *ngIf="!isEmbeddable(red.enlace)" class="text-muted">
+                                    No se puede mostrar la publicación. <a [href]="red.enlace" target="_blank">Ver en la red social</a>.
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
                     </div>
                 </div>
             </div>

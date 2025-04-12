@@ -15,7 +15,7 @@
 <div class="row p-3 mb-3">
     <!--Columna 1-->
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador1">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador1" (click)="chartIndicador1()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 1</h5>
             </div>
@@ -28,14 +28,24 @@
     </div>
 
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador3">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador2">
+            <div class="card-header text-white">
+                <h5 class="card-title">Indicador 2</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Cantidad de iniciativas</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador3" (click)="chartIndicador3()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 3</h5>
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    En qué ciclo se han realizado las iniciativas, proyectos, y en los ciclos qué módulos han
-                    intervenido
+                    CANTIDAD DE INICIATIVAS
                 </p>
             </div>
         </div>
@@ -54,7 +64,7 @@
     </div>
 
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador5">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador5" (click)="chartIndicador5()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 5</h5>
             </div>
@@ -69,7 +79,7 @@
     <!--Columna 2-->
     <!--?-->
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador6">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador6" (click)="chartIndicador6()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 6</h5>
             </div>
@@ -81,7 +91,7 @@
         </div>
     </div>
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador7">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador7" (click)="chartIndicador7()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 7</h5>
             </div>
@@ -93,7 +103,7 @@
         </div>
     </div>
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador8">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador8" (click)="chartIndicador8()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 8</h5>
             </div>
@@ -120,7 +130,7 @@
 
     <!--Columna 3-->
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador10">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador10" (click)="chartIndicador10()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 10</h5>
             </div>
@@ -132,7 +142,7 @@
         </div>
     </div>
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador11">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador11" (click)="chartIndicador11()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 11</h5>
             </div>
@@ -145,7 +155,7 @@
         </div>
     </div>
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador12">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador12" (click)="chartIndicador12()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 12</h5>
             </div>
@@ -158,7 +168,7 @@
     </div>
 
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3 align-content-center">
-        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador13">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador13" (click)="chartIndicador13()">
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 13</h5>
             </div>
@@ -184,28 +194,31 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <h6 class="fw-bold">Qué iniciativas se han realizado dirigidas a los ODS por curso académico:</h6>
-                    <table class="table table-bordered table-striped">
-                        <thead class="bg-primary text-white">
-                            <tr>
-                                <th>Curso</th>
-                                <th>Iniciativa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (iniciativa of iniciativasFiltradas; track $index) {
-                            @for (curso of iniciativa.modulos; track $index) {
-                            <tr>
 
-                                <td><i class="bi bi-check-circle me-1"></i>{{curso.clase}}</td>
+                    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" [type]="'bar'">
+                    </canvas>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-                                @for (ods of iniciativa.metas; track $index) {
-                                <td><i class="bi bi-globe2 me-1"></i>{{ods.ods.nombre}}</td>
-                                }
-                            </tr>
-                            }
-                            }
-                        </tbody>
-                    </table>
+<!--Modal 2-->
+<div class="modal fade" id="indicador2" tabindex="-1" aria-labelledby="indicador2ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header text-white">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Indicador 2</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h6 class="fw-bold">Cantidad de iniciativas:</h6>
+                      <h1>{{ getIndicador2() }}</h1>
                 </div>
             </div>
             <div class="modal-footer">
@@ -229,25 +242,10 @@
                     <h6 class="fw-bold">En qué ciclo se han realizado las iniciativas, proyectos, y en los ciclos qué
                         módulos han intervenido</h6>
                 </div>
-                <table class="table table-bordered table-striped">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>Ciclos</th>
-                            <th>Modulos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (iniciativa of iniciativasFiltradas; track $index) {
-                        @for (curso of iniciativa.modulos; track $index) {
-                        <tr>
 
-                            <td><i class="bi bi-check-circle me-1"></i>{{curso.clase}}</td>
-                            <td><i class="bi bi-globe2 me-1"></i>{{curso.nombre}}</td>
-                        </tr>
-                        }
-                        }
-                    </tbody>
-                </table>
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -313,7 +311,10 @@
                     <h6 class="fw-bold">A qué ODS va dirigida cada acción y dentro de cada ODS a qué metas concretas
                     </h6>
                 </div>
-                <table class="table table-bordered table-striped">
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
+                <!-- <table class="table table-bordered table-striped">
                     <thead class="bg-primary text-white">
                         <tr>
                             <th>ODSs</th>
@@ -329,7 +330,7 @@
                         </tr>
                         }
                     </tbody>
-                </table>
+                </table> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -351,7 +352,11 @@
                     <h6 class="fw-bold">Si en la realización del proyecto, acción ha colaborado alguna entidad externa
                     </h6>
                 </div>
-                <table class="table table-bordered table-striped">
+
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
+                <!-- <table class="table table-bordered table-striped">
                     <thead class="bg-primary text-white">
                         <tr>
                             <th>ODSs</th>
@@ -376,7 +381,8 @@
                         </tr>
                         }
                     </tbody>
-                </table>
+                </table> -->
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -411,13 +417,15 @@
                             <td><i class="bi bi-check-circle me-1"></i>{{ini.nombre}}</td>
 
                             @if (ini.redes_sociales.length > 0) {
-                                @if (ini.redes_sociales.length == 1) {
-                                    <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red social</td>
-                                }@else {
-                                    <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red social</td>
-                                }
+                            @if (ini.redes_sociales.length == 1) {
+                            <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red
+                                social</td>
                             }@else {
-                                <td><i class="bi bi-globe2 me-1"></i>No se ha difundido por ninguna red social</td>
+                            <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red
+                                social</td>
+                            }
+                            }@else {
+                            <td><i class="bi bi-globe2 me-1"></i>No se ha difundido por ninguna red social</td>
                             }
                         </tr>
                         }
@@ -443,8 +451,11 @@
                 <div class="card-title">
                     <h6 class="fw-bold">Diferenciar si son Proyectos, charlas o talleres</h6>
                 </div>
-                <!--TODO-->
-                <p>TODO</p>
+
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -488,8 +499,11 @@
                 <div class="card-title">
                     <h6 class="fw-bold">Personas que han sido responsables de las iniciativas, proyectos, etc.</h6>
                 </div>
-                <!--TODO-->
-                <p>TODO</p>
+
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -512,8 +526,11 @@
                         modificación
                         importante</h6>
                 </div>
-                <!--TODO-->
-                <p>TODO</p>
+
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -534,8 +551,11 @@
                 <div class="card-title">
                     <h6 class="fw-bold">Cuánto tiempo se ha dedicado a cada acción</h6>
                 </div>
-                <!--TODO-->
-                <p>TODO</p>
+
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -557,8 +577,11 @@
                     <h6 class="fw-bold">Si esas acciones o proyectos han requerido de alguna visita, salida, charla,
                         etc.</h6>
                 </div>
-                <!--TODO-->
-                <p>TODO</p>
+
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" [type]="'bar'">
+                </canvas>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>

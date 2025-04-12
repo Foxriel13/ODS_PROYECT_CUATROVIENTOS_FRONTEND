@@ -31,7 +31,7 @@
     <!-- Filtros avanzados -->
     <div *ngIf="advancedFiltersVisible" class="row g-3 justify-content-center">
 
-      <div class="col-md-3 d-flex flex-column align-items-center">
+      <!-- <div class="col-md-3 d-flex flex-column align-items-center">
         <label class="form-label">Dimensión</label>
         <select class="form-select form-select-sm " [(ngModel)]="filtros.dimension" (change)="filtrarOds()">
           <option *ngFor="let dim of dimensionList" [value]="dim" [ngClass]="obtenerColorDimension(dim)">{{ dim }}
@@ -54,8 +54,51 @@
             </li>
           </ul>
         </div>
+      </div> -->
+      <!-- Multiselect Dimensiones -->
+      <div class="col-md-3 d-flex flex-column align-items-center">
+        <label class="form-label">Dimensiones</label>
+        <div class="dropdown w-100">
+          <button class="btn btn-outline-secondary btn-sm dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
+            [ngClass]="{'disabled-dropdown': disableDimensiones}">
+            {{ dimensionesSeleccionadas.length ? dimensionesSeleccionadas.join(', ') : 'Seleccionar dimensiones' }}
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li *ngFor="let dim of dimensionList">
+              <label class="dropdown-item d-flex align-items-center" [ngClass]="obtenerColorDimension(dim)">
+                <input type="checkbox" [value]="dim" (change)="onDimensionChange($event)"
+                  [checked]="dimensionesSeleccionadas.includes(dim)" [disabled]="disableDimensiones"
+                  class="form-check-input me-2">
+                {{ dim }}
+              </label>
+            </li>
+          </ul>
+        </div>
+        <!-- Mensaje de deshabilitado -->
+        <small *ngIf="disableDimensiones" class="text-muted mt-1">Deshabilitado porque hay ODS seleccionados</small>
       </div>
-
+      
+      <!-- Multiselect ODS -->
+      <div class="col-md-5 d-flex flex-column align-items-center">
+        <label class="form-label text-center fs-7">ODS</label>
+        <div class="dropdown w-100">
+          <button class="btn btn-secondary btn-sm dropdown-toggle w-100" type="button" id="dropdownODS"
+            data-bs-toggle="dropdown">
+            {{odsSeleccionadosDisplay}}
+          </button>
+          <ul class="dropdown-menu w-100" aria-labelledby="dropdownODS">
+            <li *ngFor="let o of odsFiltrados">
+              <label class="dropdown-item d-flex align-items-center">
+                <input type="checkbox" [value]="o.nombre" (change)="onOdsChange($event, o)"
+                  [checked]="isOdsSelected(o)" class="form-check-input me-2">
+                <img [src]="getOdsImage(o.nombre)" alt="{{ o.nombre }}" width="20" height="20" class="me-2">
+                {{ o.nombre }}
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
       <div class="col-md-3 d-flex flex-column align-items-center">
         <label class="form-label ">Fecha de registro</label>
         <input  type="date" class="form-control form-control-sm " [(ngModel)]="filtros.fechaRegistro">

@@ -28,6 +28,8 @@ import { CantIniciativasProfesor } from '../../models/indicadores/cantIniciativa
 import { DiferenciaInnovadoresYNo } from '../../models/indicadores/diferenciaInnovadoresYNo.model';
 import { CantHorasIniciativa } from '../../models/indicadores/cantHorasIniciativa.model';
 import { HaTenidoActividad } from '../../models/indicadores/haTenidoActividad.model';
+import {  OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-grafico-indicadores',
@@ -36,7 +38,7 @@ import { HaTenidoActividad } from '../../models/indicadores/haTenidoActividad.mo
   templateUrl: './grafico-indicadores.component.html',
   styleUrl: './grafico-indicadores.component.scss'
 })
-export class GraficoIndicadoresComponent {
+export class GraficoIndicadoresComponent implements OnInit{
   iniciativas: Iniciativas[] = []
   iniciativasFiltradas: Iniciativas[] = []
   iniciativasTotales: Iniciativas[] = []
@@ -57,7 +59,8 @@ export class GraficoIndicadoresComponent {
   tieneEntidadesExternas!: TieneEntidadesExternas[];
   tieneRRSS!: TieneRRSS[];
   tipoIniciativa!: TipoIniciativa[];
-  cantProfesores!: number[];
+  // cantProfesores!: number[];
+  cantidadProfesores: number = 0;
   cantIniciativaProfesor!: CantIniciativasProfesor[];
   diferenciaInnovadoresYNo!: DiferenciaInnovadoresYNo[];
   cantHorasIniciativa!: CantHorasIniciativa[];
@@ -65,116 +68,90 @@ export class GraficoIndicadoresComponent {
 
 
   constructor(
-    iniciativasService: IniciativasService,
-    metasService: MetasService,
-    cursosService: ServiceCursosService,
-    indicadoresService: IndicadoresService) {
+    private iniciativasService: IniciativasService,
+    private metasService: MetasService,
+    private cursosService: ServiceCursosService,
+    private indicadoresService: IndicadoresService) {
 
-    iniciativasService.getIniciativas().subscribe(
-      (data: Iniciativas[]) => {
-        console.log('Iniciativas recibidas:', data);
-
-        this.iniciativasTotales = data
-        this.iniciativas = data.filter(iniciativa => !iniciativa.eliminado);
-        this.iniciativasFiltradas = this.iniciativas
-
-        this.anyos_lectivos = [...new Set(data.map(iniciativa => iniciativa.anyo_lectivo))];
-
-        if (this.anyos_lectivos.length <= 0) {
-          this.anyo_seleccionado = this.anyos_lectivos[0]
-        }
-
-        //Modulos de cada Iniciativa
-        /* this.iniciativasFiltradas.forEach(ini =>{
-          ini.modulos.forEach(mod =>{
-            this.modulosIniciativa.push(mod)
-          })
-        }) */
-      }
-    )
-    metasService.getMetasList().subscribe(
-      (meta: Metas[]) => {
-        console.log('Metas recibidas:', meta);
-
-        this.metas = meta
-      }
-    )
-
-    cursosService.getCursosList().subscribe(
-      (curso: Curso[]) => {
-        this.cursos = curso
-      }
-    )
-
-    //Indicadores
-
-    //1
-    indicadoresService.getIniciativasPorCurso().subscribe(data => {
-      this.iniciativasPorCurso = data
-    })
-
-    //2
-    indicadoresService.getCantidadIniciativas().subscribe(data =>{
-      this.numeroIniciativas = data
-    })
-    //3
-    indicadoresService.getCiclosYModulosConIniciativas().subscribe(data => {
-      this.ciclosYModulosConIniciativas = data
-    })
-
-    //4
-    indicadoresService.getExplicaciónIniciativas().subscribe(data => {
-      this.explicacionIniciativas = data
-    })
-
-    //5
-    indicadoresService.getOdsTrabajadosYSusMetas().subscribe(data => {
-      this.odsTrabajadosYSusMetas = data
-    })
-
-    //6
-    indicadoresService.getTieneEntidadesExternas().subscribe(data => {
-      this.tieneEntidadesExternas = data
-    })
-
-    //7
-    indicadoresService.getTieneRRSS().subscribe(data => {
-      this.tieneRRSS = data
-    })
-
-    //8
-    indicadoresService.getTipoIniciativa().subscribe(data => {
-      this.tipoIniciativa = data
-    })
-
-    //9
-    indicadoresService.getCantProfesores().subscribe(data => {
-      this.cantProfesores = data
-    })
-
-    //10
-    indicadoresService.getCantIniciativasProfesor().subscribe(data => {
-      this.cantIniciativaProfesor = data
-    })
-
-    //11
-    indicadoresService.getDiferenciaInnovadoresYNo().subscribe(data => {
-      this.diferenciaInnovadoresYNo = data
-    })
-
-    //12
-    indicadoresService.getCantHorasIniciativa().subscribe(data => {
-      this.cantHorasIniciativa = data
-    })
-
-    //13
-    indicadoresService.getHaTenidoActividad().subscribe(data => {
-      this.haTendioActividad = data
-    })
   }
 
+  ngOnInit(): void {
+    this.iniciativasService.getIniciativas().subscribe((data: Iniciativas[]) => {
+      console.log('Iniciativas recibidas:', data);
 
+      this.iniciativasTotales = data;
+      this.iniciativas = data.filter(iniciativa => !iniciativa.eliminado);
+      this.iniciativasFiltradas = this.iniciativas;
 
+      this.anyos_lectivos = [...new Set(data.map(iniciativa => iniciativa.anyo_lectivo))];
+
+      if (this.anyos_lectivos.length > 0) {
+        this.anyo_seleccionado = this.anyos_lectivos[0];
+      }
+    });
+
+    this.metasService.getMetasList().subscribe((meta: Metas[]) => {
+      console.log('Metas recibidas:', meta);
+      this.metas = meta;
+    });
+
+    this.cursosService.getCursosList().subscribe((curso: Curso[]) => {
+      this.cursos = curso;
+    });
+
+    // Indicadores
+    this.indicadoresService.getIniciativasPorCurso().subscribe(data => {
+      this.iniciativasPorCurso = data;
+    });
+
+    this.indicadoresService.getCantidadIniciativas().subscribe(data => {
+      this.numeroIniciativas = data;
+    });
+
+    this.indicadoresService.getCiclosYModulosConIniciativas().subscribe(data => {
+      this.ciclosYModulosConIniciativas = data;
+    });
+
+    this.indicadoresService.getExplicaciónIniciativas().subscribe(data => {
+      this.explicacionIniciativas = data;
+    });
+
+    this.indicadoresService.getOdsTrabajadosYSusMetas().subscribe(data => {
+      this.odsTrabajadosYSusMetas = data;
+    });
+
+    this.indicadoresService.getTieneEntidadesExternas().subscribe(data => {
+      this.tieneEntidadesExternas = data;
+    });
+
+    this.indicadoresService.getTieneRRSS().subscribe(data => {
+      this.tieneRRSS = data;
+    });
+
+    this.indicadoresService.getTipoIniciativa().subscribe(data => {
+      this.tipoIniciativa = data;
+    });
+
+    this.indicadoresService.getCantProfesores().subscribe(data => {
+      this.cantidadProfesores = data.cantidad;
+    });
+
+    this.indicadoresService.getCantIniciativasProfesor().subscribe(data => {
+      this.cantIniciativaProfesor = data;
+    });
+
+    this.indicadoresService.getDiferenciaInnovadoresYNo().subscribe(data => {
+      this.diferenciaInnovadoresYNo = data;
+    });
+
+    this.indicadoresService.getCantHorasIniciativa().subscribe(data => {
+      this.cantHorasIniciativa = data;
+    });
+
+    this.indicadoresService.getHaTenidoActividad().subscribe(data => {
+      this.haTendioActividad = data;
+    });
+  }
 
   filterChanges(): void {
     // Filtro por año lectivo (solo si hay algo escrito)
@@ -418,3 +395,4 @@ export class GraficoIndicadoresComponent {
     };
   }
 }
+

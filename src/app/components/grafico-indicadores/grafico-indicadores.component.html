@@ -207,8 +207,12 @@
                 <div class="mb-3">
                     <h6 class="fw-bold">Qué iniciativas se han realizado dirigidas a los ODS por curso académico:</h6>
 
-                    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
-                        [legend]="barChartLegend" [type]="'bar'">
+                    <canvas baseChart 
+                        [data]="barChartData" 
+                        [options]="barChartOptions" 
+                        [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" 
+                        [type]="'bar'">
                     </canvas>
                 </div>
             </div>
@@ -358,35 +362,13 @@
                     </h6>
                 </div>
 
-                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
-                    [legend]="barChartLegend" [type]="'bar'">
+                <canvas baseChart 
+                    [data]="barChartData" 
+                    [options]="barChartOptions" 
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend" 
+                    [type]="'bar'">
                 </canvas>
-                <!-- <table class="table table-bordered table-striped">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>ODSs</th>
-                            <th>Metas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (ini of iniciativasFiltradas; track $index) {
-                        <tr>
-
-                            <td><i class="bi bi-check-circle me-1"></i>{{ini.nombre}}</td>
-
-                            @if (ini.entidades_externas.length > 0) {
-                                @if (ini.entidades_externas.length == 1) {
-                                    <td><i class="bi bi-globe2 me-1"></i>Ha participado {{ini.entidades_externas.length}} entidad</td>
-                                }@else {
-                                    <td><i class="bi bi-globe2 me-1"></i>Han participado {{ini.entidades_externas.length}} entidades</td>
-                                }
-                            }@else {
-                                <td><i class="bi bi-globe2 me-1"></i>No ha participado ninguna entidad</td>
-                            }
-                        </tr>
-                        }
-                    </tbody>
-                </table> -->
 
             </div>
             <div class="modal-footer">
@@ -532,7 +514,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of cantIniciativaProfesor">
-                                <td>{{ item.nombreProfesor }}</td>
+                                <td>{{ item.nombre_profesor }}</td>
                                 <td>{{ item.cantDeIniciativas }}</td>
                             </tr>
                         </tbody>

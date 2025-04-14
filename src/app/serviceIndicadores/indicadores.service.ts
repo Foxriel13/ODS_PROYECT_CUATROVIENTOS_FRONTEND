@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { IniciativasPorCurso } from '../models/indicadores/iniciativasPorCurso.model';
-import { CiclosYModulosConIniciativas } from '../models/indicadores/ciclosYModulosConIniciativas.model';
-import { ExplicacionIniciativas } from '../models/indicadores/explicacionIniciativas.model';
-import { OdsTrabajadosYSusMetas } from '../models/indicadores/odsTrabajadosYSusMetas.model';
-import { TieneEntidadesExternas } from '../models/indicadores/tieneEntidadesExternas.model';
+import { IniciativasPorCurso } from '../models/indicadores/iniciativasPorCurso';
+import { CiclosYModulosConIniciativas } from '../models/indicadores/ciclosYModulosConIniciativas';
+import { ExplicacionIniciativas } from '../models/indicadores/explicacionIniciativas';
+import { OdsTrabajadosYSusMetas } from '../models/indicadores/odsTrabajadosYSusMetas';
+import { TieneEntidadesExternas } from '../models/indicadores/tieneEntidadesExternas';
 import { TieneRRSS } from '../models/indicadores/tieneRRSS.model';
 import { TipoIniciativa } from '../models/indicadores/tipoIniciativa.model';
-import { CantIniciativasProfesor } from '../models/indicadores/cantIniciativasProfesor.model';
-import { DiferenciaInnovadoresYNo } from '../models/indicadores/diferenciaInnovadoresYNo.model';
-import { CantHorasIniciativa } from '../models/indicadores/cantHorasIniciativa.model';
-import { HaTenidoActividad } from '../models/indicadores/haTenidoActividad.model';
+import { CantIniciativasProfesor } from '../models/indicadores/cantIniciativasProfesor';
+import { DiferenciaInnovadoresYNo } from '../models/indicadores/diferenciaInnovadoresYNo';
+import { CantHorasIniciativa } from '../models/indicadores/cantHorasIniciativa';
+import { HaTenidoActividad } from '../models/indicadores/haTenidoActividad';
+import { CantidadIniciativas } from '../models/indicadores/cantidadIniciativas';
 
 
 @Injectable({
@@ -25,9 +26,9 @@ export class IndicadoresService {
     return this.http.get<IniciativasPorCurso[]>(this.apiUrl + '/iniciativasPorCurso')
   }
 
-  getCantidadIniciativas(): Observable<number>{
+  getCantidadIniciativas(): Observable<CantidadIniciativas>{
     //Se envia desde Backend como objeto, debe enviarse solo el número
-    return this.http.get<number>(this.apiUrl + '/cantidadIniciativas')
+    return this.http.get<CantidadIniciativas>(this.apiUrl + '/cantidadIniciativas')
   }
 
   getCiclosYModulosConIniciativas(): Observable<CiclosYModulosConIniciativas[]>{

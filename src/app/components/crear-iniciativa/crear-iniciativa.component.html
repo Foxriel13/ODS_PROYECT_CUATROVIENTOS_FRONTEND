@@ -48,8 +48,8 @@
                             <textarea [(ngModel)]="producto" name="producto" class="form-control"
                                 placeholder="Informe de IA" id="producto" rows="4"></textarea>
                         </div>
-                        
-                        
+
+
                         <div class="mb-3">
                             <label for="mas_comentarios">Mas Comentarios</label>
                             <textarea [(ngModel)]="mas_comentarios" name="mas_comentarios" class="form-control"
@@ -70,25 +70,30 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label>Seleccionar ODS</label>
-                            <select [(ngModel)]="ods" name="ods" class="form-control" (change)="cargarImagenODS(ods.nombre)" (change)="cargarMetasDeOds(ods.nombre)" id="odsElegido">
+                            <select [(ngModel)]="ods" name="ods" class="form-control"
+                                (change)="cargarImagenODS(ods.nombre)" (change)="cargarMetasDeOds(ods.nombre)"
+                                id="odsElegido">
                                 <option value="" disabled selected>Seleccione un ODS</option>
                                 <option *ngFor="let ods of odsList" [ngValue]="ods">{{ ods.nombre }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label>Seleccionar Meta</label>
-                            <select [(ngModel)]="meta" name="meta" class="form-control" (change)="cargarImagenODS(ods.nombre)" id="nombreMeta">
+                            <select [(ngModel)]="meta" name="meta" class="form-control"
+                                (change)="cargarImagenODS(ods.nombre)" id="nombreMeta">
                                 <option value="" disabled selected>Seleccione una Meta</option>
-                                <option *ngFor="let metas of listMetasOds" [ngValue]="metas">{{ metas.descripcion }}</option>
+                                <option *ngFor="let metas of listMetasOds" [ngValue]="metas">{{ metas.descripcion }}
+                                </option>
                             </select>
                         </div>
                         <button class="btn btn-info mt-3" type="button" (click)="anyadirMeta()">Añadir Meta</button>
                     </div>
-            
+
                     <!-- Columna central: Imagen del ODS y texto "text1" -->
                     <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
                         <div *ngIf="ods" class="text-center">
-                            <img src="/Ods_img/ods1.png" id="imagenOds" alt="Imagen ODS" class="img-fluid" style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
+                            <img src="/Ods_img/ods1.png" id="imagenOds" alt="Imagen ODS" class="img-fluid"
+                                style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
                             <p id="dimensionText">Social</p>
                         </div>
                     </div>
@@ -101,8 +106,7 @@
                                 <li *ngFor="let item of metasSeleccionadas; let i = index" class="mb-2">
                                     {{ item.descripcion }}
                                     <!-- Botón de eliminar (X) -->
-                                    <button type="button" class="btn btn-danger btn-sm ms-4"
-                                        (click)="eliminarMeta(i)">
+                                    <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarMeta(i)">
                                         X
                                     </button>
                                 </li>
@@ -111,31 +115,38 @@
                     </div>
                 </div>
 
-            
+
                 <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
-                
-            
+
+
                 <!-- Modal -->
-                <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+                <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="infoModalLabel">Información de la Meta</h5>
+                                <h5 class="modal-title" id="infoModalLabel">{{ metaSeleccionada?.descripcion }}</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <p>{{ metaSeleccionada?.descripcion }}</p>
+                                <p>Ods de la meta:</p>
+                                <p>{{ metaSeleccionada?.ods?.nombre }}</p>
+                                <p>Dimensión:{{ metaSeleccionada?.ods?.dimension }}</p>
+                                <!-- //La dimensión no se está agrega en ningún momento, preguntar a Luismi -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
 
 
 
@@ -155,7 +166,7 @@
                                 </option>
                             </select>
                         </div>
-                        
+
                         <!-- Botón para agregar el ODS seleccionado -->
                         <button class="btn btn-info" type="button" (click)="anyadirProfesor()">Añadir Profesor</button>
                     </div>
@@ -233,7 +244,7 @@
                                     <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.nombre }}</option>
                                 </select>
                             </div>
-            
+
                             <!-- Lista de selects dinámicos debajo del campo Nombre del Módulo -->
                             <div class="mb-2">
                                 <label>Seleccionar Clases</label>
@@ -241,52 +252,52 @@
                                     <option value="" disabled selected>Selecciona una Clase</option>
                                     <option *ngFor="let item of cursoList" [ngValue]="item">{{ item.nombre }}</option>
                                 </select>
-                                <button class="btn btn-info mt-2" type="button" (click)="anyadirModulo()">Añadir Modulo</button>
+                                <button class="btn btn-info mt-2" type="button" (click)="anyadirModulo()">Añadir
+                                    Modulo</button>
                             </div>
                         </div>
-            
+
                         <!-- Columna derecha con los "Profesores Seleccionados" -->
                         <div class="col-md-6">
                             <div class="image-box">
                                 <h5>Clases Seleccionadas</h5>
                                 <ul>
                                     <li *ngFor="let item of moduloSeleccionados; let i = index" class="mb-2">
-                                      {{ item.nombre }} 
-                                      <span *ngIf="item.clase.length > 0"> 
-                                        ( 
-                                        <span *ngFor="let clase of item.clase; let j = index">
-                                          {{ clase.nombre }}
-                                          <!-- Botón para eliminar la clase específica -->
-                                          <button 
-                                            type="button" 
-                                            class="btn btn-danger btn-sm ms-2" 
-                                            (click)="eliminarClase(i, j)">
-                                            X
-                                          </button>
-                                          <span *ngIf="j < item.clase.length - 1"> / </span> 
+                                        {{ item.nombre }}
+                                        <span *ngIf="item.clase.length > 0">
+                                            (
+                                            <span *ngFor="let clase of item.clase; let j = index">
+                                                {{ clase.nombre }}
+                                                <!-- Botón para eliminar la clase específica -->
+                                                <button type="button" class="btn btn-danger btn-sm ms-2"
+                                                    (click)="eliminarClase(i, j)">
+                                                    X
+                                                </button>
+                                                <span *ngIf="j < item.clase.length - 1"> / </span>
+                                            </span>
+                                            )
                                         </span>
-                                        )
-                                      </span>
-                                      <!-- Botón para eliminar todo el módulo -->
-                                      <button type="button" class="btn btn-danger btn-sm ms-4" (click)="eliminarModulo(i)">
-                                       Eliminar Modulo
-                                      </button>
+                                        <!-- Botón para eliminar todo el módulo -->
+                                        <button type="button" class="btn btn-danger btn-sm ms-4"
+                                            (click)="eliminarModulo(i)">
+                                            Eliminar Modulo
+                                        </button>
                                     </li>
-                                  </ul>
-                                  
-                                  
+                                </ul>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
-            
+
             </div>
-            
-            
+
+
             <div *ngIf="selectedTab === 'redes'">
                 <div class="row">
                     <div class="col-md-6">
-            
+
                         <!-- Select para elegir una red social -->
                         <div class="mb-3">
                             <label>Seleccionar Redes Sociales</label>
@@ -298,11 +309,12 @@
                                 </option>
                             </select>
                         </div>
-            
+
                         <!-- Botón para agregar la red social seleccionada -->
-                        <button class="btn btn-info" type="button" (click)="anyadirRedSocial()">Añadir Red Social</button>
+                        <button class="btn btn-info" type="button" (click)="anyadirRedSocial()">Añadir Red
+                            Social</button>
                     </div>
-            
+
                     <!-- Lista de redes sociales seleccionadas -->
                     <div class="col-md-6">
                         <div class="image-box">
@@ -319,32 +331,36 @@
                         </div>
                     </div>
                 </div>
-                    <!-- Botón de añadir red social a la izquierda -->
-                    <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarRedSocial()">Crear Una Red Social Nueva</button>
-                
-                
+                <!-- Botón de añadir red social a la izquierda -->
+                <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarRedSocial()">Crear Una
+                    Red Social Nueva</button>
+
+
                 <div class="mb-4" id="crearRedSocial" hidden>
                     <label>Redes Sociales</label>
-                    
+
                     <!-- Contenedor de los dos inputs -->
                     <div class="d-flex">
                         <!-- Primer input: más pequeño -->
-                        <input name="redes_sociales_izq" type="text" id="nombreLink" class="form-control me-2" placeholder="Nombre de la red Social" style="width: 45%;">
-                
+                        <input name="redes_sociales_izq" type="text" id="nombreLink" class="form-control me-2"
+                            placeholder="Nombre de la red Social" style="width: 45%;">
+
                         <!-- Segundo input: más grande -->
-                        <input name="redes_sociales_der" type="text" id="enlaceLink" class="form-control" placeholder="Enlace" style="width: 55%;">
+                        <input name="redes_sociales_der" type="text" id="enlaceLink" class="form-control"
+                            placeholder="Enlace" style="width: 55%;">
                     </div>
-                
+
                     <!-- Botón para volver a la lista -->
                     <button class="btn btn-info mt-2" type="button" (click)="ocultarRedSocial()">Ocultar</button>
                     <!-- Botón para añadir red social -->
-                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearLinks()">Añadir Red Social</button>
+                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearLinks()">Añadir Red
+                        Social</button>
                 </div>
             </div>
             <div *ngIf="selectedTab === 'actividades'">
                 <div class="row">
                     <div class="col-md-6">
-            
+
                         <!-- Select para elegir una red social -->
                         <div class="mb-3">
                             <label>Seleccionar Actividades</label>
@@ -356,11 +372,12 @@
                                 </option>
                             </select>
                         </div>
-            
+
                         <!-- Botón para agregar la red social seleccionada -->
-                        <button class="btn btn-info" type="button" (click)="anyadirActividad()">Añadir Actividad</button>
+                        <button class="btn btn-info" type="button" (click)="anyadirActividad()">Añadir
+                            Actividad</button>
                     </div>
-            
+
                     <!-- Lista de redes sociales seleccionadas -->
                     <div class="col-md-6">
                         <div class="image-box">
@@ -377,29 +394,32 @@
                         </div>
                     </div>
                 </div>
-                    <!-- Botón de añadir red social a la izquierda -->
-                    <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarActividad()">Crear Una Actividad Nueva</button>
-                
-                
+                <!-- Botón de añadir red social a la izquierda -->
+                <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarActividad()">Crear Una
+                    Actividad Nueva</button>
+
+
                 <div class="mb-4" id="crearActividad" hidden>
                     <label>Actividad Nueva</label>
-                    
+
                     <!-- Contenedor de los dos inputs -->
                     <div class="d-flex">
                         <!-- Primer input: más pequeño -->
-                        <input name="redes_sociales_izq" type="text" id="nombreActividad" class="form-control me-2" placeholder="Nombre de la Actividad" style="width: 45%;">
-                
+                        <input name="redes_sociales_izq" type="text" id="nombreActividad" class="form-control me-2"
+                            placeholder="Nombre de la Actividad" style="width: 45%;">
+
                     </div>
-                
+
                     <!-- Botón para volver a la lista -->
                     <button class="btn btn-info mt-2" type="button" (click)="ocultarActividad()">Ocultar</button>
                     <!-- Botón para añadir red social -->
-                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearActividad()">Añadir Actividad</button>
+                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearActividad()">Añadir
+                        Actividad</button>
                 </div>
             </div>
-            
-            
- 
+
+
+
         </div>
 
 
@@ -429,26 +449,27 @@
         </div>
       </div> 
      Columna para los textarea "Todas las Metas Ordenadas" -->
-     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
-        <div *ngIf="toastVisible" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header">
-            <strong class="me-auto">Mensaje</strong>
-            <small>Ahora</small>
-            <button type="button" class="btn-close" aria-label="Cerrar" (click)="toastVisible=false"></button>
-          </div>
-          <div class="toast-body">
-            La iniciativa ha sido creada con éxito.
-            <!-- Progress bar animada -->
-            <div class="progress mt-2">
-              <div class="progress-bar fill-progress" role="progressbar"></div>
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+            <div *ngIf="toastVisible" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Mensaje</strong>
+                    <small>Ahora</small>
+                    <button type="button" class="btn-close" aria-label="Cerrar" (click)="toastVisible=false"></button>
+                </div>
+                <div class="toast-body">
+                    La iniciativa ha sido creada con éxito.
+                    <!-- Progress bar animada -->
+                    <div class="progress mt-2">
+                        <div class="progress-bar fill-progress" role="progressbar"></div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
 
         <!-- Botones de Crear y Cancelar -->
         <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)" [disabled]="boton">Cancelar</button>
+            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)"
+                [disabled]="boton">Cancelar</button>
             <button class="btn btn-success" type="submit" [disabled]="boton">Crear</button>
         </div>
     </div>

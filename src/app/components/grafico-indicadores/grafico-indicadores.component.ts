@@ -158,7 +158,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     }
   }
 
-  //Charts
+  //Charts / gráficos de barra
   public barChartLegend = true;
   public barChartPlugins = [];
 
@@ -174,6 +174,20 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
+  };
+
+  // Gráfico de pastel para el Indicador 11
+  public pieChartData: ChartData<'pie', number[], string> = {
+    labels: ['Innovadoras', 'No Innovadoras'],
+    datasets: [
+      { data: [0, 0] }
+    ]
+  };
+
+  public pieChartLabels: string[] = ['Innovadoras', 'No Innovadoras'];
+  public pieChartType: ChartType = 'pie';
+  public pieChartOptions: ChartOptions<'pie'> = {
+    responsive: true
   };
 
   //Para Pruebas
@@ -318,27 +332,47 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   }
 
+  // chartIndicador11() {
+  //   this.reiniciarChart()
+
+  //   const cantidadInnovadoras = this.diferenciaInnovadoresYNo.map(cymci => Number(cymci.cantidad_innovadoras));
+  //   const cantidadNoInnovadoras = this.diferenciaInnovadoresYNo.map(cymci => Number(cymci.cantidad_no_innovadoras));
+  
+  //   const total = cantidadInnovadoras.reduce((sum, val) => sum + val, 0);
+  //   const totalNo = cantidadNoInnovadoras.reduce((sum, val) => sum + val, 0);
+  
+  //   const datos = [total, totalNo];
+
+  //   this.barChartData = {
+  //     labels: ['Iniciativas Innovadoras', 'Iniciativas No Innovadoras'],
+  //     datasets: [
+  //       {
+  //         label: 'Iniciativas Innovadoras',
+  //         data: datos,
+  //       }
+  //     ]
+  //   };
+  // }
   chartIndicador11() {
-    this.reiniciarChart()
+    console.log('Datos para el Indicador 11:', this.diferenciaInnovadoresYNo);
 
-    const cantidadInnovadoras = this.diferenciaInnovadoresYNo.map(cymci => Number(cymci.cantidad_innovadoras));
-    const cantidadNoInnovadoras = this.diferenciaInnovadoresYNo.map(cymci => Number(cymci.cantidad_no_innovadoras));
-  
-    const total = cantidadInnovadoras.reduce((sum, val) => sum + val, 0);
-    const totalNo = cantidadNoInnovadoras.reduce((sum, val) => sum + val, 0);
-  
-    const datos = [total, totalNo];
+    const innovadoras = this.diferenciaInnovadoresYNo[0]?.cantidad_innovadoras ?? 0;
+    const noInnovadoras = this.diferenciaInnovadoresYNo[0]?.cantidad_no_innovadoras ?? 0;
 
-    this.barChartData = {
-      labels: ['Iniciativas Innovadoras', 'Iniciativas No Innovadoras'],
+    this.pieChartData = {
+      labels: ['Innovadoras', 'No Innovadoras'],
       datasets: [
         {
-          label: 'Iniciativas Innovadoras',
-          data: datos,
+          data: [innovadoras, noInnovadoras],
+          backgroundColor: ['#4CAF50', '#FF5252'],
+          hoverBackgroundColor: ['#66BB6A', '#FF8A80']
         }
       ]
+
     };
   }
+
+
 
   chartIndicador12() {
     this.reiniciarChart();

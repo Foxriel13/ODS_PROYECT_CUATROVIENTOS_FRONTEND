@@ -8,7 +8,7 @@ import { MetasService } from '../../serviceMetas/metas.service';
 
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
-import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
+import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
 import { BaseChartDirective } from 'ng2-charts';
 import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
@@ -18,7 +18,7 @@ import { CiclosYModulosConInciativas } from '../../models/indicadores/ciclosYMod
 import { ExplicacionIniciativas } from '../../models/indicadores/explicacionIniciativas';
 import { OdsTrabajadosYSusMetas } from '../../models/indicadores/odsTrabajadosYSusMetas';
 import { TieneEntidadesExternas } from '../../models/indicadores/tieneEntidadesExternas';
-import { TieneRRSS } from '../../models/indicadores/tieneRRSS.model';
+import { TieneRRSS } from '../../models/indicadores/tieneRRSS';
 import { TipoIniciativa } from '../../models/indicadores/tipoIniciativa';
 import { CantIniciativasProfesor } from '../../models/indicadores/cantIniciativasProfesor';
 import { DiferenciaInnovadoresYNo } from '../../models/indicadores/diferenciaInnovadoresYNo';
@@ -39,8 +39,6 @@ export class GraficoIndicadoresComponent implements OnInit{
   iniciativasFiltradas: Iniciativas[] = []
   iniciativasTotales: Iniciativas[] = []
 
-  //modulosIniciativa: Modulos[] = []
-
   metas: Metas[] = [];
   cursos: Curso[] = [];
   anyos_lectivos: string[] = []
@@ -55,7 +53,6 @@ export class GraficoIndicadoresComponent implements OnInit{
   tieneEntidadesExternas!: TieneEntidadesExternas[];
   tieneRRSS!: TieneRRSS[];
   tipoIniciativa!: TipoIniciativa[];
-  // cantProfesores!: number[];
   cantidadProfesores: number = 0;
   cantIniciativaProfesor!: CantIniciativasProfesor[];
   diferenciaInnovadoresYNo!: DiferenciaInnovadoresYNo[];
@@ -238,7 +235,7 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   // TODO indicador 4
   chartIndicador4() {
-
+    this.reiniciarChart()
   }
 
   chartIndicador5() {
@@ -263,7 +260,6 @@ export class GraficoIndicadoresComponent implements OnInit{
     const totalNoTienen = cantidadNoTienenEntidadesExternas.reduce((sum, val) => sum + val, 0);
   
     const datos = [totalTienen, totalNoTienen];
-    alert(datos);
   
     this.barChartData = {
       labels: ['Con Entidades Externas', 'Sin Entidades Externas'],
@@ -275,10 +271,6 @@ export class GraficoIndicadoresComponent implements OnInit{
       ]
     };
   }
-  
-  
-  
-  
 
   chartIndicador7() {
     this.reiniciarChart()
@@ -328,49 +320,71 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   chartIndicador11() {
     this.reiniciarChart()
-    //DiferenciaInnovadoresYNo
+
+    const cantidadInnovadoras = this.diferenciaInnovadoresYNo.map(cymci => Number(cymci.cantidad_innovadoras));
+    const cantidadNoInnovadoras = this.diferenciaInnovadoresYNo.map(cymci => Number(cymci.cantidad_no_innovadoras));
+  
+    const total = cantidadInnovadoras.reduce((sum, val) => sum + val, 0);
+    const totalNo = cantidadNoInnovadoras.reduce((sum, val) => sum + val, 0);
+  
+    const datos = [total, totalNo];
+
     this.barChartData = {
-      labels: ["Tiene o No Entidades Externas"],
-      datasets: [
-        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidad_innovadoras), label: 'Innovadoras' },
-        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidad_no_innovadoras), label: 'No Innovadoras' }
-      ]
-    };
-  }
-
-  chartIndicador12() {
-    this.reiniciarChart()
-
-    //CantHorasIniciativa
-
-    // Obtener los nombres de los cursos como etiquetas (labels)
-    const iniciativsUnicas = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
-
-    // Obtener los valores de iniciativas como un array
-    const dataPorCurso = this.cantHorasIniciativa.map(ini => ini.horas_dedicadas);
-
-    // Estructura para el gráfico
-    this.barChartData = {
-      labels: iniciativsUnicas,
+      labels: ['Iniciativas Innovadoras', 'Iniciativas No Innovadoras'],
       datasets: [
         {
-          label: 'Cantidad de Horas por iniciativas',
-          data: dataPorCurso,
+          label: 'Iniciativas Innovadoras',
+          data: datos,
         }
       ]
     };
   }
 
-  chartIndicador13() {
-    this.reiniciarChart()
-    //HaTenidoActividad
+  chartIndicador12() {
+    this.reiniciarChart();
+  
+    // Obtener los nombres de las iniciativas como etiquetas (labels)
+    const iniciativsUnicas = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
+  
+    // Obtener los valores de horas dedicadas a cada iniciativa
+    const dataPorCurso = this.cantHorasIniciativa.map(ini => ini.horas_dedicadas);
+  
+    // Estructura para el gráfico de pastel
     this.barChartData = {
-      labels: ["Ha Tenido Actividad"],
+      labels: iniciativsUnicas,
       datasets: [
-        { data: this.haTendioActividad.map(tieneNo => tieneNo.tiene_actividades), label: 'Si' },
-        { data: this.haTendioActividad.map(tieneNo => tieneNo.no_tiene_actividades), label: 'No' }
+        {
+          label: 'Cantidad de Horas por Iniciativas',
+          data: dataPorCurso,
+          backgroundColor: ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F6'], // Colores para cada segmento
+          hoverBackgroundColor: ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F6'], // Colores al pasar el mouse
+        }
       ]
     };
+  }
+  
+
+  chartIndicador13() {
+    this.reiniciarChart()
+
+    const cantidadTienenActividades = this.haTendioActividad.map(cymci => Number(cymci.tiene_actividades));
+    const cantidadNoTienenActividades = this.haTendioActividad.map(cymci => Number(cymci.no_tiene_actividades));
+  
+    const totalTienen = cantidadTienenActividades.reduce((sum, val) => sum + val, 0);
+    const totalNoTienen = cantidadNoTienenActividades.reduce((sum, val) => sum + val, 0);
+  
+    const datos = [totalTienen, totalNoTienen];
+
+    this.barChartData = {
+      labels: ['Iniciativas Con Actividades', 'Iniciativas Sin Actividades'],
+      datasets: [
+        {
+          label: 'Necesidad de Actividades',
+          data: datos,
+        }
+      ]
+    };
+
   }
 }
 

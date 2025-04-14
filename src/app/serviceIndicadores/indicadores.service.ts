@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { IniciativasPorCurso } from '../models/indicadores/iniciativasPorCurso';
-import { CiclosYModulosConIniciativas } from '../models/indicadores/ciclosYModulosConIniciativas';
+import { CiclosYModulosConInciativas } from '../models/indicadores/ciclosYModulosConInciativas';
 import { ExplicacionIniciativas } from '../models/indicadores/explicacionIniciativas';
 import { OdsTrabajadosYSusMetas } from '../models/indicadores/odsTrabajadosYSusMetas';
 import { TieneEntidadesExternas } from '../models/indicadores/tieneEntidadesExternas';
-import { TieneRRSS } from '../models/indicadores/tieneRRSS.model';
-import { TipoIniciativa } from '../models/indicadores/tipoIniciativa.model';
+import { TieneRRSS } from '../models/indicadores/tieneRRSS';
+import { TipoIniciativa } from '../models/indicadores/tipoIniciativa';
 import { CantIniciativasProfesor } from '../models/indicadores/cantIniciativasProfesor';
 import { DiferenciaInnovadoresYNo } from '../models/indicadores/diferenciaInnovadoresYNo';
 import { CantHorasIniciativa } from '../models/indicadores/cantHorasIniciativa';
-import { HaTenidoActividad } from '../models/indicadores/haTenidoActividad';
+import { HaTendioActividad } from '../models/indicadores/haTendioActividad';
 import { CantidadIniciativas } from '../models/indicadores/cantidadIniciativas';
 
 
@@ -31,8 +31,8 @@ export class IndicadoresService {
     return this.http.get<CantidadIniciativas>(this.apiUrl + '/cantidadIniciativas')
   }
 
-  getCiclosYModulosConIniciativas(): Observable<CiclosYModulosConIniciativas[]>{
-    return this.http.get<CiclosYModulosConIniciativas[]>(this.apiUrl + '/ciclosYModulosConIniciativas')
+  getCiclosYModulosConIniciativas(): Observable<CiclosYModulosConInciativas[]>{
+    return this.http.get<CiclosYModulosConInciativas[]>(this.apiUrl + '/ciclosYModulosConIniciativas')
   }
   
   getExplicaciónIniciativas(): Observable<ExplicacionIniciativas[]>{
@@ -73,8 +73,8 @@ export class IndicadoresService {
   }
 
   // 13. Saber si una iniciativa ha necesitado de salidas, charlas…
-  getHaTenidoActividad(): Observable<HaTenidoActividad[]>{
-    return this.http.get<HaTenidoActividad[]>(this.apiUrl + '/haTenidoActividad')
+  getHaTenidoActividad(): Observable<HaTendioActividad[]>{
+    return this.http.get<HaTendioActividad[]>(this.apiUrl + '/haTendioActividad')
   }
 
   constructor(private http: HttpClient) { }

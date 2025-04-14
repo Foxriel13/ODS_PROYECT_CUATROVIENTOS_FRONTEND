@@ -230,7 +230,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <h6 class="fw-bold">Cantidad de iniciativas:</h6>
-                      <h1>{{ getIndicador2() }}</h1>
+                      <h1>{{ numeroIniciativas }}</h1>
                 </div>
             </div>
             <div class="modal-footer">
@@ -282,22 +282,15 @@
                 <table class="table table-bordered table-striped">
                     <thead class="bg-primary text-white">
                         <tr>
-                            <th>Acción</th>
                             <th>Iniciativa</th>
-                            <th>Producto Final</th>
+                            <th>Descripcion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for (iniciativa of iniciativasFiltradas; track $index) {
+                        @for (iniciativa of explicacionIniciativas; track $index) {
                         <tr>
-
                             <td><i class="bi bi-check-circle me-1"></i>{{iniciativa.nombre}}</td>
-                            <td><i class="bi bi-globe2 me-1"></i>{{iniciativa.tipo}}</td>
-                            @if (iniciativa.explicacion != '') {
-                            <td><i class="bi bi-check-circle me-1"></i>Si: {{iniciativa.explicacion}}</td>
-                            }@else {
-                            <td><i class="bi bi-globe2 me-1"></i>No</td>
-                            }
+                            <td><i class="bi bi-check-circle me-1"></i>{{iniciativa.explicacion}}</td>
                         </tr>
                         }
                     </tbody>

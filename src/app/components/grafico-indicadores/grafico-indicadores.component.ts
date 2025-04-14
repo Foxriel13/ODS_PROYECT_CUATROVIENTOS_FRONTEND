@@ -52,7 +52,7 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   //Indicadores
   iniciativasPorCurso!: IniciativasPorCurso[];
-  numeroIniciativas!: number[]
+  numeroIniciativas!: number;
   ciclosYModulosConIniciativas!: CiclosYModulosConIniciativas[];
   explicacionIniciativas!: ExplicacionIniciativas[];
   odsTrabajadosYSusMetas!: OdsTrabajadosYSusMetas[];
@@ -219,8 +219,8 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   // En el indicador dos no es necesario usar gráfico porque solo es un número
   getIndicador2(): number {
-    if (this.numeroIniciativas && this.numeroIniciativas.length > 0) {
-       return this.numeroIniciativas[0]; // Devuelve el primer elemento del array
+    if (!isNaN(this.numeroIniciativas)) {
+       return this.numeroIniciativas; // Devuelve el primer elemento del array
     }
     return 0; // Devuelve un objeto con cantidad 0 si no hay datos
   }
@@ -245,23 +245,15 @@ export class GraficoIndicadoresComponent implements OnInit{
 
     this.reiniciarChart()
 
-    /* const iniciativas = this.ciclosYModulosConIniciativas;
-
-    // Creamos datasets
-    const datasets = iniciativas.map((ini) => {
-      const data = ini.ciclos
-
-      return {
-        label: ini.nombre_iniciativa,
-        data: data
-      };
-    });
-
-    // Armamos barChartData
     this.barChartData = {
-      labels: ciclosUnicos,
-      datasets: datasets
-    }; */
+      labels: this.ciclosYModulosConIniciativas.map(cymci => cymci.nombre_iniciativa),
+      datasets: [
+        {
+          label: 'Ciclos y modulos por iniciativa',
+          data: this.ciclosYModulosConIniciativas.map(cymci => cymci.ciclos.length), // Aquí accedemos correctamente a la longitud del array 'ciclos'
+        }
+      ]
+    };
   }
 
   chartIndicador4() {
@@ -288,6 +280,15 @@ export class GraficoIndicadoresComponent implements OnInit{
   chartIndicador5() {
     this.reiniciarChart()
     //OdsYSusMetas
+    this.barChartData = {
+      labels: this.odsTrabajadosYSusMetas.map(cymci => cymci.nombreIniciativa),
+      datasets: [
+        {
+          label: 'Ciclos y modulos por iniciativa',
+          data: this.odsTrabajadosYSusMetas.map(cymci => cymci.ods.length), // Aquí accedemos correctamente a la longitud del array 'ciclos'
+        }
+      ]
+    };
   }
 
   chartIndicador6() {

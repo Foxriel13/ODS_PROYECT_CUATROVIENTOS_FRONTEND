@@ -3,25 +3,25 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarFormCrearComponent } from '../navbar-form-crear/navbar-form-crear.component';
 import { Ods } from '../../models/ods.model';
-import { ServiceOdsService } from '../../serviceOds/service-ods.service';
+import { ServiceOdsService } from '../../services/serviceOds/service-ods.service';
 import { Profesores } from '../../models/profesores.model';
-import { ServiceProfesoresService } from '../../serviceProfesores/service-profesores.service';
-import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
+import { ServiceProfesoresService } from '../../services/serviceProfesores/service-profesores.service';
+import { ServiceCursosService } from '../../services/serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
-import { ServiceEntidadesService } from '../../serviceEntidades/service-entidades.service';
+import { ServiceEntidadesService } from '../../services/serviceEntidades/service-entidades.service';
 import { entidadesExternas } from '../../models/entidades_externas.model';
-import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
+import { IniciativasService } from '../../services/sercvicieIniciativasMostrar/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { Meta } from '@angular/platform-browser';
 import { Metas } from '../../models/metas.model';
 import { Modulos } from '../../models/modulos.model';
-import { MetasService } from '../../serviceMetas/metas.service';
+import { MetasService } from '../../services/serviceMetas/metas.service';
 import { Redes_Sociales } from '../../models/redes_sociales';
 import { isScheduler } from 'rxjs/internal/util/isScheduler';
-import { RedesSocialesService } from '../../serviceRedesSociales/redes-sociales.service';
+import { RedesSocialesService } from '../../services/serviceRedesSociales/redes-sociales.service';
 import { Actividad } from '../../models/actividades.model';
-import { ModulosService } from '../../serviceModulos/modulos.service';
-import { ActividadesService } from '../../serviceActividades/actividades.service';
+import { ModulosService } from '../../services/serviceModulos/modulos.service';
+import { ActividadesService } from '../../services/serviceActividades/actividades.service';
 
 @Component({
   selector: 'app-crear-iniciativa',
@@ -248,7 +248,7 @@ export class CrearIniciativaComponent implements OnInit {
   anyadirProfesor(): void {
     const selectedProfe = this.ProfesoresList.find(item => item.id == this.profesor.id);
     if (selectedProfe) {
-      if (this.profesoresSeleccionados.some(item => item.id === selectedProfe.id)) {
+      if (this.profesoresSeleccionados.some(item => item.nombre === selectedProfe.nombre)) {
         alert('Este profesor ya está añadido.');
       } else {
         this.profesoresSeleccionados.push(selectedProfe);
@@ -397,10 +397,15 @@ export class CrearIniciativaComponent implements OnInit {
     let cursoNew: Curso | null = this.cursoList.find(c => c.nombre === nombreClase) || null;
   
     if (moduloNew && cursoNew) {
+      // Obtener el ID correcto desde idModulo (aunque no esté tipado)
+      const idModuloCorrecto = (moduloNew as any)['idModulo'];
+  
       // Buscar si el módulo ya está en la lista de módulos seleccionados
       let moduloExistente = this.moduloSeleccionados.find(m => m.nombre === moduloNew!.nombre);
-  
       if (moduloExistente) {
+        // Asegurar que use el ID correcto
+        moduloExistente.id = idModuloCorrecto;
+  
         // Si el módulo ya existe, agregar el curso a la lista `clase` si no está agregado aún
         if (!moduloExistente.clase.some(c => c.id === cursoNew!.id)) {
           moduloExistente.clase.push(cursoNew);
@@ -410,10 +415,11 @@ export class CrearIniciativaComponent implements OnInit {
       } else {
         // Si el módulo no existe, crearlo y agregarlo a `moduloSeleccionados`
         let nuevoModulo: Modulos = {
-          id: moduloNew.id,
+          id: idModuloCorrecto,
           nombre: moduloNew.nombre,
           clase: [cursoNew] // Se inicializa con el curso seleccionado
         };
+  
         this.moduloSeleccionados.push(nuevoModulo);
       }
   
@@ -422,6 +428,7 @@ export class CrearIniciativaComponent implements OnInit {
       alert('No se encontró el módulo o la clase seleccionada.');
     }
   }
+  
   
   anyadirMeta() {
     // Obtener los elementos select

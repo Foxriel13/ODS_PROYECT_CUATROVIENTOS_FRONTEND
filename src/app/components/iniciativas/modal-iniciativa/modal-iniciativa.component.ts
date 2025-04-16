@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalService } from '../../../servicios/modal.service';
+import { ModalService } from '../../../services/servicios/modal.service';
 import { Iniciativas } from '../../../models/iniciativas.model';
 import { CommonModule } from '@angular/common';
 @Component({

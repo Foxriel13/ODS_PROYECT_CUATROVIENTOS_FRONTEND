@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Curso } from '../models/curso.model';
+import { Curso } from '../../models/curso.model';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { Modulos } from '../models/modulos.model';
+import { Modulos } from '../../models/modulos.model';
 
 @Injectable({
   providedIn: 'root'

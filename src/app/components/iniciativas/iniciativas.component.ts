@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
+import { IniciativasService } from '../../services/sercvicieIniciativasMostrar/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { CommonModule } from '@angular/common';
 import { BuscadorComponent } from '../buscador/buscador.component';
 import { CardIniciativaComponent } from './card-iniciativa/card-iniciativa.component';
 import { ModalIniciativaComponent } from "./modal-iniciativa/modal-iniciativa.component";
-import { ModalService } from '../../servicios/modal.service';
+import { ModalService } from '../../services/servicios/modal.service';
 
 @Component({
   selector: 'app-iniciativas',

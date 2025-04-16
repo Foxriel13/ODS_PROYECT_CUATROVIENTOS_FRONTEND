@@ -1,0 +1,63 @@
+<div class="row g-3 p-4">
+    <!-- Columna para los inputs -->
+    <app-nav-bar-modificar-entidades (tabChange)="onTabChange($event)"></app-nav-bar-modificar-entidades>
+  </div>
+  
+  <!-- Buscador de actividad -->
+  <div class="container">
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar actividad..."
+        [(ngModel)]="busqueda"
+        (ngModelChange)="filtrarActividades()" />
+    </div>
+  </div>
+  
+  <!-- Filtro de actividades -->
+  <div *ngIf="selectedTab === 'actividades'">
+    <div class="container py-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
+        <div class="col" *ngFor="let item of ActividadesList">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.nombre }}</h5>
+              <div class="d-grid gap-2">
+                <button class="btn btn-info btn-sm" (click)="actualizar(item)">Actualizar</button>
+                <button class="btn btn-danger btn-sm" (click)="eliminar(item)">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Filtro de metas por ODS -->
+  <div *ngIf="selectedTab === 'metas'">
+    <div class="container py-3">
+      <!-- Filtro de ODS -->
+      <div class="mb-3">
+        <select class="form-control" [(ngModel)]="selectedOds" (ngModelChange)="filtrarMetasPorOds()">
+          <option value="">Seleccionar ODS</option>
+          <option *ngFor="let ods of odsListDistinct" [value]="ods.idOds">{{ ods.nombre }}</option>
+        </select>
+      </div>
+  
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
+        <div class="col" *ngFor="let item of MetasList">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.descripcion }}</h5>
+              <div class="d-grid gap-2">
+                <button class="btn btn-info btn-sm" (click)="actualizar(item)">Actualizar</button>
+                <button class="btn btn-danger btn-sm" (click)="eliminar(item)">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

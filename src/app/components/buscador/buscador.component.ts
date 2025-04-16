@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
+import { ServiceCursosService } from '../../services/serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
-import { ServiceOdsService } from '../../serviceOds/service-ods.service';
+import { ServiceOdsService } from '../../services/serviceOds/service-ods.service';
 import { Ods } from '../../models/ods.model';
-import { ServiceProfesoresService } from '../../serviceProfesores/service-profesores.service';
-import { ServiceEntidadesService } from '../../serviceEntidades/service-entidades.service';
-import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
+import { ServiceProfesoresService } from '../../services/serviceProfesores/service-profesores.service';
+import { ServiceEntidadesService } from '../../services/serviceEntidades/service-entidades.service';
+import { IniciativasService } from '../../services/sercvicieIniciativasMostrar/iniciativas.service';
 import { Profesores } from '../../models/profesores.model';
 @Component({
   selector: 'app-buscador',

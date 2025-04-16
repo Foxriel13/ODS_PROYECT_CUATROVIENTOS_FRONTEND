@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Redes_Sociales } from '../models/redes_sociales';
+import { Redes_Sociales } from '../../models/redes_sociales';
 
 @Injectable({
   providedIn: 'root'

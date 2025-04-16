@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { entidadesExternas } from '../models/entidades_externas.model';
+import { entidadesExternas } from '../../models/entidades_externas.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

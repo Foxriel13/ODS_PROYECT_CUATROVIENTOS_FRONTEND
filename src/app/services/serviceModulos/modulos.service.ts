@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Modulos } from '../models/modulos.model';
+import { Modulos } from '../../models/modulos.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 

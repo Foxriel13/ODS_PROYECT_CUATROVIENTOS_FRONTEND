@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Iniciativas } from '../../../models/iniciativas.model';
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../../../servicios/modal.service';
+import { ModalService } from '../../../services/servicios/modal.service';
 @Component({
   selector: 'app-card-iniciativa',
   imports: [CommonModule],

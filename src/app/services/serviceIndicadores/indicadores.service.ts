@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { IniciativasPorCurso } from '../models/indicadores/iniciativasPorCurso.model';
-import { CiclosYModulosConIniciativas } from '../models/indicadores/ciclosYModulosConIniciativas.model';
-import { ExplicacionIniciativas } from '../models/indicadores/explicacionIniciativas.model';
-import { OdsTrabajadosYSusMetas } from '../models/indicadores/odsTrabajadosYSusMetas.model';
-import { TieneEntidadesExternas } from '../models/indicadores/tieneEntidadesExternas.model';
-import { TieneRRSS } from '../models/indicadores/tieneRRSS.model';
-import { TipoIniciativa } from '../models/indicadores/tipoIniciativa.model';
-import { CantIniciativasProfesor } from '../models/indicadores/cantIniciativasProfesor.model';
-import { DiferenciaInnovadoresYNo } from '../models/indicadores/diferenciaInnovadoresYNo.model';
-import { CantHorasIniciativa } from '../models/indicadores/cantHorasIniciativa.model';
-import { HaTenidoActividad } from '../models/indicadores/haTenidoActividad.model';
+import { IniciativasPorCurso } from '../../models/indicadores/iniciativasPorCurso.model';
+import { CiclosYModulosConIniciativas } from '../../models/indicadores/ciclosYModulosConIniciativas.model';
+import { ExplicacionIniciativas } from '../../models/indicadores/explicacionIniciativas.model';
+import { OdsTrabajadosYSusMetas } from '../../models/indicadores/odsTrabajadosYSusMetas.model';
+import { TieneEntidadesExternas } from '../../models/indicadores/tieneEntidadesExternas.model';
+import { TieneRRSS } from '../../models/indicadores/tieneRRSS.model';
+import { TipoIniciativa } from '../../models/indicadores/tipoIniciativa.model';
+import { CantIniciativasProfesor } from '../../models/indicadores/cantIniciativasProfesor.model';
+import { DiferenciaInnovadoresYNo } from '../../models/indicadores/diferenciaInnovadoresYNo.model';
+import { CantHorasIniciativa } from '../../models/indicadores/cantHorasIniciativa.model';
+import { HaTenidoActividad } from '../../models/indicadores/haTenidoActividad.model';
 
 
 @Injectable({

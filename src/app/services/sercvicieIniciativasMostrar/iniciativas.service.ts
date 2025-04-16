@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Iniciativas } from '../models/iniciativas.model';
+import { Iniciativas } from '../../models/iniciativas.model';
 import { param } from 'jquery';
-import { Redes_Sociales } from '../models/redes_sociales';
+import { Redes_Sociales } from '../../models/redes_sociales';
 
 @Injectable({
   providedIn: 'root',
@@ -80,34 +80,37 @@ export class IniciativasService {
   //Post
   createIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
     console.log(iniciativa);
-
-    // Creamos el objeto que será enviado en el cuerpo del POST
+  
     const requestBody = {
       tipo: iniciativa.tipo.toString(),
-      horas: iniciativa.horas.toString(),  // Aseguramos que horas sea un número
+      horas: Number(iniciativa.horas),
       nombre: iniciativa.nombre.toString(),
       explicacion: iniciativa.explicacion.toString(),
-      fecha_inicio: iniciativa.fecha_inicio.toString(),  // Asegúrate de formatear las fechas correctamente
-      fecha_fin: iniciativa.fecha_fin.toString(),  // Asegúrate de formatear las fechas correctamente
-      eliminado: false,  // Asegúrate de que sea un booleano (true o false)
-      innovador: false,  // Asegúrate de que sea un booleano (true o false)
+      fecha_inicio: new Date(iniciativa.fecha_inicio).toISOString().slice(0, 19).replace('T', ' '), // "YYYY-MM-DD HH:MM:SS"
+      fecha_fin: new Date(iniciativa.fecha_fin).toISOString().slice(0, 19).replace('T', ' '),
+      eliminado: Boolean(iniciativa.eliminado),
+      innovador: Boolean(iniciativa.innovador),
       anyo_lectivo: iniciativa.anyo_lectivo.toString(),
-      imagen: iniciativa.imagen.toString(),
-      mas_comentarios: iniciativa.mas_comentarios.toString(),  // Si la API lo espera, agrega este campo también
-      metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
-      profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
-      entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
-      modulos: iniciativa.modulos.map(modulo => modulo.id),
-      redes_sociales: iniciativa.redes_sociales.map(redes => redes.id), // Lo mismo para modulos
-      actividades:iniciativa.actividades.map(actividad => actividad.id)
+      imagen: iniciativa.imagen.toString(), // Asegúrate que sea URI válido
+      mas_comentarios: iniciativa.mas_comentarios.toString(),
+      metas: iniciativa.metas.map(meta => Number(meta.id)),
+      profesores: iniciativa.profesores.map(profesor => Number(profesor.id)),
+      entidades_externas: iniciativa.entidades_externas.map(entidad => Number(entidad.id)),
+      modulos: iniciativa.modulos.map(modulo => ({
+        id: Number(modulo.id), // Asegúrate de que es 'id' no 'idModulo'
+        clases: modulo.clase.map(clase => Number(clase.id))
+      })),
+      redes_sociales: iniciativa.redes_sociales.map(red => Number(red.id))
+      // Nota: "actividades" no está en el esquema del Postman, así que se omite
     };
-
+    
+  
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+  
     return this.http.post<Iniciativas>(this.apiUrl, requestBody, { headers }).pipe(
       tap(data => {
         console.log('Iniciativa creada:', data);
-        this.iniciativas.push(data);  // Suponiendo que 'this.iniciativas' es un array donde guardas las iniciativas
+        this.iniciativas.push(data);
       }),
       catchError(error => {
         console.error('Error en la solicitud POST:', error);
@@ -115,6 +118,7 @@ export class IniciativasService {
       })
     );
   }
+  
 
   //Put
   updateIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {

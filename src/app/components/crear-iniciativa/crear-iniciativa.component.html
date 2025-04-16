@@ -147,10 +147,10 @@
                         <!-- Select para elegir un ODS -->
                         <div class="mb-3">
                             <label>Seleccionar Profesores</label>
-                            <select [(ngModel)]="profesor.id" name="profe" class="form-control">
-                                <option value="" disabled selected>Selecciona un ODS</option>
+                            <select [(ngModel)]="profesor" name="profesor" class="form-control">
+                                <option value="" disabled selected>Selecciona un Profesor</option>
                                 <!-- Recorremos la lista de ODS y mostramos cada uno -->
-                                <option *ngFor="let item of ProfesoresList" [value]="item.id">
+                                <option *ngFor="let item of ProfesoresList" [ngValue]="item">
                                     - {{ item.nombre }}
                                 </option>
                             </select>

@@ -100,8 +100,8 @@ export class IniciativasService {
         id: Number(modulo.id), // Asegúrate de que es 'id' no 'idModulo'
         clases: modulo.clase.map(clase => Number(clase.id))
       })),
-      redes_sociales: iniciativa.redes_sociales.map(red => Number(red.id))
-      // Nota: "actividades" no está en el esquema del Postman, así que se omite
+      redes_sociales: iniciativa.redes_sociales.map(red => Number(red.id)),
+      actividades: iniciativa.actividades.map(actividad => Number(actividad.id))
     };
     
   

@@ -64,7 +64,7 @@ export class CrearIniciativaComponent implements OnInit {
   actividadesSeleccionados: Actividad[] = [];
 
   boton: boolean = false;
-  listMetasOds : Metas[] = [];
+  listMetasOds: Metas[] = [];
   redes_socialesSeleccionados: Redes_Sociales[] = [];
   ods: Ods = {  // ODS será un solo objeto ahora
     idOds: 0,
@@ -381,31 +381,31 @@ export class CrearIniciativaComponent implements OnInit {
     // Obtener los elementos select
     const selectModulo = document.getElementById("nombreModulo") as HTMLSelectElement;
     const selectClase = document.getElementById("nombreClase") as HTMLSelectElement;
-  
+
     // Obtener la opción seleccionada
     const nombreModulo = selectModulo.options[selectModulo.selectedIndex]?.text.trim();
     const nombreClase = selectClase.options[selectClase.selectedIndex]?.text.trim();
-  
+
     if (!nombreModulo || !nombreClase) {
       alert('Por favor, selecciona un módulo y una clase válida.');
       return;
     }
-  
+
     // Buscar el módulo en la lista de módulos
     let moduloNew: Modulos | null = this.ModulosList.find(m => m.nombre === nombreModulo) || null;
     // Buscar el curso en la lista de cursos
     let cursoNew: Curso | null = this.cursoList.find(c => c.nombre === nombreClase) || null;
-  
+
     if (moduloNew && cursoNew) {
       // Obtener el ID correcto desde idModulo (aunque no esté tipado)
       const idModuloCorrecto = (moduloNew as any)['idModulo'];
-  
+
       // Buscar si el módulo ya está en la lista de módulos seleccionados
       let moduloExistente = this.moduloSeleccionados.find(m => m.nombre === moduloNew!.nombre);
       if (moduloExistente) {
         // Asegurar que use el ID correcto
         moduloExistente.id = idModuloCorrecto;
-  
+
         // Si el módulo ya existe, agregar el curso a la lista `clase` si no está agregado aún
         if (!moduloExistente.clase.some(c => c.id === cursoNew!.id)) {
           moduloExistente.clase.push(cursoNew);
@@ -419,34 +419,34 @@ export class CrearIniciativaComponent implements OnInit {
           nombre: moduloNew.nombre,
           clase: [cursoNew] // Se inicializa con el curso seleccionado
         };
-  
+
         this.moduloSeleccionados.push(nuevoModulo);
       }
-  
+
       console.log("Módulo actualizado:", this.moduloSeleccionados);
     } else {
       alert('No se encontró el módulo o la clase seleccionada.');
     }
   }
-  
-  
+
+
   anyadirMeta() {
     // Obtener los elementos select
     const selectMeta = document.getElementById("nombreMeta") as HTMLSelectElement;
     const selectOds = document.getElementById("odsElegido") as HTMLSelectElement;
-  
+
     // Obtener la opción seleccionada
     const nombreMeta = selectMeta.options[selectMeta.selectedIndex]?.text;
     const nombreOds = selectOds.options[selectOds.selectedIndex]?.text;
-  
+
     // Validar que se haya seleccionado una opción válida
     if (!nombreMeta || nombreMeta.includes("Seleccione una Meta") || selectOds.selectedIndex === 0) {
       alert('Por favor, selecciona una Meta y un ODS válido.');
       return;
     }
-  
+
     let odsNew: Ods | null = null;
-  
+
     // Buscar el ODS correspondiente
     for (let i = 0; i < this.odsList.length; i++) {
       if (this.odsList[i].nombre === nombreOds) {
@@ -454,20 +454,20 @@ export class CrearIniciativaComponent implements OnInit {
         break; // Se sale del loop una vez encontrado el ODS.
       }
     }
-  
+
     if (odsNew) {
       let metaNueva: Metas = {
         id: this.metasSeleccionadas.length + 1, // Puedes cambiar la lógica del ID si es necesario
         descripcion: nombreMeta,
         ods: odsNew
       };
-  
+
       // Verificar si la meta ya está añadida
       if (this.metasSeleccionadas.some(item => item.descripcion.toUpperCase() === metaNueva.descripcion.toUpperCase())) {
         alert('Esta Meta ya está añadida.');
         return;
       }
-  
+
       // Añadir la nueva meta si no existe
       this.metasSeleccionadas.push(metaNueva);
       console.log("Meta añadida:", metaNueva);
@@ -475,7 +475,7 @@ export class CrearIniciativaComponent implements OnInit {
       alert('No se ha encontrado el ODS seleccionado.');
     }
   }
-  
+
 
   clearForm(form: NgForm): void {
     location.reload();
@@ -506,7 +506,7 @@ export class CrearIniciativaComponent implements OnInit {
   eliminarOds(index: number) {
     this.odsSeleccionados.splice(index, 1);
   }
-  
+
 
   eliminarEntidad(index: number) {
     this.entidadesSeleccionados.splice(index, 1);
@@ -541,10 +541,10 @@ export class CrearIniciativaComponent implements OnInit {
     const year = formattedDate.getFullYear();
     const formattedDateString = `${year}-${month}-${day}`;
 
-    const listaMetas:Metas[] = [];
-    
-    
-    
+    const listaMetas: Metas[] = [];
+
+
+
     // Construir el objeto de la iniciativa, asegurándonos de que las propiedades estén en camelCase
     let iniciativa: Iniciativas = {
       id: 0,
@@ -569,11 +569,10 @@ export class CrearIniciativaComponent implements OnInit {
     };
 
     console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
-
+    console.log("iniciativa: ",iniciativa)
     // Llamada al servicio para crear la iniciativa
     this.iniciativasService.createIniciativa(iniciativa).subscribe(
       response => {
-
         console.log('Iniciativa creada correctamente:', response);
         this.showToast();
       },
@@ -639,10 +638,10 @@ export class CrearIniciativaComponent implements OnInit {
     }
   }
 
-  crearActividad(){
+  crearActividad() {
     var nombre = document.getElementById("nombreActividad") as HTMLInputElement;
     if (nombre) {
-      var actividadNueva : Actividad = {
+      var actividadNueva: Actividad = {
         id: 0,
         nombre: nombre.value
       };
@@ -712,35 +711,35 @@ export class CrearIniciativaComponent implements OnInit {
     var odsEncontrado: Ods | null = null; // Inicializar la variable
 
     for (let i = 0; i < this.odsList.length; i++) {
-        if (this.odsList[i].nombre == nombre) {
-            odsEncontrado = this.odsList[i];
-            break; // Opcional: detener el bucle cuando se encuentra el ODS
-        }
+      if (this.odsList[i].nombre == nombre) {
+        odsEncontrado = this.odsList[i];
+        break; // Opcional: detener el bucle cuando se encuentra el ODS
+      }
     }
 
     if (odsEncontrado) {
-        for (let i = 0; i < this.MetasList.length; i++) {
-            if (this.MetasList[i].ods.nombre == odsEncontrado.nombre) {
-                this.listMetasOds.push(this.MetasList[i]);
-            }
+      for (let i = 0; i < this.MetasList.length; i++) {
+        if (this.MetasList[i].ods.nombre == odsEncontrado.nombre) {
+          this.listMetasOds.push(this.MetasList[i]);
         }
+      }
     }
-}
-
-getOdsImage(nombreOds: string): string {
-  const odsIndex = this.odsList.findIndex(o => o.nombre === nombreOds);
-  return odsIndex !== -1 ? `/Ods_img/ods${odsIndex + 1}.png` : '';
-}
-getClasesTexto(clases: Curso[]): string {
-  return clases.map(c => c.nombre).join(' / ');
-}
-eliminarClase(moduloIndex: number, claseIndex: number): void {
-  this.moduloSeleccionados[moduloIndex].clase.splice(claseIndex, 1);
-
-  // Si el módulo se queda sin clases, eliminarlo automáticamente
-  if (this.moduloSeleccionados[moduloIndex].clase.length === 0) {
-    this.moduloSeleccionados.splice(moduloIndex, 1);
   }
-}
+
+  getOdsImage(nombreOds: string): string {
+    const odsIndex = this.odsList.findIndex(o => o.nombre === nombreOds);
+    return odsIndex !== -1 ? `/Ods_img/ods${odsIndex + 1}.png` : '';
+  }
+  getClasesTexto(clases: Curso[]): string {
+    return clases.map(c => c.nombre).join(' / ');
+  }
+  eliminarClase(moduloIndex: number, claseIndex: number): void {
+    this.moduloSeleccionados[moduloIndex].clase.splice(claseIndex, 1);
+
+    // Si el módulo se queda sin clases, eliminarlo automáticamente
+    if (this.moduloSeleccionados[moduloIndex].clase.length === 0) {
+      this.moduloSeleccionados.splice(moduloIndex, 1);
+    }
+  }
 
 }

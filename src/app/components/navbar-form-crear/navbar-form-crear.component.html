@@ -13,11 +13,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" 
-                       [ngClass]="{'formSelected': isActive('actividades')}"
-                       (click)="onTabClick('actividades')">Actividades</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
                        [ngClass]="{'formSelected': isActive('metas')}"
                        (click)="onTabClick('metas')">Metas</a>
                 </li>
@@ -40,6 +35,11 @@
                     <a class="nav-link" 
                        [ngClass]="{'formSelected': isActive('redes')}"
                        (click)="onTabClick('redes')">Redes Sociales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                       [ngClass]="{'formSelected': isActive('actividades')}"
+                       (click)="onTabClick('actividades')">Actividades</a>
                 </li>
             </ul>
         </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FadeRouterService } from '../../services/servicios/fade-rooter/fade-router.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+
+  constructor(private fadeRouter: FadeRouterService) {}
+
+  goTo(url: string): void {
+    this.fadeRouter.navigateWithFade(url);
+  }
+  
   home = document.getElementById("home");
   iniciativas = document.getElementById("iniciativas");
   modificar = document.getElementById("modificar");

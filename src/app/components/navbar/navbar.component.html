@@ -1,52 +1,40 @@
-<nav class="navbar navbar-expand-lg bg-dark">
-  <div class="container-fluid">
-    <!-- Logo -->
-    <a class="navbar-brand" href="#">
-      <img src="img/logo4V.png" alt="Cuatrovientos" height="50" class="rounded bg-white py-1 px-2">
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid align-items-center">
+    <a class="navbar-brand" (click)="goTo('/')">
+      <img src="img/logo4V.png" alt="Cuatrovientos" height="28" class="logo-white">
     </a>
 
-    <!-- Botón de menú para móviles -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <button class="navbar-toggler text-white border-0" type="button" (click)="goTo('/')"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="bi bi-list fs-2"></i>
+  </button>
+  
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- Menú de navegación -->
-      <ul class="navbar-nav me-auto">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav mx-auto gap-3">
         <li class="nav-item">
-          <a class="nav-link text-white active" aria-current="page" href="#">
-            <i class="bi bi-house-door me-2"></i> Inicio
-          </a>
+          <a class="nav-link custom-link" aria-current="page" (click)="goTo('/')">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="./Iniciativas" id="iniciativas" (click)="(activarIniciativas())">
-            <i class="bi bi-clipboard-data me-2"></i> Iniciativas
-          </a>
+          <a class="nav-link text-white" id="iniciativas" (click)="goTo('/Iniciativas')">Iniciativas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="./Modificar" id="modificar" (click)="(activarModificar())">
-            <i class="bi bi-pencil me-2"></i> Modificar
-          </a>
+          <a class="nav-link text-white" id="modificar" (click)="goTo('/Modificar')">Modificar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="./indicadores" id="indicadores" (click)="(activarIndicadores())">
-            <i class="bi bi-pencil me-2"></i> Indicadores
-          </a>
+          <a class="nav-link text-white" id="indicadores" (click)="goTo('/indicadores')">Indicadores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="./AdministradorEntidades" id="modificar" (click)="(activarModificar())">
-            <i class="bi bi-pencil me-2"></i> Administrar Entidades
-          </a>
+          <a class="nav-link text-white" id="modificar" (click)="goTo('/AdministradorEntidades')">Entidades</a>
         </li>
       </ul>
 
-      <!-- Sección de login alineada a la derecha -->
-      <div class="d-flex">
-        <a href="./LogIn" class="btn btn-primary">
-          <i class="bi bi-person me-2"></i> Login
+      <div class="d-flex align-items-center gap-3">
+        <a href="./LogIn" class="icon-link">
+          <i class="bi bi-person"></i>
         </a>
       </div>
     </div>
   </div>
 </nav>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">

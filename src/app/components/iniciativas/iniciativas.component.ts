@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { IniciativasService } from '../../services/sercvicieIniciativasMostrar/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { BuscadorComponent } from '../buscador/buscador.component';
 import { CardIniciativaComponent } from './card-iniciativa/card-iniciativa.component';
 import { ModalIniciativaComponent } from "./modal-iniciativa/modal-iniciativa.component";
 import { ModalService } from '../../services/servicios/modal.service';
+import { gsap } from 'gsap';
 
 @Component({
   selector: 'app-iniciativas',
@@ -14,7 +15,7 @@ import { ModalService } from '../../services/servicios/modal.service';
   templateUrl: './iniciativas.component.html',
   styleUrls: ['./iniciativas.component.scss']
 })
-export class IniciativasComponent implements OnInit {
+export class IniciativasComponent implements OnInit, AfterViewInit  {
   iniciativas: Iniciativas[] = [];  // Lista completa de iniciativas
   iniciativasFiltradas: Iniciativas[] = [];  // Lista filtrada
 
@@ -31,9 +32,35 @@ export class IniciativasComponent implements OnInit {
   };
 
   constructor(private iniciativasService: IniciativasService, private cdr: ChangeDetectorRef) { }
+  @ViewChildren('cardIniciativa', { read: ElementRef }) cardElements!: QueryList<ElementRef>;
+  @ViewChild('buscadorWrapper', { static: false }) buscadorWrapper!: ElementRef;
+
+
+  animarTarjetas(): void {
+    const elementos = this.cardElements.map(el => el.nativeElement);
+    gsap.fromTo(
+      elementos,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: 'power2.out' }
+    );
+  }
+
+  animarBuscador(): void {
+    if (!this.buscadorWrapper) return;
+    gsap.fromTo(
+      this.buscadorWrapper.nativeElement,
+      { opacity: 0, y: -30 },
+      { opacity: 1, y: 0, duration: 2, ease: 'power2.out' }
+    );
+  }
 
   ngOnInit(): void {
     this.loadIniciativas();
+  }
+
+  ngAfterViewInit(): void {
+    this.cardElements.changes.subscribe(() => this.animarTarjetas());
+    this.animarBuscador(); // animar buscador al iniciar
   }
 
   // Cargar todas las iniciativas

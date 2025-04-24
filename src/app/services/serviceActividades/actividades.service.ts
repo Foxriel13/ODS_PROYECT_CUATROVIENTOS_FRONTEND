@@ -16,13 +16,35 @@ export class ActividadesService {
     return this.http.get<Actividad[]>(this.apiUrl);
   }
 
-  CreateActividad(actividades: Actividad): Observable<Actividad> {  // 🔹 Agregado Observable
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //POST
+  createActividad(nombre: String): Observable<Actividad> { 
   
-      const requestBody = {
-        nombre: actividades.nombre,
-      };
-  
-      return this.http.post<Actividad>(this.apiUrl, requestBody, { headers });  // 🔹 Devuelve la petición
-    }
+    return this.http.post<Actividad>(this.apiUrl, { nombre }).pipe(
+      tap(data => console.log('Actividad creada:', data)),
+      catchError(error => {
+        console.error('Error en POST:', error);
+        return throwError(error);
+      })
+    );
+  }
+  //put
+  actualizarActividad(id: number, nombre: string): Observable<Actividad> {
+    return this.http.put<Actividad>(`${this.apiUrl}/${id}`, { nombre }).pipe(
+      tap(data => console.log('Actividad actualizada:', data)),
+      catchError(error => {
+        console.error('Error en PUT:', error);
+        return throwError(error);
+      })
+    );
+  }
+  //delete
+  deleteActividad(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => console.log(`Actividad con id ${id} eliminada`)),
+      catchError(error => {
+        console.error('Error en DELETE:', error);
+        return throwError(error);
+      })
+    );
+  }
 }

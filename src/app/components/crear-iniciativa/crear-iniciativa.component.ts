@@ -637,39 +637,7 @@ export class CrearIniciativaComponent implements OnInit {
       // Optionally, set a default image or display a message.
     }
   }
-
-  crearActividad() {
-    var nombre = document.getElementById("nombreActividad") as HTMLInputElement;
-    if (nombre) {
-      var actividadNueva: Actividad = {
-        id: 0,
-        nombre: nombre.value
-      };
-      this.actividadesServicie.CreateActividadesList(actividadNueva).subscribe(
-        response => {
-          console.log('Enlace creado correctamente:', response);
-
-          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
-          this.ActividadesList.push(actividadNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
-
-          this.showToastEnlace();
-
-          // Cargar nuevamente las redes sociales (si es necesario)
-          this.loadActividades();
-        },
-        error => {
-          console.error('Error al crear la iniciativa:', error);
-          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
-        }
-      );
-
-      this.ocultarActividad(); // Ocultar algo si es necesario
-    } else {
-      console.error("No se encontraron los elementos nombreLink o enlaceLink.");
-    }
-    this.ocultarActividad();
-  }
-
+/*
   crearLinks() {
     var nombre = document.getElementById("nombreLink") as HTMLInputElement;
     var link = document.getElementById("enlaceLink") as HTMLInputElement;
@@ -706,6 +674,7 @@ export class CrearIniciativaComponent implements OnInit {
       console.error("No se encontraron los elementos nombreLink o enlaceLink.");
     }
   }
+    */
   cargarMetasDeOds(nombre: any) {
     this.listMetasOds = [];
     var odsEncontrado: Ods | null = null; // Inicializar la variable

@@ -5,11 +5,13 @@
 
 <!-- Buscador de actividad -->
 <div class="container">
-  <div class="mb-3">
-    <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="busqueda"
+  <div class="d-flex justify-content-between align-items-center">
+    <input type="text" class="form-control w-75" placeholder="Buscar..." [(ngModel)]="busqueda"
       (ngModelChange)="onBusquedaChange()" />
-  </div>
+      <button class="btn btn-info btn-sm" (click)="irANuevaPagina()">+ Nuevo</button>
+    </div>
 </div>
+
 
 <!-- Filtro de actividades -->
 <div *ngIf="selectedTab === 'actividades'">

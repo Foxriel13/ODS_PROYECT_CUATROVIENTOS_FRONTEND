@@ -18,6 +18,7 @@ import { ServiceEntidadesService } from '../../services/serviceEntidades/service
 import { entidadesExternas } from '../../models/entidades_externas.model';
 import { RedesSocialesService } from '../../services/serviceRedesSociales/redes-sociales.service';
 import { Redes_Sociales } from '../../models/redes_sociales';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrador-entidades',
@@ -61,7 +62,8 @@ export class AdministradorEntidadesComponent implements OnInit {
     private cursosService: ServiceCursosService,
     private profesoresService: ServiceProfesoresService,
     private entidadesesService: ServiceEntidadesService,
-    private redesService: RedesSocialesService, 
+    private redesService: RedesSocialesService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -288,6 +290,8 @@ export class AdministradorEntidadesComponent implements OnInit {
       }
     );
   }
-  
+  irANuevaPagina() {
+    this.router.navigate(['/CrearEntidadNueva']);
+  }
   
 }

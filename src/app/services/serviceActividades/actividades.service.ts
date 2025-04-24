@@ -16,7 +16,7 @@ export class ActividadesService {
     return this.http.get<Actividad[]>(this.apiUrl);
   }
 
-  CreateActividadesList(actividades: Actividad): Observable<Actividad> {  // 🔹 Agregado Observable
+  CreateActividad(actividades: Actividad): Observable<Actividad> {  // 🔹 Agregado Observable
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   
       const requestBody = {

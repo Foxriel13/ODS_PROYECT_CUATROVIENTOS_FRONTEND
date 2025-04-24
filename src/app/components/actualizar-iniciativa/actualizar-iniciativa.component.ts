@@ -822,6 +822,7 @@ export class ActualizarIniciativaComponent {
       inputRedes.removeAttribute("hidden");
     }
   }
+  /*
   crearActividad(){
     var nombre = document.getElementById("nombreActividad") as HTMLInputElement;
     if (nombre) {
@@ -853,5 +854,5 @@ export class ActualizarIniciativaComponent {
     }
     this.ocultarActividad();
   }
-    
+    */
 }

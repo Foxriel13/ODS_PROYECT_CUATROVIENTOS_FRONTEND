@@ -12,7 +12,7 @@ export class ServiceProfesoresService {
 
   constructor(private http: HttpClient) { }
 
-  // Obtener todos los ODS de la base de datos
+  // Obtener todos los profesores 
   getProfesoresList(): Observable<Profesores[]> {
     return this.http.get<Profesores[]>(this.apiUrl);
   }
@@ -21,5 +21,21 @@ export class ServiceProfesoresService {
   getProfesoresListById(id: number): Observable<Profesores[]> {
     let url = this.apiUrl + "/${" + id + "}";
     return this.http.get<Profesores[]>(url);
+  }
+
+  //Post
+  crearProfesor(nombre: string): Observable<Profesores> {
+    return this.http.post<Profesores>(this.apiUrl, { nombre });
+  }
+
+  //Put
+  actualizarProfesor(id: number, nombre: string): Observable<Profesores> {
+    let url = this.apiUrl + "/${" + id + "}";
+    return this.http.put<Profesores>(url, { nombre });
+  }
+  //Delete
+  eliminarProfesor(id: number): Observable<void> {
+    let url = this.apiUrl + "/${" + id + "}";
+    return this.http.delete<void>(url);
   }
 }

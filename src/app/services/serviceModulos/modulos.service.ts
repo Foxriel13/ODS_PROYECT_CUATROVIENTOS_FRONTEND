@@ -8,41 +8,76 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 })
 export class ModulosService {
 
-  private apiUrl = 'http://localhost:8000/modulos'; // Reemplaza con tu URL de API
-    private modulo :Modulos[] = [];
-     constructor(private http: HttpClient) { }
-   
-     // Obtener todos los ODS de la base de datos
-     getModulosList(): Observable<Modulos[]> {
-       return this.http.get<Modulos[]>(this.apiUrl);
-     }
-   
-     //Obtener por Id
-     getModulosListById(id: number): Observable<Modulos[]> {
-       let url = this.apiUrl + "/${" + id + "}";
-       return this.http.get<Modulos[]>(url);
-     }
+  private apiUrl = 'http://localhost:8000/modulos';
+  private modulo: Modulos[] = [];
+  constructor(private http: HttpClient) { }
 
-     createModulo(modulo: Modulos): Observable<Modulos> {
-      console.log(modulo);
-  
-      // Creamos el objeto que será enviado en el cuerpo del POST
-      const requestBody = {
-        nombreModulo: modulo.nombre,
-        modulos: modulo.clase.map(clase => clase.id),
-      };
-  
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
-      return this.http.post<Modulos>(this.apiUrl, requestBody, { headers }).pipe(
-        tap(data => {
-          console.log('Iniciativa creada:', data);
-          this.modulo.push(data);  // Suponiendo que 'this.iniciativas' es un array donde guardas las iniciativas
-        }),
-        catchError(error => {
-          console.error('Error en la solicitud POST:', error);
-          return throwError(error);
-        })
-      );
-    }
-   }
+  // Obtener todos los Módulos
+  getModulosList(): Observable<Modulos[]> {
+    return this.http.get<Modulos[]>(this.apiUrl);
+  }
+
+  //Obtener por Id
+  getModulosListById(id: number): Observable<Modulos[]> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Modulos[]>(url);
+  }
+
+
+  //Post
+  createModulo(modulo: Modulos): Observable<Modulos> {
+    console.log(modulo);
+
+    const requestBody = {
+      nombreModulo: modulo.nombre,
+      modulos: modulo.clase.map(clase => clase.id),
+    };
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<Modulos>(this.apiUrl, requestBody, { headers }).pipe(
+      tap(data => {
+        console.log('Iniciativa creada:', data);
+        this.modulo.push(data);  // Suponiendo que 'this.iniciativas' es un array donde guardas las iniciativas
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud POST:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  //Put
+  updateModulo(id: number, modulo: Modulos): Observable<Modulos> {
+    const url = `${this.apiUrl}/${id}`;
+    const requestBody = {
+      nombreModulo: modulo.nombre,
+      modulos: modulo.clase.map(clase => clase.id),
+    };
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.put<Modulos>(url, requestBody, { headers }).pipe(
+      tap(data => {
+        console.log('Módulo actualizado:', data);
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud PUT:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  //Delete
+  deleteModulo(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url).pipe(
+      tap(() => console.log(`Módulo con id ${id} eliminado`)),
+      catchError(error => {
+        console.error('Error en la solicitud DELETE:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+}

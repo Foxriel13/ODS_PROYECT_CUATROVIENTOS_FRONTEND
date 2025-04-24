@@ -22,4 +22,21 @@ export class ServiceOdsService {
     let url = `${this.apiUrl}/${id}`;
     return this.http.get<Ods[]>(url);
   }
+
+  //Post
+
+  crearOds(nombre: string, dimension: string): Observable<Ods> {
+    return this.http.post<Ods>(this.apiUrl, { nombre, dimension });
+  }
+
+  //Put
+  actualizarOds( nombre: string, dimension: string): Observable<Ods> {
+    return this.http.put<Ods>(this.apiUrl, { nombre, dimension });
+  }
+
+  //Delete
+  eliminarOds(id: number): Observable<void> {
+    let url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url);
+  }
 }

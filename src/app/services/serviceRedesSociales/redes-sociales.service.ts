@@ -41,4 +41,8 @@ export class RedesSocialesService {
 
     return this.http.put<Redes_Sociales>(url, requestBody, { headers });  // 🔹 Devuelve la petición
   }
+
+  eliminarRed(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

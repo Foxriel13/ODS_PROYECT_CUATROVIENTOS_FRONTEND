@@ -17,16 +17,26 @@ export class ActividadesService {
   }
 
   //POST
-  createActividad(nombre: String): Observable<Actividad> { 
+  createActividad(actividad: Actividad): Observable<Actividad> {
+    console.log(actividad);
   
-    return this.http.post<Actividad>(this.apiUrl, { nombre }).pipe(
-      tap(data => console.log('Actividad creada:', data)),
+    const requestBody = {
+      nombre: actividad.nombre.toString()
+    };
+  
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    return this.http.post<Actividad>(this.apiUrl, requestBody, { headers }).pipe(
+      tap(data => {
+        console.log('Actividad creada:', data);
+      }),
       catchError(error => {
-        console.error('Error en POST:', error);
+        console.error('Error en la solicitud POST:', error);
         return throwError(error);
       })
     );
   }
+  
   //put
   actualizarActividad(id: number, nombre: string): Observable<Actividad> {
     return this.http.put<Actividad>(`${this.apiUrl}/${id}`, { nombre }).pipe(

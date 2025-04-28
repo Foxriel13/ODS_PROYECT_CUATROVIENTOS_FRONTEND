@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { entidadesExternas } from '../../models/entidades_externas.model';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,24 @@ export class ServiceEntidadesService {
     return this.http.get<entidadesExternas[]>(url);
   }
   //Crear post
-  createEntidad(nombre: String): Observable<entidadesExternas> {//se podrían añadir el catchErrr
-    return this.http.post<entidadesExternas>(this.apiUrl, nombre);
+  createEntidad(profesor: entidadesExternas): Observable<entidadesExternas> {
+    console.log(profesor);
+  
+    const requestBody = {
+      nombre: profesor.nombre.toString()
+    };
+  
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    return this.http.post<entidadesExternas>(this.apiUrl, requestBody, { headers }).pipe(
+      tap(data => {
+        console.log('Profesor creada:', data);
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud POST:', error);
+        return throwError(error);
+      })
+    );
   }
 
   //Actualizar 

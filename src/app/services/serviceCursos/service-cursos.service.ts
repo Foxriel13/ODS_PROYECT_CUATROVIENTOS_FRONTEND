@@ -24,9 +24,21 @@ export class ServiceCursosService {
   }
 
   // Crear curso
-  createCurso(nombre: string): Observable<Curso> {
-    return this.http.post<Curso>(this.apiUrl, { nombre });
-  }
+  createCusro(curso: Curso): Observable<Curso> {
+      const requestBody = {
+        nombre: curso.nombre
+      };    
+  
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+      return this.http.post<Curso>(this.apiUrl, requestBody, { headers }).pipe(
+        tap(data => console.log('Curso creada:', data)),
+        catchError(error => {
+          console.error('Error en POST:', error);
+          return throwError(error);
+        })
+      );
+    }
 
   //actualizar curso
   actualizarCurso(id: number, nombre: string): Observable<Curso> {

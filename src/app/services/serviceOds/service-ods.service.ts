@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Ods } from '../../models/ods.model';
+import { toDimension } from 'chart.js/helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,21 @@ export class ServiceOdsService {
 
   //Post
 
-  crearOds(nombre: string, dimension: string): Observable<Ods> {
-    return this.http.post<Ods>(this.apiUrl, { nombre, dimension });
+  createOds(ods: Ods): Observable<Ods> {
+    const requestBody = {
+      nombre: ods.nombre,
+      dimension: ods.dimension
+    };    
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<Ods>(this.apiUrl, requestBody, { headers }).pipe(
+      tap(data => console.log('Ods creada:', data)),
+      catchError(error => {
+        console.error('Error en POST:', error);
+        return throwError(error);
+      })
+    );
   }
 
   //Put

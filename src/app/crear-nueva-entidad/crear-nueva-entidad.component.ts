@@ -9,6 +9,15 @@ import { Metas } from '../models/metas.model';
 import { FormsModule } from '@angular/forms';
 import { Redes_Sociales } from '../models/redes_sociales';
 import { RedesSocialesService } from '../services/serviceRedesSociales/redes-sociales.service';
+import { MetasService } from '../services/serviceMetas/metas.service';
+import { Modulo } from '../models/indicadores/ciclosYModulosConInciativas';
+import { Curso } from '../models/curso.model';
+import { ModulosService } from '../services/serviceModulos/modulos.service';
+import { ServiceCursosService } from '../services/serviceCursos/service-cursos.service';
+import { Profesores } from '../models/profesores.model';
+import { ServiceProfesoresService } from '../services/serviceProfesores/service-profesores.service';
+import { entidadesExternas } from '../models/entidades_externas.model';
+import { ServiceEntidadesService } from '../services/serviceEntidades/service-entidades.service';
 
 @Component({
   selector: 'app-crear-nueva-entidad',
@@ -38,7 +47,12 @@ export class CrearNuevaEntidadComponent {
   constructor(
     private actividadesServicie: ActividadesService,
     private odsService: ServiceOdsService,
-    private redes_socialesServicie: RedesSocialesService
+    private redes_socialesServicie: RedesSocialesService,
+    private metaService: MetasService,
+    private entidaesService: ServiceEntidadesService,
+    private cursoService: ServiceCursosService,
+    private profesoresService: ServiceProfesoresService,
+    private moduloService: ModulosService
   ) { }
   ngOnInit(): void {
     this.loadOdsList();
@@ -72,13 +86,174 @@ export class CrearNuevaEntidadComponent {
   }
   crearActividad() {
     var nombreActividad = document.getElementById("nombreActividad") as HTMLInputElement;
+    
     if (nombreActividad.value == '') {
       alert('El nombre de la actividad no puede estar vacío');
       return;
     }
+  
     const nuevaActividad: Actividad = { id: 0, nombre: nombreActividad.value };
+  
+    this.actividadesServicie.createActividad(nuevaActividad).subscribe(
+      (respuesta) => {
+        console.log('Actividad creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreActividad.value = '';
+      },
+      (error) => {
+        console.error('Error al crear la actividad', error);
+      }
+    );
+  }
+  crearProfesor() {
+    var nombreProfesor = document.getElementById("nombreProfesor") as HTMLInputElement;
+    
+    if (nombreProfesor.value == '') {
+      alert('El nombre de la actividad no puede estar vacío');
+      return;
+    }
+  
+    const nuevoProfesor: Profesores = { id: 0, nombre: nombreProfesor.value };
+  
+    this.profesoresService.createProfesor(nuevoProfesor).subscribe(
+      (respuesta) => {
+        console.log('Profesor creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreProfesor.value = '';
+      },
+      (error) => {
+        console.error('Error al crear el Profesor', error);
+      }
+    );
+  }
 
-    this.actividadesServicie.createActividad("nuevaActividad");
+
+  crearEntidad() {
+    var nombreEntidad = document.getElementById("nombreEntidad") as HTMLInputElement;
+    
+    if (nombreEntidad.value == '') {
+      alert('El nombre de la actividad no puede estar vacío');
+      return;
+    }
+  
+    const nuevoEntidad: entidadesExternas = { id: 0, nombre: nombreEntidad.value };
+  
+    this.entidaesService.createEntidad(nuevoEntidad).subscribe(
+      (respuesta) => {
+        console.log('Profesor creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreEntidad.value = '';
+      },
+      (error) => {
+        console.error('Error al crear el Profesor', error);
+      }
+    );
+  }
+  crearRedSocial() {
+    var nombreEnlace = document.getElementById("nombreEnlace") as HTMLInputElement;
+    var nombreRuta = document.getElementById("nombreRuta") as HTMLInputElement;
+    var redSocialElegida = this.redes_sociales.enlace;
+    
+    if (nombreEnlace.value == '' || nombreRuta.value == '') {
+      alert('El nombre de la ruta o del enlace no puede estar vacío');
+      return;
+    }
+  
+    const nuevaRedSocial: Redes_Sociales = { id : 0, nombre: nombreEnlace.value, enlace: nombreRuta.value };
+  
+    this.redes_socialesServicie.CreateRedesSocialesList(nuevaRedSocial).subscribe(
+      (respuesta) => {
+        console.log('Profesor creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreEnlace.value = '';
+        nombreRuta.value = '';
+      },
+      (error) => {
+        console.error('Error al crear el Profesor', error);
+      }
+    );
+  }
+  crearMeta() {
+    var nombreMeta = document.getElementById("nombreMeta") as HTMLInputElement;
+    
+    if (nombreMeta.value == '') {
+      alert('El nombre de la meta no puede estar vacío');
+      return;
+    }
+    const odsSelected: Ods = this.ods
+    const idPos = this.odsList.indexOf(odsSelected) +1;
+    const nuevaMeta: Metas = { id: 0, descripcion: nombreMeta.value, ods: odsSelected};
+  
+    this.metaService.createMeta(nuevaMeta,idPos).subscribe(
+      (respuesta) => {
+        console.log('Actividad creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreMeta.value = '';
+      },
+      (error) => {
+        console.error('Error al crear la actividad', error);
+      }
+    );
+  }
+  crearOds() {
+    var nombreOds = document.getElementById("nombreOds") as HTMLInputElement;
+    var nombreDimension = document.getElementById("nombreDimension") as HTMLInputElement;
+    if (nombreOds.value == '' || nombreDimension.value == '') {
+      alert('El nombre del ods o de la dimension no puede estar vacío');
+      return;
+    }
+    const nuevoOds: Ods = {idOds: 0,nombre: nombreOds.value, dimension:nombreDimension.value}
+  
+    this.odsService.createOds(nuevoOds).subscribe(
+      (respuesta) => {
+        console.log('Actividad creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreOds.value = '';
+        nombreDimension.value = '';
+        location.reload();
+      },
+      (error) => {
+        console.error('Error al crear la actividad', error);
+      }
+    );
+  }
+  crearModulo() {
+    var nombreModulo = document.getElementById("nombreModulo") as HTMLInputElement;
+    if (nombreModulo.value == '') {
+      alert('El nombre del modulo no puede estar vacío');
+      return;
+    }
+    const nuevoModulo: Modulo = {id_modulo: 0,nombre_modulo: nombreModulo.value}
+  
+    this.moduloService.createModulo(nuevoModulo).subscribe(
+      (respuesta) => {
+        console.log('Modulo creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreModulo.value = '';
+      },
+      (error) => {
+        console.error('Error al crear el modulo', error);
+      }
+    );
+  }
+  crearCurso() {
+    var nombreCurso = document.getElementById("nombreCurso") as HTMLInputElement;
+    if (nombreCurso.value == '') {
+      alert('El nombre del curso no puede estar vacío');
+      return;
+    }
+    const nuevoCurso: Curso = {id: 0,nombre: nombreCurso.value}
+  
+    this.cursoService.createCusro(nuevoCurso).subscribe(
+      (respuesta) => {
+        console.log('Modulo creada correctamente', respuesta);
+        // Aquí podrías limpiar el input si quieres
+        nombreCurso.value = '';
+      },
+      (error) => {
+        console.error('Error al crear el modulo', error);
+      }
+    );
   }
   cargarMetasDeOds(nombre: any) {
     this.listMetasOds = [];

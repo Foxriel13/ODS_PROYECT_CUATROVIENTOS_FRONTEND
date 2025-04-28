@@ -24,11 +24,11 @@ export class MetasService {
    }
  
    // Post crear
-   createMeta(meta: Metas): Observable<Metas> {
+   createMeta(meta: Metas, idPos: number): Observable<Metas> {
     const requestBody = {
       descripcion: meta.descripcion,
-      ods: meta.ods.idOds  //solo se envía el idOds
-    };
+      ods: idPos
+    };    
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Profesores } from '../../models/profesores.model';
 
 @Injectable({
@@ -24,8 +24,24 @@ export class ServiceProfesoresService {
   }
 
   //Post
-  crearProfesor(nombre: string): Observable<Profesores> {
-    return this.http.post<Profesores>(this.apiUrl, { nombre });
+  createProfesor(profesor: Profesores): Observable<Profesores> {
+    console.log(profesor);
+  
+    const requestBody = {
+      nombre: profesor.nombre.toString()
+    };
+  
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    return this.http.post<Profesores>(this.apiUrl, requestBody, { headers }).pipe(
+      tap(data => {
+        console.log('Profesor creada:', data);
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud POST:', error);
+        return throwError(error);
+      })
+    );
   }
 
   //Put

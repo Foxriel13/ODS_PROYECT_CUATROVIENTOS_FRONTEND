@@ -73,7 +73,7 @@ export class IndicadoresService {
 
   // 13. Saber si una iniciativa ha necesitado de salidas, charlas…
   getHaTenidoActividad(): Observable<HaTenidoActividad[]>{
-    return this.http.get<HaTenidoActividad[]>(this.apiUrl + '/haTenidoActividad')
+    return this.http.get<HaTenidoActividad[]>(this.apiUrl + '/haTendioActividad')
   }
 
   constructor(private http: HttpClient) { }

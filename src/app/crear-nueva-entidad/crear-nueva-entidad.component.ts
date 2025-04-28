@@ -78,7 +78,7 @@ export class CrearNuevaEntidadComponent {
     }
     const nuevaActividad: Actividad = { id: 0, nombre: nombreActividad.value };
 
-    this.actividadesServicie.CreateActividad(nuevaActividad);
+    this.actividadesServicie.createActividad("nuevaActividad");
   }
   cargarMetasDeOds(nombre: any) {
     this.listMetasOds = [];

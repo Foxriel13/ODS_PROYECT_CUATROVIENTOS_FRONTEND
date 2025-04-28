@@ -1,9 +1,9 @@
 export class DiferenciaInnovadoresYNo{
-    cantidadInnovadoras: number;
-    cantidadNoInnovadoras: number;
+    cantidad_innovadoras: number;
+    cantidad_no_innovadoras: number;
 
-    constructor(cantidadInnovadoras: number, cantidadNoInnovadoras: number){
-        this.cantidadInnovadoras = cantidadInnovadoras
-        this.cantidadNoInnovadoras = cantidadNoInnovadoras
+    constructor(cantidad_innovadoras: number, cantidad_no_innovadoras: number){
+        this.cantidad_innovadoras = cantidad_innovadoras
+        this.cantidad_no_innovadoras = cantidad_no_innovadoras
     }
 }

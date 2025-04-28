@@ -1,9 +1,9 @@
 export class CantHorasIniciativa{
-    nombreIniciativa: string;
-    horasDedicadas: number;
+    nombre_iniciativa: string;
+    horas_dedicadas: number;
 
-    constructor(nombreIniciativa: string, horasDedicadas: number){
-        this.nombreIniciativa = nombreIniciativa
-        this.horasDedicadas = horasDedicadas
+    constructor(nombre_iniciativa: string, horas_dedicadas: number){
+        this.nombre_iniciativa = nombre_iniciativa
+        this.horas_dedicadas = horas_dedicadas
     }
 }

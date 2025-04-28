@@ -1,9 +1,9 @@
 export class CantIniciativasProfesor{
-    nombreProfesor: string;
+    nombre_profesor: string;
     cantDeIniciativas: number;
 
-    constructor(nombreProfesor: string, cantDeIniciativas: number){
-        this.nombreProfesor = nombreProfesor
+    constructor(nombre_profesor: string, cantDeIniciativas: number){
+        this.nombre_profesor = nombre_profesor
         this.cantDeIniciativas = cantDeIniciativas
     }
 }

@@ -1,13 +1,13 @@
 import { Ods } from "../ods.model";
 
 export class OdsTrabajadosYSusMetas{
-    idIniciativa: number;
-    nombreIniciativa: string;
+    id_iniciativa: number;
+    nombre_Iniciativa: string;
     ods: Ods[]
 
-    constructor(idIniciativa: number, nombreIniciativa: string, ods: Ods[]){
-        this.idIniciativa = idIniciativa
-        this.nombreIniciativa = nombreIniciativa,
+    constructor(id_iniciativa: number, nombre_Iniciativa: string, ods: Ods[]){
+        this.id_iniciativa = id_iniciativa
+        this.nombre_Iniciativa = nombre_Iniciativa,
         this.ods = ods
     }
 }

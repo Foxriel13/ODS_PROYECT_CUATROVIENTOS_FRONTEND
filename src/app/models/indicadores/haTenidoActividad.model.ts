@@ -1,9 +1,9 @@
 export class HaTenidoActividad{
-    tieneActividades: number;
-    noTieneActividades: number;
+    tiene_actividades: number;
+    no_tiene_actividades: number;
 
-    constructor(tieneActividades: number, noTieneActividades: number){
-        this.tieneActividades = tieneActividades
-        this.noTieneActividades = noTieneActividades
+    constructor(tiene_actividades: number, no_tiene_actividades: number){
+        this.tiene_actividades = tiene_actividades
+        this.no_tiene_actividades = no_tiene_actividades
     }
 }

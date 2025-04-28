@@ -149,6 +149,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     });
 
     this.indicadoresService.getHaTenidoActividad().subscribe(data => {
+      console.log(data)
       this.haTendioActividad = data;
     });
   }
@@ -281,7 +282,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     this.reiniciarChart()
     //OdsYSusMetas
     this.barChartData = {
-      labels: this.odsTrabajadosYSusMetas.map(cymci => cymci.nombreIniciativa),
+      labels: this.odsTrabajadosYSusMetas.map(cymci => cymci.nombre_Iniciativa),
       datasets: [
         {
           label: 'Ciclos y modulos por iniciativa',
@@ -297,8 +298,8 @@ export class GraficoIndicadoresComponent implements OnInit{
     this.barChartData = {
       labels: ["Tiene o No Entidades Externas"],
       datasets: [
-        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.tieneEntidades), label: 'Tiene' },
-        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.noTieneEntidades), label: 'No Tiene' }
+        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.tiene_entidades), label: 'Tiene' },
+        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.no_tiene_entidades), label: 'No Tiene' }
       ]
     };
   }
@@ -332,7 +333,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     this.reiniciarChart()
     //CantIniciativasProfesor
 
-    const iniciativsUnicas = this.cantIniciativaProfesor.map(ini => ini.nombreProfesor);
+    const iniciativsUnicas = this.cantIniciativaProfesor.map(ini => ini.nombre_profesor);
 
     const dataPorCurso = this.cantIniciativaProfesor.map(ini => ini.cantDeIniciativas);
 
@@ -355,8 +356,8 @@ export class GraficoIndicadoresComponent implements OnInit{
     this.barChartData = {
       labels: ["Tiene o No Entidades Externas"],
       datasets: [
-        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidadInnovadoras), label: 'Innovadoras' },
-        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidadNoInnovadoras), label: 'No Innovadoras' }
+        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidad_innovadoras), label: 'Innovadoras' },
+        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidad_no_innovadoras), label: 'No Innovadoras' }
       ]
     };
   }
@@ -367,10 +368,10 @@ export class GraficoIndicadoresComponent implements OnInit{
     //CantHorasIniciativa
 
     // Obtener los nombres de los cursos como etiquetas (labels)
-    const iniciativsUnicas = this.cantHorasIniciativa.map(ini => ini.nombreIniciativa);
+    const iniciativsUnicas = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
 
     // Obtener los valores de iniciativas como un array
-    const dataPorCurso = this.cantHorasIniciativa.map(ini => ini.horasDedicadas);
+    const dataPorCurso = this.cantHorasIniciativa.map(ini => ini.horas_dedicadas);
 
     // Estructura para el gráfico
     this.barChartData = {
@@ -390,8 +391,8 @@ export class GraficoIndicadoresComponent implements OnInit{
     this.barChartData = {
       labels: ["Ha Tenido Actividad"],
       datasets: [
-        { data: this.haTendioActividad.map(tieneNo => tieneNo.tieneActividades), label: 'Si' },
-        { data: this.haTendioActividad.map(tieneNo => tieneNo.noTieneActividades), label: 'No' }
+        { data: this.haTendioActividad.map(tieneNo => tieneNo.tiene_actividades), label: 'Si' },
+        { data: this.haTendioActividad.map(tieneNo => tieneNo.no_tiene_actividades), label: 'No' }
       ]
     };
   }

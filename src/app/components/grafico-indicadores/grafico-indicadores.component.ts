@@ -2,11 +2,11 @@ import { Component, NgModule } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Iniciativas } from '../../models/iniciativas.model';
-import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
+import { IniciativasService } from '../../services/sercvicieIniciativasMostrar/iniciativas.service';
 import { tap } from 'rxjs';
 import { CommonModule, NgStyle } from '@angular/common';
 import { Metas } from '../../models/metas.model';
-import { MetasService } from '../../serviceMetas/metas.service';
+import { MetasService } from '../../services/serviceMetas/metas.service';
 import { Meta } from '@angular/platform-browser';
 import { Modulos } from '../../models/modulos.model';
 
@@ -14,9 +14,9 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 import { BaseChartDirective } from 'ng2-charts';
-import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
+import { ServiceCursosService } from '../../services/serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
-import { IndicadoresService } from '../../serviceIndicadores/indicadores.service';
+import { IndicadoresService } from '../../services/serviceIndicadores/indicadores.service';
 import { IniciativasPorCurso } from '../../models/indicadores/iniciativasPorCurso.model';
 import { CiclosYModulosConIniciativas } from '../../models/indicadores/ciclosYModulosConIniciativas.model';
 import { ExplicacionIniciativas } from '../../models/indicadores/explicacionIniciativas.model';

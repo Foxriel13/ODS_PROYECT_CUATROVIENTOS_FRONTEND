@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Redes_Sociales } from '../models/redes_sociales';
+import { Redes_Sociales } from '../../models/redes_sociales';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +40,9 @@ export class RedesSocialesService {
     };
 
     return this.http.put<Redes_Sociales>(url, requestBody, { headers });  // 🔹 Devuelve la petición
+  }
+
+  eliminarRed(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

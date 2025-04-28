@@ -3,25 +3,25 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarFormCrearComponent } from '../navbar-form-crear/navbar-form-crear.component';
 import { Ods } from '../../models/ods.model';
-import { ServiceOdsService } from '../../serviceOds/service-ods.service';
+import { ServiceOdsService } from '../../services/serviceOds/service-ods.service';
 import { Profesores } from '../../models/profesores.model';
-import { ServiceProfesoresService } from '../../serviceProfesores/service-profesores.service';
-import { ServiceCursosService } from '../../serviceCursos/service-cursos.service';
+import { ServiceProfesoresService } from '../../services/serviceProfesores/service-profesores.service';
+import { ServiceCursosService } from '../../services/serviceCursos/service-cursos.service';
 import { Curso } from '../../models/curso.model';
-import { ServiceEntidadesService } from '../../serviceEntidades/service-entidades.service';
+import { ServiceEntidadesService } from '../../services/serviceEntidades/service-entidades.service';
 import { entidadesExternas } from '../../models/entidades_externas.model';
-import { IniciativasService } from '../../sercvicieIniciativasMostrar/iniciativas.service';
+import { IniciativasService } from '../../services/sercvicieIniciativasMostrar/iniciativas.service';
 import { Iniciativas } from '../../models/iniciativas.model';
 import { Meta } from '@angular/platform-browser';
 import { Metas } from '../../models/metas.model';
 import { Modulos } from '../../models/modulos.model';
-import { MetasService } from '../../serviceMetas/metas.service';
-import { ModulosService } from '../../serviceModulos/modulos.service';
+import { MetasService } from '../../services/serviceMetas/metas.service';
+import { ModulosService } from '../../services/serviceModulos/modulos.service';
 import * as bootstrap from 'bootstrap';
 import { Redes_Sociales } from '../../models/redes_sociales';
 import { Actividad } from '../../models/actividades.model';
-import { ActividadesService } from '../../serviceActividades/actividades.service';
-import { RedesSocialesService } from '../../serviceRedesSociales/redes-sociales.service';
+import { ActividadesService } from '../../services/serviceActividades/actividades.service';
+import { RedesSocialesService } from '../../services/serviceRedesSociales/redes-sociales.service';
 
 
 @Component({
@@ -822,6 +822,7 @@ export class ActualizarIniciativaComponent {
       inputRedes.removeAttribute("hidden");
     }
   }
+  /*
   crearActividad(){
     var nombre = document.getElementById("nombreActividad") as HTMLInputElement;
     if (nombre) {
@@ -853,5 +854,5 @@ export class ActualizarIniciativaComponent {
     }
     this.ocultarActividad();
   }
-    
+    */
 }

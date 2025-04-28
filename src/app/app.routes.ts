@@ -5,6 +5,8 @@ import { IniciativasComponent } from './components/iniciativas/iniciativas.compo
 import { ModificarComponent } from './components/modificar/modificar.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { GraficoIndicadoresComponent } from './components/grafico-indicadores/grafico-indicadores.component';
+import { AdministradorEntidadesComponent } from './components/administrador-entidades/administrador-entidades.component';
+import { CrearNuevaEntidadComponent } from './crear-nueva-entidad/crear-nueva-entidad.component';
 
 export const routes: Routes = [
     { path: '', component: MenuComponent },
@@ -12,4 +14,6 @@ export const routes: Routes = [
     { path: 'Modificar', component: ModificarComponent },
     { path: 'LogIn', component: LogInComponent },
     { path: 'indicadores', component: GraficoIndicadoresComponent },
+    { path: 'AdministradorEntidades', component: AdministradorEntidadesComponent },
+    { path: 'CrearEntidadNueva', component: CrearNuevaEntidadComponent }
 ];

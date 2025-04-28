@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Ods } from '../models/ods.model';
+import { Ods } from '../../models/ods.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,22 @@ export class ServiceOdsService {
   getOdsListById(id: number): Observable<Ods[]> {
     let url = `${this.apiUrl}/${id}`;
     return this.http.get<Ods[]>(url);
+  }
+
+  //Post
+
+  crearOds(nombre: string, dimension: string): Observable<Ods> {
+    return this.http.post<Ods>(this.apiUrl, { nombre, dimension });
+  }
+
+  //Put
+  actualizarOds( nombre: string, dimension: string): Observable<Ods> {
+    return this.http.put<Ods>(this.apiUrl, { nombre, dimension });
+  }
+
+  //Delete
+  eliminarOds(id: number): Observable<void> {
+    let url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url);
   }
 }

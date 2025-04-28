@@ -6,7 +6,7 @@ import { ModificarComponent } from './components/modificar/modificar.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { GraficoIndicadoresComponent } from './components/grafico-indicadores/grafico-indicadores.component';
 import { AdministradorEntidadesComponent } from './components/administrador-entidades/administrador-entidades.component';
-import { CrearNuevaEntidadComponent } from './crear-nueva-entidad/crear-nueva-entidad.component';
+import { CrearNuevaEntidadComponent } from './components/crear-nueva-entidad/crear-nueva-entidad.component';
 
 export const routes: Routes = [
     { path: '', component: MenuComponent },

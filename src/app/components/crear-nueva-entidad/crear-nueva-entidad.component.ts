@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { NavBarModificarEntidadesComponent } from '../components/nav-bar-modificar-entidades/nav-bar-modificar-entidades.component';
+import { NavBarModificarEntidadesComponent } from '../../components/nav-bar-modificar-entidades/nav-bar-modificar-entidades.component';
 import { CommonModule } from '@angular/common';
-import { ActividadesService } from '../services/serviceActividades/actividades.service';
-import { Actividad } from '../models/actividades.model';
-import { ServiceOdsService } from '../services/serviceOds/service-ods.service';
-import { Ods } from '../models/ods.model';
-import { Metas } from '../models/metas.model';
+import { ActividadesService } from '../../services/serviceActividades/actividades.service';
+import { Actividad } from '../../models/actividades.model';
+import { ServiceOdsService } from '../../services/serviceOds/service-ods.service';
+import { Ods } from '../../models/ods.model';
+import { Metas } from '../../models/metas.model';
 import { FormsModule } from '@angular/forms';
-import { Redes_Sociales } from '../models/redes_sociales';
-import { RedesSocialesService } from '../services/serviceRedesSociales/redes-sociales.service';
-import { MetasService } from '../services/serviceMetas/metas.service';
-import { Modulo } from '../models/indicadores/ciclosYModulosConInciativas';
-import { Curso } from '../models/curso.model';
-import { ModulosService } from '../services/serviceModulos/modulos.service';
-import { ServiceCursosService } from '../services/serviceCursos/service-cursos.service';
-import { Profesores } from '../models/profesores.model';
-import { ServiceProfesoresService } from '../services/serviceProfesores/service-profesores.service';
-import { entidadesExternas } from '../models/entidades_externas.model';
-import { ServiceEntidadesService } from '../services/serviceEntidades/service-entidades.service';
+import { Redes_Sociales } from '../../models/redes_sociales';
+import { RedesSocialesService } from '../../services/serviceRedesSociales/redes-sociales.service';
+import { MetasService } from '../../services/serviceMetas/metas.service';
+import { Modulo } from '../../models/indicadores/ciclosYModulosConInciativas';
+import { Curso } from '../../models/curso.model';
+import { ModulosService } from '../../services/serviceModulos/modulos.service';
+import { ServiceCursosService } from '../../services/serviceCursos/service-cursos.service';
+import { Profesores } from '../../models/profesores.model';
+import { ServiceProfesoresService } from '../../services/serviceProfesores/service-profesores.service';
+import { entidadesExternas } from '../../models/entidades_externas.model';
+import { ServiceEntidadesService } from '../../services/serviceEntidades/service-entidades.service';
 
 @Component({
   selector: 'app-crear-nueva-entidad',

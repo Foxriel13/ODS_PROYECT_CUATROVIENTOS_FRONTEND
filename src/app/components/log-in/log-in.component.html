@@ -1,14 +1,22 @@
 <div class="container">
     <div class="login-container">
         <h3 class="text-center mb-4">Iniciar Sesión</h3>
-        <form>
+        <form [formGroup]="logInForm" (ngSubmit)="submit()">
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo" required>
+                <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo" formControlName="email" required>
+                
+                @if (logInForm.controls.email.touched && logInForm.controls.email.hasError('required')) {
+                    <small class="text-danger">El campo es requerido</small>
+                }
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
+                <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" formControlName="password" required>
+
+                @if (logInForm.controls.password.touched && logInForm.controls.password.hasError('required')) {
+                    <small class="text-danger">El campo es requerido</small>
+                }
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>

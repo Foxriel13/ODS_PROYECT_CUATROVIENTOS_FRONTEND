@@ -39,6 +39,10 @@ import {  OnInit } from '@angular/core';
   styleUrl: './grafico-indicadores.component.scss'
 })
 export class GraficoIndicadoresComponent implements OnInit{
+  public pieChartDataIndicador!: ChartConfiguration<'pie'>['data'];
+  public pieChartOptions: ChartConfiguration<'pie'>['options'] = this.getDefaultPieChartOptions();
+
+
   iniciativas: Iniciativas[] = []
   iniciativasFiltradas: Iniciativas[] = []
   iniciativasTotales: Iniciativas[] = []
@@ -141,7 +145,12 @@ export class GraficoIndicadoresComponent implements OnInit{
     });
 
     this.indicadoresService.getDiferenciaInnovadoresYNo().subscribe(data => {
-      this.diferenciaInnovadoresYNo = data;
+      if (data && data.length > 0) {
+        this.diferenciaInnovadoresYNo = data; 
+        this.chartIndicador11(); 
+      } else {
+        console.error('No se recibieron datos válidos para el Indicador 11');
+      }
     });
 
     this.indicadoresService.getCantHorasIniciativa().subscribe(data => {
@@ -166,7 +175,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     }
   }
 
-  //Charts
+  //Charts BARRA
   public barChartLegend = true;
   public barChartPlugins = [];
 
@@ -184,6 +193,34 @@ export class GraficoIndicadoresComponent implements OnInit{
     responsive: true,
   };
 
+  //Charts TIPO PIE
+  // Gráfico de pie para el Indicador 11
+  private getDefaultPieChartOptions(): ChartConfiguration<'pie'>['options'] {
+    return {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+        },
+      },
+    };
+  }
+
+  private createPieChartData(labels: string[], data: number[], backgroundColors: string[], hoverColors: string[]): ChartConfiguration<'pie'>['data'] {
+    return {
+      labels: labels,
+      datasets: [
+        {
+          data: data,
+          backgroundColor: backgroundColors,
+          hoverBackgroundColor: hoverColors,
+        },
+      ],
+    };
+  }
+
+
   //Para Pruebas
   reiniciarChart() {
     this.barChartData = {
@@ -199,11 +236,7 @@ export class GraficoIndicadoresComponent implements OnInit{
   chartIndicador1() {
 
     this.reiniciarChart()
-
-    // Obtener los nombres de los cursos como etiquetas (labels)
     const iniciativasUnicas = this.iniciativasPorCurso.map(ini => ini.nombreCurso);
-
-    // Obtener los valores de iniciativas como un array
     const dataPorCurso = this.iniciativasPorCurso.map(ini => ini.numIniciativas);
 
     // Estructura para el gráfico
@@ -225,22 +258,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     }
     return 0; // Devuelve un objeto con cantidad 0 si no hay datos
   }
-  
-  // chartIndicador2() {
-  //   // Obtener los nombres de los cursos como etiquetas (labels)
-  //   const cantidadIniciativas = this.numeroIniciativas.map(ini => ini.cantidad);
 
-  //   // Estructura para el gráfico
-  //   this.barChartData = {
-  //     labels: cantidadIniciativas,
-  //     datasets: [
-  //       {
-  //         label: 'Número de iniciativas por curso',
-  //         data: cantidadIniciativas,
-  //       }
-  //     ]
-  //   };
-  // }
 
   chartIndicador3() {
 
@@ -350,51 +368,38 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   }
 
-  chartIndicador11() {
-    this.reiniciarChart()
-    //DiferenciaInnovadoresYNo
-    this.barChartData = {
-      labels: ["Tiene o No Entidades Externas"],
-      datasets: [
-        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidad_innovadoras), label: 'Innovadoras' },
-        { data: this.diferenciaInnovadoresYNo.map(tieneNo => tieneNo.cantidad_no_innovadoras), label: 'No Innovadoras' }
-      ]
-    };
+
+  chartIndicador11(): void {
+    const labels = ['Innovadoras', 'No Innovadoras'];
+    const data = [
+      this.diferenciaInnovadoresYNo[0].cantidad_innovadoras,
+      this.diferenciaInnovadoresYNo[0].cantidad_no_innovadoras,
+    ];
+    const backgroundColors = ['#A8D5BA', '#F9C6C9'];
+    const hoverColors = ['#C3E6CD', '#FADADD'];
+
+    this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
   }
+  chartIndicador12(): void {
+    const labels = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
+    const data = this.cantHorasIniciativa.map(ini => ini.horas_dedicadas);
+    const backgroundColors = ['#FFD1DC', '#FFB6C1', '#FFC0CB', '#D1C4E9', '#B3E5FC'];
+    const hoverColors = ['#FFE4E1', '#FFCCCB', '#FFDDDD', '#E1D5F5', '#C5F1FF'];
 
-  chartIndicador12() {
-    this.reiniciarChart()
-
-    //CantHorasIniciativa
-
-    // Obtener los nombres de los cursos como etiquetas (labels)
-    const iniciativsUnicas = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
-
-    // Obtener los valores de iniciativas como un array
-    const dataPorCurso = this.cantHorasIniciativa.map(ini => ini.horas_dedicadas);
-
-    // Estructura para el gráfico
-    this.barChartData = {
-      labels: iniciativsUnicas,
-      datasets: [
-        {
-          label: 'Cantidad de Horas por iniciativas',
-          data: dataPorCurso,
-        }
-      ]
-    };
+    this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
   }
+  
 
-  chartIndicador13() {
-    this.reiniciarChart()
-    //HaTenidoActividad
-    this.barChartData = {
-      labels: ["Ha Tenido Actividad"],
-      datasets: [
-        { data: this.haTendioActividad.map(tieneNo => tieneNo.tiene_actividades), label: 'Si' },
-        { data: this.haTendioActividad.map(tieneNo => tieneNo.no_tiene_actividades), label: 'No' }
-      ]
-    };
+  chartIndicador13(): void {
+    const labels = ['Ha tenido actividad', 'No ha tenido actividad'];
+    const data = [
+      this.haTendioActividad[0].tiene_actividades,
+      this.haTendioActividad[0].no_tiene_actividades,
+    ];
+    const backgroundColors = ['#A8D5BA', '#F9C6C9'];
+    const hoverColors = ['#C3E6CD', '#FADADD'];
+
+    this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
   }
 }
 

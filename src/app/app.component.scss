@@ -10,3 +10,21 @@
     z-index: 9999;
   }
   
+
+  #intro-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  #logo img {
+    width: 150px;
+    opacity: 0;
+  }
+  

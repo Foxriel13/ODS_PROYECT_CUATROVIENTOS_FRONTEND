@@ -46,6 +46,7 @@ export class AdministradorEntidadesComponent implements OnInit {
     nombre: '',
     dimension: ''
   };
+  
   selectedRed: string = '';
   redesListDistinct: string[] = []; // Llénalo con los nombres únicos de redes
   redes_socialesOriginal: Redes_Sociales[] = [];
@@ -91,8 +92,85 @@ export class AdministradorEntidadesComponent implements OnInit {
   
 
   actualizar(item: any) {
-    console.log('Actualizar', item);
+    let requested: any;
+  
+    if (this.selectedTab === 'actividades') {
+      const actividadSeleccionada: Actividad = item;
+      requested = {
+        tab: this.selectedTab,
+        id: actividadSeleccionada.id,
+        nombre: actividadSeleccionada.nombre
+      };
+    }
+  
+    if (this.selectedTab === 'metas') {
+      const actividadSeleccionada: Metas = item;
+      const odsSelected: Ods = actividadSeleccionada.ods
+      requested = {
+        tab: this.selectedTab,
+        id: actividadSeleccionada.id,
+        descripcion: actividadSeleccionada.descripcion,
+        ods: odsSelected.idOds
+      };
+    }
+    if (this.selectedTab === 'modulos') {
+      if(this.selectedModuloTab == 'modulos'){
+        const moduloSeleccionado: Modulos = item;
+        var idPosModulos = this.ModulosList.indexOf(moduloSeleccionado)+1;
+        requested = {
+          tab: this.selectedTab,
+          selectedModuloTab: this.selectedModuloTab,
+          id: idPosModulos,
+          nombre: moduloSeleccionado.nombre
+        };
+      }
+      if(this.selectedModuloTab == 'clases'){
+        const claseSeleccionado: Curso = item;
+        requested = {
+          tab: this.selectedTab,
+          selectedModuloTab: this.selectedModuloTab,
+          id: claseSeleccionado.id,
+          nombre: claseSeleccionado.nombre
+        };
+      }
+      
+    }
+    if (this.selectedTab === 'profesores') {
+      const profesoresSeleccionada: Profesores = item;
+      requested = {
+        tab: this.selectedTab,
+        id: profesoresSeleccionada.id,
+        nombre: profesoresSeleccionada.nombre,
+      };
+    }
+    if (this.selectedTab === 'entidades') {
+      const entidadSeleccionada: entidadesExternas = item;
+      requested = {
+        tab: this.selectedTab,
+        id: entidadSeleccionada.id,
+        nombre: entidadSeleccionada.nombre,
+      };
+    }
+    if (this.selectedTab === 'redes') {
+      const redSeleccionada: Redes_Sociales = item;
+      requested = {
+        tab: this.selectedTab,
+        id: redSeleccionada.id,
+        nombre: redSeleccionada.nombre,
+        enlace: redSeleccionada.enlace
+      };
+    }
+  
+    if (requested) {
+      this.router.navigate(['/ActualizarEntidadNueva'], {
+        queryParams: requested
+      });
+    } else {
+      console.warn('Tipo de pestaña no soportado:', this.selectedTab);
+    }
   }
+  
+  
   cargarActividades() {
     this.actividadesServicie.getActividadesList().subscribe(actividades => {
       this.ActividadesList = actividades;

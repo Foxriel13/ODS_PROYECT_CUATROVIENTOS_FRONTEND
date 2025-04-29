@@ -1,0 +1,172 @@
+<div class="container text-center"> <!-- Centra todo el contenido -->
+    <div class="row g-3 p-4 justify-content-center">
+        <!-- Columna para los inputs -->
+        <app-nav-bar-modificar-entidades (tabChange)="onTabChange($event)"></app-nav-bar-modificar-entidades>
+    </div>
+
+    <div *ngIf="selectedTab === 'actividades'">
+        <div class="container py-3 d-flex flex-column align-items-center">
+            <div class="d-flex flex-column align-items-center w-100">
+
+                <!-- Input -->
+                <div class="w-50 mb-3">
+                    <input type="text" class="form-control w-100" id="nombreActividad"
+                        placeholder="Nombre de la actividad">
+                </div>
+
+                <!-- Button -->
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <button class="btn btn-success" (click)="crearActividad()">Crear Actividad</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="selectedTab === 'metas'">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Seleccionar ODS</label>
+                    <select [(ngModel)]="ods" name="ods" class="form-control" (change)="cargarImagenODS(ods.nombre)"
+                        (change)="cargarMetasDeOds(ods.nombre)" id="odsElegido">
+                        <option value="" disabled selected>Seleccione un ODS</option>
+                        <option *ngFor="let ods of odsList" [ngValue]="ods">{{ ods.nombre }}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>Nombre de la Meta</label>
+                    <input type="text" class="form-control" id="nombreMeta" placeholder="Nombre de la meta">
+                </div>
+            </div>
+            <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
+                <div *ngIf="ods" class="text-center">
+                    <img src="/Ods_img/ods1.png" id="imagenOds" alt="Imagen ODS" class="img-fluid"
+                        style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
+                    <p id="dimensionText">Social</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center mt-3">
+            <button class="btn btn-success" (click)="crearMeta()">Crear Meta</button>
+        </div>
+
+        <!-- Línea de separación -->
+        <hr class="my-4">
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Nombre del ODS</label>
+                    <input type="text" class="form-control" id="nombreOds" placeholder="Nombre del ODS">
+                </div>
+                <div class="mb-3">
+                    <label>Dimensión del ODS</label>
+                    <input type="text" class="form-control" id="nombreDimension" placeholder="Dimensión del ODS">
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para abrir la ventanita -->
+        <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-4">
+            <button class="btn btn-success" (click)="crearOds()">Crear ODS</button>
+
+            <!-- Icono para mostrar información -->
+            <button type="button" class="btn btn-outline-info ms-2" data-bs-toggle="modal" data-bs-target="#infoModal">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </div>
+
+        <!-- Modal (ventanita estilo Bootstrap Card) -->
+        <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="infoModalLabel">Información sobre ODS</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Si crea un ODS nuevo, la página se recargará para aplicarlo a una meta.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="selectedTab === 'modulos'">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Nombre del Modulo</label>
+                    <input type="text" class="form-control" id="nombreModulo" placeholder="Nombre del Modulo">
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-3 mb-4">
+            <button class="btn btn-success" (click)="crearModulo()">Crear Modulo</button> <!-- Línea de separación TODOMODULOS -->
+        </div>
+        <!-- Línea de separación -->
+        <hr class="my-4">
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Nombre de la Clase</label>
+                    <input type="text" class="form-control" id="nombreCurso" placeholder="Nombre de la Clase">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center mt-3 mb-4">
+            <button class="btn btn-success" (click)="crearCurso()">Crear Clase</button>
+        </div>
+    </div>
+    <div *ngIf="selectedTab === 'profesores'">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Nombre del Profesor</label>
+                    <input type="text" class="form-control" id="nombreProfesor" placeholder="Nombre del Profesor">
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-3 mb-4">
+            <button class="btn btn-success" (click)="crearProfesor()">Crear Profesor</button>
+        </div>
+    </div>
+    <div *ngIf="selectedTab === 'entidades'">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Nombre de la Entidad</label>
+                    <input type="text" class="form-control" id="nombreEntidad" placeholder="Nombre de la entidad">
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-3 mb-4">
+            <button class="btn btn-success" (click)="crearEntidad()">Crear Entidad</button>
+        </div>
+    </div>
+    <div *ngIf="selectedTab === 'redes'">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Nombre del enlace</label>
+                    <input type="text" class="form-control" id="nombreEnlace" placeholder="Nombre del Enlace">
+                </div>
+                <div class="mb-3">
+                    <label>Ruta del Enlace</label>
+                    <input type="text" class="form-control" id="nombreRuta" placeholder="Nombre del Enlace">
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-3 mb-4">
+            <button class="btn btn-success" (click)="crearRedSocial()">Crear Enlace</button>
+        </div>
+    </div>
+</div>

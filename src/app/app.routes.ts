@@ -7,6 +7,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { GraficoIndicadoresComponent } from './components/grafico-indicadores/grafico-indicadores.component';
 import { AdministradorEntidadesComponent } from './components/administrador-entidades/administrador-entidades.component';
 import { CrearNuevaEntidadComponent } from './components/crear-nueva-entidad/crear-nueva-entidad.component';
+import { ActualizarEntidadComponent } from './components/actualizar-entidad/actualizar-entidad.component';
 
 export const routes: Routes = [
     { path: '', component: MenuComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: 'LogIn', component: LogInComponent },
     { path: 'indicadores', component: GraficoIndicadoresComponent },
     { path: 'AdministradorEntidades', component: AdministradorEntidadesComponent },
+    { path: 'ActualizarEntidadNueva', component: ActualizarEntidadComponent },
     { path: 'CrearEntidadNueva', component: CrearNuevaEntidadComponent }
 ];

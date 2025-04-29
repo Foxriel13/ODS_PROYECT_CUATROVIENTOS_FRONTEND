@@ -53,7 +53,7 @@ export class ModulosService {
     const url = `${this.apiUrl}/${id}`;
     const requestBody = {
       nombreModulo: modulo.nombre,
-      modulos: modulo.clase.map(clase => clase.id),
+      modulos: modulo.clases.map(clases => clases.id),
     };
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

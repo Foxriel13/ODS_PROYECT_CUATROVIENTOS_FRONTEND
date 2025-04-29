@@ -365,8 +365,11 @@
                                             <p style="margin: 0; font-weight: bold;">{{ modulo.nombre }}</p>
                             
                                            
-                                            <small *ngIf="(modulo.clase ?? []).length > 0" style="color: #555;">
-                                                Curso: {{ modulo.clase[0].nombre }}
+                                            <small *ngIf="(modulo.clases ?? []).length > 0" style="color: #555;">
+                                                clasess:
+                                                <ul style="padding-left: 20px; margin: 0;">
+                                                    <li *ngFor="let clases of modulo.clases">{{ clases.nombre }}</li>
+                                                </ul>
                                             </small>
                             
                                             

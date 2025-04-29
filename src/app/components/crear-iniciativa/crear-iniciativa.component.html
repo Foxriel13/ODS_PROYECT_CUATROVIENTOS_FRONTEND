@@ -188,14 +188,14 @@
                             <div class="mb-2">
                                 <label>Seleccionar Modulo</label>
                                 <select [(ngModel)]="modulo" name="modulo" id="nombreModulo" class="form-control">
-                                    <option value="" disabled selected>Selecciona una Clase</option>
+                                    <option value="" disabled selected>Selecciona una clases</option>
                                     <option *ngFor="let item of ModulosList" [ngValue]="item">{{ item.nombre }}</option>
                                 </select>
                             </div>
                             <div class="mb-2">
-                                <label>Seleccionar Clases</label>
-                                <select [(ngModel)]="curso" name="curso" id="nombreClase" class="form-control">
-                                    <option value="" disabled selected>Selecciona una Clase</option>
+                                <label>Seleccionar clasess</label>
+                                <select [(ngModel)]="curso" name="curso" id="nombreclases" class="form-control">
+                                    <option value="" disabled selected>Selecciona una clases</option>
                                     <option *ngFor="let item of cursoList" [ngValue]="item">{{ item.nombre }}</option>
                                 </select>
                                 <button class="btn btn-info mt-2" type="button" (click)="anyadirModulo()">Añadir
@@ -204,19 +204,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="image-box">
-                                <h5>Clases Seleccionadas</h5>
+                                <h5>clasess Seleccionadas</h5>
                                 <ul>
                                     <li *ngFor="let item of moduloSeleccionados; let i = index" class="mb-2">
                                         {{ item.nombre }}
-                                        <span *ngIf="item.clase.length > 0">
+                                        <span *ngIf="item.clases.length > 0">
                                             (
-                                            <span *ngFor="let clase of item.clase; let j = index">
-                                                {{ clase.nombre }}
+                                            <span *ngFor="let clases of item.clases; let j = index">
+                                                {{ clases.nombre }}
                                                 <button type="button" class="btn btn-danger btn-sm ms-2"
-                                                    (click)="eliminarClase(i, j)">
+                                                    (click)="eliminarclases(i, j)">
                                                     X
                                                 </button>
-                                                <span *ngIf="j < item.clase.length - 1"> / </span>
+                                                <span *ngIf="j < item.clases.length - 1"> / </span>
                                             </span>
                                             )
                                         </span>

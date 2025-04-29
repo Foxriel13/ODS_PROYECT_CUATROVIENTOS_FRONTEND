@@ -98,7 +98,7 @@ export class ActualizarIniciativaComponent {
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
-    clase: []
+    clases: []
   };
   iniciativa: Iniciativas = {
     id: 0,
@@ -174,6 +174,7 @@ export class ActualizarIniciativaComponent {
         console.error('Error al cargar los ODS:', error);
       }
     );
+    
   }
   loadRedesSociales(): void {
     this.redes_socialesServicie.getRedesSocialesList().subscribe(
@@ -373,6 +374,7 @@ export class ActualizarIniciativaComponent {
     } else {
       alert('Por favor, selecciona una Meta válida.');
     }
+    console.log('MODULO SELECCIONADO'+ selectedModulo)
   }
   anyadirMeta() {
     const selectedMeta = this.MetasList.find(item => item.id == this.Metas.id);
@@ -822,37 +824,4 @@ export class ActualizarIniciativaComponent {
       inputRedes.removeAttribute("hidden");
     }
   }
-  /*
-  crearActividad(){
-    var nombre = document.getElementById("nombreActividad") as HTMLInputElement;
-    if (nombre) {
-      var actividadNueva : Actividad = {
-        id: 0,
-        nombre: nombre.value
-      };
-      this.actividadesServicie.CreateActividadesList(actividadNueva).subscribe(
-        response => {
-          console.log('Enlace creado correctamente:', response);
-
-          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
-          this.ActividadesList.push(actividadNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
-
-          this.showToastEnlace();
-
-          // Cargar nuevamente las redes sociales (si es necesario)
-          this.loadActividades();
-        },
-        error => {
-          console.error('Error al crear la iniciativa:', error);
-          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
-        }
-      );
-
-      this.ocultarActividad(); // Ocultar algo si es necesario
-    } else {
-      console.error("No se encontraron los elementos nombreLink o enlaceLink.");
-    }
-    this.ocultarActividad();
-  }
-    */
 }

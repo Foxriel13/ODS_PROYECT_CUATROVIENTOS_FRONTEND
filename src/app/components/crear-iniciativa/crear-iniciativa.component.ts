@@ -99,7 +99,7 @@ export class CrearIniciativaComponent implements OnInit {
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
-    clase: []
+    clases: []
   };
   redes_sociales: Redes_Sociales = {
     id: 0,
@@ -364,37 +364,37 @@ export class CrearIniciativaComponent implements OnInit {
       alert('Por favor, selecciona una entidad válida.');
     }
   }
-  anyadirClase() {
-    const selectedClase = this.cursoList.find(item => item.id == this.curso.id);
-    if (selectedClase) {
-      if (this.cursosSeleccionados.some(item => item.id === selectedClase.id)) {
-        alert('Esta Clase ya está añadida.');
+  anyadirclases() {
+    const selectedclases = this.cursoList.find(item => item.id == this.curso.id);
+    if (selectedclases) {
+      if (this.cursosSeleccionados.some(item => item.id === selectedclases.id)) {
+        alert('Esta clases ya está añadida.');
       } else {
-        this.cursosSeleccionados.push(selectedClase);
+        this.cursosSeleccionados.push(selectedclases);
       }
     } else {
-      alert('Por favor, selecciona una Clase válida.');
+      alert('Por favor, selecciona una clases válida.');
     }
   }
 
   anyadirModulo() {
     // Obtener los elementos select
     const selectModulo = document.getElementById("nombreModulo") as HTMLSelectElement;
-    const selectClase = document.getElementById("nombreClase") as HTMLSelectElement;
+    const selectclases = document.getElementById("nombreclases") as HTMLSelectElement;
 
     // Obtener la opción seleccionada
     const nombreModulo = selectModulo.options[selectModulo.selectedIndex]?.text.trim();
-    const nombreClase = selectClase.options[selectClase.selectedIndex]?.text.trim();
+    const nombreclases = selectclases.options[selectclases.selectedIndex]?.text.trim();
 
-    if (!nombreModulo || !nombreClase) {
-      alert('Por favor, selecciona un módulo y una clase válida.');
+    if (!nombreModulo || !nombreclases) {
+      alert('Por favor, selecciona un módulo y una clases válida.');
       return;
     }
 
     // Buscar el módulo en la lista de módulos
     let moduloNew: Modulos | null = this.ModulosList.find(m => m.nombre === nombreModulo) || null;
     // Buscar el curso en la lista de cursos
-    let cursoNew: Curso | null = this.cursoList.find(c => c.nombre === nombreClase) || null;
+    let cursoNew: Curso | null = this.cursoList.find(c => c.nombre === nombreclases) || null;
 
     if (moduloNew && cursoNew) {
       // Obtener el ID correcto desde idModulo (aunque no esté tipado)
@@ -406,9 +406,9 @@ export class CrearIniciativaComponent implements OnInit {
         // Asegurar que use el ID correcto
         moduloExistente.id = idModuloCorrecto;
 
-        // Si el módulo ya existe, agregar el curso a la lista `clase` si no está agregado aún
-        if (!moduloExistente.clase.some(c => c.id === cursoNew!.id)) {
-          moduloExistente.clase.push(cursoNew);
+        // Si el módulo ya existe, agregar el curso a la lista `clases` si no está agregado aún
+        if (!moduloExistente.clases.some(c => c.id === cursoNew!.id)) {
+          moduloExistente.clases.push(cursoNew);
         } else {
           alert("El curso ya está asignado a este módulo.");
         }
@@ -417,7 +417,7 @@ export class CrearIniciativaComponent implements OnInit {
         let nuevoModulo: Modulos = {
           id: idModuloCorrecto,
           nombre: moduloNew.nombre,
-          clase: [cursoNew] // Se inicializa con el curso seleccionado
+          clases: [cursoNew] // Se inicializa con el curso seleccionado
         };
 
         this.moduloSeleccionados.push(nuevoModulo);
@@ -425,7 +425,7 @@ export class CrearIniciativaComponent implements OnInit {
 
       console.log("Módulo actualizado:", this.moduloSeleccionados);
     } else {
-      alert('No se encontró el módulo o la clase seleccionada.');
+      alert('No se encontró el módulo o la clases seleccionada.');
     }
   }
 
@@ -699,14 +699,14 @@ export class CrearIniciativaComponent implements OnInit {
     const odsIndex = this.odsList.findIndex(o => o.nombre === nombreOds);
     return odsIndex !== -1 ? `/Ods_img/ods${odsIndex + 1}.png` : '';
   }
-  getClasesTexto(clases: Curso[]): string {
-    return clases.map(c => c.nombre).join(' / ');
+  getclasessTexto(clasess: Curso[]): string {
+    return clasess.map(c => c.nombre).join(' / ');
   }
-  eliminarClase(moduloIndex: number, claseIndex: number): void {
-    this.moduloSeleccionados[moduloIndex].clase.splice(claseIndex, 1);
+  eliminarclases(moduloIndex: number, clasesIndex: number): void {
+    this.moduloSeleccionados[moduloIndex].clases.splice(clasesIndex, 1);
 
-    // Si el módulo se queda sin clases, eliminarlo automáticamente
-    if (this.moduloSeleccionados[moduloIndex].clase.length === 0) {
+    // Si el módulo se queda sin clasess, eliminarlo automáticamente
+    if (this.moduloSeleccionados[moduloIndex].clases.length === 0) {
       this.moduloSeleccionados.splice(moduloIndex, 1);
     }
   }

@@ -127,7 +127,6 @@ export class IniciativasService {
     // Creamos el objeto que será enviado en el cuerpo del PUT
     const requestBody = {
       id: iniciativa.id,
-      tipo: iniciativa.tipo.toString(),
       horas: iniciativa.horas.toString(),  // Aseguramos que horas sea un número
       nombre: iniciativa.nombre.toString(),
       explicacion: iniciativa.explicacion.toString(),
@@ -142,7 +141,8 @@ export class IniciativasService {
       profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
       entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
       modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
-      redes_sociales: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
+      redes_sociales: iniciativa.redes_sociales.map(red => red.id),
+
     };
     console.log(requestBody.metas)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

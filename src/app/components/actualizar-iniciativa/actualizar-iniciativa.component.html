@@ -98,21 +98,19 @@
                                     <!-- Itera sobre metasSeleccionadas -->
                                     <div *ngFor="let meta of metasSeleccionadas" class="col mb-3">
                                         <div class="box-meta"
-                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
-                                            <!-- Descripción de la meta -->
-                                            <p style="margin: 0; display: inline-block;">{{ meta.descripcion }}</p>
-
-                                            <!-- Botones debajo de cada meta -->
-                                            <div class="btn-group-vertical mt-2" role="group">
-                                                <!-- Botón Info (azul) -->
-                                                <button type="button" class="btn btn-info">
-                                                    Info
-                                                </button>
-
-                                                <!-- Botón Eliminar (rojo) -->
-                                                <button type="button" class="btn btn-danger"
-                                                    (click)="eliminarMeta(meta)">
-                                                    Eliminar
+                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block; background-color: #f9f9f9;">
+                            
+                                            <!-- Información de la meta -->
+                                            <p style="margin: 0; font-weight: bold;">{{ meta.descripcion }}</p>
+                            
+                                            <!-- Información del ODS -->
+                                            <small style="color: #555;">ODS: {{ meta.ods.nombre }} ({{ meta.ods.dimension }})</small>
+                            
+                                            <!-- Botón de eliminar como icono -->
+                                            <div class="text-end mt-2">
+                                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarMeta(meta)"
+                                                    title="Eliminar">
+                                                    <i class="bi bi-trash"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -359,24 +357,23 @@
                             <h4>Módulos Añadidos:</h4>
                             <div class="image-box image-box-small" style="flex: 1;">
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-                                    <!-- Itera sobre módulosSeleccionados -->
+                                   
                                     <div *ngFor="let modulo of moduloSeleccionados" class="col mb-3">
                                         <div class="box-meta"
-                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
-                                            <!-- Descripción del módulo -->
-                                            <p style="margin: 0; display: inline-block;">{{ modulo.nombre }}</p>
-
-                                            <!-- Botones debajo de cada módulo -->
-                                            <div class="btn-group-vertical mt-2" role="group">
-                                                <!-- Botón Info (azul) -->
-                                                <button type="button" class="btn btn-info">
-                                                    Info
-                                                </button>
-
-                                                <!-- Botón Eliminar (rojo) -->
-                                                <button type="button" class="btn btn-danger"
-                                                    (click)="eliminarModulo(modulo)">
-                                                    Eliminar
+                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block; background-color: #f9f9f9;">
+                
+                                            <p style="margin: 0; font-weight: bold;">{{ modulo.nombre }}</p>
+                            
+                                           
+                                            <small *ngIf="(modulo.clase ?? []).length > 0" style="color: #555;">
+                                                Curso: {{ modulo.clase[0].nombre }}
+                                            </small>
+                            
+                                            
+                                            <div class="text-end mt-2">
+                                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarModulo(modulo)"
+                                                    title="Eliminar">
+                                                    <i class="bi bi-trash"></i>
                                                 </button>
                                             </div>
                                         </div>

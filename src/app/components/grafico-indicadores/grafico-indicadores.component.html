@@ -19,7 +19,7 @@
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 1</h5>
             </div>
-            <div class="card-body"> 
+            <div class="card-body">
                 <p class="card-text">
                     Qué iniciativas se han realizado dirigidas a los ODS por curso académico
                 </p>
@@ -141,18 +141,18 @@
             </div>
         </div>
     </div>
-        <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
-            <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador10.2" (click)="chartIndicador10()">
-                <div class="card-header text-white">
-                    <h5 class="card-title">Indicador 10.2</h5>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Número de Iniciativas trabajadas por cada trabajador (profesor).
-                    </p>
-                </div>
+    <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
+        <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador10.2" (click)="chartIndicador10()">
+            <div class="card-header text-white">
+                <h5 class="card-title">Indicador 10.2</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Número de Iniciativas trabajadas por cada trabajador (profesor).
+                </p>
             </div>
         </div>
+    </div>
     <div class="col-md-4 col-xl-3 col-xxl-3 col-sm-4 col-lg-4 mb-3">
         <div class="card p-4 h-100" data-bs-toggle="modal" data-bs-target="#indicador11" (click)="chartIndicador11()">
             <div class="card-header text-white">
@@ -230,7 +230,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <h6 class="fw-bold">Cantidad de iniciativas:</h6>
-                      <h1>{{ numeroIniciativas }}</h1>
+                    <h1>{{ numeroIniciativas }}</h1>
                 </div>
             </div>
             <div class="modal-footer">
@@ -279,22 +279,28 @@
                     <h6 class="fw-bold">En qué consiste cada acción, proyecto, iniciativa y si hay un producto final
                     </h6>
                 </div>
-                <table class="table table-bordered table-striped">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>Iniciativa</th>
-                            <th>Descripcion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (iniciativa of explicacionIniciativas; track $index) {
-                        <tr>
-                            <td><i class="bi bi-check-circle me-1"></i>{{iniciativa.nombre}}</td>
-                            <td><i class="bi bi-check-circle me-1"></i>{{iniciativa.explicacion}}</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
+                <div class="custom-table-box  shadow-sm">
+                    <div class="row bg-primary-subtle text-primary-emphasis fw-bold py-2 border-bottom">
+                        <div class="col-6 text-white">
+                            <i class="bi bi-lightbulb-fill me-2 px-3"></i>Iniciativa
+                        </div>
+                        <div class="col-6 text-white">
+                            <i class="bi bi-info-circle-fill me-2 px-3"></i>Descripción
+                        </div>
+                    </div>
+                    @for (iniciativa of explicacionIniciativas; track $index) {
+                    <div class="row align-items-center py-2 border-bottom hover-row">
+                        <div class="col-6">
+                            <i class="bi bi-lightning-charge-fill me-2 icon-dark-blue px-3"></i>
+                            {{ iniciativa.nombre }}
+                        </div>
+                        <div class="col-6">
+                            <i class="bi bi-card-text me-2 icon-dark-blue px-3"></i>
+                            {{ iniciativa.explicacion }}
+                        </div>
+                    </div>
+                    }
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -408,34 +414,39 @@
                 <div class="card-title">
                     <h6 class="fw-bold">Si las acciones, proyectos se han difundido</h6>
                 </div>
-                <table class="table table-bordered table-striped">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>ODSs</th>
-                            <th>Metas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (ini of iniciativasFiltradas; track $index) {
-                        <tr>
+                <div class="table-responsive">
+                    <div class="custom-table-container shadow-sm rounded overflow-hidden">
+                        <div class="custom-table-header d-flex fw-bold text-white px-3 py-2">
+                            <div class="flex-fill text-start">
+                                <i class="bi bi-check2-circle me-2"></i>ODSs
+                            </div>
+                            <div class="flex-fill text-start">
+                                <i class="bi bi-globe2 me-2"></i>Metas / Difusión
+                            </div>
+                        </div>
 
-                            <td><i class="bi bi-check-circle me-1"></i>{{ini.nombre}}</td>
+                        <div *ngFor="let ini of iniciativasFiltradas; index as i"
+                            class="custom-table-row d-flex px-3 py-2 align-items-start">
+                            <div class="flex-fill text-start">
+                                <i class="bi bi-check-circle text-success me-2"></i>
+                                <strong>{{ ini.nombre }}</strong>
+                            </div>
+                            <div class="flex-fill text-start">
+                                <i class="bi bi-globe2 text-primary me-2"></i>
+                                <ng-container *ngIf="ini.redes_sociales.length > 0; else sinRedes">
+                                    Se ha difundido por {{ ini.redes_sociales.length }} red{{ ini.redes_sociales.length
+                                    > 1 ? 'es' : ''
+                                    }} social{{ ini.redes_sociales.length > 1 ? 'es' : '' }}.
+                                </ng-container>
+                                <ng-template #sinRedes>
+                                    No se ha difundido por ninguna red social.
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                            @if (ini.redes_sociales.length > 0) {
-                            @if (ini.redes_sociales.length == 1) {
-                            <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red
-                                social</td>
-                            }@else {
-                            <td><i class="bi bi-globe2 me-1"></i>Se ha difundido por {{ini.redes_sociales.length}} red
-                                social</td>
-                            }
-                            }@else {
-                            <td><i class="bi bi-globe2 me-1"></i>No se ha difundido por ninguna red social</td>
-                            }
-                        </tr>
-                        }
-                    </tbody>
-                </table>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -518,26 +529,33 @@
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="indicador10.2ModalLabel">Indicador 10.2 - Iniciativas por Profesor</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
-            
+
             <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover align-middle text-center">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Profesor</th>
-                                <th scope="col">Cantidad de Iniciativas</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of cantIniciativaProfesor">
-                                <td>{{ item.nombre_profesor }}</td>
-                                <td>{{ item.cantDeIniciativas }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="custom-table-box shadow-sm rounded overflow-hidden">
+                    <div class="custom-table-header bg-primary-subtle d-flex text-white fw-bold px-3 py-2">
+                        <div class="flex-fill text-start">
+                            <i class="bi bi-person-fill me-2"></i>Profesor
+                        </div>
+                        <div class="flex-fill text-start">
+                            <i class="bi bi-bar-chart-fill me-2"></i>Iniciativas
+                        </div>
+                    </div>
+
+                    <div *ngFor="let item of cantIniciativaProfesor"
+                        class="custom-table-row d-flex align-items-center px-3 py-2">
+                        <div class="flex-fill text-start">
+                            <i class="bi bi-person-circle text-primary me-2"></i>
+                            <strong>{{ item.nombre_profesor }}</strong>
+                        </div>
+                        <div class="flex-fill text-start">
+                            {{ item.cantDeIniciativas }}
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -556,13 +574,13 @@
             <div class="modal-body">
                 <div class="card-title">
                     <h6 class="fw-bold">De las acciones realizadas cuales son nuevas, innovadoras o que han hecho alguna
-                        modificación
-                        importante</h6>
+                        modificación importante</h6>
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div style="width: 60%; max-width: 500px;">
-                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions"
+                            [type]="'pie'"></canvas>
                     </div>
                 </div>
 
@@ -589,7 +607,8 @@
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div style="width: 60%; max-width: 500px;">
-                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions"
+                            [type]="'pie'"></canvas>
                     </div>
                 </div>
 
@@ -617,7 +636,8 @@
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div style="width: 60%; max-width: 500px;">
-                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions"
+                            [type]="'pie'"></canvas>
                     </div>
                 </div>
 

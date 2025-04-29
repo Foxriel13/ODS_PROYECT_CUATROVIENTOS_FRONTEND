@@ -56,14 +56,13 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   //Indicadores
   iniciativasPorCurso!: IniciativasPorCurso[];
-  numeroIniciativas!: number;
+  numeroIniciativas: number = 0;
   ciclosYModulosConIniciativas!: CiclosYModulosConIniciativas[];
   explicacionIniciativas!: ExplicacionIniciativas[];
   odsTrabajadosYSusMetas!: OdsTrabajadosYSusMetas[];
   tieneEntidadesExternas!: TieneEntidadesExternas[];
   tieneRRSS!: TieneRRSS[];
   tipoIniciativa!: TipoIniciativa[];
-  // cantProfesores!: number[];
   cantidadProfesores: number = 0;
   cantIniciativaProfesor!: CantIniciativasProfesor[];
   diferenciaInnovadoresYNo!: DiferenciaInnovadoresYNo[];
@@ -109,7 +108,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     });
 
     this.indicadoresService.getCantidadIniciativas().subscribe(data => {
-      this.numeroIniciativas = data;
+      this.numeroIniciativas = data.cantidad;
     });
 
     this.indicadoresService.getCiclosYModulosConIniciativas().subscribe(data => {
@@ -158,7 +157,6 @@ export class GraficoIndicadoresComponent implements OnInit{
     });
 
     this.indicadoresService.getHaTenidoActividad().subscribe(data => {
-      console.log(data)
       this.haTendioActividad = data;
     });
   }
@@ -194,7 +192,6 @@ export class GraficoIndicadoresComponent implements OnInit{
   };
 
   //Charts TIPO PIE
-  // Gráfico de pie para el Indicador 11
   private getDefaultPieChartOptions(): ChartConfiguration<'pie'>['options'] {
     return {
       responsive: true,
@@ -251,30 +248,24 @@ export class GraficoIndicadoresComponent implements OnInit{
     };
   }
 
-  // En el indicador dos no es necesario usar gráfico porque solo es un número
-  getIndicador2(): number {
-    if (!isNaN(this.numeroIniciativas)) {
-       return this.numeroIniciativas; // Devuelve el primer elemento del array
-    }
-    return 0; // Devuelve un objeto con cantidad 0 si no hay datos
+  chartIndicador3():void {
+    const iniciativasUnicas = this.ciclosYModulosConIniciativas.map(ini => ini.nombre_iniciativa);
+    const dataPorCurso = this.ciclosYModulosConIniciativas.map(ini => ini.ciclos.length); // Aquí accedemos correctamente a la longitud del array 'ciclos'
+    
+    const backgroundColors = ['#A8D5BA', '#F9C6C9'];
+    const hoverColors = ['#C3E6CD', '#FADADD'];
   }
+  // chartIndicador11(): void {
+  //   const labels = ['Innovadoras', 'No Innovadoras'];
+  //   const data = [
+  //     this.diferenciaInnovadoresYNo[0].cantidad_innovadoras,
+  //     this.diferenciaInnovadoresYNo[0].cantidad_no_innovadoras,
+  //   ];
+  //   const backgroundColors = ['#A8D5BA', '#F9C6C9'];
+  //   const hoverColors = ['#C3E6CD', '#FADADD'];
 
-
-  chartIndicador3() {
-
-    this.reiniciarChart()
-
-    this.barChartData = {
-      labels: this.ciclosYModulosConIniciativas.map(cymci => cymci.nombre_iniciativa),
-      datasets: [
-        {
-          label: 'Ciclos y modulos por iniciativa',
-          data: this.ciclosYModulosConIniciativas.map(cymci => cymci.ciclos.length), // Aquí accedemos correctamente a la longitud del array 'ciclos'
-        }
-      ]
-    };
-  }
-
+  //   this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
+  // }
   chartIndicador4() {
     this.reiniciarChart()
     /* 

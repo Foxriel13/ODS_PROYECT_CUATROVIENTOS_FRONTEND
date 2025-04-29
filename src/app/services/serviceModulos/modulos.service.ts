@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Modulos } from '../../models/modulos.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Curso } from '../../models/curso.model';
+import { Modulo } from '../../models/indicadores/ciclosYModulosConInciativas';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 export class ModulosService {
 
   private apiUrl = 'http://localhost:8000/modulos';
-  private modulo: Modulos[] = [];
+  private modulo: Modulo[] = [];
   constructor(private http: HttpClient) { }
 
   // Obtener todos los Módulos
@@ -25,19 +27,18 @@ export class ModulosService {
 
 
   //Post
-  createModulo(modulo: Modulos): Observable<Modulos> {
+  createModulo(modulo: Modulo): Observable<Modulo> {
     console.log(modulo);
 
     const requestBody = {
-      nombreModulo: modulo.nombre,
-      modulos: modulo.clase.map(clase => clase.id),
+      nombreModulo: modulo.nombre_modulo
     };
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post<Modulos>(this.apiUrl, requestBody, { headers }).pipe(
+    return this.http.post<Modulo>(this.apiUrl, requestBody, { headers }).pipe(
       tap(data => {
-        console.log('Iniciativa creada:', data);
+        console.log('Modulo creado:', data);
         this.modulo.push(data);  // Suponiendo que 'this.iniciativas' es un array donde guardas las iniciativas
       }),
       catchError(error => {

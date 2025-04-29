@@ -19,6 +19,7 @@ import { entidadesExternas } from '../../models/entidades_externas.model';
 import { RedesSocialesService } from '../../services/serviceRedesSociales/redes-sociales.service';
 import { Redes_Sociales } from '../../models/redes_sociales';
 import { Router } from '@angular/router';
+import { redesSociales } from '../../models/indicadores/tieneRRSS';
 
 @Component({
   selector: 'app-administrador-entidades',
@@ -80,20 +81,129 @@ export class AdministradorEntidadesComponent implements OnInit {
 
   onTabChange(tab: string) {
     this.selectedTab = tab;
+    
     if (tab === 'actividades') {
-      this.filtrarActividades();
+      this.loadActividades(); // Mejor: recargar también actividades si quieres
     } else if (tab === 'metas') {
-      this.loadMetasList(); // Cargar metas solo una vez
+      this.cargarMetas(); // <-- Usar cargarMetas(), no loadMetasList()
     }
   }
+  
 
   actualizar(item: any) {
     console.log('Actualizar', item);
   }
-
-  eliminar(item: any) {
-    console.log('Eliminar', item);
+  cargarActividades() {
+    this.actividadesServicie.getActividadesList().subscribe(actividades => {
+      this.ActividadesList = actividades;
+    });
   }
+  cargarMetas() {
+    this.metasService.getMetasList().subscribe(metas => {
+      this.MetasList = metas;
+    });
+  }
+  cargarModulos() {
+    this.modulosService.getModulosList().subscribe(modulos => {
+      this.ModulosList = modulos;
+    });
+  }
+  cargarClases() {
+    this.cursosService.getCursosList().subscribe(cursos => {
+      this.ClasesList = cursos;
+    });
+  }
+  cargarProfesores() {
+    this.profesoresService.getProfesoresList().subscribe(profes => {
+      this.ProfesoresList = profes;
+    });
+  }
+  cargarEntidades() {
+    this.entidadesesService.getEntidadesList().subscribe(entidades => {
+      this.entidadesList = entidades;
+    });
+  }
+  cargarRedes() {
+    this.redesService.getRedesSocialesList().subscribe(redes => {
+      this.redes_socialesList = redes;
+    });
+  }
+  eliminar(item: any) {
+    if (this.selectedTab == "actividades") {
+      const actividadEliminar: Actividad = item;
+      this.actividadesServicie.deleteActividad(actividadEliminar.id).subscribe({
+        next: () => {
+          console.log('Actividad eliminada correctamente');
+          this.cargarActividades(); // 🔥 Recargar lista después de eliminar
+        },
+        error: (error) => console.error('Error al eliminar la actividad:', error)
+      });
+    }
+  
+    if (this.selectedTab == "metas") {
+      const metasEliminar: Metas = item;
+      this.metasService.deleteMeta(metasEliminar.id).subscribe({
+        next: () => {
+          console.log('Meta eliminada correctamente');
+          this.cargarMetas(); // 🔥 Recargar lista después de eliminar
+        },
+        error: (error) => console.error('Error al eliminar la meta:', error)
+      });
+    }
+    if (this.selectedTab == "modulos") {
+      if(this.selectedModuloTab == "modulos"){
+        const modulosEliminar: Modulos = item;
+        this.modulosService.deleteModulo(modulosEliminar.id).subscribe({
+          next: () => {
+            console.log('Modulo eliminada correctamente');
+            this.cargarModulos(); // 🔥 Recargar lista después de eliminar
+          },
+          error: (error) => console.error('Error al eliminar el modulo:', error)
+        });
+      }else if(this.selectedModuloTab == "clases"){
+        const cursoEliminar: Curso = item;
+        this.cursosService.deleteCurso(cursoEliminar.id).subscribe({
+          next: () => {
+            console.log('Curso eliminada correctamente');
+            this.cargarClases(); // 🔥 Recargar lista después de eliminar
+          },
+          error: (error) => console.error('Error al eliminar el Curso:', error)
+        });
+      }
+      
+    }
+    if (this.selectedTab == "profesores") {
+      const profesorEliminar: Profesores = item;
+      this.profesoresService.eliminarProfesor(profesorEliminar.id).subscribe({
+        next: () => {
+          console.log('profesor eliminada correctamente');
+          this.cargarProfesores(); // 🔥 Recargar lista después de eliminar
+        },
+        error: (error) => console.error('Error al eliminar el profesor:', error)
+      });
+    }    
+    if (this.selectedTab == "entidades") {
+      const entidadesEliminar: entidadesExternas = item;
+      this.entidadesesService.deleteEntidad(entidadesEliminar.id).subscribe({
+        next: () => {
+          console.log('entidad eliminada correctamente');
+          this.cargarEntidades(); // 🔥 Recargar lista después de eliminar
+        },
+        error: (error) => console.error('Error al eliminar el entidad:', error)
+      });
+    } 
+    if (this.selectedTab == "redes") {
+      const redesEliminar: Redes_Sociales = item;
+      this.redesService.eliminarRed(redesEliminar.id).subscribe({
+        next: () => {
+          console.log('red eliminada correctamente');
+          this.cargarRedes(); // 🔥 Recargar lista después de eliminar
+        },
+        error: (error) => console.error('Error al eliminar el red:', error)
+      });
+    }   
+  }
+  
 
   loadActividades(): void {
     this.actividadesServicie.getActividadesList().subscribe(

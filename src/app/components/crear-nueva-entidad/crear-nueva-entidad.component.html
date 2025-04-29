@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-3">
                     <label>Nombre de la Meta</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre de la meta">
+                    <input type="text" class="form-control" id="nombreMeta" placeholder="Nombre de la meta">
                 </div>
             </div>
             <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-12 d-flex justify-content-center mt-3">
-            <button class="btn btn-success" (click)="crearActividad()">Crear Meta</button>
+            <button class="btn btn-success" (click)="crearMeta()">Crear Meta</button>
         </div>
 
         <!-- Línea de separación -->
@@ -60,18 +60,18 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <label>Nombre del ODS</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre del ODS">
+                    <input type="text" class="form-control" id="nombreOds" placeholder="Nombre del ODS">
                 </div>
                 <div class="mb-3">
                     <label>Dimensión del ODS</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Dimensión del ODS">
+                    <input type="text" class="form-control" id="nombreDimension" placeholder="Dimensión del ODS">
                 </div>
             </div>
         </div>
 
         <!-- Botón para abrir la ventanita -->
         <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearActividad()">Crear ODS</button>
+            <button class="btn btn-success" (click)="crearOds()">Crear ODS</button>
 
             <!-- Icono para mostrar información -->
             <button type="button" class="btn btn-outline-info ms-2" data-bs-toggle="modal" data-bs-target="#infoModal">
@@ -103,12 +103,12 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <label>Nombre del Modulo</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre del Modulo">
+                    <input type="text" class="form-control" id="nombreModulo" placeholder="Nombre del Modulo">
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearActividad()">Crear Modulo</button>
+            <button class="btn btn-success" (click)="crearModulo()">Crear Modulo</button> <!-- Línea de separación TODOMODULOS -->
         </div>
         <!-- Línea de separación -->
         <hr class="my-4">
@@ -117,13 +117,13 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <label>Nombre de la Clase</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre de la Clase">
+                    <input type="text" class="form-control" id="nombreCurso" placeholder="Nombre de la Clase">
                 </div>
             </div>
         </div>
 
         <div class="col-12 d-flex justify-content-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearActividad()">Crear Clase</button>
+            <button class="btn btn-success" (click)="crearCurso()">Crear Clase</button>
         </div>
     </div>
     <div *ngIf="selectedTab === 'profesores'">
@@ -131,12 +131,12 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <label>Nombre del Profesor</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre del Profesor">
+                    <input type="text" class="form-control" id="nombreProfesor" placeholder="Nombre del Profesor">
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearActividad()">Crear Profesor</button>
+            <button class="btn btn-success" (click)="crearProfesor()">Crear Profesor</button>
         </div>
     </div>
     <div *ngIf="selectedTab === 'entidades'">
@@ -144,50 +144,29 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <label>Nombre de la Entidad</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre de la entidad">
+                    <input type="text" class="form-control" id="nombreEntidad" placeholder="Nombre de la entidad">
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearActividad()">Crear Entidad</button>
+            <button class="btn btn-success" (click)="crearEntidad()">Crear Entidad</button>
         </div>
     </div>
     <div *ngIf="selectedTab === 'redes'">
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label>Seleccionar Redes Sociales</label>
-                    <select [(ngModel)]="redes_sociales" name="redes_sociales" class="form-control">
-                        <option value="" disabled selected>Selecciona una red Social</option>
-                        <!-- Recorremos la lista de redes sociales y mostramos cada una -->
-                        <option *ngFor="let item of redes_socialesList" [ngValue]="item">
-                            - {{ item.nombre }}
-                        </option>
-                    </select>
+                    <label>Nombre del enlace</label>
+                    <input type="text" class="form-control" id="nombreEnlace" placeholder="Nombre del Enlace">
                 </div>
                 <div class="mb-3">
-                    <label>Nombre del Enlace</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre del Enlace">
+                    <label>Ruta del Enlace</label>
+                    <input type="text" class="form-control" id="nombreRuta" placeholder="Nombre del Enlace">
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearActividad()">Crear Enlace</button>
-        </div>
-        <!-- Línea de separación -->
-        <hr class="my-4">
-
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="mb-3">
-                    <label>Nombre de la Red Social</label>
-                    <input type="text" class="form-control" id="nombreActividad" placeholder="Nombre de la Red Social">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 d-flex justify-content-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearActividad()">Crear Red Social</button>
+            <button class="btn btn-success" (click)="crearRedSocial()">Crear Enlace</button>
         </div>
     </div>
 </div>

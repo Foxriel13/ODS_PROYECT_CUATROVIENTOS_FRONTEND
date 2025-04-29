@@ -51,7 +51,7 @@ export class ServiceProfesoresService {
   }
   //Delete
   eliminarProfesor(id: number): Observable<void> {
-    let url = this.apiUrl + "/${" + id + "}";
+    let url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }
 }

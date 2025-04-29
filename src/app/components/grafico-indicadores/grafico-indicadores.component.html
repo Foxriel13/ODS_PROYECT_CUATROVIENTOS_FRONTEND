@@ -19,7 +19,7 @@
             <div class="card-header text-white">
                 <h5 class="card-title">Indicador 1</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body"> 
                 <p class="card-text">
                     Qué iniciativas se han realizado dirigidas a los ODS por curso académico
                 </p>
@@ -560,9 +560,11 @@
                         importante</h6>
                 </div>
 
-                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
-                    [legend]="barChartLegend" [type]="'bar'">
-                </canvas>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div style="width: 60%; max-width: 500px;">
+                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                    </div>
+                </div>
 
             </div>
             <div class="modal-footer">
@@ -585,9 +587,11 @@
                     <h6 class="fw-bold">Cuánto tiempo se ha dedicado a cada acción</h6>
                 </div>
 
-                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
-                    [legend]="barChartLegend" [type]="'bar'">
-                </canvas>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div style="width: 60%; max-width: 500px;">
+                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                    </div>
+                </div>
 
             </div>
             <div class="modal-footer">
@@ -611,9 +615,11 @@
                         etc.</h6>
                 </div>
 
-                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
-                    [legend]="barChartLegend" [type]="'bar'">
-                </canvas>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div style="width: 60%; max-width: 500px;">
+                        <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                    </div>
+                </div>
 
             </div>
             <div class="modal-footer">

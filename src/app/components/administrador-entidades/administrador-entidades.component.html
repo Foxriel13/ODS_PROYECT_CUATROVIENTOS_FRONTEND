@@ -63,17 +63,11 @@
     <!-- Botones para cambiar entre Módulos y Clases -->
     <div class="mb-3 text-center">
       <div class="btn-group" role="group">
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          [class.active]="selectedModuloTab === 'modulos'"
+        <button type="button" class="btn btn-outline-primary" [class.active]="selectedModuloTab === 'modulos'"
           (click)="selectedModuloTab = 'modulos'">
           Módulos
         </button>
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          [class.active]="selectedModuloTab === 'clases'"
+        <button type="button" class="btn btn-outline-primary" [class.active]="selectedModuloTab === 'clases'"
           (click)="selectedModuloTab = 'clases'">
           Clases
         </button>
@@ -81,9 +75,7 @@
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
-      <div
-        class="col"
-        *ngFor="let item of selectedModuloTab === 'modulos' ? ModulosList : ClasesList">
+      <div class="col" *ngFor="let item of selectedModuloTab === 'modulos' ? ModulosList : ClasesList">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">{{ item.nombre }}</h5>

@@ -66,26 +66,31 @@ export class CrearIniciativaComponent implements OnInit {
   boton: boolean = false;
   listMetasOds: Metas[] = [];
   redes_socialesSeleccionados: Redes_Sociales[] = [];
-  ods: Ods = {  // ODS será un solo objeto ahora
+  ods: Ods = {
     idOds: 0,
     nombre: '',
-    dimension: ''
+    dimension: '',
+    eliminado: false
   };
   profesor: Profesores = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   };
   actividad: Actividad = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   }
   curso: Curso = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   };
   entidad: entidadesExternas = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   };
   Metas: Metas = {
     id: 0,
@@ -93,18 +98,22 @@ export class CrearIniciativaComponent implements OnInit {
     ods: {
       idOds: 0,
       nombre: '',
-      dimension: ''
-    }
+      dimension: '',
+      eliminado: false
+    },
+    eliminado: false
   };
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
-    clases: []
+    clases: [],
+    eliminado: false
   };
   redes_sociales: Redes_Sociales = {
     id: 0,
     nombre: '',
-    enlace: ''
+    enlace: '',
+    eliminado: false
   }
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
@@ -417,7 +426,8 @@ export class CrearIniciativaComponent implements OnInit {
         let nuevoModulo: Modulos = {
           id: idModuloCorrecto,
           nombre: moduloNew.nombre,
-          clases: [cursoNew] // Se inicializa con el curso seleccionado
+          clases: [cursoNew], // Se inicializa con el curso seleccionado
+          eliminado: false
         };
 
         this.moduloSeleccionados.push(nuevoModulo);
@@ -459,7 +469,8 @@ export class CrearIniciativaComponent implements OnInit {
       let metaNueva: Metas = {
         id: this.metasSeleccionadas.length + 1, // Puedes cambiar la lógica del ID si es necesario
         descripcion: nombreMeta,
-        ods: odsNew
+        ods: odsNew,
+        eliminado: false
       };
 
       // Verificar si la meta ya está añadida

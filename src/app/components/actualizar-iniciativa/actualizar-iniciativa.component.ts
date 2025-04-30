@@ -65,26 +65,31 @@ export class ActualizarIniciativaComponent {
   redes_socialesSeleccionados: Redes_Sociales[] = [];
   iniciativaList: Iniciativas[] = [];
   boton : boolean = false;
-  ods: Ods = {  // ODS será un solo objeto ahora
+  ods: Ods = {
     idOds: 0,
     nombre: '',
-    dimension: ''
+    dimension: '',
+    eliminado: false
   };
   profesor: Profesores = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   };
   curso: Curso = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   };
   entidad: entidadesExternas = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   };
   actividad: Actividad = {
     id: 0,
-    nombre: ''
+    nombre: '',
+    eliminado: false
   }
   Metas: Metas = {
     id: 0,
@@ -92,13 +97,16 @@ export class ActualizarIniciativaComponent {
     ods: {
       idOds: 0,
       nombre: '',
-      dimension: ''
-    }
+      dimension: '',
+      eliminado: false
+    },
+    eliminado: false
   };
   modules: Modulos = {
     id: 0, // Identificador numérico
     nombre: "", // Nombre del ODS
-    clases: []
+    clases: [],
+    eliminado: false
   };
   iniciativa: Iniciativas = {
     id: 0,
@@ -124,7 +132,8 @@ export class ActualizarIniciativaComponent {
   redes_sociales: Redes_Sociales = {
     id: 0,
     nombre: '',
-    enlace: ''
+    enlace: '',
+    eliminado: false
   }
 
   metaAyadir: Metas | null = null;
@@ -745,8 +754,10 @@ export class ActualizarIniciativaComponent {
     if (nombre && link) { // Verifica que los elementos existen antes de usarlos
       var red_socialNueva: Redes_Sociales = {
         id: 0,
-        nombre: nombre.value,  // Usamos .value en lugar de .textContent
-        enlace: link.value     // Usamos .value en lugar de .textContent
+        nombre: nombre.value, // Usamos .value en lugar de .textContent
+        enlace: link.value // Usamos .value en lugar de .textContent
+        ,
+        eliminado: false
       };
 
       this.redes_socialesServicie.CreateRedesSocialesList(red_socialNueva).subscribe(

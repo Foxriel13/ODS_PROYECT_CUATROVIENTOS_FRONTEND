@@ -44,7 +44,8 @@ export class AdministradorEntidadesComponent implements OnInit {
   selectedOds: Ods = {
     idOds: 0,
     nombre: '',
-    dimension: ''
+    dimension: '',
+    eliminado: false
   };
   
   selectedRed: string = '';
@@ -69,22 +70,20 @@ export class AdministradorEntidadesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadActividades();
+    this.cargarActividades();
     this.loadOdsList();
-    this.loadModulosList();
-    this.loadClasesList();
-    this.loadProfesoresList();
-    this.loadEntidadesList();
-    this.loadRedesList();
-    this.loadRedesListFiltrado();
-
+    this.cargarModulos();
+    this.cargarClases();
+    this.cargarProfesores();
+    this.cargarEntidades();
+    this.cargarRedes();
   }
 
   onTabChange(tab: string) {
     this.selectedTab = tab;
     
     if (tab === 'actividades') {
-      this.loadActividades(); // Mejor: recargar también actividades si quieres
+      this.cargarActividades(); // Mejor: recargar también actividades si quieres
     } else if (tab === 'metas') {
       this.cargarMetas(); // <-- Usar cargarMetas(), no loadMetasList()
     }
@@ -173,46 +172,89 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarActividades() {
     this.actividadesServicie.getActividadesList().subscribe(actividades => {
-      this.ActividadesList = actividades;
+      // Filtrar las actividades eliminadas y duplicadas
+      this.ActividadesList = actividades
+        .filter(actividad => !actividad.eliminado)
+        .filter((actividad, index, self) =>
+          index === self.findIndex((t) => t.nombre === actividad.nombre)
+        );
     });
   }
+  
   cargarMetas() {
     this.metasService.getMetasList().subscribe(metas => {
-      this.MetasList = metas;
+      // Filtrar las metas eliminadas y duplicadas
+      this.MetasList = metas
+        .filter(meta => !meta.eliminado)
+        .filter((meta, index, self) =>
+          index === self.findIndex((t) => t.descripcion === meta.descripcion)
+        );
     });
   }
+  
   cargarModulos() {
     this.modulosService.getModulosList().subscribe(modulos => {
-      this.ModulosList = modulos;
+      // Filtrar los módulos eliminados y duplicados
+      this.ModulosList = modulos
+        .filter(modulo => !modulo.eliminado)
+        .filter((modulo, index, self) =>
+          index === self.findIndex((t) => t.nombre === modulo.nombre)
+        );
     });
   }
+  
   cargarClases() {
     this.cursosService.getCursosList().subscribe(cursos => {
-      this.ClasesList = cursos;
+      // Filtrar las clases eliminadas y duplicadas
+      this.ClasesList = cursos
+        .filter(clase => !clase.eliminado)
+        .filter((clase, index, self) =>
+          index === self.findIndex((t) => t.nombre === clase.nombre)
+        );
     });
   }
+  
   cargarProfesores() {
     this.profesoresService.getProfesoresList().subscribe(profes => {
-      this.ProfesoresList = profes;
+      // Filtrar los profesores eliminados y duplicados
+      this.ProfesoresList = profes
+        .filter(profesor => !profesor.eliminado)
+        .filter((profesor, index, self) =>
+          index === self.findIndex((t) => t.nombre === profesor.nombre)
+        );
     });
   }
+  
   cargarEntidades() {
     this.entidadesesService.getEntidadesList().subscribe(entidades => {
-      this.entidadesList = entidades;
+      // Filtrar las entidades eliminadas y duplicadas
+      this.entidadesList = entidades
+        .filter(entidad => !entidad.eliminado)
+        .filter((entidad, index, self) =>
+          index === self.findIndex((t) => t.nombre === entidad.nombre)
+        );
     });
   }
+  
   cargarRedes() {
     this.redesService.getRedesSocialesList().subscribe(redes => {
-      this.redes_socialesList = redes;
+      // Filtrar las redes sociales eliminadas y duplicadas
+      this.redes_socialesList = redes
+        .filter(red => !red.eliminado)
+        .filter((red, index, self) =>
+          index === self.findIndex((t) => t.enlace === red.enlace)
+        );
     });
   }
+  
+  
   eliminar(item: any) {
     if (this.selectedTab == "actividades") {
       const actividadEliminar: Actividad = item;
       this.actividadesServicie.deleteActividad(actividadEliminar.id).subscribe({
         next: () => {
           console.log('Actividad eliminada correctamente');
-          this.cargarActividades(); // 🔥 Recargar lista después de eliminar
+          this.filtrarActividades(); // 🔥 Recargar lista después de eliminar
         },
         error: (error) => console.error('Error al eliminar la actividad:', error)
       });
@@ -231,7 +273,8 @@ export class AdministradorEntidadesComponent implements OnInit {
     if (this.selectedTab == "modulos") {
       if(this.selectedModuloTab == "modulos"){
         const modulosEliminar: Modulos = item;
-        this.modulosService.deleteModulo(modulosEliminar.id).subscribe({
+        const idModulo = this.ModulosList.indexOf(modulosEliminar) + 1;
+        this.modulosService.deleteModulo(idModulo).subscribe({
           next: () => {
             console.log('Modulo eliminada correctamente');
             this.cargarModulos(); // 🔥 Recargar lista después de eliminar
@@ -282,78 +325,18 @@ export class AdministradorEntidadesComponent implements OnInit {
     }   
   }
   
-
-  loadActividades(): void {
-    this.actividadesServicie.getActividadesList().subscribe(
-      (response) => {
-        this.ActividadesList = response;
-        this.filtrarActividades();
-      },
-      (error) => {
-        console.error('Error al cargar las actividades:', error);
-      }
-    );
-  }
-  loadModulosList(): void {
-    this.modulosService.getModulosList().subscribe(
-      (response) => {
-        // Filtrar los módulos para que no haya duplicados según el idModulo
-        this.ModulosList = response.filter((modulo, index, self) =>
-          index === self.findIndex((t) => t.nombre === modulo.nombre)
-        );
-      },
-      (error) => {
-        console.error('Error al cargar los módulos:', error);
-      }
-    );
-  }
   
-  loadRedesList(): void {
-    this.redesService.getRedesSocialesList().subscribe(
-      (response) => {
-        this.redes_socialesList = response;
-      },
-      (error) => {
-        console.error('Error al cargar los ODS:', error);
-      }
-    );
-  }
-  loadEntidadesList(): void {
-    this.entidadesesService.getEntidadesList().subscribe(
-      (response) => {
-        this.entidadesList = response;
-      },
-      (error) => {
-        console.error('Error al cargar los ODS:', error);
-      }
-    );
-  }
-  loadClasesList(): void {
-    this.cursosService.getCursosList().subscribe(
-      (response) => {
-        this.ClasesList = response;
-      },
-      (error) => {
-        console.error('Error al cargar las clases:', error);
-      }
-    );
-  }
-  loadProfesoresList(): void {
-    this.profesoresService.getProfesoresList().subscribe(
-      (response) => {
-        this.ProfesoresList = response;
-      },
-      (error) => {
-        console.error('Error al cargar los profesores:', error);
-      }
-    );
-  }
+  
+  
 
   loadOdsList(): void {
     this.odsService.getOdsList().subscribe(
       (response) => {
-        this.odsList = response;
-        this.odsListDistinct = response.filter((ods, index, self) =>
+        // Filtrar ODS no eliminados
+        const odsNoEliminados = response.filter(ods => !ods.eliminado);
+  
+        this.odsList = odsNoEliminados;
+        this.odsListDistinct = odsNoEliminados.filter((ods, index, self) =>
           index === self.findIndex(t => t.idOds === ods.idOds)
         );
       },
@@ -362,6 +345,7 @@ export class AdministradorEntidadesComponent implements OnInit {
       }
     );
   }
+  
 
   loadMetasList(): void {
     if (this.metasLoaded) {
@@ -384,17 +368,22 @@ export class AdministradorEntidadesComponent implements OnInit {
   filtrarActividades(): void {
     this.actividadesServicie.getActividadesList().subscribe(
       (response) => {
+        // Primero filtramos las que no están eliminadas
+        const actividadesNoEliminadas = response.filter(item => !item.eliminado);
+  
+        // Luego, si hay una búsqueda activa, aplicamos el filtro adicional
         this.ActividadesList = this.busqueda
-          ? response.filter(item =>
-            item.nombre.toLowerCase().startsWith(this.busqueda.toLowerCase())
-          )
-          : response;
+          ? actividadesNoEliminadas.filter(item =>
+              item.nombre.toLowerCase().startsWith(this.busqueda.toLowerCase())
+            )
+          : actividadesNoEliminadas;
       },
       (error) => {
         console.error('Error al filtrar actividades:', error);
       }
     );
   }
+  
 
   filtrarMetasPorOds(): void {
     let filtradas = [...this.allMetas];
@@ -462,21 +451,6 @@ export class AdministradorEntidadesComponent implements OnInit {
     } else {
       this.redes_socialesList = [...this.redes_socialesOriginal];
     }
-  }
-  
-  loadRedesListFiltrado(): void {
-    this.redesService.getRedesSocialesList().subscribe(
-      (response) => {
-        this.redes_socialesList = response;
-        this.redes_socialesOriginal = [...response];
-        this.redesListDistinct = Array.from(
-          new Set(response.map(item => item.nombre))
-        );
-      },
-      (error) => {
-        console.error('Error al cargar las redes sociales:', error);
-      }
-    );
   }
   irANuevaPagina() {
     this.router.navigate(['/CrearEntidadNueva']);

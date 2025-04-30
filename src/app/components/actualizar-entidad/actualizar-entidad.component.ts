@@ -37,12 +37,14 @@ selectedTab: string = 'actividades';
   redes_sociales: Redes_Sociales = {
     id: 0,
     nombre: '',
-    enlace: ''
+    enlace: '',
+    eliminado: false
   }
-  ods: Ods = {  // ODS será un solo objeto ahora
+  ods: Ods = {
     idOds: 0,
     nombre: '',
-    dimension: ''
+    dimension: '',
+    eliminado: false
   };
 
   constructor(
@@ -100,7 +102,7 @@ selectedTab: string = 'actividades';
       return;
     }
   
-    const nuevaActividad: Actividad = { id: 0, nombre: nombreActividad.value };
+    const nuevaActividad: Actividad = { id: 0, nombre: nombreActividad.value, eliminado: false};
   
     this.actividadesServicie.createActividad(nuevaActividad).subscribe(
       (respuesta) => {
@@ -121,7 +123,10 @@ selectedTab: string = 'actividades';
       return;
     }
   
-    const nuevoProfesor: Profesores = { id: 0, nombre: nombreProfesor.value };
+    const nuevoProfesor: Profesores = {
+      id: 0, nombre: nombreProfesor.value,
+      eliminado: false
+    };
   
     this.profesoresService.createProfesor(nuevoProfesor).subscribe(
       (respuesta) => {
@@ -144,7 +149,10 @@ selectedTab: string = 'actividades';
       return;
     }
   
-    const nuevoEntidad: entidadesExternas = { id: 0, nombre: nombreEntidad.value };
+    const nuevoEntidad: entidadesExternas = {
+      id: 0, nombre: nombreEntidad.value,
+      eliminado: false
+    };
   
     this.entidaesService.createEntidad(nuevoEntidad).subscribe(
       (respuesta) => {
@@ -167,7 +175,10 @@ selectedTab: string = 'actividades';
       return;
     }
   
-    const nuevaRedSocial: Redes_Sociales = { id : 0, nombre: nombreEnlace.value, enlace: nombreRuta.value };
+    const nuevaRedSocial: Redes_Sociales = {
+      id: 0, nombre: nombreEnlace.value, enlace: nombreRuta.value,
+      eliminado: false
+    };
   
     this.redes_socialesServicie.CreateRedesSocialesList(nuevaRedSocial).subscribe(
       (respuesta) => {
@@ -190,7 +201,10 @@ selectedTab: string = 'actividades';
     }
     const odsSelected: Ods = this.ods
     const idPos = this.odsList.indexOf(odsSelected) +1;
-    const nuevaMeta: Metas = { id: 0, descripcion: nombreMeta.value, ods: odsSelected};
+    const nuevaMeta: Metas = {
+      id: 0, descripcion: nombreMeta.value, ods: odsSelected,
+      eliminado: false
+    };
   
     this.metaService.createMeta(nuevaMeta,idPos).subscribe(
       (respuesta) => {
@@ -210,7 +224,7 @@ selectedTab: string = 'actividades';
       alert('El nombre del ods o de la dimension no puede estar vacío');
       return;
     }
-    const nuevoOds: Ods = {idOds: 0,nombre: nombreOds.value, dimension:nombreDimension.value}
+    const nuevoOds: Ods = {idOds: 0,nombre: nombreOds.value, dimension:nombreDimension.value, eliminado: false}
   
     this.odsService.createOds(nuevoOds).subscribe(
       (respuesta) => {
@@ -250,7 +264,10 @@ selectedTab: string = 'actividades';
       alert('El nombre del curso no puede estar vacío');
       return;
     }
-    const nuevoCurso: Curso = {id: 0,nombre: nombreCurso.value}
+    const nuevoCurso: Curso = {
+      id: 0, nombre: nombreCurso.value,
+      eliminado: false
+    }
   
     this.cursoService.createCusro(nuevoCurso).subscribe(
       (respuesta) => {

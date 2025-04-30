@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   onAuthStateChanged,
   connectAuthEmulator
 } from '@angular/fire/auth';
@@ -19,5 +20,8 @@ export class AuthService {
 
   signUp(email: string, password: string){
     return createUserWithEmailAndPassword(this.auth, email, password)
+  }
+  signIn(email: string, password: string){
+    return signInWithEmailAndPassword(this.auth, email, password)
   }
 }

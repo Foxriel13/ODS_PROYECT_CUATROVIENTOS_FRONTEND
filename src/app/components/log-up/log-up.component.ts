@@ -5,12 +5,12 @@ import { FadeRouterService } from '../../services/servicios/fade-rooter/fade-rou
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-log-in',
+  selector: 'app-log-up',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './log-in.component.html',
-  styleUrl: './log-in.component.scss'
+  templateUrl: './log-up.component.html',
+  styleUrl: './log-up.component.scss'
 })
-export class LogInComponent {
+export class LogUpComponent {
   fb = inject(FormBuilder)
   authService = inject(AuthService)
 
@@ -19,7 +19,7 @@ export class LogInComponent {
     this.fadeRouter.navigateWithFade(url);
   }
 
-  logInForm = this.fb.group({
+  logUpForm = this.fb.group({
     email: this.fb.control('', [
       Validators.required,
       Validators.email
@@ -31,26 +31,25 @@ export class LogInComponent {
 
   async submit() {
     //Validaciones
-    if(this.logInForm.invalid){
+    if(this.logUpForm.invalid){
       console.error("El formulario es invalido")
       return
     }
 
-    const email = this.logInForm.controls.email.value
-    const password = this.logInForm.controls.password.value
+    const email = this.logUpForm.controls.email.value
+    const password = this.logUpForm.controls.password.value
 
     try {
       if (!email || !password) {
-        console.error("Relena todos los campos antes del Login")
+        console.error("Relena todos los campos antes del Registro")
       } else {
         //Código del LogIn
-        const uid = await (await this.authService.signIn(email, password)).user.uid
-        console.log("Inicio de Sesión correcto")
-        console.log(uid)
+        await this.authService.signUp(email, password)
+        console.log("Usuario creado correctamente")
         this.goTo('/')
       }
     } catch (error) {
-      console.error("Error al iniciar sesión: " + error)
+      console.error("Error al guardar: " + error)
     }
 
   }

@@ -39,7 +39,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   private backgroundIntervalId: any;
 
   ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+    //throw new Error('Method not implemented.');
   }
 
   ngOnInit(): void {

@@ -1,12 +1,12 @@
 <div class="container">
     <div class="login-container">
-        <h3 class="text-center mb-4">Iniciar Sesión</h3>
-        <form [formGroup]="logInForm" (ngSubmit)="submit()">
+        <h3 class="text-center mb-4">Crea una cuenta</h3>
+        <form [formGroup]="logUpForm" (ngSubmit)="submit()">
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
                 <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo" formControlName="email" required>
                 
-                @if (logInForm.controls.email.touched && logInForm.controls.email.hasError('required')) {
+                @if (logUpForm.controls.email.touched && logUpForm.controls.email.hasError('required')) {
                     <small class="text-danger">El campo es requerido</small>
                 }
             </div>
@@ -14,21 +14,17 @@
                 <label for="password" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" formControlName="password" required>
 
-                @if (logInForm.controls.password.touched && logInForm.controls.password.hasError('required')) {
+                @if (logUpForm.controls.password.touched && logUpForm.controls.password.hasError('required')) {
                     <small class="text-danger">El campo es requerido</small>
                 }
             </div>
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-            </div>
-            <div class="text-center mt-3">
-                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit" class="btn btn-primary">Registrarse</button>
             </div>
             <div class="text-center mt-3">
                 <label for="email" class="form-label text-center">
-                    ¿No tienes una cuenta? <a [routerLink]="['/LogUp']">Registrate</a>
+                    ¿Ya tienes una cuenta? <a [routerLink]="['/LogIn']">Iniciar Sesión</a>
                 </label>
-                
             </div>
         </form>
     </div>

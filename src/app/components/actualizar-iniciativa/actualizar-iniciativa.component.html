@@ -12,7 +12,7 @@
             <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control"
                 (ngModelChange)="onChangeIniciativa($event)">
                 <option value="" disabled selected>Selecciona una Iniciativa</option>
-                <option *ngFor="let item of iniciativaList" [ngValue]="item">{{ item.id }} - {{ item.tipo }}</option>
+                <option *ngFor="let item of iniciativaList" [ngValue]="item">{{ item.id }} - {{ item.nombre }}</option>
             </select>
         </div>
         <div class="col-12">
@@ -210,8 +210,8 @@
 
                     <!-- Aquí es donde movemos la imagen box a la derecha -->
                     <div class="col-md-6">
-                        <div class="image-box">
-                            <h5>Profesores Seleccionados</h5>
+                        <div class="image-box">             
+                            <h5>Contratantes Seleccionados</h5>
                             <ul>
                                 <!-- Mostramos la lista de cursos seleccionados -->
                                 <li *ngFor="let item of entidadesSeleccionados; let i = index" class="mb-2">
@@ -366,7 +366,7 @@
                             
                                            
                                             <small *ngIf="(modulo.clases ?? []).length > 0" style="color: #555;">
-                                                clasess:
+                                                clases:
                                                 <ul style="padding-left: 20px; margin: 0;">
                                                     <li *ngFor="let clases of modulo.clases">{{ clases.nombre }}</li>
                                                 </ul>

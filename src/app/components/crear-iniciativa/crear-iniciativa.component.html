@@ -167,7 +167,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="image-box">
-                            <h5>Profesores Seleccionados</h5>
+                            <h5>Contratantes Seleccionados</h5>
                             <ul>
                                 <li *ngFor="let item of entidadesSeleccionados; let i = index" class="mb-2">
                                     {{ item.nombre }}
@@ -193,7 +193,7 @@
                                 </select>
                             </div>
                             <div class="mb-2">
-                                <label>Seleccionar clasess</label>
+                                <label>Seleccionar clases</label>
                                 <select [(ngModel)]="curso" name="curso" id="nombreclases" class="form-control">
                                     <option value="" disabled selected>Selecciona una clases</option>
                                     <option *ngFor="let item of cursoList" [ngValue]="item">{{ item.nombre }}</option>
@@ -204,7 +204,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="image-box">
-                                <h5>clasess Seleccionadas</h5>
+                                <h5>Módulos Seleccionados</h5>
                                 <ul>
                                     <li *ngFor="let item of moduloSeleccionados; let i = index" class="mb-2">
                                         {{ item.nombre }}

@@ -33,7 +33,9 @@
                             <input [(ngModel)]="imagen" name="imagen" type="text" class="form-control"
                                 placeholder="IA en educación" id="imagen">
                         </div>
-                        <button class="btn btn-info me-2" type="button" (click)="onImageChange()">Cargar Imagen</button>
+                        <button class="btn btn-info me-2 text-white" type="button" (click)="onImageChange()">Cargar Imagen</button>
+                        <button class="btn btn-primary me-2" type="button" (click)="validarIniciativa()">Guardar Iniciativa</button>
+
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -313,7 +315,7 @@
         <div class="d-flex justify-content-end mt-3">
             <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)"
                 [disabled]="boton">Cancelar</button>
-            <button class="btn btn-success" type="submit" [disabled]="boton">Crear</button>
+            <button class="btn btn-success" type="submit" [disabled]="boton">Crear Iniciativa</button>
         </div>
     </div>
 </form>

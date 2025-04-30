@@ -237,9 +237,11 @@ export class CrearIniciativaComponent implements OnInit {
   }
 
   validarIniciativa(): void {
+    
     if (this.nombre && this.fechaInicio && this.fechaFin && this.horas > 0) {
       this.tabsEnabled[1] = true; // Habilitar el tab de Metas
       this.onTabChange('metas');
+      console.log('validadooooo')
     } else {
       alert('Por favor, completa todos los campos de la iniciativa.');
     }

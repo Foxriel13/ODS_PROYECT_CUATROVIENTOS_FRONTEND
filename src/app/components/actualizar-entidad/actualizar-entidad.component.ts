@@ -19,6 +19,7 @@ import { ServiceProfesoresService } from '../../services/serviceProfesores/servi
 import { entidadesExternas } from '../../models/entidades_externas.model';
 import { ServiceEntidadesService } from '../../services/serviceEntidades/service-entidades.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actualizar-entidad',
@@ -28,7 +29,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './actualizar-entidad.component.scss'
 })
 export class ActualizarEntidadComponent {
-selectedTab: string = 'actividades';
+  requested: any;
+  selectedTab: string = 'actividades';
   odsList: Ods[] = [];
   odsListDistinct: Ods[] = [];
   listMetasOds: Metas[] = [];
@@ -56,17 +58,81 @@ selectedTab: string = 'actividades';
     private cursoService: ServiceCursosService,
     private profesoresService: ServiceProfesoresService,
     private moduloService: ModulosService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router // Inyección correcta de Router
   ) { }
   ngOnInit(): void {
+    this.loadOdsList();
     this.route.queryParams.subscribe(params => {
       console.log('Recibido:', params); // { id: '0', nombre: 'si' }
-      const requested = {
-        id: +params['id'],       // convierte a número
-        nombre: params['nombre']
-      };
-      // usar "requested" como desees
+
+      // Convert and store query params in requested object
+      this.requested = { ...params, id: +params['id'] }; // convierte solo el id a número, mantiene los demás
+
+
+      // Now you can safely access this.requested.tab
+      if (this.requested.tab === "actividades") {
+        this.selectedTab = "actividades";
+      } else if (this.requested.tab === "metas") {
+        this.selectedTab = "metas";
+      } else if (this.requested.tab === "modulos") {
+        this.selectedTab = "modulos";
+      } else if (this.requested.tab === "profesores") {
+        this.selectedTab = "profesores";
+      } else if (this.requested.tab === "entidades") {
+        this.selectedTab = "entidades";
+      } else if (this.requested.tab === "redes") {
+        this.selectedTab = "redes";
+      }
+
     });
+  }
+  ngAfterViewInit(): void {
+    if (this.requested.tab === "actividades") {
+      var actividadActualizar = document.getElementById("nombreActividad") as HTMLInputElement;
+      actividadActualizar.value = this.requested.nombre;
+      actividadActualizar.textContent = this.requested.nombre;
+    } else if (this.requested.tab === "metas") {
+      var odsSeleccionado = document.getElementById("odsElegido") as HTMLSelectElement;
+
+
+      for (let i = 0; i < odsSeleccionado.options.length; i++) {
+        if (odsSeleccionado.options[i].text.toUpperCase() === this.requested.odsNombre.toUpperCase()) {
+          odsSeleccionado.selectedIndex = i;
+          break;
+        }
+      }
+      
+      var nombreMetaSeleccionado = document.getElementById("nombreMeta") as HTMLInputElement;
+      nombreMetaSeleccionado.value = this.requested.descripcion;
+      var nombreOds = document.getElementById("nombreOds") as HTMLInputElement;
+      nombreOds.value = this.requested.odsNombre;
+      var nombreDimensionSeleccionado = document.getElementById("nombreDimension") as HTMLInputElement;
+      nombreDimensionSeleccionado.value = this.requested.odsDimension;
+      var imagenOdsSeleccionado = document.getElementById("imagenOds") as HTMLImageElement;
+      imagenOdsSeleccionado.src = `/Ods_img/ods${this.requested.odsId}.png`;
+    } else if (this.requested.tab === "modulos") {
+        if(this.requested.selectedModuloTab === "modulos"){
+          var nombreModuloSeleccionado = document.getElementById("nombreModulo") as HTMLInputElement;
+          nombreModuloSeleccionado.value = this.requested.nombre;
+        }
+        if(this.requested.selectedModuloTab === "clases"){
+          var nombreCursoSeleccionado = document.getElementById("nombreCurso") as HTMLInputElement;
+          nombreCursoSeleccionado.value = this.requested.nombre;
+        }
+      
+    } else if (this.requested.tab === "profesores") {
+      var nombreProfesorSeleccionado = document.getElementById("nombreProfesor") as HTMLInputElement;
+      nombreProfesorSeleccionado.value = this.requested.nombre;
+    } else if (this.requested.tab === "entidades") {
+      var nombreEntidadSeleccionado = document.getElementById("nombreEntidad") as HTMLInputElement;
+      nombreEntidadSeleccionado.value = this.requested.nombre;
+    } else if (this.requested.tab === "redes") {
+      var nombreEnlaceSeleccionado = document.getElementById("nombreEnlace") as HTMLInputElement;
+      nombreEnlaceSeleccionado.value = this.requested.nombre;
+      var nombreRutaSeleccionado = document.getElementById("nombreRuta") as HTMLInputElement;
+      nombreRutaSeleccionado.value = this.requested.enlace;
+    }
   }
   loadRedesSociales(): void {
     this.redes_socialesServicie.getRedesSocialesList().subscribe(
@@ -94,40 +160,51 @@ selectedTab: string = 'actividades';
   onTabChange(tab: string) {
     this.selectedTab = tab;
   }
-  crearActividad() {
+  actualizarActividad() {
     var nombreActividad = document.getElementById("nombreActividad") as HTMLInputElement;
-    
+
     if (nombreActividad.value == '') {
-      alert('El nombre de la actividad no puede estar vacío');
-      return;
+        alert('El nombre de la actividad no puede estar vacío');
+        return;
     }
-  
-    const nuevaActividad: Actividad = { id: 0, nombre: nombreActividad.value, eliminado: false};
-  
-    this.actividadesServicie.createActividad(nuevaActividad).subscribe(
-      (respuesta) => {
-        console.log('Actividad creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
-        nombreActividad.value = '';
-      },
-      (error) => {
-        console.error('Error al crear la actividad', error);
-      }
+
+    // Definir la nueva actividad, tomando el id desde la propiedad 'requested.id'
+    const nuevaActividad: Actividad = { 
+        id: this.requested.id, 
+        nombre: nombreActividad.value, 
+        eliminado: false 
+    };
+
+    // Llamar al servicio para actualizar la actividad
+    this.actividadesServicie.actualizarActividad(nuevaActividad).subscribe(
+        (respuesta) => {
+            console.log('Actividad actualizada correctamente', respuesta);
+            
+            // Limpiar el input si deseas
+            nombreActividad.value = '';
+            
+            // Redirigir a la página /entidadesExternas
+            this.router.navigate(['/AdministradorEntidades']);
+        },
+        (error) => {
+            console.error('Error al actualizar la actividad', error);
+        }
     );
-  }
+}
+
   crearProfesor() {
     var nombreProfesor = document.getElementById("nombreProfesor") as HTMLInputElement;
-    
+
     if (nombreProfesor.value == '') {
       alert('El nombre de la actividad no puede estar vacío');
       return;
     }
-  
+
     const nuevoProfesor: Profesores = {
       id: 0, nombre: nombreProfesor.value,
       eliminado: false
     };
-  
+
     this.profesoresService.createProfesor(nuevoProfesor).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
@@ -143,17 +220,17 @@ selectedTab: string = 'actividades';
 
   crearEntidad() {
     var nombreEntidad = document.getElementById("nombreEntidad") as HTMLInputElement;
-    
+
     if (nombreEntidad.value == '') {
       alert('El nombre de la actividad no puede estar vacío');
       return;
     }
-  
+
     const nuevoEntidad: entidadesExternas = {
       id: 0, nombre: nombreEntidad.value,
       eliminado: false
     };
-  
+
     this.entidaesService.createEntidad(nuevoEntidad).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
@@ -169,17 +246,17 @@ selectedTab: string = 'actividades';
     var nombreEnlace = document.getElementById("nombreEnlace") as HTMLInputElement;
     var nombreRuta = document.getElementById("nombreRuta") as HTMLInputElement;
     var redSocialElegida = this.redes_sociales.enlace;
-    
+
     if (nombreEnlace.value == '' || nombreRuta.value == '') {
       alert('El nombre de la ruta o del enlace no puede estar vacío');
       return;
     }
-  
+
     const nuevaRedSocial: Redes_Sociales = {
       id: 0, nombre: nombreEnlace.value, enlace: nombreRuta.value,
       eliminado: false
     };
-  
+
     this.redes_socialesServicie.CreateRedesSocialesList(nuevaRedSocial).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
@@ -194,19 +271,19 @@ selectedTab: string = 'actividades';
   }
   crearMeta() {
     var nombreMeta = document.getElementById("nombreMeta") as HTMLInputElement;
-    
+
     if (nombreMeta.value == '') {
       alert('El nombre de la meta no puede estar vacío');
       return;
     }
     const odsSelected: Ods = this.ods
-    const idPos = this.odsList.indexOf(odsSelected) +1;
+    const idPos = this.odsList.indexOf(odsSelected) + 1;
     const nuevaMeta: Metas = {
       id: 0, descripcion: nombreMeta.value, ods: odsSelected,
       eliminado: false
     };
-  
-    this.metaService.createMeta(nuevaMeta,idPos).subscribe(
+
+    this.metaService.createMeta(nuevaMeta, idPos).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
         // Aquí podrías limpiar el input si quieres
@@ -224,8 +301,8 @@ selectedTab: string = 'actividades';
       alert('El nombre del ods o de la dimension no puede estar vacío');
       return;
     }
-    const nuevoOds: Ods = {idOds: 0,nombre: nombreOds.value, dimension:nombreDimension.value, eliminado: false}
-  
+    const nuevoOds: Ods = { idOds: 0, nombre: nombreOds.value, dimension: nombreDimension.value, eliminado: false }
+
     this.odsService.createOds(nuevoOds).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
@@ -245,8 +322,8 @@ selectedTab: string = 'actividades';
       alert('El nombre del modulo no puede estar vacío');
       return;
     }
-    const nuevoModulo: Modulo = {id_modulo: 0,nombre_modulo: nombreModulo.value}
-  
+    const nuevoModulo: Modulo = { id_modulo: 0, nombre_modulo: nombreModulo.value }
+
     this.moduloService.createModulo(nuevoModulo).subscribe(
       (respuesta) => {
         console.log('Modulo creada correctamente', respuesta);
@@ -268,7 +345,7 @@ selectedTab: string = 'actividades';
       id: 0, nombre: nombreCurso.value,
       eliminado: false
     }
-  
+
     this.cursoService.createCusro(nuevoCurso).subscribe(
       (respuesta) => {
         console.log('Modulo creada correctamente', respuesta);

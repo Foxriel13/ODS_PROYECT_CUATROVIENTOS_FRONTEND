@@ -1,7 +1,9 @@
 <div class="container text-center"> <!-- Centra todo el contenido -->
     <div class="row g-3 p-4 justify-content-center">
         <!-- Columna para los inputs -->
-        <app-nav-bar-modificar-entidades (tabChange)="onTabChange($event)"></app-nav-bar-modificar-entidades>
+        <app-nav-bar-modificar-entidades hidden (tabChange)="onTabChange($event)">
+        </app-nav-bar-modificar-entidades>
+
     </div>
 
     <div *ngIf="selectedTab === 'actividades'">
@@ -16,7 +18,7 @@
 
                 <!-- Button -->
                 <div class="col-12 d-flex justify-content-center mt-3">
-                    <button class="btn btn-success" (click)="crearActividad()">Crear Actividad</button>
+                    <button class="btn btn-success" (click)="actualizarActividad()">Actualizar Actividad</button>
                 </div>
 
             </div>
@@ -108,7 +110,8 @@
             </div>
         </div>
         <div class="col-12 d-flex justify-content-center mt-3 mb-4">
-            <button class="btn btn-success" (click)="crearModulo()">Crear Modulo</button> <!-- Línea de separación TODOMODULOS -->
+            <button class="btn btn-success" (click)="crearModulo()">Crear Modulo</button>
+            <!-- Línea de separación TODOMODULOS -->
         </div>
         <!-- Línea de separación -->
         <hr class="my-4">

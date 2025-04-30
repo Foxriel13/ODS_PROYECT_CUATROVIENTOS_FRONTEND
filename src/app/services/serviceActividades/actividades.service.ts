@@ -38,15 +38,30 @@ export class ActividadesService {
   }
   
   //put
-  actualizarActividad(id: number, nombre: string): Observable<Actividad> {
-    return this.http.put<Actividad>(`${this.apiUrl}/${id}`, { nombre }).pipe(
-      tap(data => console.log('Actividad actualizada:', data)),
+  actualizarActividad(actividad: Actividad): Observable<Actividad> {
+    console.log(actividad);
+
+    // El cuerpo de la solicitud contiene el nombre de la actividad
+    const requestBody = {
+      nombre: actividad.nombre.toString()
+    };
+
+    // Cabeceras de la solicitud
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // Usamos PUT para actualizar la actividad
+    return this.http.put<Actividad>(`${this.apiUrl}/${actividad.id}`, requestBody, { headers }).pipe(
+      tap(data => {
+        console.log('Actividad actualizada:', data);
+      }),
       catchError(error => {
-        console.error('Error en PUT:', error);
+        console.error('Error en la solicitud PUT:', error);
         return throwError(error);
       })
     );
-  }
+}
+
+
   //delete
   deleteActividad(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(

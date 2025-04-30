@@ -104,12 +104,20 @@ export class AdministradorEntidadesComponent implements OnInit {
   
     if (this.selectedTab === 'metas') {
       const actividadSeleccionada: Metas = item;
+      var idOdsSelected = -1;
       const odsSelected: Ods = actividadSeleccionada.ods
+      for (let i = 0; i < this.odsList.length; i++) {
+        if(this.odsList[i].nombre == odsSelected.nombre){
+          idOdsSelected = i+1;
+        }
+      }      
       requested = {
         tab: this.selectedTab,
         id: actividadSeleccionada.id,
         descripcion: actividadSeleccionada.descripcion,
-        ods: odsSelected.idOds
+        odsId: idOdsSelected,
+        odsNombre: odsSelected.nombre,
+        odsDimension: odsSelected.dimension
       };
     }
     if (this.selectedTab === 'modulos') {

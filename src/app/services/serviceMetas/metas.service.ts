@@ -41,11 +41,11 @@ export class MetasService {
     );
   }
   //Put
-  actualizarMeta(id: number, meta: Metas): Observable<Metas> {
-    const url = `${this.apiUrl}/${id}`;
+  actualizarMeta(meta: Metas, idPos: number): Observable<Metas> {
+    const url = `${this.apiUrl}/${meta.id}`;
     const requestBody = {
       descripcion: meta.descripcion,
-      ods: meta.ods.idOds
+      ods: idPos
     };
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

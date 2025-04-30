@@ -269,7 +269,7 @@ export class ActualizarEntidadComponent {
       }
     );
   }
-  crearMeta() {
+  actualizarMeta() {
     var nombreMeta = document.getElementById("nombreMeta") as HTMLInputElement;
 
     if (nombreMeta.value == '') {
@@ -279,15 +279,16 @@ export class ActualizarEntidadComponent {
     const odsSelected: Ods = this.ods
     const idPos = this.odsList.indexOf(odsSelected) + 1;
     const nuevaMeta: Metas = {
-      id: 0, descripcion: nombreMeta.value, ods: odsSelected,
+      id: this.requested.id, descripcion: nombreMeta.value, ods: odsSelected,
       eliminado: false
     };
 
-    this.metaService.createMeta(nuevaMeta, idPos).subscribe(
+    this.metaService.actualizarMeta(nuevaMeta, idPos).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
         // Aquí podrías limpiar el input si quieres
         nombreMeta.value = '';
+        this.router.navigate(['/AdministradorEntidades']);
       },
       (error) => {
         console.error('Error al crear la actividad', error);

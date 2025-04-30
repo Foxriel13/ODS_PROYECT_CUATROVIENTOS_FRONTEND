@@ -6,12 +6,14 @@ import {
   ViewChild,
   AfterViewInit,
   ViewChildren,
-  QueryList
+  QueryList,
+  inject
 } from '@angular/core';
 import { gsap } from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SmoothScrollService } from '../../services/servicios/smooth-scroll/smooth-scroll.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/data-access/auth.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +25,8 @@ gsap.registerPlugin(ScrollTrigger);
   imports: [CommonModule]
 })
 export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  authService = inject(AuthService)
+  
   constructor(private smoothScrollService: SmoothScrollService) {}
 
   @ViewChild('bg1', { static: true }) bg1!: ElementRef;
@@ -53,6 +56,11 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.backgroundIntervalId = setInterval(() => {
       this.changeBackground();
     }, 5000);
+
+    if(this.authService.getCurrentUser()){
+      console.log(this.authService.getCurrentUser())
+    }
+    
   }
 
 

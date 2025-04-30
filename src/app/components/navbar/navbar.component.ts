@@ -88,7 +88,6 @@ export class NavbarComponent implements OnInit {
   authState(){
     this.authService.getAuthState().pipe(
       map(state =>{
-        console.log(state)
         if(!state){
           this.isLogged = false
           return

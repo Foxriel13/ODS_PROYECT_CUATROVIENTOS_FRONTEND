@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Auth,
+  getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -22,6 +23,10 @@ export class AuthService {
 
   constructor() { }
 
+  getAuth(){
+    return getAuth()
+  }
+
   signUp(email: string, password: string){
     return createUserWithEmailAndPassword(this.auth, email, password)
   }
@@ -40,5 +45,9 @@ export class AuthService {
 
   getAuthState(): Observable<any>{
     return authState(this.auth)
+  }
+
+  getCurrentUser(){
+    return getAuth().currentUser?.email
   }
 }

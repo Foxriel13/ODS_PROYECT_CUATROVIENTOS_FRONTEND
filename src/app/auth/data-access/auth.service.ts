@@ -6,9 +6,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  authState,
   connectAuthEmulator,
   signOut
 } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +36,9 @@ export class AuthService {
 
   signOut(){
     signOut(this.auth)
+  }
+
+  getAuthState(): Observable<any>{
+    return authState(this.auth)
   }
 }

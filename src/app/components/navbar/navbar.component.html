@@ -4,11 +4,11 @@
       <img src="img/logo4V.png" alt="Cuatrovientos" height="28" class="logo-white">
     </a>
 
-    <button class="navbar-toggler text-white border-0" type="button" (click)="goTo('/')"
-    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="bi bi-list fs-2"></i>
-  </button>
-  
+    <button class="navbar-toggler text-white border-0" type="button" (click)="goTo('/')" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-2"></i>
+    </button>
+
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <ul class="navbar-nav mx-auto gap-3">
@@ -29,11 +29,20 @@
         </li>
       </ul>
 
+      @if (isLogged) {
+      <div class="d-grid align-items-center gap-3">
+        <button type="button" class="btn btn-danger" (click)="logOut()">Cerrar Sesión</button>
+      </div>
+      }@else {
+
       <div class="d-flex align-items-center gap-3">
         <a href="./LogIn" class="icon-link">
           <i class="bi bi-person"></i>
         </a>
       </div>
+
+      }
+
     </div>
   </div>
 </nav>

@@ -31,6 +31,10 @@ import { ActividadesService } from '../../services/serviceActividades/actividade
   styleUrls: ['./crear-iniciativa.component.scss']
 })
 export class CrearIniciativaComponent implements OnInit {
+  selectedTab: string = 'iniciativas'; // Tab inicial
+  tabsEnabled: boolean[] = [true, false, false, false]; // Estado de los tabs
+
+
   // Variables para mantener el estado de los campos
   titulo: string = '';
   nombre: string = '';
@@ -63,6 +67,8 @@ export class CrearIniciativaComponent implements OnInit {
   moduloSeleccionados: Modulos[] = [];
   actividadesSeleccionados: Actividad[] = [];
 
+
+  
   boton: boolean = false;
   listMetasOds: Metas[] = [];
   redes_socialesSeleccionados: Redes_Sociales[] = [];
@@ -117,9 +123,7 @@ export class CrearIniciativaComponent implements OnInit {
   }
   metaAyadir: Metas | null = null;
   moduloAyadir: Modulos | null = null;
-
-  // Variable que mantiene la sección activa
-  selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
+  
 
   constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService, private metasService: MetasService, private modulosService: ModulosService, private redes_socialesServicie: RedesSocialesService, private actividadesServicie: ActividadesService) { }
 
@@ -221,10 +225,26 @@ export class CrearIniciativaComponent implements OnInit {
       }
     );
   }
-  onTabChange(tab: string) {
-    this.selectedTab = tab; // Cambiar la sección activa
+  onTabChange(tab: string): void {
+    const tabIndex = this.getTabIndex(tab);
+    if (this.tabsEnabled[tabIndex]) {
+      this.selectedTab = tab;
+    }
+  }
+  getTabIndex(tab: string): number {
+    const tabs = ['iniciativas', 'metas', 'modulos', 'profesores'];
+    return tabs.indexOf(tab);
   }
 
+  validarIniciativa(): void {
+    if (this.nombre && this.fechaInicio && this.fechaFin && this.horas > 0) {
+      this.tabsEnabled[1] = true; // Habilitar el tab de Metas
+      this.onTabChange('metas');
+    } else {
+      alert('Por favor, completa todos los campos de la iniciativa.');
+    }
+  }
+  
   anyadirOds(): void {
     const selectedOds = this.odsList.find(item => item.idOds == this.ods.idOds);
 
@@ -431,6 +451,8 @@ export class CrearIniciativaComponent implements OnInit {
         };
 
         this.moduloSeleccionados.push(nuevoModulo);
+        this.tabsEnabled[3] = true;
+        this.onTabChange('profesores'); // Cambia a la pestaña de módulos
       }
 
       console.log("Módulo actualizado:", this.moduloSeleccionados);
@@ -481,6 +503,8 @@ export class CrearIniciativaComponent implements OnInit {
 
       // Añadir la nueva meta si no existe
       this.metasSeleccionadas.push(metaNueva);
+      this.tabsEnabled[2] = true; 
+      this.onTabChange('modulos');
       console.log("Meta añadida:", metaNueva);
     } else {
       alert('No se ha encontrado el ODS seleccionado.');

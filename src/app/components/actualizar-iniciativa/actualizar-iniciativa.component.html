@@ -4,6 +4,7 @@
     </div>
 </div>
 <form #form="ngForm">
+
     <div class="row g-3 p-4">
         <!-- Columna para los inputs -->
         <app-navbar-form-crear (tabChange)="onTabChange($event)"></app-navbar-form-crear>
@@ -60,11 +61,7 @@
                             <textarea [(ngModel)]="producto" name="producto" class="form-control"
                                 placeholder="Informe de IA" id="producto" rows="4"></textarea>
                         </div>
-                        <div class="mb-4">
-                            <label>Redes Sociales</label>
-                            <input [(ngModel)]="redes_sociales" name="redes_sociales" type="text" class="form-control"
-                                placeholder="IA en educación" id="imagen">
-                        </div>
+
                         <div class="mb-3">
                             <label for="mas_comentarios">Mas Comentarios</label>
                             <textarea [(ngModel)]="mas_comentarios" name="mas_comentarios" class="form-control"

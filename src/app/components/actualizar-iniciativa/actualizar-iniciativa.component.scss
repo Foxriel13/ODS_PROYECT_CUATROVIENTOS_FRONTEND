@@ -1,86 +1,117 @@
 .row {
-    display: flex; /* Flexbox para que las columnas se distribuyan correctamente */
-    flex-wrap: wrap; /* Para que las columnas no se desborden */
-    gap: 1rem; /* Espacio entre las columnas */
+  display: flex;
+  /* Flexbox para que las columnas se distribuyan correctamente */
+  flex-wrap: wrap;
+  /* Para que las columnas no se desborden */
+  gap: 1rem;
+  /* Espacio entre las columnas */
+}
+
+.col-md-6 {
+  flex: 1 1 48%;
+  /* Asigna un espacio proporcional */
+}
+
+.col-md-4 {
+  flex: 1 1 32%;
+  /* Ajusta la proporción de esta columna si tienes tres columnas */
+}
+
+.col-md-12 {
+  flex: 1 1 100%;
+  /* Si quieres que ocupe toda la fila */
+}
+
+.image-box {
+  overflow: visible;
+  /* Elimina cualquier scroll */
+}
+
+.image-box img {
+  max-width: 100%;
+  /* La imagen no debe exceder el ancho de la caja */
+  max-height: 100%;
+  /* La imagen no debe exceder la altura de la caja */
+  object-fit: contain;
+  /* Asegura que la imagen se ajuste completamente sin recortarse */
+}
+
+.img-thumbnail {
+  width: 100%;
+  /* Esto asegura que la imagen ocupe todo el espacio disponible */
+  height: auto;
+  /* Mantiene la relación de aspecto */
+  object-fit: cover;
+  /* Asegura que la imagen se recorte adecuadamente si es necesario */
+}
+
+.image-box-small img {
+  width: 80%;
+  /* Ajusta el ancho de la imagen para que sea más pequeña */
+  height: 200px;
+  /* Establece una altura fija más pequeña */
+  object-fit: contain;
+  /* Asegura que la imagen se ajuste dentro del contenedor sin cortarse */
+  border-radius: 8px;
+  /* Bordes redondeados opcionales */
+  margin: 0 auto;
+  /* Centra la imagen horizontalmente */
+  display: block;
+  /* Asegura que la imagen esté centrada */
+}
+
+/* Estilos opcionales para los botones y el diseño */
+/* Estilos opcionales para los botones y el diseño */
+.box-meta {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* Asegura que los botones estén alineados correctamente debajo del contenido */
+.btn-group-vertical {
+  width: 100%;
+  display: block;
+}
+
+
+/* Ajuste adicional si deseas que los botones tengan un pequeño espaciado */
+.btn-group-vertical .btn {
+  width: 100%;
+  /* Asegura que los botones ocupen todo el ancho disponible */
+  margin-bottom: 5px;
+  /* Separación entre los botones */
+}
+
+@keyframes fillProgress {
+  from {
+    width: 0%;
   }
-  
-  .col-md-6 {
-    flex: 1 1 48%; /* Asigna un espacio proporcional */
-  }
-  
-  .col-md-4 {
-    flex: 1 1 32%; /* Ajusta la proporción de esta columna si tienes tres columnas */
-  }
-  
-  .col-md-12 {
-    flex: 1 1 100%; /* Si quieres que ocupe toda la fila */
-  }
-  
-  .image-box {
-    overflow: visible; /* Elimina cualquier scroll */
-  }
-  
-  .image-box img {
-    max-width: 100%; /* La imagen no debe exceder el ancho de la caja */
-    max-height: 100%; /* La imagen no debe exceder la altura de la caja */
-    object-fit: contain; /* Asegura que la imagen se ajuste completamente sin recortarse */
-  }
-  
-  .img-thumbnail {
-    width: 100%; /* Esto asegura que la imagen ocupe todo el espacio disponible */
-    height: auto; /* Mantiene la relación de aspecto */
-    object-fit: cover; /* Asegura que la imagen se recorte adecuadamente si es necesario */
-  }
-  
-  .image-box-small img {
-    width: 80%; /* Ajusta el ancho de la imagen para que sea más pequeña */
-    height: 200px; /* Establece una altura fija más pequeña */
-    object-fit: contain; /* Asegura que la imagen se ajuste dentro del contenedor sin cortarse */
-    border-radius: 8px; /* Bordes redondeados opcionales */
-    margin: 0 auto; /* Centra la imagen horizontalmente */
-    display: block; /* Asegura que la imagen esté centrada */
-  }
-  /* Estilos opcionales para los botones y el diseño */
-  /* Estilos opcionales para los botones y el diseño */
-  .box-meta {
-    border: 1px solid #ddd; 
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Asegura que los botones estén alineados correctamente debajo del contenido */
-  .btn-group-vertical {
+
+  to {
     width: 100%;
-    display: block;
   }
-  
-  
-  /* Ajuste adicional si deseas que los botones tengan un pequeño espaciado */
-  .btn-group-vertical .btn {
-    width: 100%;  /* Asegura que los botones ocupen todo el ancho disponible */
-    margin-bottom: 5px;  /* Separación entre los botones */
-  }
-  @keyframes fillProgress {
-    from {
-      width: 0%;
-    }
-    to {
-      width: 100%;
-    }
-  }
-  .fill-progress {
-    animation: fillProgress 3s linear forwards;
-  }
-  .spinner-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-  }
+}
+
+.fill-progress {
+  animation: fillProgress 3s linear forwards;
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.nav-link.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}

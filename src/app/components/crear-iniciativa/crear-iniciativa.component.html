@@ -4,7 +4,7 @@
         <app-navbar-form-crear (tabChange)="onTabChange($event)"></app-navbar-form-crear>
 
         <div class="col-12">
-            <div *ngIf="selectedTab === 'iniciativas'">
+            <div *ngIf="selectedTab === 'iniciativas'" class="tab-pane fade show active">
                 <!-- Solo visible si 'Iniciativas' está seleccionado -->
                 <div class="row">
                     <div class="col-md-6">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="selectedTab === 'metas'">
+            <div *ngIf="selectedTab === 'metas'" class="tab-pane fade show active">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">

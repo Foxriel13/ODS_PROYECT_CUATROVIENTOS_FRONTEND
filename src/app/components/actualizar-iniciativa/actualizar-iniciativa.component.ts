@@ -31,6 +31,7 @@ import { RedesSocialesService } from '../../services/serviceRedesSociales/redes-
   styleUrl: './actualizar-iniciativa.component.scss'
 })
 export class ActualizarIniciativaComponent {
+
   // Variables para mantener el estado de los campos
   titulo: string = '';
   nombre: string = '';
@@ -381,7 +382,7 @@ export class ActualizarIniciativaComponent {
         this.moduloSeleccionados.push(selectedModulo);
       }
     } else {
-      alert('Por favor, selecciona una Meta válida.');
+      alert('Por favor, selecciona un módulo válido.');
     }
     console.log('MODULO SELECCIONADO'+ selectedModulo)
   }

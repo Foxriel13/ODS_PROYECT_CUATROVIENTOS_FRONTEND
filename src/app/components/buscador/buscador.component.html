@@ -7,54 +7,33 @@
         [(ngModel)]="filtros.nombre">
     </div>
 
-    <div class="col-md-3 d-flex flex-column align-items-center">
-      <label class="form-label">Tipo de iniciativa</label>
-      <select class="form-select form-select-sm " [(ngModel)]="filtros.tipo">
-        <option *ngFor="let t of tipoList" [value]="t">{{ t }}</option>
-      </select>
-    </div>
-    <div class="col-md-3 d-flex flex-column align-items-center">
+    
+    <div class="col-md-2 d-flex flex-column align-items-center">
       <label class="form-label">Año Lectivo</label>
       <select class="form-select form-select-sm " [(ngModel)]="filtros.anyo_lectivo">
         <option *ngFor="let anio of anioList" [value]="anio">{{ anio }}</option>
       </select>
     </div>
-    <div class="col-md-3 d-flex flex-column align-items-center">
+    <div class="col-md-2 d-flex flex-column align-items-center">
       <label class="form-label">Curso</label>
       <select  class="form-select form-select-sm " [(ngModel)]="filtros.curso">
         <option *ngFor="let c of cursoList" [value]="c.nombre">{{ c.nombre }}</option>
       </select>
     </div>
-
-
-
+    <div class="col-md-2 d-flex flex-column align-items-center">
+      <label class="form-label ">Fecha de registro</label>
+      <input type="date" class="form-control form-control-sm " [(ngModel)]="filtros.fechaRegistro">
+    </div>
+    <div class="col-md-3 d-flex flex-column align-items-center">
+      <label class="form-label">Profesores</label>
+      <select class="form-select form-select-sm " [(ngModel)]="filtros.profesor">
+        <option *ngFor="let prof of profList" [value]="prof.nombre">{{ prof.nombre }}</option>
+      </select>
+    </div>
     <!-- Filtros avanzados -->
     <div *ngIf="advancedFiltersVisible" class="row g-3 justify-content-center">
 
-      <!-- <div class="col-md-3 d-flex flex-column align-items-center">
-        <label class="form-label">Dimensión</label>
-        <select class="form-select form-select-sm " [(ngModel)]="filtros.dimension" (change)="filtrarOds()">
-          <option *ngFor="let dim of dimensionList" [value]="dim" [ngClass]="obtenerColorDimension(dim)">{{ dim }}
-          </option>
-        </select>
-      </div>
-      <div class="col-md-5 d-flex flex-column align-items-center">
-        <label class="form-label text-center fs-7">ODS</label>
-        <div class="dropdown w-100">
-          <button class="btn btn-secondary btn-sm dropdown-toggle w-100 " type="button" id="dropdownODS"
-            data-bs-toggle="dropdown">
-            {{ filtros.ods ? filtros.ods : 'Seleccionar ODS' }}
-          </button>
-          <ul class="dropdown-menu w-100" aria-labelledby="dropdownODS">
-            <li *ngFor="let o of odsFiltrados">
-              <a class="dropdown-item d-flex align-items-center" href="#" (click)="seleccionarOds($event, o)">
-                <img [src]="getOdsImage(o.nombre)" alt="{{ o.nombre }}" width="20" height="20" class="me-2">
-                <span>{{ o.nombre }}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div> -->
+     
       <!-- Multiselect Dimensiones -->
       <div class="col-md-3 d-flex flex-column align-items-center">
         <label class="form-label">Dimensiones</label>
@@ -98,17 +77,7 @@
           </ul>
         </div>
       </div>
-      
-      <div class="col-md-3 d-flex flex-column align-items-center">
-        <label class="form-label ">Fecha de registro</label>
-        <input  type="date" class="form-control form-control-sm " [(ngModel)]="filtros.fechaRegistro">
-      </div>
-      <div class="col-md-3 d-flex flex-column align-items-center">
-        <label class="form-label">Profesores</label>
-        <select   class="form-select form-select-sm " [(ngModel)]="filtros.profesor">
-          <option *ngFor="let prof of profList" [value]="prof.nombre">{{ prof.nombre }}</option>
-        </select>
-      </div>
+  
       <div class="col-md-3 d-flex flex-column align-items-center">
         <label class="form-label">Contratantes</label>
         <select class="form-select form-select-sm " [(ngModel)]="filtros.contratante">

@@ -41,7 +41,24 @@ import {  OnInit } from '@angular/core';
 export class GraficoIndicadoresComponent implements OnInit{
   public pieChartDataIndicador!: ChartConfiguration<'pie'>['data'];
   public pieChartOptions: ChartConfiguration<'pie'>['options'] = this.getDefaultPieChartOptions();
+  public pieChartDataIndicador12!: ChartConfiguration<'pie'>['data'];
+  public pieChartDataIndicador13!: ChartConfiguration<'pie'>['data'];
+  public pieChartDataIndicador11!: ChartConfiguration<'pie'>['data'];
+  public pieChartDataIndicador3!: ChartConfiguration<'pie'>['data'];
+  public pieChartDataIndicador5!: ChartConfiguration<'pie'>['data'];
 
+  public barChartData1: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: []
+  };
+  public barChartData6: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: []
+  };
+  public barChartData8: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: []
+  };
 
   iniciativas: Iniciativas[] = []
   iniciativasFiltradas: Iniciativas[] = []
@@ -105,6 +122,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     // Indicadores
     this.indicadoresService.getIniciativasPorCurso().subscribe(data => {
       this.iniciativasPorCurso = data;
+      this.chartIndicador1(); 
     });
 
     this.indicadoresService.getCantidadIniciativas().subscribe(data => {
@@ -125,6 +143,7 @@ export class GraficoIndicadoresComponent implements OnInit{
 
     this.indicadoresService.getTieneEntidadesExternas().subscribe(data => {
       this.tieneEntidadesExternas = data;
+      this.chartIndicador6(); 
     });
 
     this.indicadoresService.getTieneRRSS().subscribe(data => {
@@ -133,6 +152,7 @@ export class GraficoIndicadoresComponent implements OnInit{
 
     this.indicadoresService.getTipoIniciativa().subscribe(data => {
       this.tipoIniciativa = data;
+      this.chartIndicador8();
     });
 
     this.indicadoresService.getCantProfesores().subscribe(data => {
@@ -150,15 +170,20 @@ export class GraficoIndicadoresComponent implements OnInit{
       } else {
         console.error('No se recibieron datos válidos para el Indicador 11');
       }
+      this.chartIndicador11();
     });
 
     this.indicadoresService.getCantHorasIniciativa().subscribe(data => {
       this.cantHorasIniciativa = data;
+      this.chartIndicador12();
     });
 
     this.indicadoresService.getHaTenidoActividad().subscribe(data => {
       this.haTendioActividad = data;
+      this.chartIndicador13();
     });
+
+    
   }
 
   filterChanges(): void {
@@ -237,7 +262,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     const dataPorCurso = this.iniciativasPorCurso.map(ini => ini.numIniciativas);
 
     // Estructura para el gráfico
-    this.barChartData = {
+    this.barChartData1 = {
       labels: iniciativasUnicas,
       datasets: [
         {
@@ -304,7 +329,7 @@ export class GraficoIndicadoresComponent implements OnInit{
   chartIndicador6() {
     this.reiniciarChart()
     //TieneEntidadesExternas
-    this.barChartData = {
+    this.barChartData6 = {
       labels: ["Tiene o No Entidades Externas"],
       datasets: [
         { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.tiene_entidades), label: 'Tiene' },
@@ -324,7 +349,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     const dataPorCurso = this.tipoIniciativa.map(ini => ini.cantidad);
 
     // Estructura para el gráfico
-    this.barChartData = {
+    this.barChartData8 = {
       labels: tiposUnicos,
       datasets: [
         {
@@ -366,7 +391,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     const backgroundColors = ['#A8D5BA', '#F9C6C9'];
     const hoverColors = ['#C3E6CD', '#FADADD'];
 
-    this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
+    this.pieChartDataIndicador11 = this.createPieChartData(labels, data, backgroundColors, hoverColors);
   }
   chartIndicador12(): void {
     const labels = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
@@ -374,7 +399,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     const backgroundColors = ['#FFD1DC', '#FFB6C1', '#FFC0CB', '#D1C4E9', '#B3E5FC'];
     const hoverColors = ['#FFE4E1', '#FFCCCB', '#FFDDDD', '#E1D5F5', '#C5F1FF'];
 
-    this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
+    this.pieChartDataIndicador12 = this.createPieChartData(labels, data, backgroundColors, hoverColors);
   }
   
 
@@ -387,7 +412,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     const backgroundColors = ['#A8D5BA', '#F9C6C9'];
     const hoverColors = ['#C3E6CD', '#FADADD'];
 
-    this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
+    this.pieChartDataIndicador13 = this.createPieChartData(labels, data, backgroundColors, hoverColors);
   }
 }
 

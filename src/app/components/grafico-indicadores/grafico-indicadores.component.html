@@ -11,6 +11,263 @@
     <h1 class="text-center">Indicadores del curso:</h1>
     <h1 class="text-center">{{anyo_seleccionado}}</h1>
 </div>
+<div class="container py-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 mb-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Número de Iniciativas trabajadas por Cuatrovientos.</h5>
+                    <!-- indicador 2 -->
+                </div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <i class="bi bi-bar-chart-fill text-primary display-1 me-3"></i>
+                    <p class="display-4 mb-0">{{ numeroIniciativas }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Número de trabajadores (profesores) en cuatrovientos</h5>
+                    <!-- indicador 10.1 -->
+                </div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <i class="bi bi-people-fill text-primary display-1 me-3"></i>
+                    <p class="display-4 mb-0">{{ cantidadProfesores }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Iniciativas por Curso</h5>
+                    <!-- indicador 1 -->
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Qué iniciativas se han realizado dirigidas a los ODS por curso académico:</p>
+                    <canvas baseChart [data]="barChartData1" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" [type]="'bar'"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Iniciativas con actividades</h5>
+                    <!-- indicador 13 -->
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Si esas acciones o proyectos han requerido de alguna visita, salida, charla, etc.</p>
+                
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div style="width: 60%; max-width: 500px;">
+                            <canvas baseChart [data]="pieChartDataIndicador13" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- columna 2 -->
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
+        <div class="col">
+            <div class="card h-60 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Han colaborado entidades externas</h5>
+                    <!-- indicador 6 -->
+                </div>
+                <div class="card-body">
+                    <canvas baseChart [data]="barChartData6" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" [type]="'bar'">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- columna 3 -->
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
+        <div class="col">
+            <div class="card h-60 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Descripción de las Iniciativas</h5>
+                    <!-- indicador 4 -->
+                </div>
+                <div class="card-body">
+                    <p class="card-text">En qué consiste cada acción, proyecto, iniciativa y si hay un producto final:</p>
+                    
+                    <div class="custom-table-box  shadow-sm">
+                        <div class="row bg-primary-subtle text-primary-emphasis fw-bold py-2 border-bottom">
+                            <div class="col-6 text-white">
+                                <i class="bi bi-lightbulb-fill me-2 px-3"></i>Iniciativa
+                            </div>
+                            <div class="col-6 text-white">
+                                <i class="bi bi-info-circle-fill me-2 px-3"></i>Descripción
+                            </div>
+                        </div>
+                        @for (iniciativa of explicacionIniciativas; track $index) {
+                        <div class="row align-items-center py-2 border-bottom hover-row">
+                            <div class="col-6">
+                                <i class="bi bi-lightning-charge-fill me-2 icon-dark-blue px-3"></i>
+                                {{ iniciativa.nombre }}
+                            </div>
+                            <div class="col-6">
+                                <i class="bi bi-card-text me-2 icon-dark-blue px-3"></i>
+                                {{ iniciativa.explicacion }}
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- columna 4 -->
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 g-1 mt-4">
+        <div class="col">
+            <div class="card h-60 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Iniciativas Nuevas</h5>
+                    <!-- indicador 11 -->
+                </div>
+            
+                <div class="card-body">
+                    <p class="card-text">De las acciones realizadas cuales son nuevas, innovadoras o que han hecho alguna
+                        modificación importante</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div style="width: 60%; max-width: 500px;">
+                            <canvas baseChart [data]="pieChartDataIndicador11" [options]="pieChartOptions" [type]="'pie'"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-60 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Diferenciar si son Proyectos, charlas o talleres</h5>
+                </div>
+                <!-- indicador 8 -->
+                <div class="card-body">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div style="width: 100%; max-height: 700px;">
+                            <canvas baseChart [data]="barChartData8" [options]="barChartOptions" [plugins]="barChartPlugins"
+                                [legend]="barChartLegend" [type]="'bar'">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- columa5 -->
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
+        <div class="col">
+            <div class="card h-60 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Horas por cada Iniciativa</h5>
+                    <!-- indicador 12 -->
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div style="width: 60%; max-width: 500px;">
+                            <canvas baseChart [data]="pieChartDataIndicador12" [options]="pieChartOptions"
+                                [type]="'pie'"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- columa6 -->
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
+        <div class="col">
+            <div class="card h-60 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Iniciativas que se han difundido por RRSS o Web</h5>
+                </div>
+                <!-- indicador 7 -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="custom-table-container shadow-sm rounded overflow-hidden">
+                            <div class="custom-table-header d-flex fw-bold text-white px-3 py-2">
+                                <div class="flex-fill text-start">
+                                    <i class="bi bi-check2-circle me-2"></i>ODSs
+                                </div>
+                                <div class="flex-fill text-start">
+                                    <i class="bi bi-globe2 me-2"></i>Metas / Difusión
+                                </div>
+                            </div>
+                            <div *ngFor="let ini of iniciativasFiltradas; index as i"
+                                class="d-flex px-3 py-2 border-bottom align-items-center">
+                                <div class="col-6 d-flex align-items-center">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    <strong>{{ ini.nombre }}</strong>
+                                </div>
+                                <div class="col-6">
+                                    <ng-container *ngIf="ini.redes_sociales.length > 0; else sinRedes">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-globe2 text-primary me-2"></i>
+                                            <span>
+                                                Se ha difundido por {{ ini.redes_sociales.length }} red{{
+                                                ini.redes_sociales.length > 1 ? 'es' : '' }} social{{
+                                                ini.redes_sociales.length > 1 ? 'es' : '' }}.
+                                            </span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #sinRedes>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-globe2 text-primary me-2"></i>
+                                            <span>No se ha difundido por ninguna red social.</span>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+    <!-- columa 7 -->
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
+        <div class="col">
+            <div class="card h-60 shadow-sm">
+                <div class="card-header text-white bg-primary">
+                    <h5 class="card-title">Iniciativas por Profesor</h5>
+                </div>
+                <!-- indicador 10.2 -->
+                <div class="card-body">
+                    <div class="custom-table-box shadow-sm rounded overflow-hidden">
+                        <div class="custom-table-header bg-primary-subtle d-flex text-white fw-bold px-3 py-2">
+                            <div class="flex-fill text-start">
+                                <i class="bi bi-person-fill me-2"></i>Profesor
+                            </div>
+                            <div class="flex-fill text-start">
+                                <i class="bi bi-bar-chart-fill me-2"></i>Iniciativas
+                            </div>
+                        </div>
+                        <div *ngFor="let item of cantIniciativaProfesor" class="d-flex px-3 py-2 border-bottom align-items-center">
+                            <div class="col-6 d-flex align-items-center">
+                                <i class="bi bi-person-circle text-primary me-2"></i>
+                                <strong>{{ item.nombre_profesor }}</strong>
+                            </div>
+                            <div class="col-6">
+                                <span>{{ item.cantDeIniciativas }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
 
 <div class="row p-3 mb-3">
     <!--Columna 1-->

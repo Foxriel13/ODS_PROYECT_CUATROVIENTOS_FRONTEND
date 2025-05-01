@@ -1,75 +1,51 @@
 <div class="row g-3 p-4">
-  <!-- Columna para los inputs -->
   <app-nav-bar-modificar-entidades (tabChange)="onTabChange($event)"></app-nav-bar-modificar-entidades>
 </div>
-
-<!-- Buscador de actividad -->
 <div class="container">
   <div class="d-flex justify-content-between align-items-center">
     <input type="text" class="form-control w-75" placeholder="Buscar..." [(ngModel)]="busqueda"
       (ngModelChange)="onBusquedaChange()" />
-      <button class="btn btn-info btn-sm" (click)="irANuevaPagina()">+ Nuevo</button>
-    </div>
+    <button class="btn btn-info btn-sm" (click)="irANuevaPagina()">+ Nuevo</button>
+  </div>
 </div>
 
-
-<!-- Filtro de actividades -->
 <div *ngIf="selectedTab === 'actividades'">
-  <div class="container py-3">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <div class="col" *ngFor="let item of ActividadesList">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body d-flex flex-column">
-            <!-- Título de la actividad -->
-            <h5 class="card-title text-primary fw-bold">{{ item.nombre }}</h5>
-
-            <!-- Botones de acción -->
-            <div class="mt-auto d-flex justify-content-end gap-2">
-              <button class="btn btn-outline-info btn-sm d-flex align-items-center" (click)="actualizar(item)"
-                title="Actualizar">
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-sm d-flex align-items-center" (click)="eliminar(item)"
-                title="Eliminar">
-                <i class="bi bi-trash"></i>
-              </button>
-            </div>
-          </div>
+  <div class="container py-4">
+    <h4 class="mb-4 fw-bold text-dark">Lista de Actividades</h4>
+    <div class="activity-grid">
+      <div *ngFor="let item of ActividadesList" class="activity-card">
+        <div class="text-primary fw-semibold">{{ item.nombre }}</div>
+        <div class="d-flex justify-content-end gap-2">
+          <i class="bi bi-pencil fs-5 action-icon" (click)="actualizar(item)" title="Actualizar"></i>
+          <i class="bi bi-trash fs-5 action-icon text-danger" (click)="eliminar(item)" title="Eliminar"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Filtro de metas por ODS -->
 <div *ngIf="selectedTab === 'metas'">
-  <div class="container py-3">
-    <!-- Filtro de ODS -->
+  <div class="container py-4">
     <div class="mb-3">
       <select class="form-control" [(ngModel)]="selectedOds" (ngModelChange)="filtrarMetasPorOds()">
         <option value="">Seleccionar ODS</option>
         <option *ngFor="let ods of odsListDistinct" [value]="ods.idOds">{{ ods.nombre }}</option>
       </select>
     </div>
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
-      <div class="col" *ngFor="let item of MetasList">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.descripcion }}</h5>
-            <div class="d-grid gap-2">
-              <button class="btn btn-info btn-sm" (click)="actualizar(item)">Actualizar</button>
-              <button class="btn btn-danger btn-sm" (click)="eliminar(item)">Eliminar</button>
-            </div>
-          </div>
+    <div class="activity-grid">
+      <div *ngFor="let item of MetasList" class="activity-card">
+        <div class="text-primary fw-semibold">{{ item.descripcion }}</div>
+        <div class="d-flex justify-content-end gap-2">
+          <i class="bi bi-pencil fs-5 action-icon" (click)="actualizar(item)" title="Actualizar"></i>
+          <i class="bi bi-trash fs-5 action-icon text-danger" (click)="eliminar(item)" title="Eliminar"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div *ngIf="selectedTab === 'modulos'">
-  <div class="container py-3">
-    <!-- Botones para cambiar entre Módulos y Clases -->
+  <div class="container py-4">
     <div class="mb-3 text-center">
       <div class="btn-group" role="group">
         <button type="button" class="btn btn-outline-primary" [class.active]="selectedModuloTab === 'modulos'"
@@ -82,77 +58,60 @@
         </button>
       </div>
     </div>
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
-      <div class="col" *ngFor="let item of selectedModuloTab === 'modulos' ? ModulosList : ClasesList">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.nombre }}</h5>
-            <div class="d-grid gap-2">
-              <button class="btn btn-info btn-sm" (click)="actualizar(item)">Actualizar</button>
-              <button class="btn btn-danger btn-sm" (click)="eliminar(item)">Eliminar</button>
-            </div>
-          </div>
+    <div class="activity-grid">
+      <div *ngFor="let item of selectedModuloTab === 'modulos' ? ModulosList : ClasesList" class="activity-card">
+        <div class="text-primary fw-semibold">{{ item.nombre }}</div>
+        <div class="d-flex justify-content-end gap-2">
+          <i class="bi bi-pencil fs-5 action-icon" (click)="actualizar(item)" title="Actualizar"></i>
+          <i class="bi bi-trash fs-5 action-icon text-danger" (click)="eliminar(item)" title="Eliminar"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div *ngIf="selectedTab === 'profesores'">
-  <div class="container py-3">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
-      <div class="col" *ngFor="let item of ProfesoresList">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.nombre }}</h5>
-            <div class="d-grid gap-2">
-              <button class="btn btn-info btn-sm" (click)="actualizar(item)">Actualizar</button>
-              <button class="btn btn-danger btn-sm" (click)="eliminar(item)">Eliminar</button>
-            </div>
-          </div>
+  <div class="container py-4">
+    <div class="activity-grid">
+      <div *ngFor="let item of ProfesoresList" class="activity-card">
+        <div class="text-primary fw-semibold">{{ item.nombre }}</div>
+        <div class="d-flex justify-content-end gap-2">
+          <i class="bi bi-pencil fs-5 action-icon" (click)="actualizar(item)" title="Actualizar"></i>
+          <i class="bi bi-trash fs-5 action-icon text-danger" (click)="eliminar(item)" title="Eliminar"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div *ngIf="selectedTab === 'entidades'">
-  <div class="container py-3">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
-      <div class="col" *ngFor="let item of entidadesList">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.nombre }}</h5>
-            <div class="d-grid gap-2">
-              <button class="btn btn-info btn-sm" (click)="actualizar(item)">Actualizar</button>
-              <button class="btn btn-danger btn-sm" (click)="eliminar(item)">Eliminar</button>
-            </div>
-          </div>
+  <div class="container py-4">
+    <div class="activity-grid">
+      <div *ngFor="let item of entidadesList" class="activity-card">
+        <div class="text-primary fw-semibold">{{ item.nombre }}</div>
+        <div class="d-flex justify-content-end gap-2">
+          <i class="bi bi-pencil fs-5 action-icon" (click)="actualizar(item)" title="Actualizar"></i>
+          <i class="bi bi-trash fs-5 action-icon text-danger" (click)="eliminar(item)" title="Eliminar"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div *ngIf="selectedTab === 'redes'">
-  <div class="container py-3">
-    <!-- Select para filtrar por nombre -->
+  <div class="container py-4">
     <div class="mb-3">
       <select class="form-control" [(ngModel)]="selectedRed" (ngModelChange)="filtrarRedesPorNombre()">
         <option value="">Todas las redes</option>
         <option *ngFor="let red of redesListDistinct" [value]="red">{{ red }}</option>
       </select>
     </div>
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
-      <div class="col" *ngFor="let item of redes_socialesList">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.enlace }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ item.nombre }}</h6>
-            <div class="d-grid gap-2 mt-2">
-              <button class="btn btn-info btn-sm" (click)="actualizar(item)">Actualizar</button>
-              <button class="btn btn-danger btn-sm" (click)="eliminar(item)">Eliminar</button>
-            </div>
-          </div>
+    <div class="activity-grid">
+      <div *ngFor="let item of redes_socialesList" class="activity-card">
+        <div class="text-primary fw-semibold">{{ item.enlace }}</div>
+        <div class="text-muted small">{{ item.nombre }}</div>
+        <div class="d-flex justify-content-end gap-2 mt-2">
+          <i class="bi bi-pencil fs-5 action-icon" (click)="actualizar(item)" title="Actualizar"></i>
+          <i class="bi bi-trash fs-5 action-icon text-danger" (click)="eliminar(item)" title="Eliminar"></i>
         </div>
       </div>
     </div>

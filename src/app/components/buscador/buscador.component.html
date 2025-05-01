@@ -32,8 +32,6 @@
     </div>
     <!-- Filtros avanzados -->
     <div *ngIf="advancedFiltersVisible" class="row g-3 justify-content-center">
-
-     
       <!-- Multiselect Dimensiones -->
       <div class="col-md-3 d-flex flex-column align-items-center">
         <label class="form-label">Dimensiones</label>
@@ -53,7 +51,6 @@
             </li>
           </ul>
         </div>
-        <!-- Mensaje de deshabilitado -->
         <small *ngIf="disableDimensiones" class="text-muted mt-1">Deshabilitado porque hay ODS seleccionados</small>
       </div>
       
@@ -65,8 +62,8 @@
             data-bs-toggle="dropdown">
             {{odsSeleccionadosDisplay}}
           </button>
-          <ul class="dropdown-menu w-100" aria-labelledby="dropdownODS">
-            <li *ngFor="let o of odsFiltrados">
+          <ul class="dropdown-menu w-100 dropdown-ods-fix z-index-100" aria-labelledby="dropdownODS">
+            <li *ngFor="let o of odsFiltrados" z-index="100">
               <label class="dropdown-item d-flex align-items-center">
                 <input type="checkbox" [value]="o.nombre" (change)="onOdsChange($event, o)"
                   [checked]="isOdsSelected(o)" class="form-check-input me-2">
@@ -88,14 +85,11 @@
 
     <!-- Botón para mostrar/ocultar filtros avanzados -->
     <div class="col-12 mt-3 d-flex justify-content-between">
-  
       <button class="btn btn-outline-primary btn-sm" type="button" (click)="toggleAdvancedFilters()">
         {{ advancedFiltersVisible ? 'Mostrar menos filtros' : 'Mostrar más filtros' }}
       </button>
       <button class="btn btn-blue " (click)="buscar()"> Buscar 🔍</button>
       <button class="btn btn-outline-secondary" (click)="limpiarFiltros()">Limpiar filtros 🧹🗑️</button>
     </div>
-
-
   </div>
 </div>

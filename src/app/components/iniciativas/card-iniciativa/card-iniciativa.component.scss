@@ -2,6 +2,9 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
     background-color:#e0e1f8;
+    overflow: visible !important;
+    position: relative; /* Solo si no tiene ya */
+    z-index: 1; /* Manténlo bajo */
 }
 
 .custom-card:hover {
@@ -19,3 +22,4 @@
 .bg-secondary{
     background-color: #393d92 !important;
 }
+

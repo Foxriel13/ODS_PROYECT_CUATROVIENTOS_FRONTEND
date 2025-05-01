@@ -1,0 +1,34 @@
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  
+  .activity-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .activity-card:hover {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+  
+  .action-icon {
+    cursor: pointer;
+    color: #6c757d;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .action-icon:hover {
+    background-color: #e2e6ea;
+    transform: scale(1.1);
+  }
+  

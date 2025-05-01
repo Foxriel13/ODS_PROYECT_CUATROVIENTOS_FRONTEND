@@ -325,23 +325,6 @@
                 <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
                     [legend]="barChartLegend" [type]="'bar'">
                 </canvas>
-                <!-- <table class="table table-bordered table-striped">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>ODSs</th>
-                            <th>Metas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (meta of metas; track $index) {
-                        <tr>
-
-                            <td><i class="bi bi-check-circle me-1"></i>{{meta.ods.nombre}}</td>
-                            <td><i class="bi bi-globe2 me-1"></i>{{meta.descripcion}}</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -367,33 +350,6 @@
                 <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
                     [legend]="barChartLegend" [type]="'bar'">
                 </canvas>
-                <!-- <table class="table table-bordered table-striped">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>ODSs</th>
-                            <th>Metas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (ini of iniciativasFiltradas; track $index) {
-                        <tr>
-
-                            <td><i class="bi bi-check-circle me-1"></i>{{ini.nombre}}</td>
-
-                            @if (ini.entidades_externas.length > 0) {
-                                @if (ini.entidades_externas.length == 1) {
-                                    <td><i class="bi bi-globe2 me-1"></i>Ha participado {{ini.entidades_externas.length}} entidad</td>
-                                }@else {
-                                    <td><i class="bi bi-globe2 me-1"></i>Han participado {{ini.entidades_externas.length}} entidades</td>
-                                }
-                            }@else {
-                                <td><i class="bi bi-globe2 me-1"></i>No ha participado ninguna entidad</td>
-                            }
-                        </tr>
-                        }
-                    </tbody>
-                </table> -->
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -424,29 +380,33 @@
                                 <i class="bi bi-globe2 me-2"></i>Metas / Difusión
                             </div>
                         </div>
-
                         <div *ngFor="let ini of iniciativasFiltradas; index as i"
-                            class="custom-table-row d-flex px-3 py-2 align-items-start">
-                            <div class="flex-fill text-start">
+                            class="d-flex px-3 py-2 border-bottom align-items-center">
+                            <div class="col-6 d-flex align-items-center">
                                 <i class="bi bi-check-circle text-success me-2"></i>
                                 <strong>{{ ini.nombre }}</strong>
                             </div>
-                            <div class="flex-fill text-start">
-                                <i class="bi bi-globe2 text-primary me-2"></i>
+                            <div class="col-6">
                                 <ng-container *ngIf="ini.redes_sociales.length > 0; else sinRedes">
-                                    Se ha difundido por {{ ini.redes_sociales.length }} red{{ ini.redes_sociales.length
-                                    > 1 ? 'es' : ''
-                                    }} social{{ ini.redes_sociales.length > 1 ? 'es' : '' }}.
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-globe2 text-primary me-2"></i>
+                                        <span>
+                                            Se ha difundido por {{ ini.redes_sociales.length }} red{{
+                                            ini.redes_sociales.length > 1 ? 'es' : '' }} social{{
+                                            ini.redes_sociales.length > 1 ? 'es' : '' }}.
+                                        </span>
+                                    </div>
                                 </ng-container>
                                 <ng-template #sinRedes>
-                                    No se ha difundido por ninguna red social.
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-globe2 text-primary me-2"></i>
+                                        <span>No se ha difundido por ninguna red social.</span>
+                                    </div>
                                 </ng-template>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -467,11 +427,9 @@
                 <div class="card-title">
                     <h6 class="fw-bold">Diferenciar si son Proyectos, charlas o talleres</h6>
                 </div>
-
                 <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
                     [legend]="barChartLegend" [type]="'bar'">
                 </canvas>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -532,7 +490,6 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
-
             <div class="modal-body">
                 <div class="custom-table-box shadow-sm rounded overflow-hidden">
                     <div class="custom-table-header bg-primary-subtle d-flex text-white fw-bold px-3 py-2">
@@ -543,19 +500,17 @@
                             <i class="bi bi-bar-chart-fill me-2"></i>Iniciativas
                         </div>
                     </div>
-
                     <div *ngFor="let item of cantIniciativaProfesor"
-                        class="custom-table-row d-flex align-items-center px-3 py-2">
-                        <div class="flex-fill text-start">
+                        class="d-flex px-3 py-2 border-bottom align-items-center">
+                        <div class="col-6 d-flex align-items-center">
                             <i class="bi bi-person-circle text-primary me-2"></i>
                             <strong>{{ item.nombre_profesor }}</strong>
                         </div>
-                        <div class="flex-fill text-start">
-                            {{ item.cantDeIniciativas }}
+                        <div class="col-6">
+                            <span>{{ item.cantDeIniciativas }}</span>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -576,14 +531,12 @@
                     <h6 class="fw-bold">De las acciones realizadas cuales son nuevas, innovadoras o que han hecho alguna
                         modificación importante</h6>
                 </div>
-
                 <div class="d-flex justify-content-center align-items-center">
                     <div style="width: 60%; max-width: 500px;">
                         <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions"
                             [type]="'pie'"></canvas>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -604,14 +557,12 @@
                 <div class="card-title">
                     <h6 class="fw-bold">Cuánto tiempo se ha dedicado a cada acción</h6>
                 </div>
-
                 <div class="d-flex justify-content-center align-items-center">
                     <div style="width: 60%; max-width: 500px;">
                         <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions"
                             [type]="'pie'"></canvas>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -633,14 +584,12 @@
                     <h6 class="fw-bold">Si esas acciones o proyectos han requerido de alguna visita, salida, charla,
                         etc.</h6>
                 </div>
-
                 <div class="d-flex justify-content-center align-items-center">
                     <div style="width: 60%; max-width: 500px;">
                         <canvas baseChart [data]="pieChartDataIndicador" [options]="pieChartOptions"
                             [type]="'pie'"></canvas>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>

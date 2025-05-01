@@ -315,15 +315,12 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   chartIndicador7() {
     this.reiniciarChart()
-    //TieneRRSS
   }
 
   chartIndicador8() {
     this.reiniciarChart()
-    //TipoIniciativa
 
     const tiposUnicos = this.tipoIniciativa.map(ini => ini.tipo);
-
     const dataPorCurso = this.tipoIniciativa.map(ini => ini.cantidad);
 
     // Estructura para el gráfico

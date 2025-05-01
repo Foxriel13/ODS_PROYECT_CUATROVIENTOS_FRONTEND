@@ -34,7 +34,7 @@ export class IniciativasComponent implements OnInit, AfterViewInit  {
   constructor(private iniciativasService: IniciativasService, private cdr: ChangeDetectorRef) { }
   @ViewChildren('cardIniciativa', { read: ElementRef }) cardElements!: QueryList<ElementRef>;
   @ViewChild('buscadorWrapper', { static: false }) buscadorWrapper!: ElementRef;
-
+  isLoading = true;
 
   animarTarjetas(): void {
     const elementos = this.cardElements.map(el => el.nativeElement);
@@ -72,6 +72,7 @@ export class IniciativasComponent implements OnInit, AfterViewInit  {
         // Filtramos las iniciativas que NO estén eliminadas
         this.iniciativas = data.filter(iniciativa => !iniciativa.eliminado);
         this.iniciativasFiltradas = [...this.iniciativas]; // Copia para mostrar
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error al cargar las iniciativas', error);

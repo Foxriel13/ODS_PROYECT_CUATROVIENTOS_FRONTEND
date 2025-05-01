@@ -137,3 +137,16 @@
         pointer-events: none; // Deshabilitar interacción
         border: 1px solid #ced4da;
     }
+
+    .dropdown-menu > li > .dropdown-item {
+        width: 100%;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      
+      .dropdown-menu {
+        padding: 0; /* elimina espacio entre items */
+      }
+      

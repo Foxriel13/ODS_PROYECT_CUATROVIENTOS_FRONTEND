@@ -1,29 +1,37 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="container mt-3">
+  <div class="row">
+    <div class="container mt-3">
+
+      <!-- Spinner mientras se cargan los datos -->
+      <div *ngIf="isLoading" class="d-flex justify-content-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
+      <!-- Mostrar contenido solo cuando termina de cargar -->
+      <ng-container *ngIf="!isLoading">
+        <!-- Buscador -->
         <div class="row justify-content-center">
-            <div #buscadorWrapper>
-              <app-buscador (filtersChanged)="onFiltersChanged($event)"></app-buscador>
-            </div>
+          <div #buscadorWrapper>
+            <app-buscador (filtersChanged)="onFiltersChanged($event)" class="z-index-100"></app-buscador>
           </div>
-  
+        </div>
+
         <!-- Cards con imágenes debajo del buscador -->
         <div class="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-4">
-          <div
-            class="col"
-            *ngFor="let iniciativa of iniciativasFiltradas; let i = index"
-            #cardIniciativa
-          >
+          <div class="col" *ngFor="let iniciativa of iniciativasFiltradas; let i = index" #cardIniciativa>
             <app-card-iniciativa [iniciativa]="iniciativa"></app-card-iniciativa>
           </div>
         </div>
-  
+
+        <!-- Mensaje si no hay resultados -->
         <div *ngIf="iniciativasFiltradas.length === 0" class="mb-4 alert alert-warning" role="alert">
           No se encontraron iniciativas con los filtros aplicados.
         </div>
-      </div>
+      </ng-container>
     </div>
-  
-    <app-modal-iniciativa></app-modal-iniciativa>
   </div>
-  
+
+  <app-modal-iniciativa></app-modal-iniciativa>
+</div>

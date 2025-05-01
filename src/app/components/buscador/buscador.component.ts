@@ -47,8 +47,10 @@ export class BuscadorComponent {
 
   disableDimensiones: boolean = false; // controla si el multiselect de dimensiones está bloqueado
 
+  dropdownOpen = false;
 
 
+  
   // Variables para almacenar los valores de los filtros
   filtros = {
     curso: '',
@@ -210,20 +212,26 @@ export class BuscadorComponent {
   onOdsChange(event: Event, ods: Ods): void {
     event.preventDefault();  // Evita el comportamiento por defecto
     const checked = (event.target as HTMLInputElement).checked;
-
+  
     if (checked) {
       this.odsSeleccionados.push(ods);
     } else {
       this.odsSeleccionados = this.odsSeleccionados.filter(o => o.nombre !== ods.nombre);
     }
-    //Bloquear las dimensiones si hay ODS seleccionados
+  
+    // Bloquear las dimensiones si hay ODS seleccionados
     this.disableDimensiones = this.odsSeleccionados.length > 0;
-
+  
     // Actualizar la visualización de los ODS seleccionados
     this.actualizarOdsSeleccionadosDisplay();
-
+  
+    // Emitir los filtros actualizados
     this.emitirFiltros();
+  
+    // Cierra el dropdown
+    this.dropdownOpen = false;
   }
+  
 
   emitirFiltros() {
     this.filtersChanged.emit({

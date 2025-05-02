@@ -1,7 +1,7 @@
 <form #form="ngForm" (ngSubmit)="guardarIniciativa(form)">
     <div class="row g-3 p-4">
         <!-- Columna para los inputs -->
-        <app-navbar-form-crear (tabChange)="onTabChange($event)"></app-navbar-form-crear>
+        <app-navbar-form-crear [tabsEnabled]="tabsEnabled" (tabChange)="onTabChange($event)"></app-navbar-form-crear>
 
         <div class="col-12">
             <div *ngIf="selectedTab === 'iniciativas'" class="tab-pane fade show active">

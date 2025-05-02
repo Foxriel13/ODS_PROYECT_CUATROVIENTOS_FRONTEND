@@ -232,7 +232,7 @@ export class CrearIniciativaComponent implements OnInit {
     }
   }
   getTabIndex(tab: string): number {
-    const tabs = ['iniciativas', 'metas', 'modulos', 'profesores'];
+    const tabs = ['iniciativas', 'metas', 'modulos', 'profesores', 'entidades', 'redes', 'actividades'];
     return tabs.indexOf(tab);
   }
 
@@ -240,7 +240,6 @@ export class CrearIniciativaComponent implements OnInit {
     
     if (this.nombre && this.fechaInicio && this.fechaFin && this.horas > 0) {
       this.tabsEnabled[1] = true; // Habilitar el tab de Metas
-      this.onTabChange('metas');
       console.log('validadooooo')
     } else {
       alert('Por favor, completa todos los campos de la iniciativa.');
@@ -283,6 +282,7 @@ export class CrearIniciativaComponent implements OnInit {
         alert('Este profesor ya está añadido.');
       } else {
         this.profesoresSeleccionados.push(selectedProfe);
+        this.tabsEnabled[4] = true; 
       }
     } else {
       alert('Por favor, selecciona un profesor válido.');
@@ -307,6 +307,7 @@ export class CrearIniciativaComponent implements OnInit {
         alert('Esta red social ya está añadido.');
       } else {
         this.redes_socialesSeleccionados.push(selectedRedSocial);
+        this.tabsEnabled[6] = true;
       }
     } else {
       alert('Por favor, selecciona un profesor válido.');
@@ -390,6 +391,7 @@ export class CrearIniciativaComponent implements OnInit {
         alert('Esta entidad ya está añadida.');
       } else {
         this.entidadesSeleccionados.push(selectedEntidad);
+        this.tabsEnabled[5] = true; 
       }
     } else {
       alert('Por favor, selecciona una entidad válida.');
@@ -454,7 +456,6 @@ export class CrearIniciativaComponent implements OnInit {
 
         this.moduloSeleccionados.push(nuevoModulo);
         this.tabsEnabled[3] = true;
-        this.onTabChange('profesores'); // Cambia a la pestaña de módulos
       }
 
       console.log("Módulo actualizado:", this.moduloSeleccionados);
@@ -506,7 +507,6 @@ export class CrearIniciativaComponent implements OnInit {
       // Añadir la nueva meta si no existe
       this.metasSeleccionadas.push(metaNueva);
       this.tabsEnabled[2] = true; 
-      this.onTabChange('modulos');
       console.log("Meta añadida:", metaNueva);
     } else {
       alert('No se ha encontrado el ODS seleccionado.');
@@ -674,44 +674,7 @@ export class CrearIniciativaComponent implements OnInit {
       // Optionally, set a default image or display a message.
     }
   }
-/*
-  crearLinks() {
-    var nombre = document.getElementById("nombreLink") as HTMLInputElement;
-    var link = document.getElementById("enlaceLink") as HTMLInputElement;
-    var selector = document.getElementById("linkSelector") as HTMLSelectElement;
 
-    if (nombre && link) { // Verifica que los elementos existen antes de usarlos
-      var red_socialNueva: Redes_Sociales = {
-        id: 0,
-        nombre: nombre.value,  // Usamos .value en lugar de .textContent
-        enlace: link.value     // Usamos .value en lugar de .textContent
-      };
-
-      this.redes_socialesServicie.CreateRedesSocialesList(red_socialNueva).subscribe(
-        response => {
-          console.log('Enlace creado correctamente:', response);
-
-          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
-          this.redes_socialesList.push(red_socialNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
-
-          // Mostramos un mensaje de éxito
-          this.showToastEnlace();
-
-          // Cargar nuevamente las redes sociales (si es necesario)
-          this.loadRedesSociales();
-        },
-        error => {
-          console.error('Error al crear la iniciativa:', error);
-          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
-        }
-      );
-
-      this.ocultarRedSocial(); // Ocultar algo si es necesario
-    } else {
-      console.error("No se encontraron los elementos nombreLink o enlaceLink.");
-    }
-  }
-    */
   cargarMetasDeOds(nombre: any) {
     this.listMetasOds = [];
     var odsEncontrado: Ods | null = null; // Inicializar la variable

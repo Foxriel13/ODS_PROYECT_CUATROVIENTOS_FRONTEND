@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Asegúrate de importar CommonModule
 
 @Component({
@@ -8,15 +8,23 @@ import { CommonModule } from '@angular/common'; // Asegúrate de importar Common
   styleUrls: ['./navbar-form-crear.component.scss']
 })
 export class NavbarFormCrearComponent {
+  @Input() tabsEnabled: boolean[] = [true, false, false, false, false, false, false]; // Estado de los tabs
+  @Output() tabChange = new EventEmitter<string>();
+
+  tabs: string[] = ['iniciativas', 'metas', 'modulos', 'profesores', 'entidades', 'redes', 'actividades'];
+
+
   // Variable que mantiene la pestaña activa
   activeTab: string = 'iniciativas';
 
-  @Output() tabChange = new EventEmitter<string>();
 
   // Método para emitir el cambio de sección
   onTabClick(tab: string): void {
-    this.activeTab = tab;  // Actualizar la pestaña activa
-    this.tabChange.emit(tab); // Emitir el nombre de la pestaña seleccionada
+    const tabIndex = this.tabs.indexOf(tab);
+    if (this.tabsEnabled[tabIndex]) {
+      this.activeTab = tab;
+      this.tabChange.emit(tab);
+    }
   }
 
   // Método para verificar si la pestaña es la activa

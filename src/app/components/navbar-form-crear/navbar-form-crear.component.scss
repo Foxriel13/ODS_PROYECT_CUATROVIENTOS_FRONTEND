@@ -16,6 +16,23 @@
     color: black; /* Color de texto inicial */
     text-decoration: none; /* Eliminar subrayado por defecto */
     transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    &.formSelected {
+        background-color: #007bff; // Fondo azul para el tab activo
+        color: white !important; // Texto blanco para el tab activo
+      }
+    
+      &.text-muted {
+        color: #6c757d !important; // Texto gris para tabs deshabilitados
+      }
+    
+      &.text-dark {
+        color: #000 !important; // Texto negro para tabs habilitados no seleccionados
+      }
+    
+      &.disabled {
+        pointer-events: none; // Deshabilitar clic en tabs no habilitados
+        opacity: 0.6; // Reducir opacidad para tabs deshabilitados
+      }
   }
 
   /* Línea animada debajo de cada enlace */

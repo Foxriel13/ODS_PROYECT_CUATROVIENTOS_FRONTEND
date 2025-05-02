@@ -1,58 +1,64 @@
+// .custom-navbar {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   background: #0d0d0d;
+//   padding: 0.75rem 1.5rem;
+//   font-family: 'Segoe UI', sans-serif;
+//   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+// }
+
+.logo-white {
+  height: 30px;
+  filter: brightness(10);
+}
+
+.nav-link.custom-link {
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-link.custom-link:hover,
+.nav-link.custom-link.active {
+  color: #00aaff;
+  text-decoration: none;
+}
+
+.icon-link i {
+  color: #00aaff;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.icon-link:hover i {
+  color: #ffffff;
+}
+
+.language-selector span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
 .custom-navbar {
-    background: #0d0d0d;
-    padding: 0.75rem 1.5rem;
-    font-family: 'Segoe UI', sans-serif;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  }
-  
-  .logo-white {
-    height: 30px;
-    filter: brightness(10);
-  }
-  
-  .nav-link.custom-link {
-    color: #ffffff;
-    font-weight: 500;
-    padding: 0.5rem 0.75rem;
-    font-size: 1rem;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .nav-link.custom-link:hover,
-  .nav-link.custom-link.active {
-    color: #00aaff;
-    text-decoration: none;
-  }
-  
-  .icon-link i {
-    color: #00aaff;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-  }
-  
-  .icon-link:hover i {
-    color: #ffffff;
-  }
-  
-  .language-selector span {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #ffffff;
-  }
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-  .custom-navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: rgba(13, 13, 13, 0.352); 
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); 
-    background: rgba(28, 35, 49, 0.603);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 0.75rem 1.5rem;
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease-in-out;
-  }
-  
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(22, 52, 112, 0.571);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease-in-out;
+}

@@ -1,20 +1,18 @@
 <div class="modal show d-block" *ngIf="isOpen" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <!-- Título centrado -->
+            
             <div class="modal-header bg-blue text-white text-center">
                 <h4 class="modal-title fw-bold w-100">{{ iniciativa?.nombre }}</h4>
                 <button type="button" class="btn-close btn-close-white" (click)="close()"></button>
             </div>
 
             <div class="modal-body bg-light">
-                <!-- Fila con dos columnas -->
+                
                 <div class="row">
-                    <!-- Columna izquierda (Datos) -->
+                    
                     <div class="col-md-6">
-                        <h6 class="fw-bold">Tipo de Proyecto:</h6>
-                        <span class="badge bg-blue-light">{{ iniciativa?.tipo }}</span>
-
+                        
                         <h6 class="fw-bold mt-3">Fecha:</h6>
                         <p class="badge bg-blue-light"><i class="bi bi-calendar-event me-2"></i>{{
                             iniciativa?.fecha_inicio | date:'dd/MM/yyyy' }} - {{ iniciativa?.fecha_fin |
@@ -36,11 +34,11 @@
                         </ng-container>
                     </div>
 
-                    <!-- Columna derecha (Imagen) -->
+                    
                     <div class="col-md-6 text-center">
                         <img [src]="iniciativa?.imagen || 'https://via.placeholder.com/200'"
                             class="img-fluid rounded-3 shadow-sm" alt="{{ iniciativa?.nombre }}" width="250">
-                        <!-- Año lectivo -->
+                       
                         <div class="mt-4 fw-bold badge bg-blue-light">
                             <span class="">Año lectivo:</span> {{iniciativa?.anyo_lectivo}}
                         </div>
@@ -74,63 +72,100 @@
                 <div class="tab-content bg-white p-3">
                     <div *ngIf="activeTab === 'modulos'">
                         <h6 class="fw-bold">Módulos de las metas implicadas:</h6>
-                        <ng-container *ngFor="let entidad of iniciativa?.entidades_externas">
-                            <span class="badge bg-blue-light"><i class="bi bi-building me-1"></i>{{ entidad?.nombre
-                                }}</span>
-                        </ng-container>
+                        <div *ngIf="(iniciativa?.modulos ?? []).length > 0; else sinModulos">
+                            <div *ngFor="let modulo of iniciativa?.modulos" class="mb-3">
+                            
+                                <h6 class="text-primary fw-bold">
+                                    <i class="bi bi-book me-2"></i>{{ modulo.nombre }}
+                                </h6>
+                            
+                                <ul class="list-group">
+                                    <li *ngFor="let clase of modulo.clases"
+                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            <i class="bi bi-journal-text me-2"></i>{{ clase.nombre }}
+                                        </span>
+                                        <span class="badge bg-secondary">{{ clase.id }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                
+                        <ng-template #sinModulos>
+                            <p class="text-muted">Esta iniciativa no cuenta con módulos por el momento.</p>
+                        </ng-template>
                     </div>
                     <div *ngIf="activeTab === 'metas'">
                         <div class="mb-3">
                             <h6 class="fw-bold">Metas de los ODS implicadas:</h6>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Meta</th>
-                                        <th>ODS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let meta of iniciativa?.metas">
-                                        <td>
-                                            <i class="bi bi-check-circle me-1"></i>{{ meta?.descripcion }}
-                                        </td>
-                                        <td class="d-flex align-items-center">
-                                            <img [src]="getOdsImage(meta?.ods?.nombre || '')" alt="{{ meta?.ods?.nombre }}" width="50" height="50" class="me-2">
-                                            {{ meta?.ods?.nombre }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div *ngIf="(iniciativa?.metas ?? []).length > 0; else sinMetas">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Meta</th>
+                                            <th>ODS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let meta of iniciativa?.metas">
+                                            <td>
+                                                <i class="bi bi-check-circle me-1"></i>{{ meta?.descripcion }}
+                                            </td>
+                                            <td class="d-flex align-items-center">
+                                                <img [src]="getOdsImage(meta?.ods?.nombre || '')" alt="{{ meta?.ods?.nombre }}" width="50"
+                                                    height="50" class="me-2">
+                                                {{ meta?.ods?.nombre }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ng-template #sinMetas>
+                                <p class="text-muted">Esta iniciativa no cuenta con metas por el momento.</p>
+                            </ng-template>
                         </div>
                     </div>
                     <div *ngIf="activeTab === 'producto'">
                         <h6 class="fw-bold">Producto final:</h6>
-                        <p class="text-muted">
-                            <i class="bi bi-card-text me-2"></i>{{iniciativa?.explicacion}}
+                        <p *ngIf="iniciativa?.explicacion; else sinProducto" class="text-muted">
+                            <i class="bi bi-card-text me-2"></i>{{ iniciativa?.explicacion }}
                         </p>
+                        <ng-template #sinProducto>
+                            <p class="text-muted">Esta iniciativa no cuenta con un producto final por el momento.</p>
+                        </ng-template>
                     </div>
+
                     <div *ngIf="activeTab === 'comentarios'">
-                        <p class="text-muted">
-                            <i class="bi bi-card-text me-2"></i>{{iniciativa?.mas_comentarios}}
+                        <h6 class="fw-bold">Comentarios:</h6>
+                        <p *ngIf="iniciativa?.mas_comentarios; else sinComentarios" class="text-muted">
+                            <i class="bi bi-card-text me-2"></i>{{ iniciativa?.mas_comentarios }}
                         </p>
+                        <ng-template #sinComentarios>
+                            <p class="text-muted">Esta iniciativa no cuenta con comentarios por el momento.</p>
+                        </ng-template>
                     </div>
+                    
                     <div *ngIf="activeTab === 'redes'">
                         <h6 class="fw-bold">Redes Sociales:</h6>
-                        <div *ngFor="let red of iniciativa?.redes_sociales" class="mb-4">
-                            <h6 class="fw-bold">
-                                <span class="badge bg-blue-light"><i class="bi bi-{{red.nombre}} me-1"></i>{{ red.nombre }}</span>
-                            </h6>
-                            
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe *ngIf="isEmbeddable(red.enlace)" [src]="getEmbedUrl(red.enlace)" class="embed-responsive-item"
-                                    frameborder="0" allowfullscreen>
-                                </iframe>
-                                <p *ngIf="!isEmbeddable(red.enlace)" class="text-muted">
-                                    No se puede mostrar la publicación. <a [href]="red.enlace" target="_blank">Ver en la red social</a>.
-                                </p>
+                        <div *ngIf="(iniciativa?.redes_sociales ?? []).length > 0; else sinRedes">
+                            <div *ngFor="let red of iniciativa?.redes_sociales" class="mb-4">
+                                <h6 class="fw-bold">
+                                    <span class="badge bg-blue-light"><i class="bi bi-{{red.nombre}} me-1"></i>{{ red.nombre }}</span>
+                                </h6>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe *ngIf="isEmbeddable(red.enlace)" [src]="getEmbedUrl(red.enlace)" class="embed-responsive-item"
+                                        frameborder="0" allowfullscreen>
+                                    </iframe>
+                                    <p *ngIf="!isEmbeddable(red.enlace)" class="text-muted">
+                                        No se puede mostrar la publicación. <a [href]="red.enlace" target="_blank">Ver en la red social</a>.
+                                    </p>
+                                </div>
+                                <hr>
                             </div>
-                            <hr>
                         </div>
+                        <ng-template #sinRedes>
+                            <p class="text-muted">Esta iniciativa no cuenta con redes sociales por el momento.</p>
+                        </ng-template>
                     </div>
                 </div>
             </div>

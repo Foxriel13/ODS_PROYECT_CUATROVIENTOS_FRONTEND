@@ -9,11 +9,11 @@
 <form #form="ngForm">
     <div class="row g-3 p-4">
       <div class="mb-3">
-        <label>Seleccionar Meta</label>
+        <label>Seleccionar Iniciativa</label>
         <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control" id="iniciativaSelected">
-          <option value="" disabled selected>Selecciona una Meta</option>
+          <option value="" disabled selected>Selecciona una Iniciativa</option>
           <option *ngFor="let item of iniciativasList" [ngValue]="item">
-            {{ item.id }} - {{ item.tipo }}
+            {{ item.id }} - {{ item.nombre }}
           </option>
         </select>
       </div>

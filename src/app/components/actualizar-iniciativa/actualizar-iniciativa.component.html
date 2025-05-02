@@ -7,7 +7,7 @@
 
     <div class="row g-3 p-4">
         <!-- Columna para los inputs -->
-        <app-navbar-form-crear (tabChange)="onTabChange($event)"></app-navbar-form-crear>
+        <app-navbar-form-actualizar  (tabChange)="onTabChange($event)"></app-navbar-form-actualizar>
         <div class="mb-3">
             <label>Seleccionar Iniciativa</label>
             <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control"

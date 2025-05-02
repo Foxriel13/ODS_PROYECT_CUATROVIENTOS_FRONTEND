@@ -22,11 +22,12 @@ import { Redes_Sociales } from '../../models/redes_sociales';
 import { Actividad } from '../../models/actividades.model';
 import { ActividadesService } from '../../services/serviceActividades/actividades.service';
 import { RedesSocialesService } from '../../services/serviceRedesSociales/redes-sociales.service';
+import { NavbarFormActualizarComponent } from "../navbar-form-actualizar/navbar-form-actualizar.component";
 
 
 @Component({
   selector: 'app-actualizar-iniciativa',
-  imports: [FormsModule, CommonModule, NavbarFormCrearComponent],
+  imports: [FormsModule, CommonModule, NavbarFormActualizarComponent, NavbarFormActualizarComponent],
   templateUrl: './actualizar-iniciativa.component.html',
   styleUrl: './actualizar-iniciativa.component.scss'
 })

@@ -27,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   authService = inject(AuthService)
   
-  constructor(private smoothScrollService: SmoothScrollService) {}
+  constructor(private smoothScrollService: SmoothScrollService, private el: ElementRef) {}
 
   @ViewChild('bg1', { static: true }) bg1!: ElementRef;
   @ViewChild('bg2', { static: true }) bg2!: ElementRef;
@@ -41,8 +41,47 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   private activeLayer = 1;
   private backgroundIntervalId: any;
 
+  @ViewChild('card', { static: true }) cardElement!: ElementRef;
+  @ViewChild('track', { static: true }) track!: ElementRef<HTMLDivElement>;
+
+
   ngAfterViewInit(): void {
-    //throw new Error('Method not implemented.');
+    const tl = gsap.timeline();
+
+    tl.from(this.el.nativeElement.querySelector('.hero-text'), {
+      y: -100,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+    });
+
+    tl.from('.device-area', {
+      y: 100,
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power3.out',
+    }, '-=0.6'); // Empieza antes que termine el texto
+
+    gsap.from(this.cardElement.nativeElement, {
+      opacity: 0,
+      y: 60,
+      duration: 1.2,
+      ease: 'power3.out',
+    });
+
+
+    const track = this.track.nativeElement;
+    const totalWidth = track.scrollWidth / 2;
+
+    gsap.to(track, {
+      x: -totalWidth,
+      duration: 20,
+      ease: 'none',
+      repeat: -1,
+      onRepeat: () => {
+        gsap.set(track, { x: 0 });
+      } 
+    });
   }
 
   ngOnInit(): void {
@@ -124,4 +163,6 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
       this.smoothScrollService.scrollTo(element);
     }
   }
+
+  
 }

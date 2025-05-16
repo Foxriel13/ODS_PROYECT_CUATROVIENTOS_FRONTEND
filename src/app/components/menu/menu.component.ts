@@ -14,6 +14,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SmoothScrollService } from '../../services/servicios/smooth-scroll/smooth-scroll.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/data-access/auth.service';
+import { FadeRouterService } from '../../services/servicios/fade-rooter/fade-router.service';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,7 +29,7 @@ gsap.registerPlugin(ScrollTrigger);
 export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   authService = inject(AuthService)
   
-  constructor(private smoothScrollService: SmoothScrollService, private el: ElementRef) {}
+  constructor(private smoothScrollService: SmoothScrollService, private el: ElementRef, private fadeRouter: FadeRouterService) {}
 
   @ViewChild('bg1', { static: true }) bg1!: ElementRef;
   @ViewChild('bg2', { static: true }) bg2!: ElementRef;
@@ -164,5 +166,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  
+  // Método para navegar a una URL con fade
+  goTo(url: string): void {
+    this.fadeRouter.navigateWithFade(url);
+  }
 }

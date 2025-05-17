@@ -1,3 +1,25 @@
+select.form-control {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0.4rem 0.75rem;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #0d6efd;
+    outline: none;
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.6);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  option {
+    background: #222; /* fondo oscuro para opciones */
+    color: white;
+  }
+}
 
 .card-header, .modal-header{
     background-color: #393d92 !important;
@@ -95,49 +117,54 @@
 
 
 .custom-table-container {
-  border-radius: 12px;
-  overflow: hidden;
+  background-color: #121212 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 0 10px rgba(0,0,0,0.7) !important;
+  color: #e0e0e0 !important;
 }
 
 .custom-table-header {
-  display: flex;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 0.75rem 1rem;
-  font-weight: 600;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  background-color: #222 !important;
+  color: #eee !important;
+  display: flex !important;
+  padding: 10px 15px !important;
+  font-weight: 700 !important;
+}
 
-  .header-col {
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
+.header-col {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: #eee !important;
 }
 
 .custom-table-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  transition: background 0.3s ease;
+  display: flex !important;
+  padding: 12px 15px !important;
+  border-bottom: 1px solid #444 !important;
+  align-items: center !important;
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+}
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.03);
-  }
+.custom-table-row .row-col {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: #e0e0e0 !important;
+}
 
-  .row-col {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    color: #ddd;
+.custom-table-row:hover {
+  background-color: #2a2a2a !important;
+}
 
-    i {
-      font-size: 1.1rem;
-    }
+.custom-table-row .row-col i.bi-check-circle {
+  color: #4caf50 !important;
+}
 
-    span, strong {
-      font-size: 0.95rem;
-    }
-  }
+.custom-table-row .row-col i.bi-globe2 {
+  color: #2196f3 !important;
 }

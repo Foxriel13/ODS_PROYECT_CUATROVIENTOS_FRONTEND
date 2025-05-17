@@ -1,69 +1,53 @@
-.navbar-nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-between; /* Espaciado igual entre cada item */
+.navbar {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+
+  .navbar-toggler {
+    border: none;
+    background: transparent;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .navbar-toggler-icon {
+      filter: invert(1);
+    }
   }
-  .nav-item {
-    display: flex;
+
+  .navbar-collapse {
     justify-content: center;
-    align-items: center;
   }
 
-  /* Estilos del hover */
-  .nav-link {
-    position: relative; /* Necesario para que la línea se ubique correctamente */
-    padding-bottom: 5px; /* Espacio para la línea debajo */
-    color: black; /* Color de texto inicial */
-    text-decoration: none; /* Eliminar subrayado por defecto */
-    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
-    &.formSelected {
-        background-color: #007bff; // Fondo azul para el tab activo
-        color: white !important; // Texto blanco para el tab activo
-      }
-    
-      &.text-muted {
-        color: #6c757d !important; // Texto gris para tabs deshabilitados
-      }
-    
-      &.text-dark {
-        color: #000 !important; // Texto negro para tabs habilitados no seleccionados
-      }
-    
-      &.disabled {
-        pointer-events: none; // Deshabilitar clic en tabs no habilitados
-        opacity: 0.6; // Reducir opacidad para tabs deshabilitados
-      }
-  }
+  .navbar-nav {
+    display: flex;
+    gap: 1rem;
 
-  /* Línea animada debajo de cada enlace */
-  .nav-link::after {
-    content: ''; /* Necesario para mostrar la línea */
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px; /* Altura de la línea */
-    background-color: blue; /* Color de la línea */
-    transform: scaleX(0); /* Inicialmente la línea está oculta */
-    transform-origin: bottom right; /* La línea se expandirá desde la derecha */
-    transition: transform 0.3s ease-out; /* Animación suave */
-  }
+    .nav-item {
+      .nav-link {
+        color: white;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        position: relative;
 
-  /* Cambios en hover */
-  .nav-link:hover::after {
-    transform: scaleX(1); /* Muestra la línea cuando se pasa el ratón */
-    transform-origin: bottom left; /* La línea se expandirá desde la izquierda */
-  }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.07);
+        }
 
-  .nav-link:hover {
-    color: blue; /* Cambiar color del texto a azul */
-    background-color: rgba(0, 0, 255, 0.2); /* Fondo azul muy sutil */
-    border-radius: 30px; /* Hacer que el fondo sea ovalado */
-    box-shadow: 0 0 10px rgba(0, 0, 255, 0.3); /* Sombra sutil azul */
+        &.formSelected {
+          background-color: rgba(255, 72, 72, 0.15);
+          color: #ff6b6b;
+          font-weight: 600;
+          border-left: 3px solid #ff4c4c;
+        }
+      }
+    }
   }
-  .formSelected {
-    color: blue; /* Cambiar color del texto a azul */
-    background-color: rgba(0, 0, 255, 0.2); /* Fondo azul muy sutil */
-    border-radius: 30px; /* Hacer que el fondo sea ovalado */
-    box-shadow: 0 0 3px rgba(0, 0, 255, 0.3); /* Sombra sutil azul */
-  }
+}

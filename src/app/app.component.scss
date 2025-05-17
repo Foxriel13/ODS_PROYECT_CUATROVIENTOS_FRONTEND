@@ -27,4 +27,14 @@
     width: 150px;
     opacity: 0;
   }
-  
+  :host {
+  background-color: #1c0f0a; // o el mismo color que el fondo de tu app
+  color: white;
+  display: block;
+  width: 100%;
+}
+
+nav {
+  background-color: transparent !important; // asegúrate de que el fondo no sea blanco
+  color: inherit;
+}

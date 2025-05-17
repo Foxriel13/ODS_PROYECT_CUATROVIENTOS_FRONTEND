@@ -2,18 +2,25 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FadeRouterService } from '../../services/servicios/fade-rooter/fade-router.service';
 import { AuthService } from '../../auth/data-access/auth.service';
 import { map } from 'rxjs';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
 
   authService = inject(AuthService)
+  currentRoute: string = '';
 
-  constructor(private fadeRouter: FadeRouterService) {}
+  constructor(private fadeRouter: FadeRouterService, private router: Router) {
+        this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
+  }
 
   ngOnInit(): void {
       this.authState()

@@ -1,3 +1,136 @@
-.fondoAzul{
-    background-color: #A5DEFF;
+.background-seccion {
+  display: flex;
+  background: url(../../../../public/img/fondoNaranja.png) no-repeat center center fixed;
+  color: #fff;
+  background-size: cover;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2d241e; /* Fondo lateral más claro */
+  padding: 20px;
+  border-right: 1px solid #444;
+}
+
+.sidebar .form-label,
+.sidebar .form-select {
+  color: #fff;
+}
+
+.sidebar .form-select {
+  border: none;
+  color: #fff;
+}
+
+.sidebar .form-select option {
+  color: #fff;
+}
+
+.content-area {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.sidebar {
+  padding: 20px 0;
+  width: 70px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  border-radius: 0 20px 20px 0;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.icon-btn .icon-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  color: #ccc;
+}
+
+.icon-svg svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 2;
+}
+
+.icon-btn.active .icon-svg {
+  background: linear-gradient(135deg, #2a5298, #1e3c72); /* Azul más equilibrado */
+  color: #ffffff;
+  box-shadow: 0 0 40px rgba(42, 82, 152, 0.3); /* Azul translúcido */
+}
+
+.inicio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 2rem;
+}
+
+.inicio-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    i {
+      font-size: 24px;
+      color: #fff;
+    }
+  }
+
+  .titulo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .descripcion {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    align-self: flex-start;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
 }

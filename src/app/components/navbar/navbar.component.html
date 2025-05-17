@@ -1,49 +1,40 @@
-<nav class="navbar navbar-expand-lg custom-navbar">
-  <div class="container-fluid align-items-center">
-    <a class="navbar-brand" (click)="goTo('/')">
-      <img src="img/logo4V.png" alt="Cuatrovientos" height="28" class="logo-white">
-    </a>
+<nav class="navbar navbar-expand-lg custom-navbar shadow-sm">
+  <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div class="capsule">
+      <a class="navbar-brand d-flex align-items-center" (click)="goTo('/')">
+        <img src="img/logo4V.png" alt="Cuatrovientos" height="32" class="logo-white" />
+      </a>
+    </div>
 
-    <button class="navbar-toggler text-white border-0" type="button" (click)="goTo('/')" aria-controls="navbarNav"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bi bi-list fs-2"></i>
-    </button>
-
-
-    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-      <ul class="navbar-nav mx-auto gap-3">
+    <div class="capsule navbar-center d-none d-lg-flex flex-wrap justify-content-center">
+      <ul class="navbar-nav flex-row gap-3 m-0">
         <li class="nav-item">
-          <a class="nav-link custom-link" aria-current="page" (click)="goTo('/')">Inicio</a>
+          <a class="nav-link custom-link" (click)="goTo('/') "[ngClass]="{'active-tab': currentRoute === '/'}">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link custom-link" id="iniciativas" (click)="goTo('/Iniciativas')">Iniciativas</a>
+          <a class="nav-link custom-link" (click)="goTo('/Iniciativas') "[ngClass]="{'active-tab': currentRoute === '/Iniciativas'}">Iniciativas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link custom-link" id="modificar" (click)="goTo('/Modificar')">Modificar</a>
+          <a class="nav-link custom-link" (click)="goTo('/Modificar') "[ngClass]="{'active-tab': currentRoute === '/Modificar'}">Modificar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link custom-link" id="indicadores" (click)="goTo('/indicadores')">Indicadores</a>
+          <a class="nav-link custom-link" (click)="goTo('/indicadores') "[ngClass]="{'active-tab': currentRoute === '/indicadores'}">Indicadores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link custom-link" id="modificar" (click)="goTo('/AdministradorEntidades')">Entidades</a>
+          <a class="nav-link custom-link" (click)="goTo('/AdministradorEntidades') "[ngClass]="{'active-tab': currentRoute === '/AdministradorEntidades'}">Entidades</a>
         </li>
       </ul>
+    </div>
 
+    <!-- Cápsula: LOGIN / LOGOUT -->
+    <div class="capsule d-flex align-items-center">
       @if (isLogged) {
-      <div class="d-grid align-items-center gap-3">
-        <button type="button" class="btn btn-danger" (click)="logOut()">Cerrar Sesión</button>
-      </div>
+        <button type="button" class="logout-btn" (click)="logOut()">Cerrar Sesión</button>
       }@else {
-
-      <div class="d-flex align-items-center gap-3">
-        <a href="./LogIn" class="icon-link">
-          <i class="bi bi-person"></i>
+        <a href="./LogIn" class="login-icon">
+          <i class="bi bi-person fs-4"></i>
         </a>
-      </div>
-
       }
-
     </div>
   </div>
 </nav>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">

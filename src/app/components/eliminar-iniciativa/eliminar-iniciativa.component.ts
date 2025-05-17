@@ -55,15 +55,14 @@ export class EliminarIniciativaComponent {
     );
   }
 
-  confirmarEliminacion() {
-    var iniciativaSeleccionada = document.getElementById("iniciativaSelected") as HTMLSelectElement;
-    if(iniciativaSeleccionada.selectedIndex == -1){
-      alert("No se ha seleccionado ninguna Iniciativa, Por favor seleccione una para borrar")
-      return;
-    }
+  confirmarEliminacion(item: Iniciativas) {
+    // Asigna el item seleccionado a la variable de clase
+    this.iniciativa = item;
+
+    // Abre el modal normalmente
     const modalElement = document.getElementById('confirmacionModal');
     if (modalElement) {
-      let modal = new bootstrap.Modal(modalElement);
+      const modal = new bootstrap.Modal(modalElement);
       modal.show();
     }
   }

@@ -1,152 +1,94 @@
-    // Fondo y bordes del contenedor
-    .container {
-        font-size: 0.9rem;
-        padding-top: 0;
+.container {
+  background: rgba(24, 28, 48, 0.92); /* Fondo oscuro similar a las cards */
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); /* Sombra suave */
+  padding: 2rem;
+  color: #ffffff; /* Texto blanco */
+  font-size: 0.9rem;
 
-        .row {
-            background-color: #e5e6f6; // Fondo claro
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            
-        }
-    }
+  .row {
+    gap: 1.5rem;
 
-    // Estilo para los labels
     .form-label {
-        font-weight: bold;
-        color: #333;
+      font-weight: bold;
+      color: #c7d2fe; /* Texto claro */
     }
 
-    // Personalizar los selects y inputs
     .form-control,
     .form-select {
-        border: 1px solid #ced4da;
-        border-radius: 8px;
-        transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1); /* Fondo translúcido */
+      border: 1.5px solid #3b82f6; /* Borde azul */
+      border-radius: 1rem;
+      color: #ffffff; /* Texto blanco */
+      transition: all 0.3s ease;
 
-        &:focus {
-            border-color: #0056b3;
-            box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
-        }
+      &:focus {
+        border-color: #60a5fa; /* Azul más claro al enfocar */
+        box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+        background: rgba(255, 255, 255, 0.2); /* Fondo más claro al enfocar */
+      }
     }
 
-    // Botón principal //TODO ELIMINAR DESPUÉS
-    .btn-blue {
-        background-color: #003d82;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 10px auto;
-        font-weight: bold;
-        font-size: 0.8rem;
-        width: 10%;
+    .btn {
+      font-weight: bold;
+      border-radius: 1rem;
+      padding: 0.5rem 1.5rem;
+      transition: all 0.3s ease;
 
-        &:hover {
-            background-color: #8fb2ea;
-        }
-    }
-
-    // Botón secundario
-    .btn-outline-secondary {
-        font-size: 0.8rem;
-        margin-left: 10px;
-        border: none;
-        background-color: #003d82;
+      &.btn-blue {
+        background-color: #3b82f6;
         color: #ffffff;
-        border-radius: 5px;
-        padding: 5px 20px;
-
+        border: none;
 
         &:hover {
-            background-color: #c1cfe4;
-
+          background-color: #60a5fa;
+          box-shadow: 0 4px 12px rgba(96, 165, 250, 0.5);
         }
+      }
 
+      &.btn-outline-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        border: 1.5px solid #3b82f6;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: #60a5fa;
+        }
+      }
+
+      &.btn-outline-primary {
+        background: transparent;
+        color: #60a5fa;
+        border: none;
+
+        &:hover {
+          color: #3b82f6;
+          transform: scale(1.05);
+        }
+      }
     }
 
-    // Botón para mostrar más filtros
-    .btn-outline-primary {
-        border: none;
-        background-color: transparent;
-        font-size: 0.8rem;
-        padding: 0.2rem 0.5rem;
-        transition: transform 0.2s ease;
+    .dropdown-menu {
+      background: rgba(24, 28, 48, 0.92); /* Fondo oscuro */
+      border: 1.5px solid #3b82f6;
+      border-radius: 1rem;
+      color: #ffffff;
+
+      .dropdown-item {
+        color: #c7d2fe;
 
         &:hover {
-            transform: scale(0.9);
-            color: navy;
-            background-color: transparent;
+          background: rgba(96, 165, 250, 0.2);
+          color: #ffffff;
         }
-
-        i {
-            font-size: 1.5rem;
-        }
+      }
     }
 
     .img-ods {
-        width: 30px;
-        height: 30px;
-        object-fit: contain;
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
     }
-
-    .dropdown-item {
-        white-space: normal;
-        word-wrap: break-word;
-        max-width: 280px;
-        /* Ajustar según el diseño */
-    }
-
-    /* Mantener el dropdown del mismo ancho que el botón */
-    .dropdown-menu {
-        width: 100% !important;
-        min-width: unset !important;
-    }
-
-    /* Ajustar tamaño del botón */
-    .btn-sm {
-        height: calc(1.5em + 0.5rem + 2px);
-        /* Mismo alto que form-select-sm */
-        font-size: 0.875rem;
-    }
-
-    .bg-green {
-        background-color: rgb(111, 233, 111);
-        color: white;
-    }
-
-    .bg-orange {
-        background-color: rgb(249, 200, 108);
-        color: white;
-    }
-
-    .bg-blue {
-        background-color: rgb(115, 115, 248);
-        color: white;
-    }
-
-    .bg-gray {
-        background-color: gray;
-        color: white;
-    }
-
-    // Estilo para el dropdown deshabilitado
-    .disabled-dropdown {
-        background-color: #e9ecef !important; // Color gris claro
-        color: #6c757d !important; // Texto gris
-        pointer-events: none; // Deshabilitar interacción
-        border: 1px solid #ced4da;
-    }
-
-    .dropdown-menu > li > .dropdown-item {
-        width: 100%;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        height: 100%;
-        box-sizing: border-box;
-      }
-      
-      .dropdown-menu {
-        padding: 0; /* elimina espacio entre items */
-      }
-      
+  }
+}

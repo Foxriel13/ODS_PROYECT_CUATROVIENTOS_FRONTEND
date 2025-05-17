@@ -1,4 +1,4 @@
-<div class="card custom-card border-0 rounded-4 p-3" (click)="openIniciativa()">
+<!-- <div class="card custom-card border-0 rounded-4 p-3" (click)="openIniciativa()">
     <div class="d-flex justify-content-between align-items-center">
         <span class="badge bg-secondary">{{ iniciativa.tipo }}</span>
         <h6 class="fw-bold mb-0">{{ iniciativa.nombre }}</h6>
@@ -11,4 +11,17 @@
 
         <span>📅 {{ iniciativa.fecha_fin | date: 'dd/MM/yyyy' }}</span>
     </div>
+</div> -->
+<div class="card-container improved-card" (click)="openIniciativa()">
+  <img [src]="iniciativa.imagen || 'https://via.placeholder.com/150'" alt="{{ iniciativa.nombre }}" class="card-img" />
+  <div class="text-content text-center">
+    <span class="badge bg-secondary">{{ iniciativa.tipo }}</span>
+    <h1>{{ iniciativa.nombre }}</h1>
+  </div>
+  <div class="description">
+    <p>
+      📅 Fecha de inicio: {{ iniciativa.fecha_inicio | date: 'dd/MM/yyyy' }} <br />
+      📅 Fecha de fin: {{ iniciativa.fecha_fin | date: 'dd/MM/yyyy' }}
+    </p>
+  </div>
 </div>

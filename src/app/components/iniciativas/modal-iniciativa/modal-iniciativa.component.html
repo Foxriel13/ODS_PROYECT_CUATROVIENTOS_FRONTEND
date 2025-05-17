@@ -2,44 +2,42 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             
-            <div class="modal-header bg-blue text-white text-center">
+            <div class="modal-header">
                 <h4 class="modal-title fw-bold w-100">{{ iniciativa?.nombre }}</h4>
                 <button type="button" class="btn-close btn-close-white" (click)="close()"></button>
             </div>
 
-            <div class="modal-body bg-light">
+            <div class="modal-body">
                 
                 <div class="row">
                     
                     <div class="col-md-6">
-                        
                         <h6 class="fw-bold mt-3">Fecha:</h6>
-                        <p class="badge bg-blue-light"><i class="bi bi-calendar-event me-2"></i>{{
+                        <p class="badge"><i class="bi bi-calendar-event me-2"></i>{{
                             iniciativa?.fecha_inicio | date:'dd/MM/yyyy' }} - {{ iniciativa?.fecha_fin |
                             date:'dd/MM/yyyy' }}</p>
 
                         <h6 class="fw-bold">Horas:</h6>
-                        <span class="badge bg-blue-light">{{ iniciativa?.horas }} H</span>
+                        <span class="badge">{{ iniciativa?.horas }} H</span>
 
                         <h6 class="fw-bold mt-3">Contratante:</h6>
                         <ng-container *ngFor="let entidad of iniciativa?.entidades_externas">
-                            <span class="badge bg-blue-light"><i class="bi bi-building me-1"></i>{{ entidad?.nombre
+                            <span class="badge "><i class="bi bi-building me-1"></i>{{ entidad?.nombre
                                 }}</span>
                         </ng-container>
 
                         <h6 class="fw-bold mt-3">Equipo educativo:</h6>
                         <ng-container *ngFor="let profesor of iniciativa?.profesores">
-                            <span class="badge bg-blue-light"><i class="bi bi-person me-1"></i>{{ profesor?.nombre
+                            <span class="badge"><i class="bi bi-person me-1"></i>{{ profesor?.nombre
                                 }}</span>
                         </ng-container>
                     </div>
-
                     
                     <div class="col-md-6 text-center">
                         <img [src]="iniciativa?.imagen || 'https://via.placeholder.com/200'"
                             class="img-fluid rounded-3 shadow-sm" alt="{{ iniciativa?.nombre }}" width="250">
                        
-                        <div class="mt-4 fw-bold badge bg-blue-light">
+                        <div class="mt-4 fw-bold badge ">
                             <span class="">Año lectivo:</span> {{iniciativa?.anyo_lectivo}}
                         </div>
                     </div>
@@ -57,7 +55,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" [class.active]="activeTab === 'producto'"
-                            (click)="activeTab = 'producto'">Producto Final</a>
+                            (click)="activeTab = 'producto'">Descripción</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" [class.active]="activeTab === 'comentarios'"
@@ -69,30 +67,27 @@
                 </ul>
 
                 <!-- Contenido de cada pestaña -->
-                <div class="tab-content bg-white p-3">
+                <div class="tab-content p-3">
                     <div *ngIf="activeTab === 'modulos'">
                         <h6 class="fw-bold">Módulos de las metas implicadas:</h6>
                         <div *ngIf="(iniciativa?.modulos ?? []).length > 0; else sinModulos">
                             <div *ngFor="let modulo of iniciativa?.modulos" class="mb-3">
-                            
-                                <h6 class="text-primary fw-bold">
+                                <h6 class=" fw-bold">
                                     <i class="bi bi-book me-2"></i>{{ modulo.nombre }}
                                 </h6>
-                            
                                 <ul class="list-group">
                                     <li *ngFor="let clase of modulo.clases"
-                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                        class=" list-group-item d-flex justify-content-between align-items-center">
                                         <span>
                                             <i class="bi bi-journal-text me-2"></i>{{ clase.nombre }}
                                         </span>
-                                        <span class="badge bg-secondary">{{ clase.id }}</span>
+                                        <span class="badge">{{ clase.id }}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                
                         <ng-template #sinModulos>
-                            <p class="text-muted">Esta iniciativa no cuenta con módulos por el momento.</p>
+                            <p class="text-white">Esta iniciativa no cuenta con módulos por el momento.</p>
                         </ng-template>
                     </div>
                     <div *ngIf="activeTab === 'metas'">
@@ -116,32 +111,32 @@
                                                     height="50" class="me-2">
                                                 {{ meta?.ods?.nombre }}
                                             </td>
-                                        </tr>
+                                        </tr>   
                                     </tbody>
                                 </table>
                             </div>
                             <ng-template #sinMetas>
-                                <p class="text-muted">Esta iniciativa no cuenta con metas por el momento.</p>
+                                <p class="text-white ">Esta iniciativa no cuenta con metas por el momento.</p>
                             </ng-template>
                         </div>
                     </div>
                     <div *ngIf="activeTab === 'producto'">
                         <h6 class="fw-bold">Producto final:</h6>
-                        <p *ngIf="iniciativa?.explicacion; else sinProducto" class="text-muted">
+                        <p *ngIf="iniciativa?.explicacion; else sinProducto" class="text-white">
                             <i class="bi bi-card-text me-2"></i>{{ iniciativa?.explicacion }}
                         </p>
                         <ng-template #sinProducto>
-                            <p class="text-muted">Esta iniciativa no cuenta con un producto final por el momento.</p>
+                            <p class="text-white">Esta iniciativa no cuenta con un producto final por el momento.</p>
                         </ng-template>
                     </div>
 
                     <div *ngIf="activeTab === 'comentarios'">
                         <h6 class="fw-bold">Comentarios:</h6>
-                        <p *ngIf="iniciativa?.mas_comentarios; else sinComentarios" class="text-muted">
+                        <p *ngIf="iniciativa?.mas_comentarios; else sinComentarios" class="text-white">
                             <i class="bi bi-card-text me-2"></i>{{ iniciativa?.mas_comentarios }}
                         </p>
                         <ng-template #sinComentarios>
-                            <p class="text-muted">Esta iniciativa no cuenta con comentarios por el momento.</p>
+                            <p class="text-white">Esta iniciativa no cuenta con comentarios por el momento.</p>
                         </ng-template>
                     </div>
                     
@@ -156,7 +151,7 @@
                                     <iframe *ngIf="isEmbeddable(red.enlace)" [src]="getEmbedUrl(red.enlace)" class="embed-responsive-item"
                                         frameborder="0" allowfullscreen>
                                     </iframe>
-                                    <p *ngIf="!isEmbeddable(red.enlace)" class="text-muted">
+                                    <p *ngIf="!isEmbeddable(red.enlace)" class="text-white">
                                         No se puede mostrar la publicación. <a [href]="red.enlace" target="_blank">Ver en la red social</a>.
                                     </p>
                                 </div>
@@ -164,14 +159,14 @@
                             </div>
                         </div>
                         <ng-template #sinRedes>
-                            <p class="text-muted">Esta iniciativa no cuenta con redes sociales por el momento.</p>
+                            <p class="text-white">Esta iniciativa no cuenta con redes sociales por el momento.</p>
                         </ng-template>
                     </div>
                 </div>
             </div>
 
             <!-- Botón de Cerrar -->
-            <div class="modal-footer bg-blue">
+            <div class="modal-footer">
                 <button class="btn btn-light" (click)="close()">Cerrar</button>
             </div>
         </div>

@@ -1,89 +1,162 @@
-/* Fondo con degradado */
-.modal-background {
-    background: linear-gradient(to right, #dcd7e0, #f0f0f0);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-/* Estilos del modal */
 .modal {
-    background: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
 }
 
 .modal-content {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 700px;
-    width: 100%;
+  background: rgba(27, 32, 76, 0.787);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 8px 32px 0 rgba(44, 52, 160, 0.43);
+  color: #ffffff;
 }
 
-/* Encabezado del modal */
 .modal-header {
-    background: none;
-    border-bottom: none;
+  background: #0e0b3e;
+  border-bottom: none;
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 1rem;
+  text-align: center;
+  color: #ffffff;
 }
 
-/* Imagen dentro del modal */
+.modal-header h4 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.modal-header .btn-close {
+  color: #ffffff;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .modal-img {
-    max-width: 200px;
-    border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
 }
 
-/* Estilos de los badges */
 .badge {
-    font-size: 14px;
-    padding: 8px;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: #070e4d;
+  color: #ffffff;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Footer del modal */
 .modal-footer {
-    background: none;
-    border-top: none;
-    text-align: right;
-}
-.bg-blue {
-    background-color:#393d92 !important;
-    color: white;
-}
-.bg-blue-light {
-    background-color:#9ea1e4 !important;
-    color: white;
+  background: none;
+  border-top: none;
+  text-align: right;
+  padding: 1rem 0;
 }
 
+.modal-footer .btn {
+  background: #174287;
+  color: #ffffff;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-weight: bold;
+  transition: background 0.3s ease;
 
-// Color lila personalizado
-$tab-color: #393d92; // Puedes cambiar este color si prefieres otro tono de lila
-
-// Estilos generales para los tabs
-.nav-tabs .nav-link {
-    color:#393d92 !important; // Color de letra negro por defecto
-    background-color: #f0eafc; // Fondo gris claro
-    border: 1px solid $tab-color; // Borde lila
-    transition: all 0.3s ease-in-out;
+  &:hover {
+    background: #03254e;
+  }
 }
 
-// Cuando el tab está seleccionado (activo)
-.nav-tabs .nav-link.active {
-    background-color: $tab-color !important; // Fondo lila
-    color: white !important; // Texto blanco
-    border-color: $tab-color;
+.nav-tabs {
+  display: flex;
+  flex-wrap: nowrap; 
+  justify-content: center; 
+  border-bottom: 1px solid #163997;
+  padding-bottom: 0.7rem;
+
+  .nav-item {
+    margin-top: 1rem;
+    margin-right: 0.5rem; /* Espaciado entre tabs */
+  }
+
+  .nav-link {
+    color: #ffffff;
+    background-color: rgba(31, 45, 243, 0.1);
+    border: 1px solid #3730f7;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #0e11c6;
+      color: #ffffff;
+    }
+  }
+
+  .nav-link.active {
+    background-color: #070c34;
+    color: #ffffff;
+  }
 }
 
-// Cambia el color al pasar el mouse sobre un tab
-.nav-tabs .nav-link:hover {
-    background-color: #a7a9df;  // Un lila más claro al hacer hover
-    color: white;
+.tab-content {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: #a9b5e2;
 }
+
 .text-primary {
-    color: #484dab !important;
-    
+  color: #1f286e !important;
+}
+.list-group-item {
+    background-color: #1f286e !important;
+    color:white !important;
+}
+.table {
+  background-color: #1f286e;
+  color: #ffffff;
+  border: 1px solid #0f134458; 
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  th {
+    background-color: #060a3a; 
+    color: #ffffff; 
+    font-weight: bold;
+    text-align: center;
+    padding: 0.75rem;
+  }
+
+  td {
+    background-color: #3739577f; 
+    color: #ffffff; 
+    text-align: center;
+    padding: 0.75rem;
+  }
+
+  tr {
+    &:nth-child(even) {
+      background-color: #2c3a8c; /* Fondo ligeramente más claro para filas pares */
+    }
+  }
+
+  img {
+    border-radius: 0.5rem; /* Bordes redondeados para imágenes */
+  }
 }

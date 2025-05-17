@@ -39,6 +39,10 @@
         background: rgba(24, 28, 48, 0.92); /* Fondo oscuro para las opciones */
         color: #ffffff; /* Texto blanco */
       }
+
+      option[disabled] {
+        color: #c7d2fe; /* Placeholder blanco */
+      }
     }
 
     .btn {

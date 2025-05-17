@@ -11,11 +11,11 @@ export class NavbarFormCrearComponent {
   @Input() tabsEnabled: boolean[] = [true, false, false, false, false, false, false]; // Estado de los tabs
   @Output() tabChange = new EventEmitter<string>();
 
-  tabs: string[] = ['iniciativas', 'metas', 'modulos', 'profesores', 'entidades', 'redes', 'actividades'];
+  tabs: string[] = ['Iniciativas', 'metas', 'Modulos', 'Profesores', 'Entidades', 'Redes', 'Actividades'];
 
 
   // Variable que mantiene la pestaña activa
-  activeTab: string = 'iniciativas';
+  activeTab: string = 'Iniciativas';
 
 
   // Método para emitir el cambio de sección

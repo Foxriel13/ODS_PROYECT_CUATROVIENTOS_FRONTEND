@@ -1,16 +1,18 @@
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <ul class="navbar-nav">
-            <li class="nav-item" *ngFor="let tab of tabs; let i = index">
-                <a class="nav-link" [ngClass]="{
+<nav class="tabs-navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngFor="let tab of tabs; let i = index">
+        <a
+          class="nav-link"
+          [ngClass]="{
             'formSelected': isActive(tab),
-            'text-muted': !tabsEnabled[i],
-            'text-dark': tabsEnabled[i] && !isActive(tab)
-          }" [class.disabled]="!tabsEnabled[i]" (click)="tabsEnabled[i] && onTabClick(tab)"
-                    [style.cursor]="tabsEnabled[i] ? 'pointer' : 'not-allowed'">
-                    {{ tab }}
-                </a>
-            </li>
-        </ul>
-    </div>
+            'disabled': !tabsEnabled[i]
+          }" [class.disabled]="!tabsEnabled[i]"
+          (click)="tabsEnabled[i] && onTabClick(tab)"
+        >
+          {{ tab }}
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>

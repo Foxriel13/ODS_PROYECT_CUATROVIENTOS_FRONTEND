@@ -1,13 +1,28 @@
 .background-seccion {
+  position: relative;
   display: flex;
-  background: url(../../../../public/img/fondoNaranja.png) no-repeat center center fixed;
   color: #fff;
+  background: url(../../../../public/img/fondoAzul.jpg) no-repeat center center fixed;
   background-size: cover;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4); // Ajusta la opacidad a tu gusto
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .sidebar {
   width: 250px;
-  background-color: #2d241e; /* Fondo lateral más claro */
+  background-color: #0e2052; /* Fondo lateral más claro */
   padding: 20px;
   border-right: 1px solid #444;
 }

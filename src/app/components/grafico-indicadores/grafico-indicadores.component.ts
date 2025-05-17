@@ -64,8 +64,6 @@ export class GraficoIndicadoresComponent implements OnInit{
   iniciativasFiltradas: Iniciativas[] = []
   iniciativasTotales: Iniciativas[] = []
 
-  //modulosIniciativa: Modulos[] = []
-
   metas: Metas[] = [];
   cursos: Curso[] = [];
   anyos_lectivos: string[] = []
@@ -92,7 +90,6 @@ export class GraficoIndicadoresComponent implements OnInit{
     private metasService: MetasService,
     private cursosService: ServiceCursosService,
     private indicadoresService: IndicadoresService) {
-
   }
 
   ngOnInit(): void {
@@ -280,36 +277,9 @@ export class GraficoIndicadoresComponent implements OnInit{
     const backgroundColors = ['#A8D5BA', '#F9C6C9'];
     const hoverColors = ['#C3E6CD', '#FADADD'];
   }
-  // chartIndicador11(): void {
-  //   const labels = ['Innovadoras', 'No Innovadoras'];
-  //   const data = [
-  //     this.diferenciaInnovadoresYNo[0].cantidad_innovadoras,
-  //     this.diferenciaInnovadoresYNo[0].cantidad_no_innovadoras,
-  //   ];
-  //   const backgroundColors = ['#A8D5BA', '#F9C6C9'];
-  //   const hoverColors = ['#C3E6CD', '#FADADD'];
 
-  //   this.pieChartDataIndicador = this.createPieChartData(labels, data, backgroundColors, hoverColors);
-  // }
   chartIndicador4() {
     this.reiniciarChart()
-    /* 
-        // Obtener los nombres de los cursos como etiquetas (labels)
-        const iniciativasUnicas = this.explicacionIniciativas.map(ini => ini.explicacion);
-    
-        // Obtener los valores de iniciativas como un array
-        const dataPorCurso = this.explicacionIniciativas.map(ini => ini.nombre);
-    
-        // Estructura para el gráfico
-        this.barChartData = {
-          labels: iniciativasUnicas,
-          datasets: [
-            {
-              label: 'Número de iniciativas por curso',
-              data: dataPorCurso,
-            }
-          ]
-        }; */
   }
 
   chartIndicador5() {
@@ -362,13 +332,10 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   chartIndicador10() {
     this.reiniciarChart()
-    //CantIniciativasProfesor
 
     const iniciativsUnicas = this.cantIniciativaProfesor.map(ini => ini.nombre_profesor);
-
     const dataPorCurso = this.cantIniciativaProfesor.map(ini => ini.cantDeIniciativas);
 
-    // Estructura para el gráfico
     this.barChartData = {
       labels: iniciativsUnicas,
       datasets: [
@@ -378,9 +345,7 @@ export class GraficoIndicadoresComponent implements OnInit{
         }
       ]
     };
-
   }
-
 
   chartIndicador11(): void {
     const labels = ['Innovadoras', 'No Innovadoras'];
@@ -388,20 +353,38 @@ export class GraficoIndicadoresComponent implements OnInit{
       this.diferenciaInnovadoresYNo[0].cantidad_innovadoras,
       this.diferenciaInnovadoresYNo[0].cantidad_no_innovadoras,
     ];
-    const backgroundColors = ['#A8D5BA', '#F9C6C9'];
+    const backgroundColors = ['#8B617D', '#7B4F50'];
     const hoverColors = ['#C3E6CD', '#FADADD'];
 
-    this.pieChartDataIndicador11 = this.createPieChartData(labels, data, backgroundColors, hoverColors);
+    this.pieChartDataIndicador11 = {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: backgroundColors,
+        hoverBackgroundColor: hoverColors,
+        borderColor: 'transparent',  // Aquí quitamos el borde blanco
+        borderWidth: 0
+      }]
+    };
   }
+
   chartIndicador12(): void {
     const labels = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
     const data = this.cantHorasIniciativa.map(ini => ini.horas_dedicadas);
-    const backgroundColors = ['#FFD1DC', '#FFB6C1', '#FFC0CB', '#D1C4E9', '#B3E5FC'];
+    const backgroundColors = ['#8B617D', '#7B4F50', '#8C6A6A', '#5A4B7F', '#4C7298'];
     const hoverColors = ['#FFE4E1', '#FFCCCB', '#FFDDDD', '#E1D5F5', '#C5F1FF'];
 
-    this.pieChartDataIndicador12 = this.createPieChartData(labels, data, backgroundColors, hoverColors);
+    this.pieChartDataIndicador12 = {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: backgroundColors,
+        hoverBackgroundColor: hoverColors,
+        borderColor: 'transparent',  // Aquí quitamos el borde blanco
+        borderWidth: 0
+      }]
+    };
   }
-  
 
   chartIndicador13(): void {
     const labels = ['Ha tenido actividad', 'No ha tenido actividad'];
@@ -412,7 +395,15 @@ export class GraficoIndicadoresComponent implements OnInit{
     const backgroundColors = ['#A8D5BA', '#F9C6C9'];
     const hoverColors = ['#C3E6CD', '#FADADD'];
 
-    this.pieChartDataIndicador13 = this.createPieChartData(labels, data, backgroundColors, hoverColors);
+    this.pieChartDataIndicador13 = {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: backgroundColors,
+        hoverBackgroundColor: hoverColors,
+        borderColor: 'transparent',  // Aquí quitamos el borde blanco
+        borderWidth: 0
+      }]
+    };
   }
 }
-

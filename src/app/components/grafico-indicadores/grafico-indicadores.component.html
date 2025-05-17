@@ -1,8 +1,6 @@
-<!--Por año escolar y filtrado-->
-<!--Cada año hay un indicador diferente. Simplemente hacer las consultas con iniciativas que coincidan con el año filtrado-->
 <div class="d-flex flex-column mt-5 mb-0">
     <label class="form-label m-4 mb-0">Año lectivo</label>
-    <select class="form-select form-select-sm m-4 mt-0 w-25" title="anyo_seleccionado" [(ngModel)]="anyo_seleccionado"
+    <select class="form-control form-select-sm m-4 mt-0 w-25" title="anyo_seleccionado" [(ngModel)]="anyo_seleccionado"
         (change)="filterChanges()">
         @for (anyo of anyos_lectivos; track $index) {
         <option [value]="anyo">{{anyo}}</option>
@@ -14,24 +12,22 @@
 <div class="container py-3">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 mb-4">
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Número de Iniciativas trabajadas por Cuatrovientos.</h5>
-                    <!-- indicador 2 -->
+            <div class="custom-card h-100 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Número de Iniciativas trabajadas por Cuatrovientos.</h5>
                 </div>
-                <div class="card-body d-flex justify-content-center align-items-center">
+                <div class="custom-card-body d-flex justify-content-center align-items-center">
                     <i class="bi bi-bar-chart-fill text-primary display-1 me-3"></i>
                     <p class="display-4 mb-0">{{ numeroIniciativas }}</p>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Número de trabajadores (profesores) en cuatrovientos</h5>
-                    <!-- indicador 10.1 -->
+            <div class="custom-card h-100 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Número de trabajadores (profesores) en cuatrovientos</h5>
                 </div>
-                <div class="card-body d-flex justify-content-center align-items-center">
+                <div class="custom-card-body d-flex justify-content-center align-items-center">
                     <i class="bi bi-people-fill text-primary display-1 me-3"></i>
                     <p class="display-4 mb-0">{{ cantidadProfesores }}</p>
                 </div>
@@ -40,37 +36,31 @@
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Iniciativas por Curso</h5>
+            <div class="custom-card h-100 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Iniciativas por Curso</h5>
                     <!-- indicador 1 -->
                 </div>
-                <div class="card-body">
-                    <p class="card-text">Qué iniciativas se han realizado dirigidas a los ODS por curso académico:</p>
-                    <canvas baseChart 
-                        [data]="barChartData1" 
-                        [options]="barChartOptions" 
-                        [plugins]="barChartPlugins"
-                        [legend]="barChartLegend" 
-                        [type]="'bar'"></canvas>
+                <div class="custom-card-body">
+                    <p class="custom-card-text">Qué iniciativas se han realizado dirigidas a los ODS por curso académico:</p>
+                    <canvas baseChart [data]="barChartData1" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" [type]="'bar'"></canvas>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Iniciativas con actividades</h5>
+            <div class="custom-card h-100 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Iniciativas con actividades</h5>
                     <!-- indicador 13 -->
                 </div>
-                <div class="card-body">
-                    <p class="card-text">Si esas acciones o proyectos han requerido de alguna visita, salida, charla,
+                <div class="custom-card-body">
+                    <p class="custom-card-text">Si esas acciones o proyectos han requerido de alguna visita, salida, charla,
                         etc.</p>
 
                     <div class="d-flex justify-content-center align-items-center">
                         <div style="width: 60%; max-width: 500px;">
-                            <canvas baseChart 
-                                [data]="pieChartDataIndicador13" 
-                                [options]="pieChartOptions"
+                            <canvas baseChart [data]="pieChartDataIndicador13" [options]="pieChartOptions"
                                 [type]="'pie'"></canvas>
                         </div>
                     </div>
@@ -81,18 +71,14 @@
     <!-- columna 2 -->
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
         <div class="col">
-            <div class="card h-60 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Han colaborado entidades externas</h5>
+            <div class="custom-card h-60 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Han colaborado entidades externas</h5>
                     <!-- indicador 6 -->
                 </div>
-                <div class="card-body">
-                    <canvas baseChart 
-                        [data]="barChartData6" 
-                        [options]="barChartOptions"
-                        [plugins]="barChartPlugins"
-                        [legend]="barChartLegend" 
-                        [type]="'bar'">
+                <div class="custom-card-body">
+                    <canvas baseChart [data]="barChartData6" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" [type]="'bar'">
                     </canvas>
                 </div>
             </div>
@@ -101,13 +87,13 @@
     <!-- columna 3 -->
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
         <div class="col">
-            <div class="card h-60 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Descripción de las Iniciativas</h5>
+            <div class="custom-card h-60 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Descripción de las Iniciativas</h5>
                     <!-- indicador 4 -->
                 </div>
-                <div class="card-body">
-                    <p class="card-text">En qué consiste cada acción, proyecto, iniciativa y si hay un producto final:
+                <div class="custom-card-body">
+                    <p class="custom-card-text">En qué consiste cada acción, proyecto, iniciativa y si hay un producto final:
                     </p>
 
                     <div class="custom-table-box  shadow-sm">
@@ -139,21 +125,19 @@
     <!-- columna 4 -->
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 g-1 mt-4">
         <div class="col">
-            <div class="card h-60 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Iniciativas Nuevas</h5>
+            <div class="custom-card h-60 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Iniciativas Nuevas</h5>
                     <!-- indicador 11 -->
                 </div>
 
-                <div class="card-body">
-                    <p class="card-text">De las acciones realizadas cuales son nuevas, innovadoras o que han hecho
+                <div class="custom-card-body">
+                    <p class="custom-card-text">De las acciones realizadas cuales son nuevas, innovadoras o que han hecho
                         alguna
                         modificación importante</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <div style="width: 60%; max-width: 500px;">
-                            <canvas baseChart 
-                                [data]="pieChartDataIndicador11" 
-                                [options]="pieChartOptions"
+                            <canvas baseChart [data]="pieChartDataIndicador11" [options]="pieChartOptions"
                                 [type]="'pie'"></canvas>
                         </div>
                     </div>
@@ -161,20 +145,16 @@
             </div>
         </div>
         <div class="col">
-            <div class="card h-60 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Diferenciar si son Proyectos, charlas o talleres</h5>
+            <div class="custom-card h-60 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Diferenciar si son Proyectos, charlas o talleres</h5>
                 </div>
                 <!-- indicador 8 -->
-                <div class="card-body">
+                <div class="custom-card-body">
                     <div class="d-flex justify-content-center align-items-center">
                         <div style="width: 100%; max-height: 700px;">
-                            <canvas baseChart 
-                                [data]="barChartData8" 
-                                [options]="barChartOptions"
-                                [plugins]="barChartPlugins" 
-                                [legend]="barChartLegend" 
-                                [type]="'bar'">
+                            <canvas baseChart [data]="barChartData8" [options]="barChartOptions"
+                                [plugins]="barChartPlugins" [legend]="barChartLegend" [type]="'bar'">
                             </canvas>
                         </div>
                     </div>
@@ -185,17 +165,15 @@
     <!-- columa5 -->
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1 mt-4">
         <div class="col">
-            <div class="card h-60 shadow-sm">
-                <div class="card-header text-white bg-primary">
-                    <h5 class="card-title">Horas por cada Iniciativa</h5>
+            <div class="custom-card h-60 shadow-sm">
+                <div class="custom-card-header text-white bg-primary">
+                    <h5 class="custom-card-title">Horas por cada Iniciativa</h5>
                     <!-- indicador 12 -->
                 </div>
-                <div class="card-body">
+                <div class="custom-card-body">
                     <div class="d-flex justify-content-center align-items-center">
                         <div style="width: 60%; max-width: 500px;">
-                            <canvas baseChart 
-                                [data]="pieChartDataIndicador12" 
-                                [options]="pieChartOptions"
+                            <canvas baseChart [data]="pieChartDataIndicador12" [options]="pieChartOptions"
                                 [type]="'pie'"></canvas>
                         </div>
                     </div>
@@ -254,29 +232,27 @@
                     </div>
                     <div class="custom-card-body">
                         <div class="custom-table-container">
-                        <div class="custom-table-header">
-                            <div class="header-col">
-                            <i class="bi bi-person-fill me-2"></i>Profesor
+                            <div class="custom-table-header">
+                                <div class="header-col">
+                                    <i class="bi bi-person-fill me-2"></i>Profesor
+                                </div>
+                                <div class="header-col">
+                                    <i class="bi bi-bar-chart-fill me-2"></i>Iniciativas
+                                </div>
                             </div>
-                            <div class="header-col">
-                            <i class="bi bi-bar-chart-fill me-2"></i>Iniciativas
+                            <div *ngFor="let item of cantIniciativaProfesor" class="custom-table-row">
+                                <div class="row-col">
+                                    <i class="bi bi-person-circle text-primary me-2"></i>
+                                    <strong>{{ item.nombre_profesor }}</strong>
+                                </div>
+                                <div class="row-col">
+                                    <span>{{ item.cantDeIniciativas }}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div
-                            *ngFor="let item of cantIniciativaProfesor"
-                            class="custom-table-row"
-                        >
-                            <div class="row-col">
-                            <i class="bi bi-person-circle text-primary me-2"></i>
-                            <strong>{{ item.nombre_profesor }}</strong>
-                            </div>
-                            <div class="row-col">
-                            <span>{{ item.cantDeIniciativas }}</span>
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

@@ -1,23 +1,10 @@
-<!-- <div class="card custom-card border-0 rounded-4 p-3" (click)="openIniciativa()">
-    <div class="d-flex justify-content-between align-items-center">
-        <span class="badge bg-secondary">{{ iniciativa.tipo }}</span>
-        <h6 class="fw-bold mb-0">{{ iniciativa.nombre }}</h6>
-    </div>
-    <img [src]="iniciativa.imagen || 'https://via.placeholder.com/150'" class="card-img-top rounded mt-2"
-        alt="{{ iniciativa.nombre }}">
 
-    <div class="d-flex justify-content-between text-muted mt-2">
-        <span>📅 {{ iniciativa.fecha_inicio | date: 'dd/MM/yyyy' }}</span>
-
-        <span>📅 {{ iniciativa.fecha_fin | date: 'dd/MM/yyyy' }}</span>
-    </div>
-</div> -->
 <div class="card-container improved-card" (click)="openIniciativa()">
-  <img [src]="iniciativa.imagen || 'https://via.placeholder.com/150'" alt="{{ iniciativa.nombre }}" class="card-img" />
-  <div class="text-content text-center">
+      <div class="text-content text-center">
     <span class="badge bg-secondary">{{ iniciativa.tipo }}</span>
     <h1>{{ iniciativa.nombre }}</h1>
   </div>
+  <img [src]="iniciativa.imagen || 'https://via.placeholder.com/150'" alt="{{ iniciativa.nombre }}" class="card-img" />
   <div class="description">
     <p>
       📅 Fecha de inicio: {{ iniciativa.fecha_inicio | date: 'dd/MM/yyyy' }} <br />

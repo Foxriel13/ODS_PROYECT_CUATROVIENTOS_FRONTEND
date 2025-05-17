@@ -22,7 +22,7 @@
       <label class="form-label ">Fecha de registro</label>
       <input type="date" class="form-control form-control-sm " [(ngModel)]="filtros.fechaRegistro">
     </div>
-    <div class="col-md-3 d-flex flex-column align-items-center">
+    <div class="col-md-2 d-flex flex-column align-items-center">
       <label class="form-label">Profesores</label>
       <select class="form-select form-select-sm " [(ngModel)]="filtros.profesor">
         <option *ngFor="let prof of profList" [value]="prof.nombre">{{ prof.nombre }}</option>

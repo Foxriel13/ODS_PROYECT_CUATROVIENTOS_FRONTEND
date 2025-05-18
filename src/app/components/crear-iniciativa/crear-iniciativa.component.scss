@@ -1,47 +1,46 @@
 .row {
-  display: flex; /* Flexbox para que las columnas se distribuyan correctamente */
-  flex-wrap: wrap; /* Para que las columnas no se desborden */
-  gap: 1rem; /* Espacio entre las columnas */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .col-md-6 {
-  flex: 1 1 48%; /* Asigna un espacio proporcional */
+  flex: 1 1 48%;
 }
 
 .col-md-4 {
-  flex: 1 1 32%; /* Ajusta la proporción de esta columna si tienes tres columnas */
+  flex: 1 1 32%;
 }
 
 .col-md-12 {
-  flex: 1 1 100%; /* Si quieres que ocupe toda la fila */
+  flex: 1 1 100%;
 }
 
 .image-box {
-  overflow: visible; /* Elimina cualquier scroll */
+  overflow: visible;
 }
 
 .image-box img {
-  max-width: 100%; /* La imagen no debe exceder el ancho de la caja */
-  max-height: 100%; /* La imagen no debe exceder la altura de la caja */
-  object-fit: contain; /* Asegura que la imagen se ajuste completamente sin recortarse */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .img-thumbnail {
-  width: 100%; /* Esto asegura que la imagen ocupe todo el espacio disponible */
-  height: auto; /* Mantiene la relación de aspecto */
-  object-fit: cover; /* Asegura que la imagen se recorte adecuadamente si es necesario */
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .image-box-small img {
-  width: 80%; /* Ajusta el ancho de la imagen para que sea más pequeña */
-  height: 200px; /* Establece una altura fija más pequeña */
-  object-fit: contain; /* Asegura que la imagen se ajuste dentro del contenedor sin cortarse */
-  border-radius: 8px; /* Bordes redondeados opcionales */
-  margin: 0 auto; /* Centra la imagen horizontalmente */
-  display: block; /* Asegura que la imagen esté centrada */
+  width: 80%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin: 0 auto;
+  display: block;
 }
-/* Estilos opcionales para los botones y el diseño */
-/* Estilos opcionales para los botones y el diseño */
+
 .box-meta {
   border: 1px solid #ddd; 
   padding: 10px;
@@ -49,17 +48,14 @@
   background-color: #f9f9f9;
 }
 
-/* Asegura que los botones estén alineados correctamente debajo del contenido */
 .btn-group-vertical {
   width: 100%;
   display: block;
 }
 
-
-/* Ajuste adicional si deseas que los botones tengan un pequeño espaciado */
 .btn-group-vertical .btn {
-  width: 100%;  /* Asegura que los botones ocupen todo el ancho disponible */
-  margin-bottom: 5px;  /* Separación entre los botones */
+  width: 100%;
+  margin-bottom: 5px;
 }
 @keyframes fillProgress {
   from {
@@ -91,7 +87,7 @@ select.form-control {
   }
 
   option {
-    background: #222; /* fondo oscuro para opciones */
+    background: #222;
     color: white;
   }
 }

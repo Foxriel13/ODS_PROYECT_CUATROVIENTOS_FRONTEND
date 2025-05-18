@@ -12,13 +12,13 @@ export class NavBarModificarEntidadesComponent {
 
   @Output() tabChange = new EventEmitter<string>();
 
-  // Método para emitir el cambio de sección
+
   onTabClick(tab: string): void {
     this.activeTab = tab;  // Actualizar la pestaña activa
     this.tabChange.emit(tab); // Emitir el nombre de la pestaña seleccionada
   }
 
-  // Método para verificar si la pestaña es la activa
+
   isActive(tab: string): boolean {
     return this.activeTab === tab;
   }

@@ -11,15 +11,14 @@ import { Redes_Sociales } from '../../models/redes_sociales';
 })
 export class IniciativasService {
   private apiUrl = 'http://localhost:8000/iniciativas';
-  private iniciativas: Iniciativas[] = []; // Guardamos las iniciativas aquí
+  private iniciativas: Iniciativas[] = [];
 
   constructor(private http: HttpClient) { }
 
-  // Obtener todas las iniciativas y almacenarlas en el servicio
   getIniciativas(): Observable<Iniciativas[]> {
     return this.http.get<Iniciativas[]>(this.apiUrl).pipe(
       tap(data => {
-        console.log('Iniciativas recibidas:', data);  // Verifica los datos que estás recibiendo
+        console.log('Iniciativas recibidas:', data);
         this.iniciativas = data;
       }),
       catchError(error => {
@@ -29,10 +28,8 @@ export class IniciativasService {
     );
   }
 
-
-  // Filtrar iniciativas en el frontend sin hacer peticiones a Symfony
   filterIniciativas(filters: any): Observable<Iniciativas[]> {
-    let filteredIniciativas = [...this.iniciativas]; // Copiamos el array para no modificar el original
+    let filteredIniciativas = [...this.iniciativas];
 
     if (filters.nombre) {
       filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
@@ -42,7 +39,6 @@ export class IniciativasService {
 
     if (filters.ods) {
       filteredIniciativas = filteredIniciativas.filter((iniciativa) =>
-        // Filtramos por los ODS dentro de las metas
         iniciativa.metas.some(meta => {
           if (Array.isArray(meta.ods)) {
             return meta.ods.some((ods: any) => ods.nombre.toLowerCase().includes(filters.ods.toLowerCase()));
@@ -54,30 +50,24 @@ export class IniciativasService {
       );
     }
 
-    
-
-    // Filtrar por fecha_registro
     if (filters.fechaRegistro) {
       filteredIniciativas = filteredIniciativas.filter(
         (iniciativa) => {
           const fechaIniciativa = new Date(iniciativa.fecha_registro);
           const fechaFiltro = new Date(filters.fechaRegistro);
 
-          // Normalizamos las fechas para compararlas (convertimos a formato de fecha estándar)
-          const fechaIniciativaFormato = fechaIniciativa.setHours(0, 0, 0, 0); // Eliminar hora para comparación solo de día
+          const fechaIniciativaFormato = fechaIniciativa.setHours(0, 0, 0, 0);
           const fechaFiltroFormato = fechaFiltro.setHours(0, 0, 0, 0);
 
-          // Comparamos las fechas solo considerando la parte de día, mes y año
           return fechaIniciativaFormato === fechaFiltroFormato;
         }
       );
     }
 
-    return of(filteredIniciativas); // Devolvemos los datos como un Observable
+    return of(filteredIniciativas); 
 
   }
 
-  //Post
   createIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
     console.log(iniciativa);
   
@@ -86,18 +76,18 @@ export class IniciativasService {
       horas: Number(iniciativa.horas),
       nombre: iniciativa.nombre.toString(),
       explicacion: iniciativa.explicacion.toString(),
-      fecha_inicio: new Date(iniciativa.fecha_inicio).toISOString().slice(0, 19).replace('T', ' '), // "YYYY-MM-DD HH:MM:SS"
+      fecha_inicio: new Date(iniciativa.fecha_inicio).toISOString().slice(0, 19).replace('T', ' '), 
       fecha_fin: new Date(iniciativa.fecha_fin).toISOString().slice(0, 19).replace('T', ' '),
       eliminado: Boolean(iniciativa.eliminado),
       innovador: Boolean(iniciativa.innovador),
       anyo_lectivo: iniciativa.anyo_lectivo.toString(),
-      imagen: iniciativa.imagen.toString(), // Asegúrate que sea URI válido
+      imagen: iniciativa.imagen.toString(),
       mas_comentarios: iniciativa.mas_comentarios.toString(),
       metas: iniciativa.metas.map(meta => Number(meta.id)),
       profesores: iniciativa.profesores.map(profesor => Number(profesor.id)),
       entidades_externas: iniciativa.entidades_externas.map(entidad => Number(entidad.id)),
       modulos: iniciativa.modulos.map(modulo => ({
-        id: Number(modulo.id), // Asegúrate de que es 'id' no 'idModulo'
+        id: Number(modulo.id),
         clasess: modulo.clases.map(clases => Number(clases.id))
       })),
       redes_sociales: iniciativa.redes_sociales.map(red => Number(red.id)),
@@ -120,27 +110,24 @@ export class IniciativasService {
   }
   
 
-  //Put
   updateIniciativa(iniciativa: Iniciativas): Observable<Iniciativas> {
     console.log(iniciativa);
-
-    // Creamos el objeto que será enviado en el cuerpo del PUT
     const requestBody = {
       id: iniciativa.id,
-      horas: iniciativa.horas.toString(),  // Aseguramos que horas sea un número
+      horas: iniciativa.horas.toString(),  
       nombre: iniciativa.nombre.toString(),
       explicacion: iniciativa.explicacion.toString(),
-      fecha_inicio: iniciativa.fecha_inicio.toString(),  // Asegúrate de formatear las fechas correctamente
-      fecha_fin: iniciativa.fecha_fin.toString(),  // Asegúrate de formatear las fechas correctamente
-      eliminado: iniciativa.eliminado,  // Asegúrate de que sea un booleano (true o false)
-      innovador: iniciativa.innovador,  // Asegúrate de que sea un booleano (true o false)
+      fecha_inicio: iniciativa.fecha_inicio.toString(), 
+      fecha_fin: iniciativa.fecha_fin.toString(),  
+      eliminado: iniciativa.eliminado,  
+      innovador: iniciativa.innovador,  
       anyo_lectivo: iniciativa.anyo_lectivo.toString(),
       imagen: iniciativa.imagen.toString(),
-      mas_comentarios: iniciativa.mas_comentarios.toString(),  // Si la API lo espera, agrega este campo también
-      metas: iniciativa.metas.map(meta => meta.id),  // Asumimos que metas es un array de objetos y necesitamos solo los IDs
-      profesores: iniciativa.profesores.map(profesor => profesor.id),  // Asumimos que profesores es un array de objetos y necesitamos solo los IDs
-      entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),  // Lo mismo para entidades externas
-      modulos: iniciativa.modulos.map(modulo => modulo.id),  // Lo mismo para modulos
+      mas_comentarios: iniciativa.mas_comentarios.toString(),
+      metas: iniciativa.metas.map(meta => meta.id),  
+      profesores: iniciativa.profesores.map(profesor => profesor.id),
+      entidades_externas: iniciativa.entidades_externas.map(entidad => entidad.id),
+      modulos: iniciativa.modulos.map(modulo => modulo.id),
       redes_sociales: iniciativa.redes_sociales.map(red => red.id),
 
     };
@@ -150,10 +137,9 @@ export class IniciativasService {
     return this.http.put<Iniciativas>(`${this.apiUrl}/${iniciativa.id}`, requestBody, { headers }).pipe(
       tap(data => {
         console.log('Iniciativa actualizada:', data);
-        // Si tienes un array local donde guardas las iniciativas, puedes actualizarlo:
         const index = this.iniciativas.findIndex(i => i.id === iniciativa.id);
         if (index !== -1) {
-          this.iniciativas[index] = data;  // Reemplaza la iniciativa en el array con los datos actualizados
+          this.iniciativas[index] = data;
         }
       }),
       catchError(error => {
@@ -167,10 +153,9 @@ export class IniciativasService {
 
 
   deleteIniciativa(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;  // Formamos la URL con el id de la iniciativa
+    const url = `${this.apiUrl}/${id}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    // Realizamos la solicitud DELETE
     return this.http.delete<void>(url, { headers }).pipe(
       tap(() => {
         console.log(`Iniciativa con id ${id} eliminada correctamente.`);

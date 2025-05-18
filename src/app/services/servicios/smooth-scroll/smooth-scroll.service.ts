@@ -10,8 +10,8 @@ export class SmoothScrollService {
   scrollTo(element: HTMLElement): void {
     gsap.to(window, {
       scrollTo: element,
-      duration: 1, // Duración del scroll
-      ease: 'power2.inOut', // Efecto de suavizado
+      duration: 1,
+      ease: 'power2.inOut',
     });
   }
 }

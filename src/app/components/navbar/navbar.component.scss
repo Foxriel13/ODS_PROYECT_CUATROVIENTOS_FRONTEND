@@ -29,17 +29,15 @@
   text-decoration: none;
 }
 
-/* Tab activa con azul elegante */
 .custom-link.active-tab {
-  background: linear-gradient(135deg, #2a5298, #1e3c72); /* Azul más equilibrado */
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   color: #ffffff;
-  box-shadow: 0 0 10px rgba(42, 82, 152, 0.3); /* Azul translúcido */
+  box-shadow: 0 0 10px rgba(42, 82, 152, 0.3);
 }
 
-/* Hover suave con un toque de azul brillante */
 .custom-link:hover {
   background: rgba(255, 255, 255, 0.08);
-  color: #4da8ff !important; /* Azul claro vibrante */
+  color: #4da8ff !important;
 }
 
 

@@ -7,12 +7,9 @@
     }
   }
   
-  /* Aplica la animación a la barra de progreso */
   .fill-progress {
     animation: fillProgress 3s linear forwards;
   }
-  
-  /* Spinner overlay centrado en la pantalla */
 
   .bg-blur {
   background: rgba(50, 50, 50, 0.6);
@@ -112,5 +109,5 @@
 
 .modal {
   z-index: 1100 !important;
-  position: fixed !important; /* asegúrate que tenga posición fija */
+  position: fixed !important;
 }

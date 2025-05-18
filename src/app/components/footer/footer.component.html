@@ -2,7 +2,6 @@
   <section class="p-4">
     <div class="container text-center text-md-start mt-5">
       <div class="row mt-3">
-        <!-- Cuatrovientos -->
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <h6 class="text-uppercase fw-bold">Centro Integrado Cuatrovientos</h6>
           <hr class="footer-hr" />
@@ -12,26 +11,22 @@
           </p>
         </div>
 
-        <!-- Secciones -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <h6 class="text-uppercase fw-bold">Secciones</h6>
           <hr class="footer-hr" />
-          <p><a href="#!" class="footer-link">Iniciativas</a></p>
-          <p><a href="#!" class="footer-link">Modificar</a></p>
-          <p><a href="#!" class="footer-link">Indicadores</a></p>
-          <p><a href="#!" class="footer-link">Entidades</a></p>
+          <p><a (click)="goTo('/Iniciativas')" class="footer-link">Iniciativas</a></p>
+          <p><a (click)="goTo('/Modificar')" class="footer-link">Modificar</a></p>
+          <p><a (click)="goTo('/indicadores')" class="footer-link">Indicadores</a></p>
+          <p><a (click)="goTo('/AdministradorEntidades')" class="footer-link">Entidades</a></p>
         </div>
 
-        <!-- Enlaces -->
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
           <h6 class="text-uppercase fw-bold">Enlaces de Interés</h6>
           <hr class="footer-hr" />
-          <p><a href="#!" class="footer-link">Agenda 2030</a></p>
-          <p><a href="#!" class="footer-link">ODS</a></p>
-          <p><a href="#!" class="footer-link">Metas</a></p>
+          <p><a href="https://www.un.org/sustainabledevelopment/es/2015/09/la-asamblea-general-adopta-la-agenda-2030-para-el-desarrollo-sostenible/" class="footer-link" target="_blank">Agenda 2030</a></p>
+          <p><a href="https://view.genially.com/646c92ae12d5be0010edece9/guide-compromiso-cuatrovientos" class="footer-link" target="_blank">ODS</a></p>
         </div>
 
-        <!-- Mapa -->
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <h6 class="text-uppercase fw-bold">Ubicación</h6>
           <hr class="footer-hr" />

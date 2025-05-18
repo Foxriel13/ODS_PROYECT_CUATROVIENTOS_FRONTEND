@@ -180,7 +180,7 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarActividades() {
     this.actividadesServicie.getActividadesList().subscribe(actividades => {
-      // Filtrar las actividades eliminadas y duplicadas
+
       this.ActividadesList = actividades
         .filter(actividad => !actividad.eliminado)
         .filter((actividad, index, self) =>
@@ -330,7 +330,7 @@ export class AdministradorEntidadesComponent implements OnInit {
   loadOdsList(): void {
     this.odsService.getOdsList().subscribe(
       (response) => {
-        // Filtrar ODS no eliminados
+
         const odsNoEliminados = response.filter(ods => !ods.eliminado);
   
         this.odsList = odsNoEliminados;
@@ -365,10 +365,10 @@ export class AdministradorEntidadesComponent implements OnInit {
   filtrarActividades(): void {
     this.actividadesServicie.getActividadesList().subscribe(
       (response) => {
-        // Primero filtramos las que no están eliminadas
+
         const actividadesNoEliminadas = response.filter(item => !item.eliminado);
   
-        // Luego, si hay una búsqueda activa, aplicamos el filtro adicional
+
         this.ActividadesList = this.busqueda
           ? actividadesNoEliminadas.filter(item =>
               item.nombre.toLowerCase().startsWith(this.busqueda.toLowerCase())

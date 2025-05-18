@@ -56,10 +56,10 @@ export class EliminarIniciativaComponent {
   }
 
   confirmarEliminacion(item: Iniciativas) {
-    // Asigna el item seleccionado a la variable de clase
+
     this.iniciativa = item;
 
-    // Abre el modal normalmente
+
     const modalElement = document.getElementById('confirmacionModal');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
@@ -75,14 +75,14 @@ export class EliminarIniciativaComponent {
     }
   }
 
-  // Muestra el spinner mientras se realiza la petición para eliminar
+
   eliminarIniciativa(id: number): void {
     this.loading = true;
     this.iniciativaServicie.deleteIniciativa(id).subscribe(
       () => {
         this.iniciativasList = this.iniciativasList.filter(iniciativa => iniciativa.id !== id);
         this.loading = false;
-        // Mostrar el toast de éxito
+
         this.showToast();
       },
       (error) => {
@@ -92,7 +92,7 @@ export class EliminarIniciativaComponent {
     );
   }
 
-  // Método que muestra el toast y lo oculta a los 5 segundos
+
   showToast() {
     this.toastVisible = true;
     setTimeout(() => {

@@ -1,6 +1,5 @@
-<div class="container text-center mt-5"> <!-- Centra todo el contenido -->
+<div class="container text-center mt-5">
     <div class="row g-3 p-4 justify-content-center">
-        <!-- Columna para los inputs -->
         <app-nav-bar-modificar-entidades hidden (tabChange)="onTabChange($event)">
         </app-nav-bar-modificar-entidades>
 
@@ -9,22 +8,16 @@
     <div *ngIf="selectedTab === 'actividades'">
         <div class="container py-3 d-flex flex-column align-items-center">
             <div class="d-flex flex-column align-items-center w-100">
-
-                <!-- Input -->
                 <div class="w-50 mb-3">
                     <input type="text" class="form-control w-100" id="nombreActividad"
                         placeholder="Nombre de la actividad">
                 </div>
-
-                <!-- Button -->
                 <div class="col-12 d-flex justify-content-center mt-3">
                     <button class="btn btn-success" (click)="actualizarActividad()">Actualizar Actividad</button>
                 </div>
-
             </div>
         </div>
     </div>
-
 
     <div *ngIf="selectedTab === 'metas'">
         <div class="row justify-content-center">
@@ -55,7 +48,6 @@
             <button class="btn btn-success" (click)="actualizarMeta()">Actualizar Meta</button>
         </div>
 
-        <!-- Línea de separación -->
         <hr class="my-4">
 
         <div class="row justify-content-center">
@@ -71,17 +63,13 @@
             </div>
         </div>
 
-        <!-- Botón para abrir la ventanita -->
         <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-4">
             <button class="btn btn-success" (click)="crearOds()">Crear ODS</button>
-
-            <!-- Icono para mostrar información -->
             <button type="button" class="btn btn-outline-info ms-2" data-bs-toggle="modal" data-bs-target="#infoModal">
                 <i class="bi bi-question-circle"></i>
             </button>
         </div>
 
-        <!-- Modal (ventanita estilo Bootstrap Card) -->
         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -98,7 +86,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div *ngIf="selectedTab === 'modulos'">
         <div class="row justify-content-center">
@@ -111,9 +98,7 @@
         </div>
         <div class="col-12 d-flex justify-content-center mt-3 mb-4">
             <button class="btn btn-success" (click)="crearModulo()">Crear Modulo</button>
-            <!-- Línea de separación TODOMODULOS -->
         </div>
-        <!-- Línea de separación -->
         <hr class="my-4">
 
         <div class="row justify-content-center">

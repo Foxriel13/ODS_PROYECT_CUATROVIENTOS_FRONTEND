@@ -18,15 +18,14 @@ export class Iniciativas {
     eliminado: boolean;
     innovador: boolean;
     imagen: string;
-    metas: Metas[];  // Ahora está correctamentxe tipado como un array de Metas
-    profesores: Profesores[];  // Supongo que debería ser un array de strings
-    entidades_externas: entidadesExternas[];  // Supongo que debería ser un array de strings
-    modulos: Modulos[];  // Supongo que debería ser un array de strings
+    metas: Metas[];
+    profesores: Profesores[];
+    entidades_externas: entidadesExternas[];
+    modulos: Modulos[];
     redes_sociales: Redes_Sociales[];
     actividades: Actividad[];
     mas_comentarios:String;
 
-    // Constructor para inicializar la clase
     constructor(
         id: number,
         tipo: string,
@@ -40,12 +39,12 @@ export class Iniciativas {
         eliminado: boolean,
         imagen: string,
         metas: Metas[],
-        profesores: Profesores[],  // Tipificado correctamente
-        entidades_externas: entidadesExternas[],  // Tipificado correctamente
-        modulos: Modulos[],  // Tipificado correctamente
+        profesores: Profesores[],
+        entidades_externas: entidadesExternas[],
+        modulos: Modulos[],
         redes_sociales: Redes_Sociales[],
         actividades: Actividad[],
-        innovador: boolean,  // Se añade el parámetro 'innovador'
+        innovador: boolean,
         mas_comentarios:string
     ) {
         this.id = id;
@@ -65,7 +64,7 @@ export class Iniciativas {
         this.modulos = modulos;
         this.redes_sociales = redes_sociales;
         this.actividades = actividades;
-        this.innovador = innovador;  // Inicializa el campo 'innovador'
+        this.innovador = innovador;
         this.mas_comentarios = mas_comentarios;
     }
 }

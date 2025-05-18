@@ -42,7 +42,6 @@
                     </div>
                 </div>
 
-                <!-- Pestañas (Tabs) -->
                 <ul class="nav nav-tabs mt-4" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link" [class.active]="activeTab === 'modulos'"
@@ -65,7 +64,6 @@
                     </li>
                 </ul>
 
-                <!-- Contenido de cada pestaña -->
                 <div class="tab-content p-3">
                     <div *ngIf="activeTab === 'modulos'">
                         <h6 class="fw-bold">Módulos de las metas implicadas:</h6>
@@ -164,7 +162,6 @@
                 </div>
             </div>
 
-            <!-- Botón de Cerrar -->
             <div class="modal-footer">
                 <button class="btn btn-light" (click)="close()">Cerrar</button>
             </div>

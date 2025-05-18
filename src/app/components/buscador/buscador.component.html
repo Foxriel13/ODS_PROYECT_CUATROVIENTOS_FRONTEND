@@ -1,6 +1,5 @@
 <div class="container ">
   <div class="row g-3 rounded shadow-sm">
-    <!-- Filtros básicos -->
     <div class="col-md-3 d-flex flex-column align-items-center">
       <label class="form-label">Nombre de la iniciativa</label>
       <input type="text" class="form-control form-control-sm" placeholder="Buscar por nombre..."
@@ -18,7 +17,7 @@
       <select class="form-select form-select-sm" [(ngModel)]="filtros.curso">
         <option value="" disabled selected>Seleccionar curso</option>
         <option *ngFor="let c of cursoList" [value]="c.nombre">{{ c.nombre }}</option>
-      </select> 
+      </select>
     </div>
     <div class="col-md-2 d-flex flex-column align-items-center">
       <label class="form-label">Fecha de registro</label>
@@ -31,9 +30,7 @@
         <option *ngFor="let prof of profList" [value]="prof.nombre">{{ prof.nombre }}</option>
       </select>
     </div>
-    <!-- Filtros avanzados -->
     <div *ngIf="advancedFiltersVisible" class="row g-3 justify-content-center">
-      <!-- Multiselect Dimensiones -->
       <div class="col-md-3 d-flex flex-column align-items-center">
         <label class="form-label">Dimensiones</label>
         <div class="dropdown w-100">
@@ -52,12 +49,10 @@
               </label>
             </li>
           </ul>
-
         </div>
         <small *ngIf="disableDimensiones" class="text-muted mt-1">Deshabilitado porque hay ODS seleccionados</small>
       </div>
 
-      <!-- Multiselect ODS -->
       <div class="col-md-5 d-flex flex-column align-items-center">
         <label class="form-label text-center fs-7">ODS</label>
         <div class="dropdown w-100" [class.show]="dropdownOpen">
@@ -86,7 +81,6 @@
       </div>
     </div>
 
-    <!-- Botón para mostrar/ocultar filtros avanzados -->
     <div class="col-12 mt-3 d-flex justify-content-between">
       <button class="btn btn-outline-primary btn-sm" type="button" (click)="toggleAdvancedFilters()">
         {{ advancedFiltersVisible ? 'Mostrar menos filtros' : 'Mostrar más filtros' }}

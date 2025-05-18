@@ -99,7 +99,7 @@ export class CrearNuevaEntidadComponent {
     this.actividadesServicie.createActividad(nuevaActividad).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreActividad.value = '';
       },
       (error) => {
@@ -123,7 +123,7 @@ export class CrearNuevaEntidadComponent {
     this.profesoresService.createProfesor(nuevoProfesor).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreProfesor.value = '';
       },
       (error) => {
@@ -149,7 +149,7 @@ export class CrearNuevaEntidadComponent {
     this.entidaesService.createEntidad(nuevoEntidad).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreEntidad.value = '';
       },
       (error) => {
@@ -175,7 +175,7 @@ export class CrearNuevaEntidadComponent {
     this.redes_socialesServicie.CreateRedesSocialesList(nuevaRedSocial).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreEnlace.value = '';
         nombreRuta.value = '';
       },
@@ -201,7 +201,7 @@ export class CrearNuevaEntidadComponent {
     this.metaService.createMeta(nuevaMeta,idPos).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreMeta.value = '';
       },
       (error) => {
@@ -221,7 +221,7 @@ export class CrearNuevaEntidadComponent {
     this.odsService.createOds(nuevoOds).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreOds.value = '';
         nombreDimension.value = '';
         location.reload();
@@ -242,7 +242,7 @@ export class CrearNuevaEntidadComponent {
     this.moduloService.createModulo(nuevoModulo).subscribe(
       (respuesta) => {
         console.log('Modulo creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreModulo.value = '';
       },
       (error) => {
@@ -261,7 +261,7 @@ export class CrearNuevaEntidadComponent {
     this.cursoService.createCusro(nuevoCurso).subscribe(
       (respuesta) => {
         console.log('Modulo creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
+
         nombreCurso.value = '';
       },
       (error) => {
@@ -292,7 +292,7 @@ export class CrearNuevaEntidadComponent {
     var id = 1;
     var ods: Ods | undefined;  // Allow ods to be undefined initially.
 
-    // Search for the matching ODS.
+
     for (let i = 0; i < this.odsList.length; i++) {
       if (this.odsList[i].nombre === nombre) {
         id = i + 1;
@@ -301,7 +301,7 @@ export class CrearNuevaEntidadComponent {
       }
     }
 
-    // Ensure that ods is assigned before using it.
+
     if (ods) {
       var imagen = document.getElementById("imagenOds") as HTMLImageElement;
       imagen.src = `/Ods_img/ods${id}.png`;
@@ -309,9 +309,9 @@ export class CrearNuevaEntidadComponent {
       var dimensionText = document.getElementById("dimensionText") as HTMLInputElement;
       dimensionText.textContent = ods.dimension;
     } else {
-      // Handle the case where the ODS wasn't found
+
       console.log('ODS not found');
-      // Optionally, set a default image or display a message.
+
     }
   }
 

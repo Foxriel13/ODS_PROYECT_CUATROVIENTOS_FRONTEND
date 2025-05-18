@@ -39,12 +39,12 @@ export class ModalIniciativaComponent {
   }
 
   isEmbeddable(url: string): boolean {
-    //verifica si la URL pertenece a una red social que permite incrustación
+
     return url.includes('twitter.com') || url.includes('facebook.com') || url.includes('instagram.com');
   }
 
   getEmbedUrl(url: string): string {
-    //genera la url según la red social
+
     if (url.includes('twitter.com')) {
       return `https://twitframe.com/show?url=${encodeURIComponent(url)}`;
     } else if (url.includes('facebook.com')) {

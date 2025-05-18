@@ -45,7 +45,7 @@ export class LogInComponent {
     
   }
   async submit() {
-    //Validaciones
+
     if(this.logInForm.invalid){
       console.error("El formulario es invalido")
       return
@@ -58,7 +58,7 @@ export class LogInComponent {
       if (!email || !password) {
         console.error("Relena todos los campos antes del Login")
       } else {
-        //Código del LogIn
+
         const uid = (await this.authService.signIn(email, password)).user.uid
         console.log("Inicio de Sesión correcto")
         console.log(uid)

@@ -1,5 +1,3 @@
-// Indicador 5
-
 export class Meta {
     nombre_meta: string;
 

@@ -14,19 +14,15 @@ export class ModulosService {
   private modulo: Modulo[] = [];
   constructor(private http: HttpClient) { }
 
-  // Obtener todos los Módulos
   getModulosList(): Observable<Modulos[]> {
     return this.http.get<Modulos[]>(this.apiUrl);
   }
 
-  //Obtener por Id
   getModulosListById(id: number): Observable<Modulos[]> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Modulos[]>(url);
   }
 
-
-  //Post
   createModulo(modulo: Modulo): Observable<Modulo> {
     console.log(modulo);
 
@@ -39,7 +35,7 @@ export class ModulosService {
     return this.http.post<Modulo>(this.apiUrl, requestBody, { headers }).pipe(
       tap(data => {
         console.log('Modulo creado:', data);
-        this.modulo.push(data);  // Suponiendo que 'this.iniciativas' es un array donde guardas las iniciativas
+        this.modulo.push(data);
       }),
       catchError(error => {
         console.error('Error en la solicitud POST:', error);
@@ -48,7 +44,6 @@ export class ModulosService {
     );
   }
 
-  //Put
   updateModulo(id: number, modulo: Modulos): Observable<Modulos> {
     const url = `${this.apiUrl}/${id}`;
     const requestBody = {
@@ -69,7 +64,6 @@ export class ModulosService {
     );
   }
 
-  //Delete
   deleteModulo(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url).pipe(

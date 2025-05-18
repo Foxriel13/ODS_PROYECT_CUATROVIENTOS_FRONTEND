@@ -30,7 +30,7 @@ export class LogUpComponent {
   })
 
   async submit() {
-    //Validaciones
+
     if(this.logUpForm.invalid){
       console.error("El formulario es invalido")
       return
@@ -43,7 +43,7 @@ export class LogUpComponent {
       if (!email || !password) {
         console.error("Relena todos los campos antes del Registro")
       } else {
-        //Código del LogIn
+
         await this.authService.signUp(email, password)
         console.log("Usuario creado correctamente")
         this.goTo('/')

@@ -10,7 +10,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.4); // Ajusta la opacidad a tu gusto
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 0;
   }
 
@@ -22,7 +22,7 @@
 
 .sidebar {
   width: 250px;
-  background-color: #0e2052; /* Fondo lateral más claro */
+  background-color: #0e2052;
   padding: 20px;
   border-right: 1px solid #444;
 }
@@ -83,9 +83,9 @@
 }
 
 .icon-btn.active .icon-svg {
-  background: linear-gradient(135deg, #2a5298, #1e3c72); /* Azul más equilibrado */
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   color: #ffffff;
-  box-shadow: 0 0 40px rgba(42, 82, 152, 0.3); /* Azul translúcido */
+  box-shadow: 0 0 40px rgba(42, 82, 152, 0.3);
 }
 
 .inicio-grid {

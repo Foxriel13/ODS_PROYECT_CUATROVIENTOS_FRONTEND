@@ -1,11 +1,8 @@
 <form #form="ngForm" (ngSubmit)="guardarIniciativa(form)">
     <div class="row g-3 p-4">
-        <!-- Columna para los inputs -->
         <app-navbar-form-crear [tabsEnabled]="tabsEnabled" (tabChange)="onTabChange($event)"></app-navbar-form-crear>
-
         <div class="col-12">
             <div *ngIf="selectedTab === 'iniciativas'" class="tab-pane fade show active">
-                <!-- Solo visible si 'Iniciativas' está seleccionado -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -126,7 +123,6 @@
                             <label>Seleccionar Profesores</label>
                             <select [(ngModel)]="profesor" name="profesor" class="form-control">
                                 <option value="" disabled selected>Selecciona un Profesor</option>
-                                <!-- Recorremos la lista de ODS y mostramos cada uno -->
                                 <option *ngFor="let item of ProfesoresList" [ngValue]="item">
                                     - {{ item.nombre }}
                                 </option>
@@ -138,10 +134,8 @@
                         <div class="image-box">
                             <h5>Profesores Seleccionados</h5>
                             <ul>
-                                <!-- Mostramos la lista de cursos seleccionados -->
                                 <li *ngFor="let item of profesoresSeleccionados; let i = index" class="mb-2">
                                     {{ item.nombre }}
-                                    <!-- Botón de eliminar (X) -->
                                     <button type="button" class="btn btn-danger btn-sm ms-4"
                                         (click)="eliminarProfesor(i)">
                                         X
@@ -159,7 +153,6 @@
                             <label>Seleccionar Entidades</label>
                             <select [(ngModel)]="entidad.id" name="entidad" class="form-control">
                                 <option value="" disabled selected>Selecciona un ODS</option>
-                                <!-- Recorremos la lista de ODS y mostramos cada uno -->
                                 <option *ngFor="let item of entidadesList" [value]="item.id">
                                     - {{ item.nombre }}
                                 </option>
@@ -240,7 +233,6 @@
                             <label>Seleccionar Redes Sociales</label>
                             <select [(ngModel)]="redes_sociales" name="redes_sociales" class="form-control">
                                 <option value="" disabled selected>Selecciona una red Social</option>
-                                <!-- Recorremos la lista de redes sociales y mostramos cada una -->
                                 <option *ngFor="let item of redes_socialesList" [ngValue]="item">
                                     - {{ item.nombre }} / {{ item.enlace }}
                                 </option>

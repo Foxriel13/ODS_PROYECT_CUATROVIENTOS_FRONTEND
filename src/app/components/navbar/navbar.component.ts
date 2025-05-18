@@ -49,44 +49,44 @@ export class NavbarComponent implements OnInit {
     }
   }
   activarIniciativas() {
-    if (this.home) {  // Verifica si 'home' no es null
+    if (this.home) {
       this.home.classList.remove("active");
     }
-    if (this.modificar) {  // Verifica si 'home' no es null
+    if (this.modificar) {
       this.modificar.classList.remove("active");
     }
-    if (this.indicadores) {  // Verifica si 'indicadores' no es null
+    if (this.indicadores) {
       this.indicadores.classList.remove("active");
     }
-    if (this.iniciativas) {  // Verifica si 'home' no es null
+    if (this.iniciativas) {
       this.iniciativas.classList.add("active");
     }
   }
   activarModificar() {
-    if (this.iniciativas) {  // Verifica si 'home' no es null
+    if (this.iniciativas) {
       this.iniciativas.classList.remove("active");
     }
-    if (this.home) {  // Verifica si 'home' no es null
+    if (this.home) {
       this.home.classList.remove("active");
     }
-    if (this.indicadores) {  // Verifica si 'indicadores' no es null
+    if (this.indicadores) {
       this.indicadores.classList.remove("active");
     }
-    if (this.modificar) {  // Verifica si 'home' no es null
+    if (this.modificar) {
       this.modificar.classList.add("active");
     }
   }
   activarIndicadores() {
-    if (this.iniciativas) {  // Verifica si 'home' no es null
+    if (this.iniciativas) {
       this.iniciativas.classList.remove("active");
     }
-    if (this.home) {  // Verifica si 'home' no es null
+    if (this.home) {
       this.home.classList.remove("active");
     }
-    if (this.modificar) {  // Verifica si 'home' no es null
+    if (this.modificar) {
       this.modificar.classList.remove("active");
     }
-    if (this.indicadores) {  // Verifica si 'indicadores' no es null
+    if (this.indicadores) {
       this.indicadores.classList.add("active");
     }
   }

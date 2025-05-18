@@ -166,7 +166,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Método para navegar a una URL con fade
+
   goTo(url: string): void {
     this.fadeRouter.navigateWithFade(url);
   }

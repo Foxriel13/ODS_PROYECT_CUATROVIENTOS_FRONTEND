@@ -1,4 +1,3 @@
-// fade-router.service.ts
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { gsap } from 'gsap';
@@ -16,7 +15,7 @@ export class FadeRouterService {
     }
 
     await gsap.to(overlay, { opacity: 1, duration: 0.6 });
-    await new Promise(resolve => setTimeout(resolve, 300)); // espera extra opcional
+    await new Promise(resolve => setTimeout(resolve, 300));
     await this.router.navigateByUrl(url);
     gsap.to(overlay, { opacity: 0, duration: 0.6 });
   }

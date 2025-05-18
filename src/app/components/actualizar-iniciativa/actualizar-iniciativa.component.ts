@@ -33,7 +33,7 @@ import { NavbarFormActualizarComponent } from "../navbar-form-actualizar/navbar-
 })
 export class ActualizarIniciativaComponent {
 
-  // Variables para mantener el estado de los campos
+
   titulo: string = '';
   nombre: string = '';
   producto: string = '';
@@ -142,7 +142,7 @@ export class ActualizarIniciativaComponent {
   moduloAyadir: Modulos | null = null;
   toastVisible: boolean = false;
   loading: boolean = false;
-  // Variable que mantiene la sección activa
+
   selectedTab: string = 'iniciativas'; // 'iniciativas' es la sección por defecto
 
   constructor(private odsService: ServiceOdsService, private profesoresService: ServiceProfesoresService, private cursosService: ServiceCursosService, private entidadesServicie: ServiceEntidadesService, private iniciativasService: IniciativasService,  private metasService: MetasService, private modulosService: ModulosService, private iniciativaServicie: IniciativasService,private redes_socialesServicie: RedesSocialesService,private actividadesServicie: ActividadesService) { }
@@ -283,11 +283,11 @@ export class ActualizarIniciativaComponent {
     const selectedOds = this.odsList.find(item => item.idOds == this.ods.idOds);
 
     if (selectedOds) {
-      // Si ya hay un ODS seleccionado, lo reemplazamos
+
       this.odsSeleccionados = [selectedOds]; // Esto asegura que solo haya un ODS en la lista
 
-      // Si se desea, también puedes ordenar la lista (aunque con solo un elemento no es necesario)
-      // this.odsSeleccionados.sort((a, b) => a.id - b.id);
+
+
 
     } else {
       alert('Por favor, selecciona un ODS válido.');
@@ -444,10 +444,10 @@ export class ActualizarIniciativaComponent {
     this.entidadesSeleccionados.splice(index, 1);
   }
   eliminarMeta(meta: any): void {
-    // Encontramos el índice de la meta seleccionada
+
     const index = this.metasSeleccionadas.indexOf(meta);
 
-    // Si la meta se encuentra en el array, la eliminamos
+
     if (index > -1) {
       this.metasSeleccionadas.splice(index, 1);
     }
@@ -455,7 +455,7 @@ export class ActualizarIniciativaComponent {
   eliminarModulo(modulo: any) {
     const index = this.moduloSeleccionados.indexOf(modulo);
 
-    // Si la meta se encuentra en el array, la eliminamos
+
     if (index > -1) {
       this.moduloSeleccionados.splice(index, 1);
     }
@@ -499,7 +499,7 @@ export class ActualizarIniciativaComponent {
     console.log("this.entidadesSeleccionados:", this.entidadesSeleccionados);
     console.log("this.moduloSeleccionados:", this.moduloSeleccionados);
 
-    // Construir el objeto de la iniciativa, asegurándonos de que las propiedades estén en camelCase
+
     let iniciativa: Iniciativas = {
       id: 0,
       tipo: this.titulo,
@@ -524,15 +524,15 @@ export class ActualizarIniciativaComponent {
 
     console.log("this.metasSeleccionadas:", this.metasSeleccionadas);
 
-    // Llamada al servicio para crear la iniciativa
+
     this.iniciativasService.createIniciativa(iniciativa).subscribe(
       response => {
         console.log('Iniciativa creada correctamente:', response);
-        // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
+
       },
       error => {
         console.error('Error al crear la iniciativa:', error);
-        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+
       }
     );
   }
@@ -540,12 +540,12 @@ export class ActualizarIniciativaComponent {
   modalVisible = false;
   abrirModal(meta: any): void {
     this.metaSeleccionada = meta;
-    this.modalVisible = true;  // Cambiar la visibilidad del modal a true
+    this.modalVisible = true;
   }
 
-  // Función para cerrar el modal
+
   cerrarModal(): void {
-    this.modalVisible = false;  // Cambiar la visibilidad del modal a false
+    this.modalVisible = false;
   }
   cargarDatos() {
     var iniciativaActualizar = this.iniciativa;
@@ -569,7 +569,7 @@ export class ActualizarIniciativaComponent {
     this.actividadesSeleccionados = this.iniciativa.actividades || [];
   }
   formatDate(dateString: string): string {
-    return dateString.split(" ")[0]; // Extract only "yyyy-MM-dd"
+    return dateString.split(" ")[0];
   }
   confirmarActualizacion() {
     const modalElement = document.getElementById('confirmacionModal');
@@ -586,7 +586,7 @@ export class ActualizarIniciativaComponent {
     }
   }
 
-  // Muestra el spinner mientras se realiza la petición para eliminar
+
   actualizarIniciativa(form: any): void {
     this.boton = true;
     if (form.invalid) {
@@ -603,7 +603,7 @@ export class ActualizarIniciativaComponent {
     for (let i = 0; i < this.metasSeleccionadas.length; i++) {
       listaMetas.push(this.metasSeleccionadas[i].id);
     }
-    console.log("Antes de actualizar iniciativa"); // 🔍 Verificar si llega aquí
+    console.log("Antes de actualizar iniciativa");
 
     console.log("this.titulo:", this.titulo);
     console.log("this.horas:", this.horas);
@@ -677,10 +677,8 @@ export class ActualizarIniciativaComponent {
       }
     }
 
-
-    // Construir el objeto de la iniciativa con las propiedades correctas
     let iniciativa: Iniciativas = {
-      id: this.iniciativa.id, // Asegúrate de tener el id para la actualización
+      id: this.iniciativa.id,
       tipo: this.titulo,
       horas: this.horas,
       nombre: this.nombre,
@@ -702,15 +700,15 @@ export class ActualizarIniciativaComponent {
     };
 
     console.log("Iniciativa a actualizar:", iniciativa);
-    // Llamada al servicio para actualizar la iniciativa con el PUT
+
     this.iniciativasService.updateIniciativa(iniciativa).subscribe(
       response => {
         console.log('Iniciativa actualizada correctamente:', response);
-        // Puedes hacer algo con la respuesta, como redirigir o mostrar un mensaje de éxito.
+
       },
       error => {
         console.error('Error al actualizar la iniciativa:', error);
-        // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+
         this.boton = false
       }
     );
@@ -735,12 +733,12 @@ export class ActualizarIniciativaComponent {
     var selectActividad = document.getElementById("mostrarActividad");
     var inputRedes = document.getElementById("crearActividad");
     var boton = document.getElementById("buttonCrear");
-    // Ocultar el elemento selectRedes
+
     if (inputRedes) {
       inputRedes.hidden = true;
     }
 
-    // Mostrar el elemento inputRedes
+
     if (selectActividad) {
       selectActividad.removeAttribute("hidden");
     }
@@ -757,7 +755,7 @@ export class ActualizarIniciativaComponent {
       var red_socialNueva: Redes_Sociales = {
         id: 0,
         nombre: nombre.value, // Usamos .value en lugar de .textContent
-        enlace: link.value // Usamos .value en lugar de .textContent
+        enlace: link.value
         ,
         eliminado: false
       };
@@ -766,18 +764,18 @@ export class ActualizarIniciativaComponent {
         response => {
           console.log('Enlace creado correctamente:', response);
 
-          // Aquí, después de crear la red social, actualizamos la lista y la mostramos
-          this.redes_socialesList.push(red_socialNueva);  // Aseguramos que la lista esté actualizada con la nueva red social
 
-          // Mostramos un mensaje de éxito
+          this.redes_socialesList.push(red_socialNueva);
+
+
           this.showToastEnlace();
 
-          // Cargar nuevamente las redes sociales (si es necesario)
+
           this.loadRedesSociales();
         },
         error => {
           console.error('Error al crear la iniciativa:', error);
-          // Maneja el error aquí, como mostrar un mensaje de error al usuario.
+
         }
       );
 
@@ -790,12 +788,12 @@ export class ActualizarIniciativaComponent {
     var selectRedes = document.getElementById("mostrarRedSocial");
     var inputRedes = document.getElementById("crearRedSocial");
     var boton = document.getElementById("buttonCrear");
-    // Ocultar el elemento selectRedes
+
     if (inputRedes) {
       inputRedes.hidden = true;
     }
 
-    // Mostrar el elemento inputRedes
+
     if (selectRedes) {
       selectRedes.removeAttribute("hidden");
     }
@@ -807,7 +805,7 @@ export class ActualizarIniciativaComponent {
     var selectRedes = document.getElementById("mostrarRedSocial");
     var inputRedes = document.getElementById("crearRedSocial");
     var boton = document.getElementById("buttonCrear");
-    // Ocultar el elemento selectRedes
+
     if (selectRedes) {
       selectRedes.hidden = true;
     }
@@ -815,7 +813,7 @@ export class ActualizarIniciativaComponent {
       boton.hidden = true;
     }
 
-    // Mostrar el elemento inputRedes
+
     if (inputRedes) {
       inputRedes.removeAttribute("hidden");
     }
@@ -824,7 +822,7 @@ export class ActualizarIniciativaComponent {
     var selectRedes = document.getElementById("mostrarActividad");
     var inputRedes = document.getElementById("crearActividad");
     var boton = document.getElementById("buttonCrear");
-    // Ocultar el elemento selectRedes
+
     if (selectRedes) {
       selectRedes.hidden = true;
     }
@@ -832,7 +830,7 @@ export class ActualizarIniciativaComponent {
       boton.hidden = true;
     }
 
-    // Mostrar el elemento inputRedes
+
     if (inputRedes) {
       inputRedes.removeAttribute("hidden");
     }

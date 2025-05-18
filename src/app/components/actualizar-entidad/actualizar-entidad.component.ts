@@ -35,7 +35,7 @@ export class ActualizarEntidadComponent {
   odsListDistinct: Ods[] = [];
   listMetasOds: Metas[] = [];
   MetasList: Metas[] = [];
-  redes_socialesList: Redes_Sociales[] = []; // Lista de ODS
+  redes_socialesList: Redes_Sociales[] = [];
   redes_sociales: Redes_Sociales = {
     id: 0,
     nombre: '',
@@ -59,18 +59,16 @@ export class ActualizarEntidadComponent {
     private profesoresService: ServiceProfesoresService,
     private moduloService: ModulosService,
     private route: ActivatedRoute,
-    private router: Router // Inyección correcta de Router
+    private router: Router
   ) { }
   ngOnInit(): void {
     this.loadOdsList();
     this.route.queryParams.subscribe(params => {
-      console.log('Recibido:', params); // { id: '0', nombre: 'si' }
+      console.log('Recibido:', params);
 
-      // Convert and store query params in requested object
-      this.requested = { ...params, id: +params['id'] }; // convierte solo el id a número, mantiene los demás
+      this.requested = { ...params, id: +params['id'] };
 
 
-      // Now you can safely access this.requested.tab
       if (this.requested.tab === "actividades") {
         this.selectedTab = "actividades";
       } else if (this.requested.tab === "metas") {
@@ -168,22 +166,18 @@ export class ActualizarEntidadComponent {
         return;
     }
 
-    // Definir la nueva actividad, tomando el id desde la propiedad 'requested.id'
     const nuevaActividad: Actividad = { 
         id: this.requested.id, 
         nombre: nombreActividad.value, 
         eliminado: false 
     };
 
-    // Llamar al servicio para actualizar la actividad
     this.actividadesServicie.actualizarActividad(nuevaActividad).subscribe(
         (respuesta) => {
             console.log('Actividad actualizada correctamente', respuesta);
             
-            // Limpiar el input si deseas
             nombreActividad.value = '';
             
-            // Redirigir a la página /entidadesExternas
             this.router.navigate(['/AdministradorEntidades']);
         },
         (error) => {
@@ -208,7 +202,6 @@ export class ActualizarEntidadComponent {
     this.profesoresService.createProfesor(nuevoProfesor).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
         nombreProfesor.value = '';
       },
       (error) => {
@@ -234,7 +227,6 @@ export class ActualizarEntidadComponent {
     this.entidaesService.createEntidad(nuevoEntidad).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
         nombreEntidad.value = '';
       },
       (error) => {
@@ -260,7 +252,6 @@ export class ActualizarEntidadComponent {
     this.redes_socialesServicie.CreateRedesSocialesList(nuevaRedSocial).subscribe(
       (respuesta) => {
         console.log('Profesor creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
         nombreEnlace.value = '';
         nombreRuta.value = '';
       },
@@ -286,7 +277,6 @@ export class ActualizarEntidadComponent {
     this.metaService.actualizarMeta(nuevaMeta, idPos).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
         nombreMeta.value = '';
         this.router.navigate(['/AdministradorEntidades']);
       },
@@ -307,7 +297,6 @@ export class ActualizarEntidadComponent {
     this.odsService.createOds(nuevoOds).subscribe(
       (respuesta) => {
         console.log('Actividad creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
         nombreOds.value = '';
         nombreDimension.value = '';
         location.reload();
@@ -328,7 +317,6 @@ export class ActualizarEntidadComponent {
     this.moduloService.createModulo(nuevoModulo).subscribe(
       (respuesta) => {
         console.log('Modulo creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
         nombreModulo.value = '';
       },
       (error) => {
@@ -350,7 +338,6 @@ export class ActualizarEntidadComponent {
     this.cursoService.createCusro(nuevoCurso).subscribe(
       (respuesta) => {
         console.log('Modulo creada correctamente', respuesta);
-        // Aquí podrías limpiar el input si quieres
         nombreCurso.value = '';
       },
       (error) => {
@@ -360,12 +347,12 @@ export class ActualizarEntidadComponent {
   }
   cargarMetasDeOds(nombre: any) {
     this.listMetasOds = [];
-    var odsEncontrado: Ods | null = null; // Inicializar la variable
+    var odsEncontrado: Ods | null = null;
 
     for (let i = 0; i < this.odsList.length; i++) {
       if (this.odsList[i].nombre == nombre) {
         odsEncontrado = this.odsList[i];
-        break; // Opcional: detener el bucle cuando se encuentra el ODS
+        break;
       }
     }
 
@@ -379,18 +366,16 @@ export class ActualizarEntidadComponent {
   }
   cargarImagenODS(nombre: any) {
     var id = 1;
-    var ods: Ods | undefined;  // Allow ods to be undefined initially.
+    var ods: Ods | undefined;
 
-    // Search for the matching ODS.
     for (let i = 0; i < this.odsList.length; i++) {
       if (this.odsList[i].nombre === nombre) {
         id = i + 1;
         ods = this.odsList[i];
-        break;  // Break once a match is found to avoid unnecessary iterations.
+        break;
       }
     }
 
-    // Ensure that ods is assigned before using it.
     if (ods) {
       var imagen = document.getElementById("imagenOds") as HTMLImageElement;
       imagen.src = `/Ods_img/ods${id}.png`;
@@ -398,10 +383,7 @@ export class ActualizarEntidadComponent {
       var dimensionText = document.getElementById("dimensionText") as HTMLInputElement;
       dimensionText.textContent = ods.dimension;
     } else {
-      // Handle the case where the ODS wasn't found
       console.log('ODS not found');
-      // Optionally, set a default image or display a message.
     }
   }
-
 }

@@ -26,7 +26,6 @@ export class IndicadoresService {
   }
 
   getCantidadIniciativas(): Observable<{ cantidad: number }>{
-    //Se envia desde Backend como objeto, debe enviarse solo el número
     return this.http.get<{ cantidad: number }>(this.apiUrl + '/cantidadIniciativas')
   }
 
@@ -53,25 +52,20 @@ export class IndicadoresService {
   getTipoIniciativa(): Observable<TipoIniciativa[]>{
     return this.http.get<TipoIniciativa[]>(this.apiUrl + '/tipoIniciativa')
   }
-  //10.1 Número de profesores totales
   getCantProfesores(): Observable<{ cantidad: number }> {
     return this.http.get<{ cantidad: number }>(this.apiUrl + '/cantProfesores');
   }
 
-  //10.2 Número de Iniciativas trabajadas por cada trabajador (profesor).
   getCantIniciativasProfesor(): Observable<CantIniciativasProfesor[]>{
     return this.http.get<CantIniciativasProfesor[]>(this.apiUrl + '/cantIniciativasProfesor')
   }
-  //11. De las iniciativas realizadas cuáles son nuevas.
   getDiferenciaInnovadoresYNo(): Observable<DiferenciaInnovadoresYNo[]>{
     return this.http.get<DiferenciaInnovadoresYNo[]>(this.apiUrl + '/diferenciaInnovadoresYNo')
   }
-  //12. Cantidad de horas dedicadas a cada iniciativa.
   getCantHorasIniciativa(): Observable<CantHorasIniciativa[]>{
     return this.http.get<CantHorasIniciativa[]>(this.apiUrl + '/cantHorasIniciativa')
   }
 
-  // 13. Saber si una iniciativa ha necesitado de salidas, charlas…
   getHaTenidoActividad(): Observable<HaTenidoActividad[]>{
     return this.http.get<HaTenidoActividad[]>(this.apiUrl + '/haTendioActividad')
   }

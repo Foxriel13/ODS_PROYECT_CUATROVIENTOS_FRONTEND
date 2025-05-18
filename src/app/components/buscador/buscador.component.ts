@@ -24,7 +24,7 @@ export class BuscadorComponent {
     private entidadesexService: ServiceEntidadesService,
     private iniciativasService: IniciativasService
   ) { }
-  //Listas para almacenar datos de los selects
+
   cursoList: Curso[] = [];
   odsList: Ods[] = [];
   tipoList: string[] = [];
@@ -33,16 +33,16 @@ export class BuscadorComponent {
   profList: Profesores[] = [];
   entidadesList: any[] = [];
 
-  //
+
   odsFiltrados: Ods[] = [];
 
-  //lista para las dimsensiones seleccionadas
-  //dimensionesSeleccionadas: string[] = [];
+
+
 
   odsSeleccionados: Ods[] = [];
   odsSeleccionadosDisplay: string = '';  // Esta variable almacenará los nombres de los ODS seleccionados
 
-  //odsSeleccionados: string[] = [];
+
   dimensionesSeleccionadas: string[] = [];
 
   disableDimensiones: boolean = false; // controla si el multiselect de dimensiones está bloqueado
@@ -51,7 +51,7 @@ export class BuscadorComponent {
 
 
   
-  // Variables para almacenar los valores de los filtros
+
   filtros = {
     curso: '',
     nombre: '',
@@ -65,10 +65,10 @@ export class BuscadorComponent {
   };
 
 
-  // Variable para controlar la visibilidad de los filtros 
+
   advancedFiltersVisible = false;
 
-  //Cargar todos los datos de las listas en los selects
+
   ngOnInit(): void {
     this.loadClases();
     this.loadOdsDimension();
@@ -135,46 +135,46 @@ export class BuscadorComponent {
     );
   }
 
-  // filtrarOds() {
-  //   this.odsFiltrados = this.filtros.dimension ?
-  //     this.odsList.filter(ods => ods.dimension === this.filtros.dimension) :
-  //     [...this.odsList];
-  // }
+
+
+
+
+
 
   @Output() filtersChanged = new EventEmitter<any>();
 
-  //Abrir y ocultar otros filtros 
+
   toggleAdvancedFilters(): void {
     this.advancedFiltersVisible = !this.advancedFiltersVisible;
   }
 
-  // Aplicar los filtros solo cuando se presiona el botón de Buscar
+
   buscar(): void {
     this.filtersChanged.emit(this.filtros);
   }
 
   limpiarFiltros(): void {
-    // Limpiar todos los valores de los filtros
+
     (Object.keys(this.filtros) as (keyof typeof this.filtros)[]).forEach(key => this.filtros[key] = '');
 
-    // Limpiar las selecciones de ODS
+
     this.odsSeleccionados = [];
     this.odsSeleccionadosDisplay = 'Seleccionar ODS';
     this.odsFiltrados = [...this.odsList]; // Restaurar la lista completa de ODS
 
-    // Limpiar las selecciones de dimensiones
+
     this.dimensionesSeleccionadas = [];
     this.disableDimensiones = false; // Desbloquear las dimensiones
 
-    // Emitir los filtros actualizados
+
     this.filtersChanged.emit(this.filtros);
   }
 
-  // seleccionarOds(event: Event, ods: any): void {
-  //   event.preventDefault();  // Evita el comportamiento por defecto
-  //   this.filtros.ods = ods.nombre;
-  //   // this.filtersChanged.emit(this.filtros);
-  // }
+
+
+
+
+
 
   onDimensionChange(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -187,7 +187,7 @@ export class BuscadorComponent {
       this.dimensionesSeleccionadas = this.dimensionesSeleccionadas.filter(dim => dim !== value);
     }
 
-    // Filtrar los ODS según las dimensiones seleccionadas
+
     if (this.dimensionesSeleccionadas.length > 0) {
       this.odsFiltrados = this.odsList.filter(ods =>
         this.dimensionesSeleccionadas.includes(ods.dimension)
@@ -202,7 +202,7 @@ export class BuscadorComponent {
   isOdsSelected(ods: Ods): boolean {
     return this.odsSeleccionados.some(selectedOds => selectedOds.nombre === ods.nombre);
   }
-  // Método que actualiza la visualización de los ODS seleccionados
+
   actualizarOdsSeleccionadosDisplay(): void {
     this.odsSeleccionadosDisplay = this.odsSeleccionados.length
       ? this.odsSeleccionados.map(o => o.nombre).join(', ')  // Mapear los nombres de los ODS seleccionados y unirlos
@@ -219,16 +219,16 @@ export class BuscadorComponent {
       this.odsSeleccionados = this.odsSeleccionados.filter(o => o.nombre !== ods.nombre);
     }
   
-    // Bloquear las dimensiones si hay ODS seleccionados
+
     this.disableDimensiones = this.odsSeleccionados.length > 0;
   
-    // Actualizar la visualización de los ODS seleccionados
+
     this.actualizarOdsSeleccionadosDisplay();
   
-    // Emitir los filtros actualizados
+
     this.emitirFiltros();
   
-    // Cierra el dropdown
+
     this.dropdownOpen = false;
   }
   

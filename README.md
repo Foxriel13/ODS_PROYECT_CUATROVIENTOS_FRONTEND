@@ -60,7 +60,7 @@ npm install
 ### 3. Configurar CORS en Symfony
 En el backend, asegurarse de permitir el acceso desde el frontend:
 ```php
-// En el archivo config/packages/cors.yaml
+
 nelmio_cors:
     paths:
         '^/api/':

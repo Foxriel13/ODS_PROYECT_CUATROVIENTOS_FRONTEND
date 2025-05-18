@@ -1,5 +1,3 @@
-// Indicador 3
-
 export interface Modulo {
     id_modulo: number;
     nombre_modulo: string;

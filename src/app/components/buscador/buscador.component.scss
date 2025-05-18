@@ -1,9 +1,9 @@
 .container {
-  background: rgba(24, 28, 48, 0.92); /* Fondo oscuro similar a las cards */
+  background: rgba(24, 28, 48, 0.92);
   border-radius: 2rem;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); /* Sombra suave */
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
   padding: 2rem;
-  color: #ffffff; /* Texto blanco */
+  color: #ffffff;
   font-size: 0.9rem;
 
   .row {
@@ -11,37 +11,37 @@
 
     .form-label {
       font-weight: bold;
-      color: #c7d2fe; /* Texto claro */
+      color: #c7d2fe;
     }
 
     .form-control,
     .form-select {
-      background: rgba(255, 255, 255, 0.1); /* Fondo translúcido */
-      border: 1.5px solid #3b82f6; /* Borde azul */
+      background: rgba(255, 255, 255, 0.1);
+      border: 1.5px solid #3b82f6;
       border-radius: 1rem;
-      color: #ffffff; /* Texto blanco */
+      color: #ffffff;
       transition: all 0.3s ease;
 
       &::placeholder {
-        color: #c7d2fe; /* Placeholder blanco */
+        color: #c7d2fe;
         opacity: 0.8;
       }
 
       &:focus {
-        border-color: #60a5fa; /* Azul más claro al enfocar */
+        border-color: #60a5fa;
         box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
-        background: rgba(255, 255, 255, 0.2); /* Fondo más claro al enfocar */
+        background: rgba(255, 255, 255, 0.2);
       }
     }
 
     .form-select {
       option {
-        background: rgba(24, 28, 48, 0.92); /* Fondo oscuro para las opciones */
-        color: #ffffff; /* Texto blanco */
+        background: rgba(24, 28, 48, 0.92);
+        color: #ffffff;
       }
 
       option[disabled] {
-        color: #c7d2fe; /* Placeholder blanco */
+        color: #c7d2fe;
       }
     }
 
@@ -86,7 +86,7 @@
     }
 
     .dropdown-menu {
-      background: rgba(24, 28, 48, 0.92); /* Fondo oscuro */
+      background: rgba(24, 28, 48, 0.92);
       border: 1.5px solid #3b82f6;
       border-radius: 1rem;
       color: #ffffff;

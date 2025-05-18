@@ -33,7 +33,7 @@ import {  OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-grafico-indicadores',
-  imports: [FormsModule, CommonModule/*, NgStyle*/, BaseChartDirective],
+  imports: [FormsModule, CommonModule, BaseChartDirective],
   providers: [provideCharts(withDefaultRegisterables())],
   templateUrl: './grafico-indicadores.component.html',
   styleUrl: './grafico-indicadores.component.scss'
@@ -69,7 +69,7 @@ export class GraficoIndicadoresComponent implements OnInit{
   anyos_lectivos: string[] = []
   anyo_seleccionado: string = '2024-2025';
 
-  //Indicadores
+
   iniciativasPorCurso!: IniciativasPorCurso[];
   numeroIniciativas: number = 0;
   ciclosYModulosConIniciativas!: CiclosYModulosConIniciativas[];
@@ -116,7 +116,7 @@ export class GraficoIndicadoresComponent implements OnInit{
       this.cursos = curso;
     });
 
-    // Indicadores
+
     this.indicadoresService.getIniciativasPorCurso().subscribe(data => {
       this.iniciativasPorCurso = data;
       this.chartIndicador1(); 
@@ -184,7 +184,7 @@ export class GraficoIndicadoresComponent implements OnInit{
   }
 
   filterChanges(): void {
-    // Filtro por año lectivo (solo si hay algo escrito)
+
     console.log(this.anyo_seleccionado)
     if (this.anyo_seleccionado && this.anyo_seleccionado.trim() !== '') {
       this.iniciativasFiltradas = this.iniciativas.filter((iniciativa) =>
@@ -195,7 +195,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     }
   }
 
-  //Charts BARRA
+
   public barChartLegend = true;
   public barChartPlugins = [];
 
@@ -213,7 +213,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     responsive: true,
   };
 
-  //Charts TIPO PIE
+
   private getDefaultPieChartOptions(): ChartConfiguration<'pie'>['options'] {
     return {
       responsive: true,
@@ -240,7 +240,7 @@ export class GraficoIndicadoresComponent implements OnInit{
   }
 
 
-  //Para Pruebas
+
   reiniciarChart() {
     this.barChartData = {
       labels: ["Default"],
@@ -251,14 +251,14 @@ export class GraficoIndicadoresComponent implements OnInit{
     };
   }
 
-  //Indicadores
+
   chartIndicador1() {
 
     this.reiniciarChart()
     const iniciativasUnicas = this.iniciativasPorCurso.map(ini => ini.nombreCurso);
     const dataPorCurso = this.iniciativasPorCurso.map(ini => ini.numIniciativas);
 
-    // Estructura para el gráfico
+
     this.barChartData1 = {
       labels: iniciativasUnicas,
       datasets: [
@@ -285,7 +285,7 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   chartIndicador5() {
     this.reiniciarChart()
-    //OdsYSusMetas
+
     this.barChartData = {
       labels: this.odsTrabajadosYSusMetas.map(cymci => cymci.nombre_Iniciativa),
       datasets: [
@@ -299,7 +299,7 @@ export class GraficoIndicadoresComponent implements OnInit{
 
   chartIndicador6() {
     this.reiniciarChart()
-    //TieneEntidadesExternas
+
     this.barChartData6 = {
       labels: ["Tiene o No Entidades Externas"],
       datasets: [
@@ -326,7 +326,7 @@ export class GraficoIndicadoresComponent implements OnInit{
     const tiposUnicos = this.tipoIniciativa.map(ini => ini.tipo);
     const dataPorCurso = this.tipoIniciativa.map(ini => ini.cantidad);
 
-    // Estructura para el gráfico
+
     this.barChartData8 = {
       labels: tiposUnicos,
       datasets: [

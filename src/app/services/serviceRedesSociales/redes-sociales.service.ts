@@ -12,12 +12,10 @@ export class RedesSocialesService {
 
   constructor(private http: HttpClient) { }
 
-  // Obtener todas las Redes Sociales
   getRedesSocialesList(): Observable<Redes_Sociales[]> {
     return this.http.get<Redes_Sociales[]>(this.apiUrl);
   }
 
-  // Enviar una nueva Red Social a la BBDD
   CreateRedesSocialesList(redSocial: Redes_Sociales): Observable<Redes_Sociales> {
       console.log(redSocial);
     
@@ -39,9 +37,8 @@ export class RedesSocialesService {
       );
     }
 
-  // Actualizar una Red Social en la BBDD
-  UpdateRedesSocialesList(redSocial: Redes_Sociales): Observable<Redes_Sociales> { // 🔹 Agregado Observable
-    const url = `${this.apiUrl}/${redSocial.id}`;  // 🔹 Formato correcto de la URL
+  UpdateRedesSocialesList(redSocial: Redes_Sociales): Observable<Redes_Sociales> {
+    const url = `${this.apiUrl}/${redSocial.id}`;
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -50,7 +47,7 @@ export class RedesSocialesService {
       enlace: redSocial.enlace
     };
 
-    return this.http.put<Redes_Sociales>(url, requestBody, { headers });  // 🔹 Devuelve la petición
+    return this.http.put<Redes_Sociales>(url, requestBody, { headers });
   }
 
   eliminarRed(id: number): Observable<void> {

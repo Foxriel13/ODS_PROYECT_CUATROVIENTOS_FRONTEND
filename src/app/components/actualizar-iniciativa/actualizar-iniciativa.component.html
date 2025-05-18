@@ -1,13 +1,12 @@
 <div *ngIf="loading" class="spinner-overlay">
     <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Cargando...</span>
+        <span class="visually-hidden">Cargando...</span>
     </div>
 </div>
 <form #form="ngForm">
 
     <div class="row g-3 p-4">
-        <!-- Columna para los inputs -->
-        <app-navbar-form-actualizar  (tabChange)="onTabChange($event)"></app-navbar-form-actualizar>
+        <app-navbar-form-actualizar (tabChange)="onTabChange($event)"></app-navbar-form-actualizar>
         <div class="mb-3">
             <label>Seleccionar Iniciativa</label>
             <select [(ngModel)]="iniciativa" name="iniciativa" class="form-control"
@@ -18,7 +17,6 @@
         </div>
         <div class="col-12">
             <div *ngIf="selectedTab === 'iniciativas'">
-                <!-- Solo visible si 'Iniciativas' está seleccionado -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -85,28 +83,22 @@
                     </select>
                 </div>
                 <button class="btn btn-info" type="button" (click)="anyadirMeta()">Añadir Meta</button>
-                <!-- Segunda fila para mostrar el box con "Metas Añadidas" -->
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="box" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
                             <h4>Metas Añadidas:</h4>
                             <div class="image-box image-box-small" style="flex: 1;">
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-                                    <!-- Itera sobre metasSeleccionadas -->
                                     <div *ngFor="let meta of metasSeleccionadas" class="col mb-3">
                                         <div class="box-meta"
                                             style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
-                            
-                                            <!-- Información de la meta -->
-                                            <p style="margin: 0; font-weight: bold; color: #ddd;">{{ meta.descripcion }}</p>
-                            
-                                            <!-- Información del ODS -->
-                                            <small style="color: #ddd;">ODS: {{ meta.ods.nombre }} ({{ meta.ods.dimension }})</small>
-                            
-                                            <!-- Botón de eliminar como icono -->
+                                            <p style="margin: 0; font-weight: bold; color: #ddd;">{{ meta.descripcion }}
+                                            </p>
+                                            <small style="color: #ddd;">ODS: {{ meta.ods.nombre }} ({{
+                                                meta.ods.dimension }})</small>
                                             <div class="text-end mt-2">
-                                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarMeta(meta)"
-                                                    title="Eliminar">
+                                                <button type="button" class="btn btn-outline-danger btn-sm"
+                                                    (click)="eliminarMeta(meta)" title="Eliminar">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </div>
@@ -118,7 +110,6 @@
                     </div>
                 </div>
 
-                <!-- Modal -->
                 <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -130,7 +121,6 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!-- Aquí se mostrará la descripción de la meta seleccionada -->
                                 <p>{{ metaSeleccionada?.descripcion }}</p>
                             </div>
                             <div class="modal-footer">
@@ -139,42 +129,29 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
-
-
 
             <div *ngIf="selectedTab === 'profesores'">
                 <div class="row">
                     <div class="col-md-6">
-
-                        <!-- Select para elegir un ODS -->
                         <div class="mb-3">
                             <label>Seleccionar Profesores</label>
                             <select [(ngModel)]="profesor.id" name="profe" class="form-control">
                                 <option value="" disabled selected>Selecciona un ODS</option>
-                                <!-- Recorremos la lista de ODS y mostramos cada uno -->
                                 <option *ngFor="let item of ProfesoresList" [value]="item.id">
                                     - {{ item.nombre }}
                                 </option>
                             </select>
                         </div>
-
-                        <!-- Botón para agregar el ODS seleccionado -->
                         <button class="btn btn-info" type="button" (click)="anyadirProfesor()">Añadir Profesor</button>
                     </div>
 
-                    <!-- Aquí es donde movemos la imagen box a la derecha -->
                     <div class="col-md-6">
                         <div class="image-box">
                             <h5>Profesores Seleccionados</h5>
                             <ul>
-                                <!-- Mostramos la lista de cursos seleccionados -->
                                 <li *ngFor="let item of profesoresSeleccionados; let i = index" class="mb-2">
                                     {{ item.nombre }}
-                                    <!-- Botón de eliminar (X) -->
                                     <button type="button" class="btn btn-danger btn-sm ms-4"
                                         (click)="eliminarProfesor(i)">
                                         X
@@ -188,32 +165,23 @@
             <div *ngIf="selectedTab === 'entidades'">
                 <div class="row">
                     <div class="col-md-6">
-
-                        <!-- Select para elegir un ODS -->
                         <div class="mb-3">
                             <label>Seleccionar Entidades</label>
                             <select [(ngModel)]="entidad.id" name="entidad" class="form-control">
                                 <option value="" disabled selected>Selecciona un ODS</option>
-                                <!-- Recorremos la lista de ODS y mostramos cada uno -->
                                 <option *ngFor="let item of entidadesList" [value]="item.id">
                                     - {{ item.nombre }}
                                 </option>
                             </select>
                         </div>
-
-                        <!-- Botón para agregar el ODS seleccionado -->
                         <button class="btn btn-info" type="button" (click)="anyadirEntidad()">Añadir Profesor</button>
                     </div>
-
-                    <!-- Aquí es donde movemos la imagen box a la derecha -->
                     <div class="col-md-6">
-                        <div class="image-box">             
+                        <div class="image-box">
                             <h5>Contratantes Seleccionados</h5>
                             <ul>
-                                <!-- Mostramos la lista de cursos seleccionados -->
                                 <li *ngFor="let item of entidadesSeleccionados; let i = index" class="mb-2">
                                     {{ item.nombre }}
-                                    <!-- Botón de eliminar (X) -->
                                     <button type="button" class="btn btn-danger btn-sm ms-4"
                                         (click)="eliminarEntidad(i)">
                                         X
@@ -228,24 +196,19 @@
             <div *ngIf="selectedTab === 'actividades'">
                 <div class="row">
                     <div class="col-md-6">
-            
-                        <!-- Select para elegir una red social -->
                         <div class="mb-3">
                             <label>Seleccionar Actividades</label>
                             <select [(ngModel)]="actividad" name="actividad" class="form-control">
                                 <option value="" disabled selected>Selecciona una actividad</option>
-                                <!-- Recorremos la lista de redes sociales y mostramos cada una -->
                                 <option *ngFor="let item of ActividadesList" [ngValue]="item">
                                     - {{ item.nombre }}
                                 </option>
                             </select>
                         </div>
-            
-                        <!-- Botón para agregar la red social seleccionada -->
-                        <button class="btn btn-info" type="button" (click)="anyadirActividad()">Añadir Actividad</button>
+                        <button class="btn btn-info" type="button" (click)="anyadirActividad()">Añadir
+                            Actividad</button>
                     </div>
-            
-                    <!-- Lista de redes sociales seleccionadas -->
+
                     <div class="col-md-6">
                         <div class="image-box">
                             <h5>Actividades Seleccionadas</h5>
@@ -261,43 +224,34 @@
                         </div>
                     </div>
                 </div>
-                    <!-- Botón de añadir red social a la izquierda -->
-                    <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarActividad()">Crear Una Actividad Nueva</button>
-                
-                
+                <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarActividad()">Crear Una
+                    Actividad Nueva</button>
+
+
                 <div class="mb-4" id="crearActividad" hidden>
                     <label>Actividad Nueva</label>
-                    
-                    <!-- Contenedor de los dos inputs -->
+
                     <div class="d-flex">
-                        <!-- Primer input: más pequeño -->
-                        <input name="redes_sociales_izq" type="text" id="nombreActividad" class="form-control me-2" placeholder="Nombre de la Actividad" style="width: 45%;">
-                
+                        <input name="redes_sociales_izq" type="text" id="nombreActividad" class="form-control me-2"
+                            placeholder="Nombre de la Actividad" style="width: 45%;">
                     </div>
-                
                 </div>
             </div>
             <div *ngIf="selectedTab === 'redes'">
                 <div class="row">
                     <div class="col-md-6">
-            
-                        <!-- Select para elegir una red social -->
                         <div class="mb-3">
                             <label>Seleccionar Redes Sociales</label>
                             <select [(ngModel)]="redes_sociales" name="redes_sociales" class="form-control">
                                 <option value="" disabled selected>Selecciona una red Social</option>
-                                <!-- Recorremos la lista de redes sociales y mostramos cada una -->
                                 <option *ngFor="let item of redes_socialesList" [ngValue]="item">
                                     - {{ item.nombre }} / {{ item.enlace }}
                                 </option>
                             </select>
                         </div>
-            
-                        <!-- Botón para agregar la red social seleccionada -->
-                        <button class="btn btn-info" type="button" (click)="anyadirRedSocial()">Añadir Red Social</button>
+                        <button class="btn btn-info" type="button" (click)="anyadirRedSocial()">Añadir Red
+                            Social</button>
                     </div>
-            
-                    <!-- Lista de redes sociales seleccionadas -->
                     <div class="col-md-6">
                         <div class="image-box">
                             <h5>Redes Seleccionadas</h5>
@@ -313,30 +267,25 @@
                         </div>
                     </div>
                 </div>
-                    <!-- Botón de añadir red social a la izquierda -->
-                    <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarRedSocial()">Crear Una Red Social Nueva</button>
-                
-                
+                <button class="btn btn-info mt-2" type="button" id="buttonCrear" (click)="mostrarRedSocial()">Crear Una
+                    Red Social Nueva</button>
+
+
                 <div class="mb-4" id="crearRedSocial" hidden>
                     <label>Redes Sociales</label>
-                    
-                    <!-- Contenedor de los dos inputs -->
+
                     <div class="d-flex">
-                        <!-- Primer input: más pequeño -->
-                        <input name="redes_sociales_izq" type="text" id="nombreLink" class="form-control me-2" placeholder="Nombre de la red Social" style="width: 45%;">
-                
-                        <!-- Segundo input: más grande -->
-                        <input name="redes_sociales_der" type="text" id="enlaceLink" class="form-control" placeholder="Enlace" style="width: 55%;">
+                        <input name="redes_sociales_izq" type="text" id="nombreLink" class="form-control me-2"
+                            placeholder="Nombre de la red Social" style="width: 45%;">
+                        <input name="redes_sociales_der" type="text" id="enlaceLink" class="form-control"
+                            placeholder="Enlace" style="width: 55%;">
                     </div>
-                
-                    <!-- Botón para volver a la lista -->
                     <button class="btn btn-info mt-2" type="button" (click)="ocultarRedSocial()">Ocultar</button>
-                    <!-- Botón para añadir red social -->
-                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearLinks()">Añadir Red Social</button>
+                    <button class="btn btn-info mt-2 ms-2" type="button" (click)="crearLinks()">Añadir Red
+                        Social</button>
                 </div>
             </div>
             <div *ngIf="selectedTab === 'modulos'">
-                <!-- Solo visible si 'Módulos' está seleccionado -->
                 <div class="mb-3">
                     <label>Seleccionar Modulos</label>
                     <select [(ngModel)]="modules" name="modules" class="form-control">
@@ -346,33 +295,26 @@
                     </select>
                 </div>
                 <button class="btn btn-info" type="button" (click)="anyadirModulo()">Añadir Modulo</button>
-
-                <!-- Fila para mostrar los Módulos Seleccionados -->
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="box" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
                             <h4>Módulos Añadidos:</h4>
                             <div class="image-box image-box-small" style="flex: 1;">
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-                                   
+
                                     <div *ngFor="let modulo of moduloSeleccionados" class="col mb-3">
                                         <div class="box-meta"
                                             style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
-                
                                             <p style="margin: 0; font-weight: bold;">{{ modulo.nombre }}</p>
-                            
-                                           
                                             <small *ngIf="(modulo.clases ?? []).length > 0" style="color: #ddd;">
                                                 clases:
                                                 <ul style="padding-left: 20px; margin: 0;">
                                                     <li *ngFor="let clases of modulo.clases">{{ clases.nombre }}</li>
                                                 </ul>
                                             </small>
-                            
-                                            
                                             <div class="text-end mt-2">
-                                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarModulo(modulo)"
-                                                    title="Eliminar">
+                                                <button type="button" class="btn btn-outline-danger btn-sm"
+                                                    (click)="eliminarModulo(modulo)" title="Eliminar">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </div>
@@ -394,7 +336,6 @@
                 </div>
                 <div class="toast-body">
                     La iniciativa ha sido actualizada con éxito.
-                    <!-- Progress bar animada -->
                     <div class="progress mt-2">
                         <div class="progress-bar fill-progress" role="progressbar"></div>
                     </div>
@@ -422,10 +363,11 @@
                 </div>
             </div>
         </div>
-        <!-- Botones de Crear y Cancelar -->
         <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)" [disabled]="boton">Cancelar</button>
-            <button class="btn btn-success" type="submit" (click)="confirmarActualizacion()" [disabled]="boton">Actualizar</button>
+            <button class="btn btn-danger me-2" type="button" (click)="clearForm(form)"
+                [disabled]="boton">Cancelar</button>
+            <button class="btn btn-success" type="submit" (click)="confirmarActualizacion()"
+                [disabled]="boton">Actualizar</button>
         </div>
     </div>
 </form>

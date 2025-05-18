@@ -8,22 +8,19 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 })
 export class MetasService {
 
- private apiUrl = 'http://localhost:8000/metas'; // Reemplaza con tu URL de API
+ private apiUrl = 'http://localhost:8000/metas';
  
    constructor(private http: HttpClient) { }
  
-   // Obtener todas las metas
    getMetasList(): Observable<Metas[]> {
      return this.http.get<Metas[]>(this.apiUrl);
    }
  
-   //Obtener por Id
    getMetasListById(id: number): Observable<Metas[]> {
      let url = this.apiUrl + "/${" + id + "}";
      return this.http.get<Metas[]>(url);
    }
  
-   // Post crear
    createMeta(meta: Metas, idPos: number): Observable<Metas> {
     const requestBody = {
       descripcion: meta.descripcion,
@@ -40,7 +37,7 @@ export class MetasService {
       })
     );
   }
-  //Put
+
   actualizarMeta(meta: Metas, idPos: number): Observable<Metas> {
     const url = `${this.apiUrl}/${meta.id}`;
     const requestBody = {
@@ -59,7 +56,6 @@ export class MetasService {
     );
   }
 
-  //Delete
   deleteMeta(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       tap(() => console.log(`Meta con id ${id} eliminada`)),

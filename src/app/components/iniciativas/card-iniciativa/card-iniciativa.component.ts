@@ -18,6 +18,6 @@ export class CardIniciativaComponent {
     this.modalService.openModal(this.iniciativa);
   }
 
-  // Método para obtener el nombre del curso
+
   
 }

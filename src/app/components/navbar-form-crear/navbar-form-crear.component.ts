@@ -12,13 +12,8 @@ export class NavbarFormCrearComponent {
   @Output() tabChange = new EventEmitter<string>();
 
   tabs: string[] = ['Iniciativas', 'metas', 'Modulos', 'Profesores', 'Entidades', 'Redes', 'Actividades'];
-
-
-  // Variable que mantiene la pestaña activa
   activeTab: string = 'Iniciativas';
 
-
-  // Método para emitir el cambio de sección
   onTabClick(tab: string): void {
     const tabIndex = this.tabs.indexOf(tab);
     if (this.tabsEnabled[tabIndex]) {
@@ -27,7 +22,6 @@ export class NavbarFormCrearComponent {
     }
   }
 
-  // Método para verificar si la pestaña es la activa
   isActive(tab: string): boolean {
     return this.activeTab === tab;
   }

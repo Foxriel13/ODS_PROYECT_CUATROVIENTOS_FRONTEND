@@ -1,5 +1,3 @@
-// Indicador 7
-
 export class redesSociales {
     nombreRRSS: string;
     enlace: string;

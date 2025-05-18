@@ -1,11 +1,9 @@
-// metas.model.ts
-import { Ods } from './ods.model';  // Asegúrate de importar Ods correctamente
-
+import { Ods } from './ods.model';
 
 export class Metas {
   id: number;
   descripcion: string;
-  ods: Ods;  // Puede ser un array o un solo objeto
+  ods: Ods;
   eliminado: boolean;
 
   constructor(id: number, descripcion: string, ods: Ods, eliminado: boolean) {

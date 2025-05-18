@@ -3,7 +3,7 @@
     <button class="icon-btn" [class.active]="opcionSeleccionada === 'home'" (click)="opcionSeleccionada = 'home'">
       <span class="icon-svg">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M3   9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z" />
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z" />
         </svg>
       </span>
     </button>
@@ -55,7 +55,7 @@
           </div>
           <h5 class="titulo">{{ card.titulo }}</h5>
           <p class="descripcion">{{ card.descripcion }}</p>
-          <button class="btn btn-outline-light mt-auto" (click)="opcionSeleccionada = getOpcion(card.titulo)">
+          <button class="btn btn-outline-light mt-auto">
             Ver más
           </button>
         </div>

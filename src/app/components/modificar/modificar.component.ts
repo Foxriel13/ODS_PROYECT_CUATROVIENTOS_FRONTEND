@@ -17,32 +17,22 @@ export class ModificarComponent {
 
   cardsInicio = [
   {
-    icon: 'bi bi-plus-circle',
-    titulo: 'Crea Iniciativas',
+    icon: 'bi bi-lightbulb',
+    titulo: 'Iniciativas',
     descripcion: 'Gestiona las iniciativas de tu organización de forma clara y estructurada.',
+    ruta: '/iniciativas'
   },
   {
-    icon: 'bi bi-pencil-square',
-    titulo: 'Edita Iniciativas',
-    descripcion: 'Selecciona una iniciativa ya creada y edita sus detalles.',
+    icon: 'bi bi-people',
+    titulo: 'Profesores',
+    descripcion: 'Administra el personal académico vinculado a tus módulos y clases.',
+    ruta: '/profesores'
   },
   {
-    icon: 'bi bi-trash',
-    titulo: 'Elimina Iniciativas',
-    descripcion: 'Elimina iniciativas que ya no son necesarias.',
-  } 
-  ];
-  getOpcion(titulo: string): string {
-    switch (titulo) {
-      case 'Crea Iniciativas':
-        return 'crear';
-      case 'Edita Iniciativas':
-        return 'actualizar';
-      case 'Elimina Iniciativas':
-        return 'eliminar';
-      default:
-        return 'home';
-    }
+    icon: 'bi bi-graph-up',
+    titulo: 'Actividades',
+    descripcion: 'Revisa y gestiona todas las actividades activas asociadas.',
+    ruta: '/actividades'
   }
-
+];
 }

@@ -265,7 +265,6 @@ export class GraficoIndicadoresComponent implements OnInit{
         {
           label: 'Número de iniciativas por curso',
           data: dataPorCurso,
-          backgroundColor: ['#18eeee', '#36A2EB', '#FFCE56', '#FF6384', '#36A2EB', '#FFCE56'],
         }
       ]
     };
@@ -274,6 +273,7 @@ export class GraficoIndicadoresComponent implements OnInit{
   chartIndicador3():void {
     const iniciativasUnicas = this.ciclosYModulosConIniciativas.map(ini => ini.nombre_iniciativa);
     const dataPorCurso = this.ciclosYModulosConIniciativas.map(ini => ini.ciclos.length); // Aquí accedemos correctamente a la longitud del array 'ciclos'
+    
     const backgroundColors = ['#A8D5BA', '#F9C6C9'];
     const hoverColors = ['#C3E6CD', '#FADADD'];
   }
@@ -302,17 +302,8 @@ export class GraficoIndicadoresComponent implements OnInit{
     this.barChartData6 = {
       labels: ["Tiene o No Entidades Externas"],
       datasets: [
-        {
-          data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.tiene_entidades),
-          label: 'Tiene',
-          backgroundColor: '#64ff55',
-        },
-        {
-          data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.no_tiene_entidades),
-          label: 'No Tiene',
-          backgroundColor: '#ff9b55',
-        },
-        
+        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.tiene_entidades), label: 'Tiene' },
+        { data: this.tieneEntidadesExternas.map(tieneNo => tieneNo.no_tiene_entidades), label: 'No Tiene' }
       ]
     };
   }
@@ -334,7 +325,6 @@ export class GraficoIndicadoresComponent implements OnInit{
         {
           label: 'Tipos de iniciativas',
           data: dataPorCurso,
-          backgroundColor: ['#18eeee', '#36A2EB', '#FFCE56', '#FF6384', '#36A2EB', '#FFCE56'],
         }
       ]
     };
@@ -363,7 +353,7 @@ export class GraficoIndicadoresComponent implements OnInit{
       this.diferenciaInnovadoresYNo[0].cantidad_innovadoras,
       this.diferenciaInnovadoresYNo[0].cantidad_no_innovadoras,
     ];
-    const backgroundColors = ['#d555ff', '#7fff55'];
+    const backgroundColors = ['#8B617D', '#7B4F50'];
     const hoverColors = ['#C3E6CD', '#FADADD'];
 
     this.pieChartDataIndicador11 = {
@@ -381,8 +371,8 @@ export class GraficoIndicadoresComponent implements OnInit{
   chartIndicador12(): void {
     const labels = this.cantHorasIniciativa.map(ini => ini.nombre_iniciativa);
     const data = this.cantHorasIniciativa.map(ini => ini.horas_dedicadas);
-    const backgroundColors = ['#FF5733', '#33FF57', '#33C1FF', '#FF33A8', '#FFFF33']; // Colores fluorescentes
-    const hoverColors = ['#FF8A66', '#66FF8A', '#66D4FF', '#FF66C1', '#FFFF66']; // Colores fluorescentes más claros
+    const backgroundColors = ['#8B617D', '#7B4F50', '#8C6A6A', '#5A4B7F', '#4C7298'];
+    const hoverColors = ['#FFE4E1', '#FFCCCB', '#FFDDDD', '#E1D5F5', '#C5F1FF'];
 
     this.pieChartDataIndicador12 = {
       labels: labels,
@@ -402,8 +392,8 @@ export class GraficoIndicadoresComponent implements OnInit{
       this.haTendioActividad[0].tiene_actividades,
       this.haTendioActividad[0].no_tiene_actividades,
     ];
-    const backgroundColors = ['#B5FC23', '#8318ee', '#23FC8F', '#B0FC23'];
-    const hoverColors = ['#6A9BCF', '#7A5FBF', '#A87F9D', '#9B6F70'];
+    const backgroundColors = ['#A8D5BA', '#F9C6C9'];
+    const hoverColors = ['#C3E6CD', '#FADADD'];
 
     this.pieChartDataIndicador13 = {
       labels: labels,

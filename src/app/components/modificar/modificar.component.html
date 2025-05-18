@@ -55,7 +55,7 @@
           </div>
           <h5 class="titulo">{{ card.titulo }}</h5>
           <p class="descripcion">{{ card.descripcion }}</p>
-          <button class="btn btn-outline-light mt-auto">
+          <button class="btn btn-outline-light mt-auto"  (click)="opcionSeleccionada = getOpcion(card.titulo)">
             Ver más
           </button>
         </div>

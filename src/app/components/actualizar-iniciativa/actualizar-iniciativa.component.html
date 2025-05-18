@@ -95,13 +95,13 @@
                                     <!-- Itera sobre metasSeleccionadas -->
                                     <div *ngFor="let meta of metasSeleccionadas" class="col mb-3">
                                         <div class="box-meta"
-                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block; background-color: #f9f9f9;">
+                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
                             
                                             <!-- Información de la meta -->
-                                            <p style="margin: 0; font-weight: bold;">{{ meta.descripcion }}</p>
+                                            <p style="margin: 0; font-weight: bold; color: #ddd;">{{ meta.descripcion }}</p>
                             
                                             <!-- Información del ODS -->
-                                            <small style="color: #555;">ODS: {{ meta.ods.nombre }} ({{ meta.ods.dimension }})</small>
+                                            <small style="color: #ddd;">ODS: {{ meta.ods.nombre }} ({{ meta.ods.dimension }})</small>
                             
                                             <!-- Botón de eliminar como icono -->
                                             <div class="text-end mt-2">
@@ -357,12 +357,12 @@
                                    
                                     <div *ngFor="let modulo of moduloSeleccionados" class="col mb-3">
                                         <div class="box-meta"
-                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block; background-color: #f9f9f9;">
+                                            style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; display: block;">
                 
                                             <p style="margin: 0; font-weight: bold;">{{ modulo.nombre }}</p>
                             
                                            
-                                            <small *ngIf="(modulo.clases ?? []).length > 0" style="color: #555;">
+                                            <small *ngIf="(modulo.clases ?? []).length > 0" style="color: #ddd;">
                                                 clases:
                                                 <ul style="padding-left: 20px; margin: 0;">
                                                     <li *ngFor="let clases of modulo.clases">{{ clases.nombre }}</li>

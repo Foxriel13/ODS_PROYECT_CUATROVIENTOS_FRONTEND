@@ -191,7 +191,6 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarMetas() {
     this.metasService.getMetasList().subscribe(metas => {
-      // Filtrar las metas eliminadas y duplicadas
       this.MetasList = metas
         .filter(meta => !meta.eliminado)
         .filter((meta, index, self) =>
@@ -202,7 +201,6 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarModulos() {
     this.modulosService.getModulosList().subscribe(modulos => {
-      // Filtrar los módulos eliminados y duplicados
       this.ModulosList = modulos
         .filter(modulo => !modulo.eliminado)
         .filter((modulo, index, self) =>
@@ -213,7 +211,6 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarClases() {
     this.cursosService.getCursosList().subscribe(cursos => {
-      // Filtrar las clases eliminadas y duplicadas
       this.ClasesList = cursos
         .filter(clase => !clase.eliminado)
         .filter((clase, index, self) =>
@@ -224,7 +221,6 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarProfesores() {
     this.profesoresService.getProfesoresList().subscribe(profes => {
-      // Filtrar los profesores eliminados y duplicados
       this.ProfesoresList = profes
         .filter(profesor => !profesor.eliminado)
         .filter((profesor, index, self) =>
@@ -235,7 +231,6 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarEntidades() {
     this.entidadesesService.getEntidadesList().subscribe(entidades => {
-      // Filtrar las entidades eliminadas y duplicadas
       this.entidadesList = entidades
         .filter(entidad => !entidad.eliminado)
         .filter((entidad, index, self) =>
@@ -246,7 +241,6 @@ export class AdministradorEntidadesComponent implements OnInit {
   
   cargarRedes() {
     this.redesService.getRedesSocialesList().subscribe(redes => {
-      // Filtrar las redes sociales eliminadas y duplicadas
       this.redes_socialesList = redes
         .filter(red => !red.eliminado)
         .filter((red, index, self) =>
@@ -332,10 +326,6 @@ export class AdministradorEntidadesComponent implements OnInit {
       });
     }   
   }
-  
-  
-  
-  
 
   loadOdsList(): void {
     this.odsService.getOdsList().subscribe(
@@ -353,7 +343,6 @@ export class AdministradorEntidadesComponent implements OnInit {
       }
     );
   }
-  
 
   loadMetasList(): void {
     if (this.metasLoaded) {

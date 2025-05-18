@@ -20,9 +20,9 @@
         </div>
 
         <!-- Cards con imágenes debajo del buscador -->
-        <div class="row row-cols-1 row-cols-md-3 g-4 mt-1 mb-4">
-          <div class="col" *ngFor="let iniciativa of iniciativasFiltradas; let i = index" #cardIniciativa>
-            <app-card-iniciativa [iniciativa]="iniciativa"></app-card-iniciativa>
+        <div class="row justify-content-center g-4 mt-1 mb-4">
+          <div class="col-auto" *ngFor="let iniciativa of iniciativasFiltradas; let i = index" #cardIniciativa>
+             <app-card-iniciativa [iniciativa]="iniciativa"></app-card-iniciativa>
           </div>
         </div>
 
